@@ -185,7 +185,7 @@ public class CounterExtractor {
 	    WebDriverUtils util = new WebDriverUtils(driver);
 	    for(Role rol:Role.values()){
 		String champName=champ.getName();
-		if(champName.contains("nunu")) champName="nunu";
+		if(champName.contains("nunu")) champName="nunu";//nunu fix
 		driver.get("https://u.gg/lol/champions/"+champName.toLowerCase().replace("'", "")+
                         "/counter?rank=silver&role="+rol.toString().toLowerCase()+"&patch="+patch.getIdURLFormatted());//TODO Parametrize and remove hardcode of rank
 		forceElementsLoad(driver);

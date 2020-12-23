@@ -122,6 +122,8 @@
 package org.white_sdev.white_lolpicker.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 import static org.white_sdev.propertiesmanager.model.service.PropertyProvider.getProperty;
@@ -148,18 +150,15 @@ public class PatchExtractor implements TestCase{
                     "//div[contains(@class,\"default-select__control default-select__control--is-disabled css-0\")]"
                             + "//span[contains(@class,\"Select-value-label\")]");
             util.clickXpath("//div[contains(@class,\"default-select filter-select patch css-0\")]");
-            util.textFromXpath("//div[contains(@class,\"default-select__menu\")]");
+            String text=util.textFromXpath("//div[contains(@class,\"default-select__menu\")]");
             
-            
-            for (int i = 0; i < 10; i++) {
-                
+            List<String> strPatches=new ArrayList<>(Arrays.asList(text.split("\n")));
+            List<String> boundedStrPatches=strPatches.subList(0, patchesToExtract);
+            ArrayList<Patch> patches=new ArrayList<>();
+            for (String strPatch:boundedStrPatches) {
+                patches.add(new Patch(strPatch));
             }
-//            String oldPatchId=
-            
-            for (int i = 0; i < patchesToExtract; i++) {
-                //
-            }
-            return null;
+            return patches;
 	} catch (Exception e) {
             throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
         }

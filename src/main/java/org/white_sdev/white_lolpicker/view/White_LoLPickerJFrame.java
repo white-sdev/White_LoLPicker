@@ -120,11 +120,8 @@
  */
 package org.white_sdev.white_lolpicker.view;
 
-import io.github.bonigarcia.wdm.DriverManagerType;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import javax.swing.JOptionPane;
 import lombok.extern.slf4j.Slf4j;
-import org.openqa.selenium.WebDriver;
 import org.white_sdev.white_lolpicker.service.PatchExtractor;
 import org.white_sdev.white_lolpicker.service.extraction.ugg.testcases.U_GGChampionTierRankExtractor;
 import org.white_sdev.white_lolpicker.service.extraction.ugg.testcases.U_GGDatabaseExtraction;
