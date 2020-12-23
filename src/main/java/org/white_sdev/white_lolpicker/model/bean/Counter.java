@@ -134,6 +134,7 @@ import org.white_sdev.white_lolpicker.service.CounterExtractor;
 @Slf4j
 public class Counter {
     
+    private Patch patch;
     private Champion champion;
     private Role championRole;
     private Champion counter;
@@ -157,12 +158,12 @@ public class Counter {
      * @since Dec 7, 2020
      * @throws IllegalArgumentException - if the argument provided is null.
      */
-    public Counter(Champion champion,Role championRole,Champion counter,Double winrate,Integer matches) {
+    public Counter(Patch patch,Champion champion,Role championRole,Champion counter,Double winrate,Integer matches) {
 	log.trace("::Counter(champion, counter, winrate, bonus) - Start: ");
 	//notNullValidation(parameter,"Impossible to create the object. The parameter can't be null.");
 	try{
 	    
-	    
+	    this.patch=patch;
 	    this.champion=champion;
 	    this.championRole=championRole;
 	    this.counter=counter;
@@ -377,6 +378,20 @@ public class Counter {
      */
     public void setCounterCertaintyModifier(Double counterCertaintyModifier) {
 	this.counterCertaintyModifier = counterCertaintyModifier;
+    }
+
+    /**
+     * @return the patch
+     */
+    public Patch getPatch() {
+        return patch;
+    }
+
+    /**
+     * @param patch the patch to set
+     */
+    public void setPatch(Patch patch) {
+        this.patch = patch;
     }
     
 }

@@ -132,6 +132,7 @@ import static org.white_sdev.propertiesmanager.model.service.PropertyProvider.ge
 import org.white_sdev.white_lolpicker.model.bean.Champion;
 import org.white_sdev.white_lolpicker.model.bean.Counter;
 import org.white_sdev.white_lolpicker.model.bean.LaneCounter;
+import org.white_sdev.white_lolpicker.model.bean.Patch;
 import org.white_sdev.white_lolpicker.model.bean.Role;
 import org.white_sdev.white_seleniumframework.framework.WebDriverUtils;
 
@@ -156,13 +157,19 @@ public class CounterExtractor {
 	notNullValidation(driver, "The driver can't be null.");
 	try {
 	    
-	    for(Champion champ:ChampionExtractor.champs){
-		loadChampionCounters(champ,driver);
-	    }
+            ArrayList<Patch> patchesToExtract=PatchExtractor.getPatches(driver);
+            
+            for(Patch patch:patchesToExtract){
+                for(Champion champ:ChampionExtractor.champs){
+                    loadChampionCounters(patch,champ,driver);
+                }PatchExtractor.getPatches(driver);
+                
+                counters.forEach((counter) -> {
+                    counter.calculateBonus(laneCounters);
+                });
+            }
 	    
-	    counters.forEach((counter) -> {
-		counter.calculateBonus(laneCounters);
-	    });
+	    
 	    
 	    log.trace("::loadCounters(parameter) - Finish: ");
 	} catch (Exception e) {
@@ -170,17 +177,17 @@ public class CounterExtractor {
 	}
     }
 
-    public static void loadChampionCounters(Champion champ,WebDriver driver) {
+    public static void loadChampionCounters(Patch patch,Champion champ,WebDriver driver) {
 	log.trace("::loadChampionCounters(parameter) - Start: ");
 	notNullValidation(new Object[]{champ,driver}, "Both champ and driver Must be provided.");
 	try {
-	    
 	    
 	    WebDriverUtils util = new WebDriverUtils(driver);
 	    for(Role rol:Role.values()){
 		String champName=champ.getName();
 		if(champName.contains("nunu")) champName="nunu";
-		driver.get("https://u.gg/lol/champions/"+champName.toLowerCase().replace("'", "")+"/counter?rank=silver&role="+rol.toString().toLowerCase());//TODO Parametrize and remove hardcode of rank
+		driver.get("https://u.gg/lol/champions/"+champName.toLowerCase().replace("'", "")+
+                        "/counter?rank=silver&role="+rol.toString().toLowerCase()+"&patch="+patch.getIdURLFormatted());//TODO Parametrize and remove hardcode of rank
 		forceElementsLoad(driver);
 		
 		Boolean loadLaneCountersSuccesfully=true;
@@ -202,7 +209,7 @@ public class CounterExtractor {
 		List<WebElement> webWinrates=driver.findElements(By.xpath("//*[contains(@class, 'counters-list best-win-rate')]//div[contains(@class, 'col-3')]//div[contains(@class, 'win-rate')]"));
 		List<WebElement> webWinratesTotalGames=driver.findElements(By.xpath("//*[contains(@class, 'counters-list best-win-rate')]//div[contains(@class, 'col-3')]//div[contains(@class, 'total-games')]"));
 		
-		mapCounters(champ, rol,webCounters,webWinrates,webWinratesTotalGames);
+		mapCounters(patch,champ, rol,webCounters,webWinrates,webWinratesTotalGames);
 		
 		
 		
@@ -300,7 +307,7 @@ public class CounterExtractor {
 	}
     }
 
-    private static void mapCounters(Champion champ, Role rol, List<WebElement> webCounters, List<WebElement> webWinrates, List<WebElement> webWinratesTotalGames) {
+    private static void mapCounters(Patch patch,Champion champ, Role rol, List<WebElement> webCounters, List<WebElement> webWinrates, List<WebElement> webWinratesTotalGames) {
 	log.trace("::mapCounters(champ,rol,webCounters,webWinrates,webWinratesTotalGames) - Start: ");
 	notNullValidation(new Object[]{champ,rol,webCounters,webWinrates,webWinratesTotalGames}, "The parameters can't be null.");
 	if(webCounters.size()!=webWinrates.size() || webWinrates.size()!=webWinratesTotalGames.size()) 
@@ -315,7 +322,7 @@ public class CounterExtractor {
 		if(winrate>50){
 		    WebElement webCounter=webCounters.get(i);
 		    WebElement webWinrateTotalGames=webWinratesTotalGames.get(i);
-		    Counter counter=new Counter(champ, rol, 
+		    Counter counter=new Counter(patch, champ, rol, 
 			    getChampionWithName(webCounter.getText()), 
 			    winrate, 
 			    Integer.parseInt(webWinrateTotalGames.getText().replace(",", "").replace(" games", "")));
@@ -411,4 +418,6 @@ public class CounterExtractor {
             throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
         }
     }
+
+    
 }
