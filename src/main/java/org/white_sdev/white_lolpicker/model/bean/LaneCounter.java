@@ -133,6 +133,7 @@ import org.white_sdev.white_lolpicker.service.CounterExtractor;
 @Slf4j
 public class LaneCounter {
     
+    private Patch patch;
     public Champion champion;
     public Role championRole;
     public Champion counter;
@@ -153,11 +154,12 @@ public class LaneCounter {
      * @since Dec 7, 2020
      * @throws IllegalArgumentException - if the argument provided is null.
      */
-    public LaneCounter(Champion champion,Role championRole,Champion counter,Integer gold,Integer matches) {
+    public LaneCounter(Patch patch,Champion champion,Role championRole,Champion counter,Integer gold,Integer matches) {
 	log.trace("::LaneCounter() - Start: ");
 	//notNullValidation(parameter,"Impossible to create the object. The parameter can't be null.");
 	try{
 	    
+	    this.patch=patch;
 	    this.champion=champion;
 	    this.championRole=championRole;
 	    this.counter=counter;
@@ -167,6 +169,7 @@ public class LaneCounter {
 	    this.counterRole=championRole;
 	    
 	    
+            patch.add(this);
 	    champion.laneCounters.add(this);
 	    counter.laneCounterOfChampions.add(this);
 

@@ -203,7 +203,7 @@ public class CounterExtractor {
 		}catch(Exception e){
 		    loadLaneCountersSuccesfully=false;
 		}
-		if(loadLaneCountersSuccesfully) mapLaneCounters(champ, rol,webLaneCounters,webGoldDiferences,webMatchTotalGames); 
+		if(loadLaneCountersSuccesfully) mapLaneCounters(patch, champ, rol,webLaneCounters,webGoldDiferences,webMatchTotalGames); 
 		
 		List<WebElement> webCounters=driver.findElements(By.xpath("//*[contains(@class, 'counters-list best-win-rate')]//*[contains(@class, 'champion-name')]"));
 		List<WebElement> webWinrates=driver.findElements(By.xpath("//*[contains(@class, 'counters-list best-win-rate')]//div[contains(@class, 'col-3')]//div[contains(@class, 'win-rate')]"));
@@ -261,7 +261,7 @@ public class CounterExtractor {
 	}
     }
     
-    public static void mapLaneCounters(Champion champ,Role rol,List<WebElement> webLaneCounters, List<WebElement> webGoldDiferences, List<WebElement> webMatchTotalGames) {
+    public static void mapLaneCounters(Patch patch, Champion champ,Role rol,List<WebElement> webLaneCounters, List<WebElement> webGoldDiferences, List<WebElement> webMatchTotalGames) {
 	log.trace("::mapLaneCounters(parameter) - Start: ");
 	notNullValidation(new Object[]{champ,rol,webLaneCounters,webGoldDiferences,webMatchTotalGames}, "The parameters can't be null.");
 	List<Integer> webGoldIntDiferences=removeBlanksOnGlodDif(webGoldDiferences);
@@ -277,7 +277,7 @@ public class CounterExtractor {
 		if(webGoldIntDiference>0){
 		    WebElement webLaneCounter=webLaneCounters.get(i);
 		    WebElement webMatchTotalGame=webMatchTotalGames.get(i);
-		    laneCounters.add(new LaneCounter(champ, rol, 
+		    laneCounters.add(new LaneCounter(patch, champ, rol, 
 			    getChampionWithName(webLaneCounter.getText()), 
 			    webGoldIntDiference, 
 			    Integer.parseInt(webMatchTotalGame.getText().replace(" games", "").replace(",", ""))));

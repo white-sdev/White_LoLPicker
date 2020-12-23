@@ -150,6 +150,7 @@ public class Counter {
     /**
      * Class Constructor.{Requirement_Reference}
      * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
+     * @param patch
      * @param champion
      * @param championRole
      * @param counter
@@ -172,6 +173,7 @@ public class Counter {
 	    
 	    this.counterRole=championRole;
 	    
+            patch.add(this);
 	    champion.counters.add(this);
 	    counter.counterOfChampions.add(this);
 

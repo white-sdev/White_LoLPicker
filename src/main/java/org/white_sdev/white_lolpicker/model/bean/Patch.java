@@ -122,6 +122,7 @@
 package org.white_sdev.white_lolpicker.model.bean;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
@@ -130,7 +131,8 @@ import java.util.ArrayList;
  */
 public class Patch {
     private String id;
-    ArrayList<Counter> counters=new ArrayList<>();
+    private ArrayList<Counter> counters=new ArrayList<>();
+    private ArrayList<LaneCounter> laneCounters=new ArrayList<>();
     
     public Patch(String id){
         this.id=id;
@@ -150,7 +152,45 @@ public class Patch {
         this.id = id;
     }
     
+    public void add(Counter counter){
+        if(getCounters()==null) setCounters(new ArrayList<>());
+        getCounters().add(counter);
+    }
+    
+    public void add(LaneCounter counter){
+        if(getCounters()==null) setLaneCounters(new ArrayList<>());
+        getLaneCounters().add(counter);
+    }
+    
     public String getIdURLFormatted(){
         return id.replace(".", "_");
+    }
+
+    /**
+     * @return the counters
+     */
+    public ArrayList<Counter> getCounters() {
+        return counters;
+    }
+
+    /**
+     * @param counters the counters to set
+     */
+    public void setCounters(ArrayList<Counter> counters) {
+        this.counters = counters;
+    }
+
+    /**
+     * @return the laneCounters
+     */
+    public ArrayList<LaneCounter> getLaneCounters() {
+        return laneCounters;
+    }
+
+    /**
+     * @param laneCounters the laneCounters to set
+     */
+    public void setLaneCounters(List<LaneCounter> laneCounters) {
+        this.laneCounters = new ArrayList<>(laneCounters);
     }
 }
