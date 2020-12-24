@@ -138,6 +138,11 @@ public class Patch {
         this.id=id;
     }
 
+    @Override
+    public String toString(){
+        return getId();
+    }
+    
     /**
      * @return the id
      */

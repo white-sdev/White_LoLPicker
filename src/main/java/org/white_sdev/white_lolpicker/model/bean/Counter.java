@@ -230,7 +230,7 @@ public class Counter {
 	    log.info("::calculateBonus(laneCounters): Obtained Certanty modifier:"+counterCertaintyModifier);
 	    
 	    log.info("::calculateBonus(laneCounters): Calculating bonus : (50 - winrate%["+getWinratePercentage()+"] ) *10*( CertantyModifier["+counterCertaintyModifier+"]) ");
-	    setCounterBonus((Double) (50 - getWinratePercentage()) * 10 * counterCertaintyModifier);
+	    setCounterBonus( -1d*( (50 - getWinratePercentage()) * 10 * counterCertaintyModifier) );
 	    log.info("::calculateBonus(laneCounters): Obtained Counter bonus:"+counterBonus);
 	    setTotalBonus(getLaneBonus() + getCounterBonus());
 	    log.info("::calculateBonus(laneCounters): Obtained Final Bonus: counterBonus["+counterBonus+"]+laneBonus["+laneBonus+"]="+totalBonus);

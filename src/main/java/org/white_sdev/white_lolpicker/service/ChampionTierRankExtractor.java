@@ -210,19 +210,12 @@ public class ChampionTierRankExtractor {
 		do{
 		    do{
 			webChamps=driver.findElements(By.xpath("//a//*[contains(@class, 'champion-name')]"));
-			Thread.sleep(400);
-			util.pageDown();
-			Thread.sleep(250);
-			util.pageDown();
-			Thread.sleep(250);
-			util.pageDown();
+                        for (int i = 0; i < 3; i++) sleepAndPageDown(util,250l);
 			webChamps2=driver.findElements(By.xpath("//a//*[contains(@class, 'champion-name')]"));
 		    }while(webChamps.size()!=webChamps2.size());
 		    webChamps=driver.findElements(By.xpath("//a//*[contains(@class, 'champion-name')]"));
-		    Thread.sleep(2000);
-		    util.pageDown();
-		    Thread.sleep(250);
-		    util.pageDown();
+                    sleepAndPageDown(util,5000l);
+                    for (int i = 0; i < 4; i++) sleepAndPageDown(util,350l);
 		    webChamps2=driver.findElements(By.xpath("//a//*[contains(@class, 'champion-name')]"));
 		}while(webChamps.size()!=webChamps2.size());
 		
@@ -231,6 +224,16 @@ public class ChampionTierRankExtractor {
 	} catch (Exception e) {
 	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
 	}
+    }
+    
+    
+    private static void sleepAndPageDown(WebDriverUtils util, Long sleepTime) {
+        try{
+            Thread.sleep(sleepTime);
+            util.pageDown();
+        }catch(Exception ex){
+            throw new RuntimeException("Impossible to page down de website",ex);
+        }
     }
 
     private static Champion getChampionFromName(String champName) {
@@ -246,5 +249,6 @@ public class ChampionTierRankExtractor {
 	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
 	}
     }
+
     
 }

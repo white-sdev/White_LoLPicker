@@ -331,7 +331,7 @@ public class CounterExtractor {
 		}
 	    }
 	    
-	    log.trace("::mapCounters(champ,rol,webCounters,webWinrates,webWinratesTotalGames) - Finish: ");
+    	    log.trace("::mapCounters(champ,rol,webCounters,webWinrates,webWinratesTotalGames) - Finish: ");
 	} catch (Exception e) {
 	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
 	}
@@ -359,7 +359,8 @@ public class CounterExtractor {
 
     /**
      * Obtains the average number of matches that ALL {@link #counters} have.	 
-     * Method detailed description
+     * This will use the property "ignore-match-count-when-lower-than" and 
+     * ignore those quantities under that number when calculating the average.
      * 
      * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
      * @since 2020-12-08
