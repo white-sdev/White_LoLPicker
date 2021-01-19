@@ -179,4 +179,9 @@ public class Champion {
     public void setName(String name) {
 	this.name = name;
     }
+    
+    public String getUggURLName() {
+	return name!=null?(name.contains("Nunu")?"nunu":name).toLowerCase().replace("'", ""):name;
+    }
+    
 }

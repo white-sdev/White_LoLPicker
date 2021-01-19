@@ -121,6 +121,8 @@
 
 package org.white_sdev.white_lolpicker.service;
 
+import java.text.DecimalFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -134,6 +136,7 @@ import org.white_sdev.white_lolpicker.model.bean.Counter;
 import org.white_sdev.white_lolpicker.model.bean.LaneCounter;
 import org.white_sdev.white_lolpicker.model.bean.Patch;
 import org.white_sdev.white_lolpicker.model.bean.Role;
+import org.white_sdev.white_lolpicker.model.bean.UggRank;
 import org.white_sdev.white_seleniumframework.framework.WebDriverUtils;
 
 import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
@@ -148,46 +151,71 @@ public class CounterExtractor {
 
     
 
+    public static List<Patch> extractedPatches=null;
     public static List<LaneCounter> laneCounters=new ArrayList<>();
     public static List<Counter> counters=new ArrayList<>();
     public static Double average=null;
     
     public static void loadAllCounters(WebDriver driver) {
-	log.trace("::loadCounters(parameter) - Start: ");
+	log.trace("::loadCounters(driver) - Start: ");
 	notNullValidation(driver, "The driver can't be null.");
 	try {
 	    
             ArrayList<Patch> patchesToExtract=PatchExtractor.getPatches(driver);
-            
+            List<UggRank> ranks=Boolean.parseBoolean(getProperty("counters.lower-ranks-only"))?UggRank.lowerRanks:UggRank.everyRank;
+	    
+	    
+	    Integer patchCounter=0,rankCounter=0,champCounter=0;
+	    Double status=0d, rankStatus=0d, champStatus=0d;
+	    log.info("::loadCounters(driver): Starting Counter Extraction Process at "+java.time.LocalDateTime.now().format(DateTimeFormatter.ISO_TIME));
+	    DecimalFormat twoDecimalsFormat=new DecimalFormat("#.##");
             for(Patch patch:patchesToExtract){
-                for(Champion champ:ChampionExtractor.champs){
-                    loadChampionCounters(patch,champ,driver);
-                }PatchExtractor.getPatches(driver);
+		log.info("::loadCounters(driver): Extracting Patch: "+patch.getId());
+		for(UggRank rank:ranks){
+		    log.info("::loadCounters(driver): Extracting U.GG Rank: "+rank.printableName);
+		    for(Champion champ:ChampionExtractor.champs){
+			loadChampionCounters(patch,rank,champ,driver);
+			
+			++champCounter;
+			champStatus=champCounter*100d/patchesToExtract.size()/ranks.size()/ChampionExtractor.champs.size();
+			log.info("::loadCounters(driver): Extraction Process Status: "+twoDecimalsFormat.format(status+rankStatus+champStatus)+"%");
+			
+		    }champCounter=0;
+		    rank.calculateAvgNumOfMatches();
+		    
+		    ++rankCounter;
+		    rankStatus=rankCounter*100d/patchesToExtract.size()/ranks.size();
+		    log.info("::loadCounters(driver): Extraction Process Status: "+twoDecimalsFormat.format(status+rankStatus)+"%");
+		    
+		}rankCounter=0;
                 
                 counters.forEach((counter) -> {
                     counter.calculateBonus(laneCounters);
                 });
+		
+		++patchCounter;
+		status=((patchCounter*100d)/patchesToExtract.size());
+		log.info("::loadCounters(driver): Extraction Process Status: "+twoDecimalsFormat.format(status)+"%");
             }
+	    extractedPatches=patchesToExtract;
+	    
+	    log.info("::loadCounters(driver): Counter Extraction Process Finished at "+java.time.LocalDateTime.now());
 	    
 	    
-	    
-	    log.trace("::loadCounters(parameter) - Finish: ");
+	    log.trace("::loadCounters(driver) - Finish: ");
 	} catch (Exception e) {
 	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
 	}
     }
 
-    public static void loadChampionCounters(Patch patch,Champion champ,WebDriver driver) {
-	log.trace("::loadChampionCounters(parameter) - Start: ");
+    public static void loadChampionCounters(Patch patch,UggRank rank,Champion champ,WebDriver driver) {
+	log.trace("::loadChampionCounters(patch,rank,champ,driver) - Start: ");
 	notNullValidation(new Object[]{champ,driver}, "Both champ and driver Must be provided.");
 	try {
 	    
-	    WebDriverUtils util = new WebDriverUtils(driver);
 	    for(Role rol:Role.values()){
-		String champName=champ.getName();
-		if(champName.contains("nunu")) champName="nunu";//nunu fix
-		driver.get("https://u.gg/lol/champions/"+champName.toLowerCase().replace("'", "")+
-                        "/counter?rank=silver&role="+rol.toString().toLowerCase()+"&patch="+patch.getIdURLFormatted());//TODO Parametrize and remove hardcode of rank
+		openURL(driver,patch,rank,champ,rol);
+		
 		forceElementsLoad(driver);
 		
 		Boolean loadLaneCountersSuccesfully=true;
@@ -203,13 +231,14 @@ public class CounterExtractor {
 		}catch(Exception e){
 		    loadLaneCountersSuccesfully=false;
 		}
-		if(loadLaneCountersSuccesfully) mapLaneCounters(patch, champ, rol,webLaneCounters,webGoldDiferences,webMatchTotalGames); 
+		if(loadLaneCountersSuccesfully) mapLaneCounters(patch, rank, champ, rol,webLaneCounters,webGoldDiferences,webMatchTotalGames); 
 		
 		List<WebElement> webCounters=driver.findElements(By.xpath("//*[contains(@class, 'counters-list best-win-rate')]//*[contains(@class, 'champion-name')]"));
 		List<WebElement> webWinrates=driver.findElements(By.xpath("//*[contains(@class, 'counters-list best-win-rate')]//div[contains(@class, 'col-3')]//div[contains(@class, 'win-rate')]"));
 		List<WebElement> webWinratesTotalGames=driver.findElements(By.xpath("//*[contains(@class, 'counters-list best-win-rate')]//div[contains(@class, 'col-3')]//div[contains(@class, 'total-games')]"));
 		
-		mapCounters(patch,champ, rol,webCounters,webWinrates,webWinratesTotalGames);
+		log.debug("::loadChampionCounters(patch,rank,champ,driver):  Loading Champion Counters [champ:"+champ+"],[patch:"+patch+"], [rank:"+rank.printableName+"], [rol:"+rol+"]");
+		mapCounters(patch, rank,champ, rol,webCounters,webWinrates,webWinratesTotalGames);
 		
 		
 		
@@ -218,7 +247,7 @@ public class CounterExtractor {
 	    
 	    
 	    
-	    log.trace("::loadChampionCounters(parameter) - Finish: ");
+	    log.trace("::loadChampionCounters(patch,rank,champ,driver) - Finish: ");
 	} catch (Exception e) {
 	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
 	}
@@ -246,7 +275,7 @@ public class CounterExtractor {
 		    }while(webChamps.size()!=webChamps2.size());
 		    try{
 			webChamps=driver.findElements(By.xpath("//a//*[contains(@class, 'champion-name')]"));
-			Thread.sleep(1000);
+			Thread.sleep(800);
 			util.clickXpath("//div[contains(@class,\"counters-list best-win-rate\")]//div[contains(@class,\"view-more-btn btn-gray\")]",0);
 			Thread.sleep(250);
 			util.clickXpath("//div[contains(@class,\"counters-list best-win-rate\")]//div[contains(@class,\"view-more-btn btn-gray\")]",0);
@@ -261,7 +290,38 @@ public class CounterExtractor {
 	}
     }
     
-    public static void mapLaneCounters(Patch patch, Champion champ,Role rol,List<WebElement> webLaneCounters, List<WebElement> webGoldDiferences, List<WebElement> webMatchTotalGames) {
+//    public static void forceElementsLoad(WebDriver driver ) {
+//	log.trace("::forceElementsLoad(parameter) - Start: ");
+//	try {
+//	    synchronized (driver){
+//		WebDriverUtils util = new WebDriverUtils(driver);
+//		String championsXpath="//a//*[contains(@class, 'champion-name')]";
+//		String viewMoreButtonXpath="//div[contains(@class,\"counters-list best-win-rate\")]//div[contains(@class,\"view-more-btn btn-gray\")]";
+//		List<WebElement> webChamps=driver.findElements(By.xpath(championsXpath));//TODO implement this in Selenium Framework
+//		List<WebElement> webChamps2;
+//		do{
+//		    do{
+//			webChamps=driver.findElements(By.xpath(championsXpath));
+//			try{
+//			    for(int i=0;i<3;++i) util.clickXpath(viewMoreButtonXpath,400-(i*100));
+//			}catch(Exception ex){}
+//			webChamps2=driver.findElements(By.xpath(championsXpath));
+//		    }while(webChamps.size()!=webChamps2.size());
+//		    try{
+//			webChamps=driver.findElements(By.xpath(championsXpath));
+//			for(int i=0;i<2;++i) util.clickXpath(viewMoreButtonXpath,800-(i*550));
+//		    }catch(Exception ex){}
+//		    webChamps2=driver.findElements(By.xpath(championsXpath));
+//		}while(webChamps.size()!=webChamps2.size());
+//		
+//		log.trace("::forceElementsLoad(parameter) - Finish: ");
+//	    }
+//	} catch (Exception e) {
+//	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
+//	}
+//    }
+    
+    public static void mapLaneCounters(Patch patch,UggRank rank, Champion champ,Role rol,List<WebElement> webLaneCounters, List<WebElement> webGoldDiferences, List<WebElement> webMatchTotalGames) {
 	log.trace("::mapLaneCounters(parameter) - Start: ");
 	notNullValidation(new Object[]{champ,rol,webLaneCounters,webGoldDiferences,webMatchTotalGames}, "The parameters can't be null.");
 	List<Integer> webGoldIntDiferences=removeBlanksOnGlodDif(webGoldDiferences);
@@ -277,7 +337,7 @@ public class CounterExtractor {
 		if(webGoldIntDiference>0){
 		    WebElement webLaneCounter=webLaneCounters.get(i);
 		    WebElement webMatchTotalGame=webMatchTotalGames.get(i);
-		    laneCounters.add(new LaneCounter(patch, champ, rol, 
+		    laneCounters.add(new LaneCounter(patch, rank, champ, rol, 
 			    getChampionWithName(webLaneCounter.getText()), 
 			    webGoldIntDiference, 
 			    Integer.parseInt(webMatchTotalGame.getText().replace(" games", "").replace(",", ""))));
@@ -307,8 +367,8 @@ public class CounterExtractor {
 	}
     }
 
-    private static void mapCounters(Patch patch,Champion champ, Role rol, List<WebElement> webCounters, List<WebElement> webWinrates, List<WebElement> webWinratesTotalGames) {
-	log.trace("::mapCounters(champ,rol,webCounters,webWinrates,webWinratesTotalGames) - Start: ");
+    private static void mapCounters(Patch patch,UggRank rank,Champion champ, Role rol, List<WebElement> webCounters, List<WebElement> webWinrates, List<WebElement> webWinratesTotalGames) {
+	log.trace("::mapCounters(patch,champ,rol,webCounters,webWinrates,webWinratesTotalGames) - Start: ");
 	notNullValidation(new Object[]{champ,rol,webCounters,webWinrates,webWinratesTotalGames}, "The parameters can't be null.");
 	if(webCounters.size()!=webWinrates.size() || webWinrates.size()!=webWinratesTotalGames.size()) 
 	    throw new IllegalArgumentException("webLaneCounters,webGoldDiferences or webGoldDifTotalGames lists sizes differ");
@@ -322,16 +382,15 @@ public class CounterExtractor {
 		if(winrate>50){
 		    WebElement webCounter=webCounters.get(i);
 		    WebElement webWinrateTotalGames=webWinratesTotalGames.get(i);
-		    Counter counter=new Counter(patch, champ, rol, 
+		    Counter counter=new Counter(patch, rank, champ, rol, 
 			    getChampionWithName(webCounter.getText()), 
 			    winrate, 
 			    Integer.parseInt(webWinrateTotalGames.getText().replace(",", "").replace(" games", "")));
-//		    counter.calculateBonus(laneCounters); //this is done at the end of the extractions!
 		    counters.add(counter);
 		}
 	    }
 	    
-    	    log.trace("::mapCounters(champ,rol,webCounters,webWinrates,webWinratesTotalGames) - Finish: ");
+    	    log.trace("::mapCounters(patch,champ,rol,webCounters,webWinrates,webWinratesTotalGames) - Finish: ");
 	} catch (Exception e) {
 	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
 	}
@@ -357,67 +416,20 @@ public class CounterExtractor {
 	}
     }
 
-    /**
-     * Obtains the average number of matches that ALL {@link #counters} have.	 
-     * This will use the property "ignore-match-count-when-lower-than" and 
-     * ignore those quantities under that number when calculating the average.
-     * 
-     * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
-     * @since 2020-12-08
-     * @return returned {@link Object}  value as the result of the operation.
-     * @throws IllegalArgumentException - if the provided parameter is null.
-     */
-    public static Double getCounterMatchAverage() {
-	log.trace("::method() - Start: ");
-	try{
+
+    public static void openURL(WebDriver driver, Patch patch, UggRank rank, Champion champ, Role rol) {
+	log.trace("::openURL(parameter) - Start: ");
+	notNullValidation(new Object[]{driver, patch, rank, champ, rol}, "Parameters can't be null.");
+	try {
 	    
-	    if (counters==null) return null;
-	    if(average==null){
-		Double addition=0d;
-		Integer matches;
-		Integer cont=0;
-		for(Counter counter:counters){
-		    matches=counter.getMatches();
-		    if(matches>Integer.parseInt(getProperty("ignore-match-count-when-lower-than"))){
-			addition+=counter.getMatches();
-			cont++;
-		    }
-		}
-		average=addition/cont;
-		log.info("::method(): counter number of Matches Average: "+average);
-	    }
-	    log.trace("::method() - Finish: ");
-	    return average;
-	    
+	    driver.get("https://u.gg/lol/champions/"+champ.getUggURLName()+"/counter?"+
+		    "patch="+patch.getIdURLFormatted()+
+		    "&rank="+rank.uggName+
+		    "&role="+rol.toString().toLowerCase());
+	    log.trace("::openURL(parameter) - Finish: URL must be oppened at this point");
 	} catch (Exception e) {
-            throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
-        }
-    }
-    
-    public static Double getLaneCounterMatchAverage() {
-	log.trace("::method() - Start: ");
-	try{
-	    
-	    if (laneCounters==null) return null;
-	    
-	    Double addition=0d;
-	    Integer matches;
-	    Integer cont=0;
-	    for(LaneCounter laneCounter:laneCounters){
-		matches=laneCounter.matches;
-		if(matches>Integer.parseInt(getProperty("ignore-match-count-when-lower-than"))){
-		    addition+=matches;
-		    cont++;
-		}
-	    }
-	    Double average=addition/cont;
-	    
-	    log.trace("::method() - Finish: ");
-	    return average;
-	    
-	} catch (Exception e) {
-            throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
-        }
+	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
+	}
     }
 
     

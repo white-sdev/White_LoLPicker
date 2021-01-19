@@ -123,12 +123,24 @@ package org.white_sdev.white_lolpicker.model.bean;
 
 import java.util.ArrayList;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 
 /**
- * 
+ * Structure:
+ *  Patches[
+ *	Counters[
+ *	    Champions[]
+ *	    Ranks[]
+ *	]
+ *	LaneCounters[
+ *	    Champions[]
+ *	    Ranks[]
+ *	]
+ *  ]
  * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
  * @since Dec 22, 2020
  */
+@Slf4j
 public class Patch {
     private String id;
     private ArrayList<Counter> counters=new ArrayList<>();
@@ -198,4 +210,5 @@ public class Patch {
     public void setLaneCounters(List<LaneCounter> laneCounters) {
         this.laneCounters = new ArrayList<>(laneCounters);
     }
+
 }

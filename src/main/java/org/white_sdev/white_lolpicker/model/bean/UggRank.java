@@ -1,6 +1,6 @@
 /*
- *  Filename:  U_GGDatabaseExtraction.java
- *  Creation Date:  Dec 7, 2020
+ *  Filename:  UggRank.java
+ *  Creation Date:  Jan 17, 2021
  *  Purpose:   
  *  Author:    Obed Vazquez
  *  E-mail:    obed.vazquez@gmail.com
@@ -119,106 +119,146 @@
  *  Creative Commons may be contacted at creativecommons.org.
  */
 
-package org.white_sdev.white_lolpicker.service.extraction.ugg.testcases;
+package org.white_sdev.white_lolpicker.model.bean;
 
-import org.white_sdev.white_lolpicker.service.ChampionTierRankExtractor;
-import org.white_sdev.white_lolpicker.service.CounterExtractor;
-import org.white_sdev.white_lolpicker.service.ChampionExtractor;
-import java.util.List;
+import java.util.ArrayList;
 import lombok.extern.slf4j.Slf4j;
-import org.openqa.selenium.WebDriver;
 import static org.white_sdev.propertiesmanager.model.service.PropertyProvider.getProperty;
-import org.white_sdev.white_seleniumframework.framework.TestCase;
-import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
-import org.white_sdev.white_lolpicker.model.bean.ChampionTierRank;
-import org.white_sdev.white_lolpicker.service.CSVGenerator;
 
 /**
  * 
  * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
- * @since Dec 7, 2020
+ * @since Jan 17, 2021
  */
 @Slf4j
-public class U_GGDatabaseExtraction implements TestCase{
+public class UggRank {
+    public static UggRank iron=new UggRank("Iron","iron"),
+	    bronze=new UggRank("Bronze","bronze"),
+	    silver=new UggRank("Silver","silver"),
+	    gold=new UggRank("Gold","gold"),
+	    platinum=new UggRank("Platinum","platinum"),
+	    platinumPlus=new UggRank("Platinum +","platinum_plus"),
+	    diamond=new UggRank("Diamond","diamond"),
+	    diamondPlus=new UggRank("Diamond +","diamond_plus"),
+	    master=new UggRank("Master","master"),
+	    masterPlus=new UggRank("Master +","master_plus"),
+	    grandMaster=new UggRank("Grand Master","grandmaster"),
+	    challenger=new UggRank("Challenger","challenger"),
+	    allRanks=new UggRank("All Ranks","overall");
     
-    Boolean quitOnFish=true;
     
+    /**
+     * All the lower ranks that the app supports. 
+     * The app ignores higher ranks due to its usefulness at that level.
+     * 
+     * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
+     * @since 2021-01-17
+     */
+    public static ArrayList<UggRank> lowerRanks=new ArrayList<>(){{
+		add(iron);
+		add(bronze);
+		add(silver);
+		add(gold);
+		add(platinum);
+	    }};
+    
+    /**
+     * All the lower ranks that the app supports. 
+     * The app ignores higher ranks due to its usefulness at that level.
+     * 
+     * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
+     * @since 2021-01-17
+     */
+    public static ArrayList<UggRank> everyRank=new ArrayList<>(){{
+		add(iron);
+		add(bronze);
+		add(silver);
+		add(gold);
+		add(platinum);
+		add(platinumPlus);
+		add(diamond);
+		add(diamondPlus);
+		add(master);
+		add(masterPlus);
+		add(grandMaster);
+		add(challenger);
+		add(allRanks);
+	    }};
+    
+    
+    public String printableName;
+    public String uggName;
+    public ArrayList<Counter> counters= new ArrayList<>();
+    public ArrayList<LaneCounter> laneCounters= new ArrayList<>();
+    private Long avgNumOfCounterMatches;
+    
+    public UggRank(String printableName,String uggName){
+	this.printableName=printableName;
+	this.uggName=uggName;
+    }
+    
+    
+    public void calculateAvgNumOfMatches() {
+	log.trace("::calculateAvgNumOfMatches() - Start: ");
+	
+	try {
+	    
+	    if(avgNumOfCounterMatches==null){
+		Double addition=0d;
+		Integer matches;
+		Integer cont=0;
+		Integer minNumOfMatchesToCount=Integer.parseInt(getProperty("ignore-match-count-when-lower-than"));
+		for(Counter counter:counters){
+		    matches=counter.getMatches();
+		    if(matches>minNumOfMatchesToCount){
+			addition+=counter.getMatches();
+			cont++;
+		    }
+		}
+		for(LaneCounter lCounter:laneCounters){
+		    matches=lCounter.matches;
+		    if(matches>minNumOfMatchesToCount){
+			addition+=lCounter.matches;
+			cont++;
+		    }
+		}
+		avgNumOfCounterMatches=Math.round(addition/cont);
+		log.info("::getCounterMatchAverage(): counter number of Matches Average: "+avgNumOfCounterMatches);
+	    }
+	    
+	    log.trace("::calculateAvgNumOfMatches() - Finish: ");
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
+	}
+    }
+    
+    /**
+     * Obtains the avg number of matches that all counter have registered in this rank with this patch.  ;
+     * Ignoring the lower elements that will fall under the lower limit specified in config files.
+     * Old Description: Obtains the average number of matches that ALL {@link #counters} have.	 
+     * This will use the property "ignore-match-count-when-lower-than" and 
+     * ignore those quantities under that number when calculating the average.
+     * 
+     * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
+     * @since 2021-01-17
+     * @return returned {@link Long}  value as the result of the operation.
+     * @throws IllegalArgumentException - if the provided parameter is null.
+     */
+    public Long getAvgNumOfCounterTypesMatches() {
+	log.trace("::getAvgNumOfMatches() - Start: ");
+	try{
+	    
+	    if(avgNumOfCounterMatches==null || avgNumOfCounterMatches==0) calculateAvgNumOfMatches();
+	    log.trace("::getAvgNumOfMatches() - Finish: ");
+	    return avgNumOfCounterMatches;
+
+	} catch (Exception e) {
+            throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
+        }
+    }
     
     @Override
-    public void test(WebDriver driver) throws Exception {
-	log.trace("::test(driver) - Start: ");
-	notNullValidation(driver, "The Driver Must be specified or the test can complete.");
-	try {
-	    
-	    log.info("::test(driver): Extracting all Champions");
-	    ChampionExtractor.champs=ChampionExtractor.getChampions(driver);
-	    log.info("::test(driver): Extracting all season tier Ranks");
-	    List<ChampionTierRank> tierRanks=ChampionTierRankExtractor.getChampionTierRanks(driver);
-	    log.info("::test(driver): Extracting all coutners to load");
-	    CounterExtractor.loadAllCounters(driver);
-	    log.info("::test(driver): coutners loaded. Generating CSV files with extracted Data ");
-	    generateCSV(tierRanks);
-	    
-	} catch (Exception e) {
-	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
-	}
+    public String toString(){
+	return printableName;
     }
-
-    //<editor-fold defaultstate="collapsed" desc="helper methods">
-
-    @Override
-    public String getTestFullName() {
-	log.trace("::getTestFullName(parameter) - Start: ");
-	try {
-	    
-	    log.trace("::getTestFullName(parameter) - Finish: ");
-	    return this.getClass().getCanonicalName();
-	} catch (Exception e) {
-	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
-	}
-    }
-
-    @Override
-    public void setQuitOnFinish(Boolean shouldQuitOnFish) {
-	log.trace("::setQuitOnFinish(parameter) - Start: ");
-	notNullValidation(shouldQuitOnFish, "the parameter shouldQuitOnFinish dhould be indicated.");
-	try {
-	    quitOnFish=shouldQuitOnFish;
-	    log.trace("::setQuitOnFinish(parameter) - Finish: ");
-	} catch (Exception e) {
-	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
-	}
-    }
-
-    @Override
-    public Boolean getQuitOnFinish() {
-	log.trace("::getQuitOnFinish(parameter) - Start: ");
-	try {
-	    
-	    log.trace("::getQuitOnFinish(parameter) - Finish: ");
-	    return quitOnFish;
-	} catch (Exception e) {
-	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
-	}
-    }
-    
-    //</editor-fold>
-
-    public void generateCSV(List<ChampionTierRank> tierRanks) {
-	log.trace("::generateCVS(parameter) - Start: ");
-	notNullValidation(tierRanks, "The parameter can't be null.");
-	try {
-	    
-	    CSVGenerator.generateCSV(ChampionExtractor.champs,getProperty("champions-filename"));
-	    CSVGenerator.generateCSV(CounterExtractor.counters,getProperty("counters-filename"));
-	    CSVGenerator.generateCSV(tierRanks,getProperty("tiers-filename"));
-	    
-	    
-	    log.trace("::generateCVS(parameter) - Finish: ");
-	    
-	} catch (Exception e) {
-	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
-	}
-    }
-
 }

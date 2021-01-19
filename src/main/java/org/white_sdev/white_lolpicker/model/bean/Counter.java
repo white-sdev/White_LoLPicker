@@ -135,6 +135,7 @@ import org.white_sdev.white_lolpicker.service.CounterExtractor;
 public class Counter {
     
     private Patch patch;
+    private UggRank rank;
     private Champion champion;
     private Role championRole;
     private Champion counter;
@@ -151,6 +152,7 @@ public class Counter {
      * Class Constructor.{Requirement_Reference}
      * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
      * @param patch
+     * @param rank
      * @param champion
      * @param championRole
      * @param counter
@@ -159,12 +161,13 @@ public class Counter {
      * @since Dec 7, 2020
      * @throws IllegalArgumentException - if the argument provided is null.
      */
-    public Counter(Patch patch,Champion champion,Role championRole,Champion counter,Double winrate,Integer matches) {
+    public Counter(Patch patch,UggRank rank,Champion champion,Role championRole,Champion counter,Double winrate,Integer matches) {
 	log.trace("::Counter(champion, counter, winrate, bonus) - Start: ");
 	//notNullValidation(parameter,"Impossible to create the object. The parameter can't be null.");
 	try{
 	    
 	    this.patch=patch;
+	    this.rank=rank;
 	    this.champion=champion;
 	    this.championRole=championRole;
 	    this.counter=counter;
@@ -174,6 +177,7 @@ public class Counter {
 	    this.counterRole=championRole;
 	    
             patch.add(this);
+	    rank.counters.add(this);
 	    champion.counters.add(this);
 	    counter.counterOfChampions.add(this);
 
@@ -203,11 +207,11 @@ public class Counter {
 	    LaneCounter matchingLaneCounter=null;
 	    
 	    if(laneCounters!=null) {
-	    log.info("::calculateBonus(laneCounters): laneCounters is not null. Looking for lane counter");
+	    log.debug("::calculateBonus(laneCounters): laneCounters is not null. Looking for lane counter");
 		for(LaneCounter laneCounter:laneCounters){
 		    if(laneCounter.champion.equals(this.getChampion()) && laneCounter.championRole.equals(this.getChampionRole())
 			    && laneCounter.counter.equals(this.getCounter())){
-			log.info("::calculateBonus(laneCounters): matching Lane Counter found:"+laneCounter);
+			log.debug("::calculateBonus(laneCounters): matching Lane Counter found:"+laneCounter);
 			matchingLaneCounter=laneCounter;
 			break;
 		    }
@@ -223,7 +227,7 @@ public class Counter {
 	    log.info("::calculateBonus(laneCounters): Calculated Lane Bonus :"+getLaneBonus());
 	    
 	    
-	    Double avg=CounterExtractor.getCounterMatchAverage();
+	    Double avg=rank.getAvgNumOfCounterTypesMatches().doubleValue();
 	    log.info("::calculateBonus(laneCounters): Calculating bonus certanty modifier: matches["+getMatches()+"] / ( (AllmatchAVG>500 ["+avg+"])/.5  ) ");
 	    
 	    counterCertaintyModifier=   getMatches()/  (avg/.5) ;
@@ -394,6 +398,20 @@ public class Counter {
      */
     public void setPatch(Patch patch) {
         this.patch = patch;
+    }
+
+    /**
+     * @return the rank
+     */
+    public UggRank getRank() {
+	return rank;
+    }
+
+    /**
+     * @param rank the rank to set
+     */
+    public void setRank(UggRank rank) {
+	this.rank = rank;
     }
     
 }

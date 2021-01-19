@@ -133,7 +133,8 @@ import org.white_sdev.white_lolpicker.service.CounterExtractor;
 @Slf4j
 public class LaneCounter {
     
-    private Patch patch;
+    public Patch patch;
+    public UggRank rank;
     public Champion champion;
     public Role championRole;
     public Champion counter;
@@ -146,6 +147,8 @@ public class LaneCounter {
     /**
      * Class Constructor.{Requirement_Reference}
      * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
+     * @param patch
+     * @param rank
      * @param champion
      * @param championRole
      * @param counter
@@ -154,12 +157,13 @@ public class LaneCounter {
      * @since Dec 7, 2020
      * @throws IllegalArgumentException - if the argument provided is null.
      */
-    public LaneCounter(Patch patch,Champion champion,Role championRole,Champion counter,Integer gold,Integer matches) {
+    public LaneCounter(Patch patch,UggRank rank, Champion champion,Role championRole,Champion counter,Integer gold,Integer matches) {
 	log.trace("::LaneCounter() - Start: ");
 	//notNullValidation(parameter,"Impossible to create the object. The parameter can't be null.");
 	try{
 	    
 	    this.patch=patch;
+	    this.rank=rank;
 	    this.champion=champion;
 	    this.championRole=championRole;
 	    this.counter=counter;
@@ -170,6 +174,7 @@ public class LaneCounter {
 	    
 	    
             patch.add(this);
+	    rank.laneCounters.add(this);
 	    champion.laneCounters.add(this);
 	    counter.laneCounterOfChampions.add(this);
 
@@ -180,7 +185,7 @@ public class LaneCounter {
     }
     
     public Double reCalculateBonus(){
-	Double laneCounterCertaintyModifier=  matches/  (CounterExtractor.getLaneCounterMatchAverage()/.5) ;
+	Double laneCounterCertaintyModifier=  matches/  (rank.getAvgNumOfCounterTypesMatches()/.5) ;
 	bonus=gold/20d*laneCounterCertaintyModifier;
 	return bonus;
     }
