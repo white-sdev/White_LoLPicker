@@ -133,6 +133,7 @@ import org.openqa.selenium.WebElement;
 import static org.white_sdev.propertiesmanager.model.service.PropertyProvider.getProperty;
 import org.white_sdev.white_lolpicker.model.bean.Champion;
 import org.white_sdev.white_lolpicker.model.bean.Counter;
+import org.white_sdev.white_lolpicker.model.bean.CounterSearch;
 import org.white_sdev.white_lolpicker.model.bean.LaneCounter;
 import org.white_sdev.white_lolpicker.model.bean.Patch;
 import org.white_sdev.white_lolpicker.model.bean.Role;
@@ -155,10 +156,11 @@ public class CounterExtractor {
     public static List<LaneCounter> laneCounters=new ArrayList<>();
     public static List<Counter> counters=new ArrayList<>();
     public static Double average=null;
+    public static CounterSearch lastCounterSearch;
     
     public static void loadAllCounters(WebDriver driver) {
 	log.trace("::loadCounters(driver) - Start: ");
-	notNullValidation(driver, "The driver can't be null.");
+	notNullValidation(driver);
 	try {
 	    
             ArrayList<Patch> patchesToExtract=PatchExtractor.getPatches(driver);
@@ -166,26 +168,26 @@ public class CounterExtractor {
 	    
 	    
 	    Integer patchCounter=0,rankCounter=0,champCounter=0;
-	    Double status=0d, rankStatus=0d, champStatus=0d;
+	    Double patchStatus=0d, rankStatus=0d, champStatus=0d;
 	    log.info("::loadCounters(driver): Starting Counter Extraction Process at "+java.time.LocalDateTime.now().format(DateTimeFormatter.ISO_TIME));
 	    DecimalFormat twoDecimalsFormat=new DecimalFormat("#.##");
-            for(Patch patch:patchesToExtract){
-		log.info("::loadCounters(driver): Extracting Patch: "+patch.getId());
+	    for(Champion champ:ChampionExtractor.champs){
+		log.info("::loadCounters(driver): Extracting Champion Counters: "+champ);
 		for(UggRank rank:ranks){
 		    log.info("::loadCounters(driver): Extracting U.GG Rank: "+rank.printableName);
-		    for(Champion champ:ChampionExtractor.champs){
-			loadChampionCounters(patch,rank,champ,driver);
+		    for(Patch patch:patchesToExtract){
+			loadChampionCounters(new CounterSearch(patch,rank,champ,driver));
 			
-			++champCounter;
-			champStatus=champCounter*100d/patchesToExtract.size()/ranks.size()/ChampionExtractor.champs.size();
-			log.info("::loadCounters(driver): Extraction Process Status: "+twoDecimalsFormat.format(status+rankStatus+champStatus)+"%");
+			++patchCounter;
+			patchStatus=patchCounter*100d/ChampionExtractor.champs.size()/ranks.size()/patchesToExtract.size();
+			log.info("::loadCounters(driver): Extraction Process Status: "+twoDecimalsFormat.format(champStatus+rankStatus+patchStatus)+"%");
 			
-		    }champCounter=0;
+		    }patchCounter=0;
 		    rank.calculateAvgNumOfMatches();
 		    
 		    ++rankCounter;
 		    rankStatus=rankCounter*100d/patchesToExtract.size()/ranks.size();
-		    log.info("::loadCounters(driver): Extraction Process Status: "+twoDecimalsFormat.format(status+rankStatus)+"%");
+		    log.info("::loadCounters(driver): Extraction Process Status: "+twoDecimalsFormat.format(champStatus+rankStatus)+"%");
 		    
 		}rankCounter=0;
                 
@@ -193,9 +195,9 @@ public class CounterExtractor {
                     counter.calculateBonus(laneCounters);
                 });
 		
-		++patchCounter;
-		status=((patchCounter*100d)/patchesToExtract.size());
-		log.info("::loadCounters(driver): Extraction Process Status: "+twoDecimalsFormat.format(status)+"%");
+		++champCounter;
+		champStatus=((champCounter*100d)/ChampionExtractor.champs.size());
+		log.info("::loadCounters(driver): Extraction Process Status: "+twoDecimalsFormat.format(champStatus)+"%");
             }
 	    extractedPatches=patchesToExtract;
 	    
@@ -208,15 +210,20 @@ public class CounterExtractor {
 	}
     }
 
-    public static void loadChampionCounters(Patch patch,UggRank rank,Champion champ,WebDriver driver) {
+    public static void loadChampionCounters(CounterSearch counterSearch) {
 	log.trace("::loadChampionCounters(patch,rank,champ,driver) - Start: ");
-	notNullValidation(new Object[]{champ,driver}, "Both champ and driver Must be provided.");
+	notNullValidation(counterSearch);
 	try {
 	    
-	    for(Role rol:Role.values()){
-		openURL(driver,patch,rank,champ,rol);
+	    Patch patch=counterSearch.patch;
+	    UggRank rank=counterSearch.rank;
+	    Champion champ=counterSearch.champ;
+	    WebDriver driver=counterSearch.driver;
+	    
+	    for(Role rol:Role.allRoles){
+		loadChampionCounterWebpage(new CounterSearch(patch, rank, champ, driver),rol);
 		
-		forceElementsLoad(driver);
+		forceElementsLoad(driver); //multiple clicks on "View More Champions" button
 		
 		Boolean loadLaneCountersSuccesfully=true;
 		List<WebElement> webLaneCounters=null;
@@ -321,9 +328,9 @@ public class CounterExtractor {
 //	}
 //    }
     
-    public static void mapLaneCounters(Patch patch,UggRank rank, Champion champ,Role rol,List<WebElement> webLaneCounters, List<WebElement> webGoldDiferences, List<WebElement> webMatchTotalGames) {
+    public static void mapLaneCounters(Patch patch,UggRank rank, Champion champ,Role role,List<WebElement> webLaneCounters, List<WebElement> webGoldDiferences, List<WebElement> webMatchTotalGames) {
 	log.trace("::mapLaneCounters(parameter) - Start: ");
-	notNullValidation(new Object[]{champ,rol,webLaneCounters,webGoldDiferences,webMatchTotalGames}, "The parameters can't be null.");
+	notNullValidation(champ,role,webLaneCounters,webGoldDiferences,webMatchTotalGames);
 	List<Integer> webGoldIntDiferences=removeBlanksOnGlodDif(webGoldDiferences);
 	if(webLaneCounters.size()!=webGoldDiferences.size() || webGoldDiferences.size()!=webMatchTotalGames.size()) 
 	    throw new IllegalArgumentException("webLaneCounters,webGoldDiferences or webGoldDifTotalGames lists sizes differ");
@@ -337,7 +344,7 @@ public class CounterExtractor {
 		if(webGoldIntDiference>0){
 		    WebElement webLaneCounter=webLaneCounters.get(i);
 		    WebElement webMatchTotalGame=webMatchTotalGames.get(i);
-		    laneCounters.add(new LaneCounter(patch, rank, champ, rol, 
+		    laneCounters.add(new LaneCounter(patch, rank, champ, role, 
 			    getChampionWithName(webLaneCounter.getText()), 
 			    webGoldIntDiference, 
 			    Integer.parseInt(webMatchTotalGame.getText().replace(" games", "").replace(",", ""))));
@@ -354,7 +361,7 @@ public class CounterExtractor {
     
     private static Champion getChampionWithName(String champName) {
 	log.trace("::getChampionWithName(parameter) - Start: ");
-	notNullValidation(champName, "The champion Name can't be null.");
+	notNullValidation(champName);
 	try {
 	    for(Champion champ:ChampionExtractor.champs){
 		if(champ.getName().equals(champName)) return champ;
@@ -367,9 +374,9 @@ public class CounterExtractor {
 	}
     }
 
-    private static void mapCounters(Patch patch,UggRank rank,Champion champ, Role rol, List<WebElement> webCounters, List<WebElement> webWinrates, List<WebElement> webWinratesTotalGames) {
+    private static void mapCounters(Patch patch,UggRank rank,Champion champ, Role role, List<WebElement> webCounters, List<WebElement> webWinrates, List<WebElement> webWinratesTotalGames) {
 	log.trace("::mapCounters(patch,champ,rol,webCounters,webWinrates,webWinratesTotalGames) - Start: ");
-	notNullValidation(new Object[]{champ,rol,webCounters,webWinrates,webWinratesTotalGames}, "The parameters can't be null.");
+	notNullValidation(champ,role,webCounters,webWinrates,webWinratesTotalGames);
 	if(webCounters.size()!=webWinrates.size() || webWinrates.size()!=webWinratesTotalGames.size()) 
 	    throw new IllegalArgumentException("webLaneCounters,webGoldDiferences or webGoldDifTotalGames lists sizes differ");
 	try {
@@ -382,7 +389,7 @@ public class CounterExtractor {
 		if(winrate>50){
 		    WebElement webCounter=webCounters.get(i);
 		    WebElement webWinrateTotalGames=webWinratesTotalGames.get(i);
-		    Counter counter=new Counter(patch, rank, champ, rol, 
+		    Counter counter=new Counter(patch, rank, champ, role, 
 			    getChampionWithName(webCounter.getText()), 
 			    winrate, 
 			    Integer.parseInt(webWinrateTotalGames.getText().replace(",", "").replace(" games", "")));
@@ -398,7 +405,7 @@ public class CounterExtractor {
 
     private static List<Integer> removeBlanksOnGlodDif(List<WebElement> webGoldDiferences) {
 	log.trace("::removeBlanksOnGlodDif(parameter) - Start: ");
-	notNullValidation(webGoldDiferences, "The webGoldDiferences parameter can't be null.");
+	notNullValidation(webGoldDiferences);
 	try {
 	    List<Integer> newWebGoldDiferences= new ArrayList<>();
 	    for(WebElement webGoldDiference:webGoldDiferences){
@@ -417,20 +424,119 @@ public class CounterExtractor {
     }
 
 
-    public static void openURL(WebDriver driver, Patch patch, UggRank rank, Champion champ, Role rol) {
+    public static void loadChampionCounterWebpage(CounterSearch counterSearch, Role role) {
 	log.trace("::openURL(parameter) - Start: ");
-	notNullValidation(new Object[]{driver, patch, rank, champ, rol}, "Parameters can't be null.");
+	notNullValidation(counterSearch, role);
 	try {
 	    
-	    driver.get("https://u.gg/lol/champions/"+champ.getUggURLName()+"/counter?"+
-		    "patch="+patch.getIdURLFormatted()+
-		    "&rank="+rank.uggName+
-		    "&role="+rol.toString().toLowerCase());
+	    Patch patch=counterSearch.patch;
+	    UggRank rank=counterSearch.rank;
+	    Champion champ=counterSearch.champ;
+	    WebDriver driver=counterSearch.driver;
+	    
+	    if(counterSearch.champ!=null && counterSearch.champ.equals(lastCounterSearch.champ)){
+		if(counterSearch.patch!=null && counterSearch.patch.equals(lastCounterSearch.patch)){
+		    if(counterSearch.rank!=null && counterSearch.rank.equals(lastCounterSearch.rank)){ //only role is different
+			changeRoleTo(role,driver);
+		    }else{//role and rank changed
+			changeRoleTo(role,driver);
+			changeRankTo(rank,driver);
+		    }
+		}else{//patch, role and rank changed
+		    changeRoleTo(role,driver);
+		    changeRankTo(rank,driver);
+		    changePatchTo(patch,driver);
+		}
+	    }else{
+		driver.get(getChampionCounterURL(champ,patch,rank,role));
+	    }
+	    
+	    
+	    lastCounterSearch=counterSearch;
 	    log.trace("::openURL(parameter) - Finish: URL must be oppened at this point");
 	} catch (Exception e) {
 	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
 	}
     }
+    
+    /**
+     * Obtains the Champion URL with the given champion parameters.
+     * It requires the entire description of the search so it can provide the {@link String} back to the caller.
+     * 
+     * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
+     * @since 2020-01-25
+     * @param champion {@link Champion} to perform the operation with.
+     * @param patch
+     * @param rank
+     * @param role
+     * @return returned {@link String} with the final URL loaded.
+     * @throws IllegalArgumentException - if the provided parameter is null.
+     */
+    public static String getChampionCounterURL(Champion champion, Patch patch, UggRank rank,Role role) {
+	log.trace("::getChampionCounterURL(champion,patch,rank,role) - Start: ");
+	notNullValidation(champion,patch,rank,role);
+	try{
+	    
+	    String counterURL="https://u.gg/lol/champions/"+champion.getUggURLName()+"/counter?"+
+		    "patch="+patch.getIdURLFormatted()+
+		    "&rank="+rank.uggName+
+		    "&role="+role.toString().toLowerCase();
 
+	    log.trace("::getChampionCounterURL(champion,patch,rank,role) - Finish: ");
+	    return counterURL;
+	    
+	} catch (Exception e) {
+            throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
+        }
+    }
+    
+    private static void changeRoleTo(Role role, WebDriver driver) {
+	log.trace("::changeRoleTo(role,driver) - Start: ");
+	notNullValidation(role,driver);
+	try {
+	    WebDriverUtils utils=new WebDriverUtils(driver);
+	    
+	    utils.clickXpath(role.uGGSelectorXpath);
+	    
+	    log.trace("::changeRoleTo(parameter) - Finish: ");
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
+	}
+    }
+
+    private static void changeRankTo(UggRank rank, WebDriver driver) {
+	log.trace("::changeRankTo(rank,driver) - Start: ");
+	notNullValidation(rank,driver);
+	try {
+	    
+	    
+	    
+	    WebDriverUtils util = new WebDriverUtils(driver);
+	    util.clickXpath("//div[contains(@class, 'rank-option')]"); //Click on Rank Button
+	    util.clickXpath("//div[contains(@class,'default-select__menu')]/div[@id='react-select-"+rank.uGGOrder+"-option-']"); //click on the selected rank
+	    
+	    
+	    log.trace("::changeRankTo(rank,driver) - Finish: ");
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
+	}
+    }
+
+
+    private static void changePatchTo(Patch patch, WebDriver driver) {
+	log.trace("::changePatchTo(parameter) - Start: ");
+	notNullValidation(patch,driver);
+	try {
+	    
+	    WebDriverUtils util = new WebDriverUtils(driver);
+	    util.clickXpath("(//div[contains(@class,'filter-collapse')])[2]");// Click "More" Button
+	    util.clickXpath("//div[contains(@class,'default-select filter-select patch css-0')]"); //click on patches button
+	    util.clickXpath("//div[contains(string(), '"+patch.getId()+"')]"); //Click on the patch number 
+
+	    log.trace("::changePatchTo(parameter) - Finish: ");
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
+	}
+    }
     
 }

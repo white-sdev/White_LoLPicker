@@ -132,19 +132,19 @@ import static org.white_sdev.propertiesmanager.model.service.PropertyProvider.ge
  */
 @Slf4j
 public class UggRank {
-    public static UggRank iron=new UggRank("Iron","iron"),
-	    bronze=new UggRank("Bronze","bronze"),
-	    silver=new UggRank("Silver","silver"),
-	    gold=new UggRank("Gold","gold"),
-	    platinum=new UggRank("Platinum","platinum"),
-	    platinumPlus=new UggRank("Platinum +","platinum_plus"),
-	    diamond=new UggRank("Diamond","diamond"),
-	    diamondPlus=new UggRank("Diamond +","diamond_plus"),
-	    master=new UggRank("Master","master"),
-	    masterPlus=new UggRank("Master +","master_plus"),
-	    grandMaster=new UggRank("Grand Master","grandmaster"),
-	    challenger=new UggRank("Challenger","challenger"),
-	    allRanks=new UggRank("All Ranks","overall");
+    public static UggRank iron=new UggRank("Iron","iron",12),
+	    bronze=new UggRank("Bronze","bronze",11),
+	    silver=new UggRank("Silver","silver",10),
+	    gold=new UggRank("Gold","gold",9),
+	    platinum=new UggRank("Platinum","platinum",8),
+	    platinumPlus=new UggRank("Platinum +","platinum_plus",0),
+	    diamond=new UggRank("Diamond","diamond",7),
+	    diamondPlus=new UggRank("Diamond +","diamond_plus",1),
+	    master=new UggRank("Master","master",6),
+	    masterPlus=new UggRank("Master +","master_plus",2),
+	    grandMaster=new UggRank("Grand Master","grandmaster",5),
+	    challenger=new UggRank("Challenger","challenger",4),
+	    allRanks=new UggRank("All Ranks","overall",3);
     
     
     /**
@@ -155,7 +155,7 @@ public class UggRank {
      * @since 2021-01-17
      */
     public static ArrayList<UggRank> lowerRanks=new ArrayList<>(){{
-		add(iron);
+		//add(iron); //it has to low match counts
 		add(bronze);
 		add(silver);
 		add(gold);
@@ -188,13 +188,15 @@ public class UggRank {
     
     public String printableName;
     public String uggName;
+    public Integer uGGOrder;
     public ArrayList<Counter> counters= new ArrayList<>();
     public ArrayList<LaneCounter> laneCounters= new ArrayList<>();
     private Long avgNumOfCounterMatches;
     
-    public UggRank(String printableName,String uggName){
+    public UggRank(String printableName,String uggName,Integer uGGOrder){
 	this.printableName=printableName;
 	this.uggName=uggName;
+	this.uGGOrder=uGGOrder;
     }
     
     

@@ -1,6 +1,6 @@
 /*
- *  Filename:  Role.java
- *  Creation Date:  Dec 7, 2020
+ *  Filename:  CounterSearch.java
+ *  Creation Date:  Jan 25, 2021
  *  Purpose:   
  *  Author:    Obed Vazquez
  *  E-mail:    obed.vazquez@gmail.com
@@ -121,92 +121,50 @@
 
 package org.white_sdev.white_lolpicker.model.bean;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import lombok.extern.slf4j.Slf4j;
-import org.white_sdev.white_validations.exceptions.White_ValidationsException;
 
+import org.openqa.selenium.WebDriver;
 import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
-
-//import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
 
 /**
  * 
  * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
- * @since Dec 7, 2020
+ * @since Jan 25, 2021
  */
 @Slf4j
-public class Role {
-    public static Role top=new Role("top","topper","(//div[contains(@class,'role-filter')][1])[1]"),
-	    jungle=new Role("jungle","jg","(//div[contains(@class,'role-filter')][2])[1]"),
-	    middle=new Role("mid","middle","(//div[contains(@class,'role-filter')][3])[1]"),
-	    adc=new Role("adc","bot","bottom","(//div[contains(@class,'role-filter')][4])[1]"),
-	    support=new Role("supp","support","(//div[contains(@class,'role-filter')][5])[1]");
-    public static ArrayList<Role> allRoles=new ArrayList<>(){{
-	add(top);
-	add(jungle);
-	add(middle);
-	add(adc);
-	add(support);
-    }};
-    String name;
-    public ArrayList<String> synonyms;
-    public String uGGSelectorXpath;
+public class CounterSearch {
     
-    public Role(String name,List<String> synonyms,String uGGSelectorXpath){
-	log.trace("::Role(name) - Start: ");
-	notNullValidation(name,"Impossible to create the object. The parameter can't be null.");
+    public Patch patch;
+    public UggRank rank;
+    public Champion champ;
+    public WebDriver driver;
+    
+    /**
+     * Class Constructor.{Requirement_Reference}
+     * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
+     * @param patch The {@linkn Object} parameter to create <code>this</code> instance.
+     * @param rank
+     * @param champ
+     * @param driver
+     * @since Jan 25, 2021
+     * @throws IllegalArgumentException - if the argument provided is null.
+     */
+    public CounterSearch(Patch patch,UggRank rank,Champion champ,WebDriver driver) {
+	log.trace("::CounterSearch(patch,rank,champ,driver) - Start: ");
+	notNullValidation(new Object[]{patch,rank,champ,driver},"Impossible to create the object. The parameter can't be null.");
 	try{
 	    
-	    this.name=name;
-	    this.synonyms=synonyms==null?new ArrayList<String>():new ArrayList<>(synonyms);
-	    synonyms.add(name);
-	    this.uGGSelectorXpath=uGGSelectorXpath;
 	    
-	    log.trace("::Role(name: ");
+	    this.patch=patch;
+	    this.rank=rank;
+	    this.champ=champ;
+	    this.driver=driver;
+	    
+
+	    log.trace("::CounterSearch() - Finish: ");
 	} catch (Exception e) {
             throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
         }
     }
     
-    public Role(String name,String uGGSelectorXpath){
-	this(name,(List<String>)null,uGGSelectorXpath);
-    }
-
-    public Role(String name,String...synonymsAndSelector){
-	
-	notNullValidation(synonymsAndSelector,"Impossible to create the object. The parameter can't be null.");
-	
-	ArrayList<String> synonyms=new ArrayList<>();
-	for(int i=0;i<synonymsAndSelector.length-1;++i){
-	    synonyms.add(synonymsAndSelector[i]);
-	}
-	String uGGSelectorXpath=synonymsAndSelector.length>0?synonymsAndSelector[synonymsAndSelector.length]:null;
-	
-	this.name=name;
-	this.synonyms=synonyms;
-	synonyms.add(name);
-	this.uGGSelectorXpath=uGGSelectorXpath;
-    }
-
-    
-    public static Role valueOfImgAlt(String text) {
-	log.trace("::valueOfImg(text) - Start: ");
-	if(text==null) return null;
-	try {
-	    log.trace("::valueOfImg(text) - Finish: ");
-	    for(Role role:allRoles){
-		if(role.synonyms.contains(text)) return role;
-	    }
-	    throw new RuntimeException("Impossible to obtain the Role, any of the register roles have that name: "+text+". \nRegistered Roles: "+allRoles);
-	} catch (Exception e) {
-	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
-	}
-    }
-    
-    @Override
-    public String toString(){
-	return "[name:"+name+"],[synonyms:{"+synonyms+"}],[uGGSelectorXpath:"+uGGSelectorXpath+"]";
-    }
 }
