@@ -1,6 +1,6 @@
 /*
- *  Filename:  UggRank.java
- *  Creation Date:  Jan 17, 2021
+ *  Filename:  Counter.java
+ *  Creation Date:  Dec 7, 2020
  *  Purpose:   
  *  Author:    Obed Vazquez
  *  E-mail:    obed.vazquez@gmail.com
@@ -119,148 +119,426 @@
  *  Creative Commons may be contacted at creativecommons.org.
  */
 
-package org.white_sdev.white_lolpicker.model.bean;
+package org.white_sdev.white_lolpicker.model.persistence;
 
-import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import static org.white_sdev.propertiesmanager.model.service.PropertyProvider.getProperty;
+import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
 
 /**
  * 
  * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
- * @since Jan 17, 2021
+ * @since Dec 7, 2020
  */
 @Slf4j
-public class UggRank {
-    public static UggRank iron=new UggRank("Iron","iron",12),
-	    bronze=new UggRank("Bronze","bronze",11),
-	    silver=new UggRank("Silver","silver",10),
-	    gold=new UggRank("Gold","gold",9),
-	    platinum=new UggRank("Platinum","platinum",8),
-	    platinumPlus=new UggRank("Platinum +","platinum_plus",0),
-	    diamond=new UggRank("Diamond","diamond",7),
-	    diamondPlus=new UggRank("Diamond +","diamond_plus",1),
-	    master=new UggRank("Master","master",6),
-	    masterPlus=new UggRank("Master +","master_plus",2),
-	    grandMaster=new UggRank("Grand Master","grandmaster",5),
-	    challenger=new UggRank("Challenger","challenger",4),
-	    allRanks=new UggRank("All Ranks","overall",3);
+@Entity
+@Data
+public class Counter implements Persistable{
+    
+    //<editor-fold defaultstate="collapsed" desc="Attributes">
+
+    @Id
+    @GeneratedValue
+    private Long id;
+    
+    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private Patch patch;
+    
+    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private UggRank rank;
+    
+    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private Champion champion;
+    
+    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private Role championRole;
+    
+    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private Champion counter;
+    
+    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private Role counterRole;
     
     
+    @Column
+    private Double winratePercentage;
+    @Column
+    private Integer matches;
+    @Column
+    private Double laneBonus=0d;
+    @Column
+    private Double counterCertaintyModifier=0d;
+    @Column
+    private Double counterBonus=0d;
+    @Column
+    private Double totalBonus=0d;
+    
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Constructors">
+
     /**
-     * All the lower ranks that the app supports. 
-     * The app ignores higher ranks due to its usefulness at that level.
+     * Required no-Arguments Constructor by 
+     * <a href="https://docs.jboss.org/hibernate/core/3.5/reference/en/html/persistent-classes.html#persistent-classes-pojo-constructor">Hibernate</a>.
      * 
      * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
-     * @since 2021-01-17
+     * @since 2021-02-02
      */
-    public static ArrayList<UggRank> lowerRanks=new ArrayList<>(){{
-		//add(iron); //it has to low match counts
-		add(bronze);
-		add(silver);
-		add(gold);
-		add(platinum);
-	    }};
+    public Counter() { }
     
     /**
-     * All the lower ranks that the app supports. 
-     * The app ignores higher ranks due to its usefulness at that level.
-     * 
-     * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
-     * @since 2021-01-17
+     * Class Constructor.{Requirement_Reference}
+     * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
+     * @param patch
+     * @param rank
+     * @param champion
+     * @param championRole
+     * @param counter
+     * @param winrate
+     * @param matches
+     * @since Dec 7, 2020
+     * @throws IllegalArgumentException - if the argument provided is null.
      */
-    public static ArrayList<UggRank> everyRank=new ArrayList<>(){{
-		add(iron);
-		add(bronze);
-		add(silver);
-		add(gold);
-		add(platinum);
-		add(platinumPlus);
-		add(diamond);
-		add(diamondPlus);
-		add(master);
-		add(masterPlus);
-		add(grandMaster);
-		add(challenger);
-		add(allRanks);
-	    }};
-    
-    
-    public String printableName;
-    public String uggName;
-    public Integer uGGOrder;
-    public ArrayList<Counter> counters= new ArrayList<>();
-    public ArrayList<LaneCounter> laneCounters= new ArrayList<>();
-    private Long avgNumOfCounterMatches;
-    
-    public UggRank(String printableName,String uggName,Integer uGGOrder){
-	this.printableName=printableName;
-	this.uggName=uggName;
-	this.uGGOrder=uGGOrder;
-    }
-    
-    
-    public void calculateAvgNumOfMatches() {
-	log.trace("::calculateAvgNumOfMatches() - Start: ");
-	
-	try {
-	    
-	    if(avgNumOfCounterMatches==null){
-		Double addition=0d;
-		Integer matches;
-		Integer cont=0;
-		Integer minNumOfMatchesToCount=Integer.parseInt(getProperty("ignore-match-count-when-lower-than"));
-		for(Counter counter:counters){
-		    matches=counter.getMatches();
-		    if(matches>minNumOfMatchesToCount){
-			addition+=counter.getMatches();
-			cont++;
-		    }
-		}
-		for(LaneCounter lCounter:laneCounters){
-		    matches=lCounter.matches;
-		    if(matches>minNumOfMatchesToCount){
-			addition+=lCounter.matches;
-			cont++;
-		    }
-		}
-		avgNumOfCounterMatches=Math.round(addition/cont);
-		log.info("::getCounterMatchAverage(): counter number of Matches Average: "+avgNumOfCounterMatches);
-	    }
-	    
-	    log.trace("::calculateAvgNumOfMatches() - Finish: ");
-	} catch (Exception e) {
-	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
-	}
-    }
-    
-    /**
-     * Obtains the avg number of matches that all counter have registered in this rank with this patch.  ;
-     * Ignoring the lower elements that will fall under the lower limit specified in config files.
-     * Old Description: Obtains the average number of matches that ALL {@link #counters} have.	 
-     * This will use the property "ignore-match-count-when-lower-than" and 
-     * ignore those quantities under that number when calculating the average.
-     * 
-     * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
-     * @since 2021-01-17
-     * @return returned {@link Long}  value as the result of the operation.
-     * @throws IllegalArgumentException - if the provided parameter is null.
-     */
-    public Long getAvgNumOfCounterTypesMatches() {
-	log.trace("::getAvgNumOfMatches() - Start: ");
+    public Counter(Patch patch,UggRank rank,Champion champion,Role championRole,Champion counter,Double winrate,Integer matches) {
+	log.trace("::Counter(champion, counter, winrate, bonus) - Start: ");
+	notNullValidation(rank, champion, championRole, counter, winrate, matches);
 	try{
 	    
-	    if(avgNumOfCounterMatches==null || avgNumOfCounterMatches==0) calculateAvgNumOfMatches();
-	    log.trace("::getAvgNumOfMatches() - Finish: ");
-	    return avgNumOfCounterMatches;
+	    this.patch=patch;
+	    this.rank=rank;
+	    this.champion=champion;
+	    this.championRole=championRole;
+	    this.counter=counter;
+	    this.winratePercentage=winrate;
+	    this.matches=matches;
+	    
+	    this.counterRole=championRole;
+	    
+            patch.add(this);
+	    rank.getCounters().add(this);
+	    champion.getCounters().add(this);
+	    counter.getCounterOfChampions().add(this);
 
+	    log.trace("::Counter(champion, counter, winrate, bonus) - Finish: ");
 	} catch (Exception e) {
             throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
         }
     }
     
+    //</editor-fold>
+    
     @Override
     public String toString(){
-	return printableName;
+	return "["+(getChampion()!=null?"champion:"+getChampion():"")
+		+(getChampionRole()!=null?", role:"+getChampionRole():"")
+		+(", counter:"+getCounter())
+		+(getWinratePercentage()!=null?", winratePercentage:"+getWinratePercentage():"")
+		+(", matches:"+getMatches())
+		+(getLaneBonus()!=null?", laneBonus:"+getLaneBonus():"")
+		+(getCounterBonus()!=null?", counterBonus:"+getCounterBonus():"")
+		+(getTotalBonus()!=null?", totalBonus:"+getTotalBonus():"")
+		+"]";
+    }
+
+    public void calculateBonus(List<LaneCounter> laneCounters) {
+	log.trace("::calculateBonus(laneCounters) - Start: Calculating bonus for Counter: "+this);
+	try {
+	    LaneCounter matchingLaneCounter=null;
+	    
+	    if(laneCounters!=null) {
+	    log.debug("::calculateBonus(laneCounters): laneCounters is not null. Looking for lane counter");
+		for(LaneCounter laneCounter:laneCounters){
+		    if(laneCounter.getChampion().equals(this.getChampion()) && laneCounter.getChampionRole().equals(this.getChampionRole())
+			    && laneCounter.getChampion().equals(this.getCounter())){
+			log.debug("::calculateBonus(laneCounters): matching Lane Counter found:"+laneCounter);
+			matchingLaneCounter=laneCounter;
+			break;
+		    }
+		}
+	    }else{
+		log.warn("::calculateBonus(laneCounters): laneCounters is null!!");
+	    }
+	    
+	    if(matchingLaneCounter== null) log.debug("::calculateBonus(laneCounters): Lane Counter not found");
+	    
+	    setLaneBonus((Double) (matchingLaneCounter!=null?matchingLaneCounter.reCalculateBonus():0d));
+	    
+	    log.debug("::calculateBonus(laneCounters): Calculated Lane Bonus :"+getLaneBonus());
+	    
+	    
+	    Double avg=rank.getAvgNumOfCounterTypesMatches().doubleValue();
+	    
+	    if(matches<avg){
+		counterCertaintyModifier=matches/avg;
+	    }else{
+		Double x=matches-avg;
+		Double extra=Math.log(Math.pow(x+1,1/11.5));
+		counterCertaintyModifier=1+extra<.5?extra:.5;
+	    }
+	    
+	    log.debug("::calculateBonus(laneCounters): Obtained Certanty modifier:"+counterCertaintyModifier);
+	    
+	    log.debug("::calculateBonus(laneCounters): Calculating bonus : (50 - winrate%["+getWinratePercentage()+"] ) *10*( CertantyModifier["+counterCertaintyModifier+"]) ");
+	    setCounterBonus( -1d*( (50 - getWinratePercentage()) * 8.3 * counterCertaintyModifier) );
+	    log.debug("::calculateBonus(laneCounters): Obtained Counter bonus:"+counterBonus);
+	    setTotalBonus(getLaneBonus() + getCounterBonus());
+	    log.debug("::calculateBonus(laneCounters): Obtained Final Bonus: counterBonus["+counterBonus+"]+laneBonus["+laneBonus+"]="+totalBonus);
+	    
+	    log.trace("::calculateBonus(laneCounters) - Finish: ");
+	    
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
+	}
+    }
+
+    public CSVBeanCounter getCSVBeanCounter(){
+	return new CSVBeanCounter(patch.getId(),
+		rank.getPrintableName(),
+		champion.getName(), 
+		championRole.getName(), 
+		counter.getName(), 
+		counterRole.getName(), 
+		matches+"", 
+		winratePercentage+"", 
+		counterBonus+"", 
+		counterCertaintyModifier+"", 
+		laneBonus+"", 
+		totalBonus+"");
+    }
+    
+    public class CSVBeanCounter {
+
+	/**
+	 * @return the patch
+	 */
+	public String getPatch() {
+	    return patch;
+	}
+
+	/**
+	 * @param patch the patch to set
+	 */
+	public void setPatch(String patch) {
+	    this.patch = patch;
+	}
+
+	/**
+	 * @return the rank
+	 */
+	public String getRank() {
+	    return rank;
+	}
+
+	/**
+	 * @param rank the rank to set
+	 */
+	public void setRank(String rank) {
+	    this.rank = rank;
+	}
+    
+	
+	//<editor-fold defaultstate="collapsed" desc="Attributes">
+    	
+	private String patch;
+	private String rank;
+	private String champion;
+    	private String role;
+    	private String counter;
+    	private String counterRole;
+    	private String matches;
+    	private String winrate;
+    	private String counterBonus;
+    	private String certantyModifier;
+    	private String laneBonus;
+    	private String totalBonus;
+
+	//</editor-fold>
+    
+	public CSVBeanCounter(String patch, String rank,String champion,String role,String counter,String counterRole,String matches,String winrate,
+		String counterBonus,String certantyModifier,String laneBonus,String totalBonus) {
+	    log.trace("::CSVBeanCounter() - Start: ");
+	    notNullValidation(patch, 
+		    rank, 
+		    champion,
+		    role,
+		    counter,
+		    counterRole,
+		    matches,
+		    winrate,
+		    counterBonus,
+		    certantyModifier,
+		    laneBonus,
+		    totalBonus);
+	    try{
+		this.patch=patch;
+		this.rank=rank;
+		this.champion=champion;
+		this.role=role;
+		this.counter=counter;
+		this.counterRole=counterRole;
+		this.matches=matches;
+		this.winrate=winrate;
+		this.counterBonus=counterBonus;
+		this.certantyModifier=certantyModifier;
+		this.laneBonus=laneBonus;
+		this.totalBonus=totalBonus;
+		log.trace("::CSVBeanCounter() - Finish: ");
+	    } catch (Exception e) {
+		throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
+	    }
+	}
+	
+	//<editor-fold defaultstate="collapsed" desc="Setters&Getters">
+
+    
+	/**
+	 * @return the champion
+	 */
+	public String getChampion() {
+	    return champion;
+	}
+
+	/**
+	 * @param champion the champion to set
+	 */
+	public void setChampion(String champion) {
+	    this.champion = champion;
+	}
+
+	/**
+	 * @return the role
+	 */
+	public String getRole() {
+	    return role;
+	}
+
+	/**
+	 * @param role the role to set
+	 */
+	public void setRole(String role) {
+	    this.role = role;
+	}
+
+	/**
+	 * @return the counter
+	 */
+	public String getCounter() {
+	    return counter;
+	}
+
+	/**
+	 * @param counter the counter to set
+	 */
+	public void setCounter(String counter) {
+	    this.counter = counter;
+	}
+
+	/**
+	 * @return the counterRole
+	 */
+	public String getCounterRole() {
+	    return counterRole;
+	}
+
+	/**
+	 * @param counterRole the counterRole to set
+	 */
+	public void setCounterRole(String counterRole) {
+	    this.counterRole = counterRole;
+	}
+
+	/**
+	 * @return the matches
+	 */
+	public String getMatches() {
+	    return matches;
+	}
+
+	/**
+	 * @param matches the matches to set
+	 */
+	public void setMatches(String matches) {
+	    this.matches = matches;
+	}
+
+	/**
+	 * @return the winrate
+	 */
+	public String getWinrate() {
+	    return winrate;
+	}
+
+	/**
+	 * @param winrate the winrate to set
+	 */
+	public void setWinrate(String winrate) {
+	    this.winrate = winrate;
+	}
+
+	/**
+	 * @return the counterBonus
+	 */
+	public String getCounterBonus() {
+	    return counterBonus;
+	}
+
+	/**
+	 * @param counterBonus the counterBonus to set
+	 */
+	public void setCounterBonus(String counterBonus) {
+	    this.counterBonus = counterBonus;
+	}
+
+	/**
+	 * @return the certantyModifier
+	 */
+	public String getCertantyModifier() {
+	    return certantyModifier;
+	}
+
+	/**
+	 * @param certantyModifier the certantyModifier to set
+	 */
+	public void setCertantyModifier(String certantyModifier) {
+	    this.certantyModifier = certantyModifier;
+	}
+
+	/**
+	 * @return the laneBonus
+	 */
+	public String getLaneBonus() {
+	    return laneBonus;
+	}
+
+	/**
+	 * @param laneBonus the laneBonus to set
+	 */
+	public void setLaneBonus(String laneBonus) {
+	    this.laneBonus = laneBonus;
+	}
+
+	/**
+	 * @return the totalBonus
+	 */
+	public String getTotalBonus() {
+	    return totalBonus;
+	}
+
+	/**
+	 * @param totalBonus the totalBonus to set
+	 */
+	public void setTotalBonus(String totalBonus) {
+	    this.totalBonus = totalBonus;
+	}
+	//</editor-fold>
     }
 }

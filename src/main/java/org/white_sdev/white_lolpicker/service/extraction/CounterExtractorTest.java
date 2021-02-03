@@ -1,6 +1,6 @@
 /*
- *  Filename:  LaneCounter.java
- *  Creation Date:  Dec 7, 2020
+ *  Filename:  CounterExtractirTest.java
+ *  Creation Date:  Feb 3, 2021
  *  Purpose:   
  *  Author:    Obed Vazquez
  *  E-mail:    obed.vazquez@gmail.com
@@ -119,86 +119,96 @@
  *  Creative Commons may be contacted at creativecommons.org.
  */
 
-package org.white_sdev.white_lolpicker.model.bean;
+package org.white_sdev.white_lolpicker.service.extraction;
 
+import java.text.DecimalFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
+import org.openqa.selenium.WebDriver;
+import static org.white_sdev.propertiesmanager.model.service.PropertyProvider.getProperty;
+import org.white_sdev.white_lolpicker.model.bean.CounterSearch;
+import org.white_sdev.white_lolpicker.model.persistence.Champion;
+import org.white_sdev.white_lolpicker.model.persistence.Patch;
+import org.white_sdev.white_lolpicker.model.persistence.UggRank;
+import org.white_sdev.white_lolpicker.service.ChampionExtractor;
 import org.white_sdev.white_lolpicker.service.CounterExtractor;
-//import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
+import static org.white_sdev.white_lolpicker.service.CounterExtractor.counters;
+import static org.white_sdev.white_lolpicker.service.CounterExtractor.laneCounters;
+import static org.white_sdev.white_lolpicker.service.CounterExtractor.loadChampionCounters;
+import org.white_sdev.white_lolpicker.service.PatchExtractor;
+import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
 
 /**
  * 
  * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
- * @since Dec 7, 2020
+ * @since Feb 3, 2021
  */
 @Slf4j
-public class LaneCounter {
+public class CounterExtractorTest {
     
-    public Patch patch;
-    public UggRank rank;
-    public Champion champion;
-    public Role championRole;
-    public Champion counter;
-    public Role counterRole;
-    public Integer gold;
-    public Integer matches;
-    public Double bonus;
     
-    public LaneCounter(){}
-    /**
-     * Class Constructor.{Requirement_Reference}
-     * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
-     * @param patch
-     * @param rank
-     * @param champion
-     * @param championRole
-     * @param counter
-     * @param gold
-     * @param matches
-     * @since Dec 7, 2020
-     * @throws IllegalArgumentException - if the argument provided is null.
-     */
-    public LaneCounter(Patch patch,UggRank rank, Champion champion,Role championRole,Champion counter,Integer gold,Integer matches) {
-	log.trace("::LaneCounter() - Start: ");
-	//notNullValidation(parameter,"Impossible to create the object. The parameter can't be null.");
-	try{
+    public static void loadAllCounters(WebDriver driver) {
+	log.trace("::loadCounters(driver) - Start: ");
+	notNullValidation(driver);
+	try {
 	    
-	    this.patch=patch;
-	    this.rank=rank;
-	    this.champion=champion;
-	    this.championRole=championRole;
-	    this.counter=counter;
-	    this.gold=gold;
-	    this.matches=matches;
-	    
-	    this.counterRole=championRole;
+            ArrayList<Patch> patchesToExtract=PatchExtractor.getPatches(driver);
+            List<UggRank> ranks=Boolean.parseBoolean(getProperty("counters.lower-ranks-only"))?UggRank.lowerRanks:UggRank.everyRank;
 	    
 	    
-            patch.add(this);
-	    rank.laneCounters.add(this);
-	    champion.laneCounters.add(this);
-	    counter.laneCounterOfChampions.add(this);
-
-	    log.trace("::LaneCounter() - Finish: ");
+	    Integer patchCounter=0,rankCounter=0,champCounter=0;
+	    Double patchStatus=0d, rankStatus=0d, champStatus=0d;
+	    log.info("::loadCounters(driver): Starting Counter Extraction Process at "+java.time.LocalDateTime.now().format(DateTimeFormatter.ISO_TIME));
+	    DecimalFormat twoDecimalsFormat=new DecimalFormat("#.##");
+	    List<Champion> champions=ChampionExtractor.champs;
+	    if(champions == null || champions.size()<1) throw new RuntimeException("Champions have not been loaded. Please first load the champions then call this method. "
+		    + "You can use ChampionExctractor to load all champions from U.GG");
+	    
+//	    for(int i=0;i<champions.size();i++){
+	    for(int i=0;i<2;i++){
+		Champion champ=champions.get(i);
+		log.info("::loadCounters(driver): Extracting Champion Counters: "+champ);
+		for(UggRank rank:ranks){
+		    log.info("::loadCounters(driver): Extracting U.GG Rank: "+rank.getPrintableName());
+		    for(Patch patch:patchesToExtract){
+			loadChampionCounters(new CounterSearch(patch,rank,champ,driver));
+			
+			++patchCounter;
+			patchStatus=patchCounter*100d/champions.size()/ranks.size()/patchesToExtract.size();
+			log.info("::loadCounters(driver): Extraction Process Status: "+twoDecimalsFormat.format(champStatus+rankStatus+patchStatus)+"%");
+			
+		    }patchCounter=0;
+		    rank.calculateAvgNumOfMatches();
+		    
+		    ++rankCounter;
+		    rankStatus=rankCounter*100d/champions.size()/ranks.size();
+		    log.info("::loadCounters(driver): Extraction Process Status: "+twoDecimalsFormat.format(champStatus+rankStatus)+"%");
+		    
+		}rankCounter=0;
+                
+		
+		++champCounter;
+		champStatus=((champCounter*100d)/champions.size());
+		log.info("::loadCounters(driver): Extraction Process Status: "+twoDecimalsFormat.format(champStatus)+"%");
+            }
+	    
+	    
+	    log.info("::loadCounters(driver): Calculating Counter Bonus at "+java.time.LocalDateTime.now().format(DateTimeFormatter.ISO_TIME));
+	    counters.forEach((counter) -> {
+		counter.calculateBonus(laneCounters);
+	    });
+	    
+	    CounterExtractor.extractedPatches=patchesToExtract;
+	    
+	    log.info("::loadCounters(driver): Counter Extraction Process Finished at "+java.time.LocalDateTime.now());
+	    
+	    
+	    log.trace("::loadCounters(driver) - Finish: ");
 	} catch (Exception e) {
-            throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
-        }
-    }
-    
-    public Double reCalculateBonus(){
-	Double laneCounterCertaintyModifier=  matches/  (rank.getAvgNumOfCounterTypesMatches()/.5) ;
-	bonus=gold/20d*laneCounterCertaintyModifier;
-	return bonus;
-    }
-    
-    @Override
-    public String toString(){
-	return "["+(champion!=null?"champion:"+champion:"")
-		+(championRole!=null?", role:"+championRole:"")
-		+(", counter:"+counter)
-		+(gold!=null?", gold:"+gold:"")
-		+(", matches:"+matches)
-		+(bonus!=null?", bonus:"+bonus:"")
-		+"]";
+	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
+	}
     }
 
 }

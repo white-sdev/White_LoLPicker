@@ -127,10 +127,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.white_sdev.white_lolpicker.model.bean.Champion;
+import org.white_sdev.white_lolpicker.model.persistence.Champion;
 import org.white_sdev.white_seleniumframework.framework.WebDriverUtils;
 import static org.white_sdev.propertiesmanager.model.service.PropertyProvider.*;
-
+import static org.white_sdev.white_validations.parameters.ParameterValidator.msg;
 import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
 
 /**
@@ -145,7 +145,7 @@ public class ChampionExtractor {
 
     public static ArrayList<Champion> getChampions(WebDriver driver) {
 	log.trace("::getChampoions(parameter) - Start: ");
-	notNullValidation(driver, "The driver can't be null.");
+	notNullValidation(msg("The driver can't be null."),driver);
 	try {
 	    
 	    WebDriverUtils util = new WebDriverUtils(driver);

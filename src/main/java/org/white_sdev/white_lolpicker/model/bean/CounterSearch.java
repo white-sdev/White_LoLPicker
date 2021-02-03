@@ -121,9 +121,12 @@
 
 package org.white_sdev.white_lolpicker.model.bean;
 
+import org.white_sdev.white_lolpicker.model.persistence.UggRank;
 import lombok.extern.slf4j.Slf4j;
 
 import org.openqa.selenium.WebDriver;
+import org.white_sdev.white_lolpicker.model.persistence.Champion;
+import org.white_sdev.white_lolpicker.model.persistence.Patch;
 import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
 
 /**
@@ -151,7 +154,7 @@ public class CounterSearch {
      */
     public CounterSearch(Patch patch,UggRank rank,Champion champ,WebDriver driver) {
 	log.trace("::CounterSearch(patch,rank,champ,driver) - Start: ");
-	notNullValidation(new Object[]{patch,rank,champ,driver},"Impossible to create the object. The parameter can't be null.");
+	notNullValidation(patch,rank,champ,driver);
 	try{
 	    
 	    
@@ -165,6 +168,11 @@ public class CounterSearch {
 	} catch (Exception e) {
             throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
         }
+    }
+    
+    @Override
+    public String toString(){
+	return "{[patch:"+patch+"],[rank:"+rank+"],[champ:"+champ+"]}";
     }
     
 }

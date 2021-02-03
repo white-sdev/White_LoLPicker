@@ -1,6 +1,6 @@
 /*
- *  Filename:  Tier.java
- *  Creation Date:  Dec 7, 2020
+ *  Filename:  UggRank.java
+ *  Creation Date:  Jan 17, 2021
  *  Purpose:   
  *  Author:    Obed Vazquez
  *  E-mail:    obed.vazquez@gmail.com
@@ -119,18 +119,206 @@
  *  Creative Commons may be contacted at creativecommons.org.
  */
 
-package org.white_sdev.white_lolpicker.model.bean;
+package org.white_sdev.white_lolpicker.model.persistence;
 
-//import lombok.extern.slf4j.Slf4j;
-//import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
+import static org.white_sdev.propertiesmanager.model.service.PropertyProvider.getProperty;
 
 /**
  * 
  * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
- * @since Dec 7, 2020
+ * @since Jan 17, 2021
  */
-//@Slf4j
-public enum Tier {
+@Slf4j
+@Entity
+@Data
+public class UggRank implements Persistable{
+    public static UggRank iron=new UggRank("Iron","iron",12),
+	    bronze=new UggRank("Bronze","bronze",11),
+	    silver=new UggRank("Silver","silver",10),
+	    gold=new UggRank("Gold","gold",9),
+	    platinum=new UggRank("Platinum","platinum",8),
+	    platinumPlus=new UggRank("Platinum +","platinum_plus",0),
+	    diamond=new UggRank("Diamond","diamond",7),
+	    diamondPlus=new UggRank("Diamond +","diamond_plus",1),
+	    master=new UggRank("Master","master",6),
+	    masterPlus=new UggRank("Master +","master_plus",2),
+	    grandMaster=new UggRank("Grand Master","grandmaster",5),
+	    challenger=new UggRank("Challenger","challenger",4),
+	    allRanks=new UggRank("All Ranks","overall",3);//TODO Get them from Database
     
-    Splu,S,A,B,C;
+    
+    /**
+     * All the lower ranks that the app supports. 
+     * The app ignores higher ranks due to its usefulness at that level.
+     * 
+     * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
+     * @since 2021-01-17
+     */
+    public static ArrayList<UggRank> lowerRanks=new ArrayList<>(){{
+		//add(iron); //it has to low match counts
+		add(bronze);
+		add(silver);
+		add(gold);
+		add(platinum);
+	    }}; //TODO GET Them from DB
+    
+    /**
+     * All the lower ranks that the app supports. 
+     * The app ignores higher ranks due to its usefulness at that level.
+     * 
+     * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
+     * @since 2021-01-17
+     */
+    public static ArrayList<UggRank> everyRank=new ArrayList<>(){{
+		add(iron);
+		add(bronze);
+		add(silver);
+		add(gold);
+		add(platinum);
+		add(platinumPlus);
+		add(diamond);
+		add(diamondPlus);
+		add(master);
+		add(masterPlus);
+		add(grandMaster);
+		add(challenger);
+		add(allRanks);
+	    }}; //TODO GET Them from DB
+    
+    //<editor-fold defaultstate="collapsed" desc="Attributes">
+    
+    @Id
+    @GeneratedValue
+    private Long id;
+    
+    @Column
+    private String printableName;
+    
+    @Column
+    private String uggName;
+    
+    @Column
+    private Integer uGGOrder;
+    
+    
+    @OneToMany(mappedBy = "rank", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<Counter> counters= new ArrayList<>();
+    
+    @OneToMany(mappedBy = "rank", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<LaneCounter> laneCounters= new ArrayList<>();
+    
+    @Column
+    private Long avgNumOfCounterMatches;
+    
+    @Column
+    private String tierListURL;
+    
+    @OneToMany(mappedBy = "rank", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private Set<ChampionTierRank> rankings=new HashSet<>();
+    
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Constructors">
+
+    public UggRank(String printableName,String uggName,Integer uGGOrder){
+	this.printableName=printableName;
+	this.uggName=uggName;
+	this.uGGOrder=uGGOrder;
+	this.tierListURL="http://u.gg/lol/tier-list?rank="+uggName;
+    }
+    
+    /**
+     * Required no-Arguments Constructor by 
+     * <a href="https://docs.jboss.org/hibernate/core/3.5/reference/en/html/persistent-classes.html#persistent-classes-pojo-constructor">Hibernate</a>.
+     * 
+     * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
+     * @since 2021-02-02
+     */
+    public UggRank() { }
+    
+    //</editor-fold>
+    
+    public void calculateAvgNumOfMatches() {
+	log.trace("::calculateAvgNumOfMatches() - Start: ");
+	
+	try {
+	    
+	    if(avgNumOfCounterMatches==null){
+		Double addition=0d;
+		Integer matches;
+		Integer cont=0;
+		Integer minNumOfMatchesToCount=Integer.parseInt(getProperty("ignore-match-count-when-lower-than"));
+		for(Counter counter:counters){
+		    matches=counter.getMatches();
+		    if(matches>minNumOfMatchesToCount){
+			addition+=counter.getMatches();
+			cont++;
+		    }
+		}
+		for(LaneCounter lCounter:laneCounters){
+		    matches=lCounter.getMatches();
+		    if(matches>minNumOfMatchesToCount){
+			addition+=lCounter.getMatches();
+			cont++;
+		    }
+		}
+		avgNumOfCounterMatches=Math.round(addition/cont);
+		log.info("::getCounterMatchAverage(): counter number of Matches Average: "+avgNumOfCounterMatches);
+	    }
+	    
+	    log.trace("::calculateAvgNumOfMatches() - Finish: ");
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
+	}
+    }
+    
+    /**
+     * Obtains the avg number of matches that all counter have registered in this rank with this patch.  ;
+     * Ignoring the lower elements that will fall under the lower limit specified in config files.
+     * Old Description: Obtains the average number of matches that ALL {@link #counters} have.	 
+     * This will use the property "ignore-match-count-when-lower-than" and 
+     * ignore those quantities under that number when calculating the average.
+     * 
+     * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
+     * @since 2021-01-17
+     * @return returned {@link Long}  value as the result of the operation.
+     * @throws IllegalArgumentException - if the provided parameter is null.
+     */
+    public Long getAvgNumOfCounterTypesMatches() {
+	log.trace("::getAvgNumOfMatches() - Start: ");
+	try{
+	    
+	    if(avgNumOfCounterMatches==null || avgNumOfCounterMatches==0) calculateAvgNumOfMatches();
+	    log.trace("::getAvgNumOfMatches() - Finish: ");
+	    return avgNumOfCounterMatches;
+
+	} catch (Exception e) {
+            throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
+        }
+    }
+    
+    
+    public void add(ChampionTierRank ranking){
+        if(rankings==null) rankings=new HashSet<>();
+        rankings.add(ranking);
+    }
+    
+    
+    @Override
+    public String toString(){
+	return printableName;
+    }
 }

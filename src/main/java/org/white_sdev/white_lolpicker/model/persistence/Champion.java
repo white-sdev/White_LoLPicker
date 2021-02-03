@@ -1,6 +1,6 @@
 /*
- *  Filename:  Patch.java
- *  Creation Date:  Dec 22, 2020
+ *  Filename:  Champion.java
+ *  Creation Date:  Dec 7, 2020
  *  Purpose:   
  *  Author:    Obed Vazquez
  *  E-mail:    obed.vazquez@gmail.com
@@ -119,96 +119,100 @@
  *  Creative Commons may be contacted at creativecommons.org.
  */
 
-package org.white_sdev.white_lolpicker.model.bean;
+package org.white_sdev.white_lolpicker.model.persistence;
 
 import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
 
 /**
- * Structure:
- *  Patches[
- *	Counters[
- *	    Champions[]
- *	    Ranks[]
- *	]
- *	LaneCounters[
- *	    Champions[]
- *	    Ranks[]
- *	]
- *  ]
+ * 
  * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
- * @since Dec 22, 2020
+ * @since Dec 7, 2020
  */
 @Slf4j
-public class Patch {
-    private String id;
-    private ArrayList<Counter> counters=new ArrayList<>();
-    private ArrayList<LaneCounter> laneCounters=new ArrayList<>();
+@Entity
+@Data
+public class Champion implements Persistable{
     
-    public Patch(String id){
-        this.id=id;
-    }
+    //<editor-fold defaultstate="collapsed" desc="Attributes">
 
+    @Id
+    @GeneratedValue
+    private Long id;
+    
+    @Column
+    private String name;
+    @OneToMany(mappedBy = "champion", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private ArrayList<Counter> counters= new ArrayList<>();
+    
+    @OneToMany(mappedBy = "counter", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private ArrayList<Counter> counterOfChampions= new ArrayList<>();
+    
+    @OneToMany(mappedBy = "champion", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private ArrayList<LaneCounter> laneCounterChampions= new ArrayList<>();
+    
+    @OneToMany(mappedBy = "counter", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private ArrayList<LaneCounter> laneCounterCounters= new ArrayList<>();
+    
+	//<editor-fold defaultstate="collapsed" desc="Useless">
+     @OneToMany(mappedBy = "champ", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private ArrayList<ChampionTierRank> shampionTierRanks= new ArrayList<>();
+    //</editor-fold>
+	
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Constructors">
+
+    /**
+     * Class Constructor.{Requirement_Reference}
+     * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
+     * @param name
+     * @since Dec 7, 2020
+     * @throws IllegalArgumentException - if the argument provided is null.
+     */
+    public Champion(String name) {
+	log.trace("::Champion() - Start: ");
+	notNullValidation(name);
+	try{
+	    
+	    
+	    this.name=name;
+	    
+
+	    log.trace("::Champion() - Finish: ");
+	} catch (Exception e) {
+            throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
+        }
+    }
+    
+    /**
+     * Required no-Arguments Constructor by 
+     * <a href="https://docs.jboss.org/hibernate/core/3.5/reference/en/html/persistent-classes.html#persistent-classes-pojo-constructor">Hibernate</a>.
+     * 
+     * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
+     * @since 2021-02-02
+     */
+    protected Champion() { }
+    
+    //</editor-fold>
+    
     @Override
     public String toString(){
-        return getId();
+	return getName();
+    }
+
+    
+    public String getUggURLName() {
+	return name!=null?(name.contains("Nunu")?"nunu":name).toLowerCase().replace("'", ""):name;
     }
     
-    /**
-     * @return the id
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
-    
-    public void add(Counter counter){
-        if(getCounters()==null) setCounters(new ArrayList<>());
-        getCounters().add(counter);
-    }
-    
-    public void add(LaneCounter counter){
-        if(getCounters()==null) setLaneCounters(new ArrayList<>());
-        getLaneCounters().add(counter);
-    }
-    
-    public String getIdURLFormatted(){
-        return id.replace(".", "_");
-    }
-
-    /**
-     * @return the counters
-     */
-    public ArrayList<Counter> getCounters() {
-        return counters;
-    }
-
-    /**
-     * @param counters the counters to set
-     */
-    public void setCounters(ArrayList<Counter> counters) {
-        this.counters = counters;
-    }
-
-    /**
-     * @return the laneCounters
-     */
-    public ArrayList<LaneCounter> getLaneCounters() {
-        return laneCounters;
-    }
-
-    /**
-     * @param laneCounters the laneCounters to set
-     */
-    public void setLaneCounters(List<LaneCounter> laneCounters) {
-        this.laneCounters = new ArrayList<>(laneCounters);
-    }
-
 }

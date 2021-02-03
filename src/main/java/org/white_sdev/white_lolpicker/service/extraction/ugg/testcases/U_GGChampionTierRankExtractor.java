@@ -121,15 +121,14 @@
 
 package org.white_sdev.white_lolpicker.service.extraction.ugg.testcases;
 
-import java.util.List;
 import lombok.extern.slf4j.Slf4j;
-import org.openqa.selenium.WebDriver;
 import static org.white_sdev.propertiesmanager.model.service.PropertyProvider.getProperty;
-import org.white_sdev.white_lolpicker.model.bean.ChampionTierRank;
 import org.white_sdev.white_lolpicker.service.CSVGenerator;
 import org.white_sdev.white_lolpicker.service.ChampionExtractor;
 import org.white_sdev.white_lolpicker.service.ChampionTierRankExtractor;
 import org.white_sdev.white_seleniumframework.framework.TestCase;
+import org.white_sdev.white_seleniumframework.framework.WebDriverUtils;
+import static org.white_sdev.white_validations.parameters.ParameterValidator.msg;
 import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
 
 /**
@@ -144,14 +143,14 @@ public class U_GGChampionTierRankExtractor implements TestCase{
     Boolean quitOnFish=true;
     
     @Override
-    public void test(WebDriver driver) throws Exception {
+    public void test(WebDriverUtils util) throws Exception {
 	log.trace("::test(parameter) - Start: ");
-	notNullValidation(driver, "The driver can't be null.");
+	notNullValidation(msg("The driver can't be null."),util);
 	try {
 	    
-	    ChampionExtractor.getChampions(driver);
-	    List<ChampionTierRank> tierRanks=ChampionTierRankExtractor.getChampionTierRanks(driver);
-	    CSVGenerator.generateCSV(tierRanks,getProperty("tiers-filename"));
+	    ChampionExtractor.getChampions(util.driver);
+	    ChampionTierRankExtractor.loadChampionTierRanks(util.driver);
+	    CSVGenerator.generateCSV(ChampionTierRankExtractor.allTiersRanks,getProperty("tiers-filename"));
 	    
 	    log.trace("::test(parameter) - Finish: ");
 	    
@@ -171,30 +170,6 @@ public class U_GGChampionTierRankExtractor implements TestCase{
 	}
     }
 
-    @Override
-    public void setQuitOnFinish(Boolean shouldQuitOnFish) {
-	log.trace("::setQuitOnFinish(parameter) - Start: ");
-	notNullValidation(shouldQuitOnFish, "the parameter shouldQuitOnFinish dhould be indicated.");
-	try {
-	    quitOnFish=shouldQuitOnFish;
-	    log.trace("::setQuitOnFinish(parameter) - Finish: ");
-	} catch (Exception e) {
-	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
-	}
-    }
-
-    @Override
-    public Boolean getQuitOnFinish() {
-	log.trace("::getQuitOnFinish(parameter) - Start: ");
-	try {
-	    
-	    log.trace("::getQuitOnFinish(parameter) - Finish: ");
-	    return quitOnFish;
-	} catch (Exception e) {
-	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
-	}
-    }
-    
     //</editor-fold>
     
 }

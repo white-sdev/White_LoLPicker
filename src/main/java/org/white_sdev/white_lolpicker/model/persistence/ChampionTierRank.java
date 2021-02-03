@@ -118,179 +118,318 @@
  *  
  *  Creative Commons may be contacted at creativecommons.org.
  */
+package org.white_sdev.white_lolpicker.model.persistence;
 
-package org.white_sdev.white_lolpicker.model.bean;
-
+import com.opencsv.bean.CsvBindByPosition;
+import java.util.ArrayList;
+import java.util.Collection;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import static org.white_sdev.white_validations.parameters.ParameterValidator.msg;
 import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
 
 /**
- * 
+ *
  * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
  * @since Dec 7, 2020
  */
 @Slf4j
-public class ChampionTierRank {
+@Entity
+@Data
+public class ChampionTierRank implements Persistable{
     
-    private Integer rank;
+    //<editor-fold defaultstate="collapsed" desc="Attributes">
+
+    @Id
+    @GeneratedValue
+    private Long id;
+    
+    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private Patch patch;
+    
+    @Column
+    private Integer ranking;
+    
+    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.PERSIST)
     private Role role;
+    
+    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private UggRank rank;
+    
+    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.PERSIST)
     private Champion champ;
+    
+    @Column
+    @Enumerated(EnumType.ORDINAL) 
     private Tier tier;
+    
+    @Column
     private Double winRate;
+    
+    @Column
     private Double pickRate;
+    
+    @Column
     private Double banRate;
+    
+    @Column
     private Integer matches;
-    
-    
-    /**
-     * Class Constructor.{Requirement_Reference}
-     * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
-     * @param rank
-     * @param champ
-     * @param winRate
-     * @since Dec 7, 2020
-     * @throws IllegalArgumentException - if the argument provided is null.
-     */
-    public ChampionTierRank(Integer rank,Champion champ,Role role,Double winRate) {
-	notNullValidation(new Object[]{},"Champion, Rank and Winrate must be provided to generate a Champion Tier rank for a Champion");
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Constructors">
+
+    public ChampionTierRank(Integer ranking, Champion champ, Role role, Double winRate, Patch patch,Integer matches,UggRank rank) {
+	notNullValidation(msg("Champion, Rank, Role and Winrate must be provided to generate a Champion Tier rank for a Champion"), ranking, champ, role, winRate,matches,rank);
 	log.trace("::ChampionTierRank() - Start: ");
 	//notNullValidation(parameter,"Impossible to create the object. The parameter can't be null.");
-	try{
+	try {
+	    this.ranking = ranking;
+	    this.champ = champ;
+	    this.role = role;
+	    this.winRate = winRate;
+	    this.patch = patch;
+	    this.matches = matches;
 	    this.rank=rank;
-	    this.champ=champ;
-	    this.role=role;
-	    this.winRate=winRate;
-	    
+	    rank.add(this);
 
 	    log.trace("::ChampionTierRank() - Finish: ");
 	} catch (Exception e) {
-            throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
-        }
+	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
+	}
     }
+
+    /**
+     * Required no-Arguments Constructor by 
+     * <a href="https://docs.jboss.org/hibernate/core/3.5/reference/en/html/persistent-classes.html#persistent-classes-pojo-constructor">Hibernate</a>.
+     * 
+     * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
+     * @since 2021-02-02
+     */
+    protected ChampionTierRank() { }
+    
+    //</editor-fold>
     
     @Override
-    public String toString(){
-	return "["+(getRank()!=null?"rank:"+getRank():"")
-		+(getRole()!=null?", role:"+getRole():"")
-		+(", champ:"+getChamp())
-		+(getTier()!=null?", tier:"+getTier():"")
-		+(", winRate:"+getWinRate())
-		+(getPickRate()!=null?", pickRate:"+getPickRate():"")
-		+(getBanRate()!=null?", banRate:"+getBanRate():"")
-		+(getMatches()!=null?", matches:"+getMatches():"")
-		+"]";
+    public String toString() {
+	return "[" + (getRank() != null ? "rank:" + getRank() : "")
+		+ (getRole() != null ? ", role:" + getRole() : "")
+		+ (", champ:" + getChamp())
+		+ (getTier() != null ? ", tier:" + getTier() : "")
+		+ (", winRate:" + getWinRate())
+		+ (getPickRate() != null ? ", pickRate:" + getPickRate() : "")
+		+ (getBanRate() != null ? ", banRate:" + getBanRate() : "")
+		+ (getMatches() != null ? ", matches:" + getMatches() : "")
+		+ "]";
     }
 
-    /**
-     * @return the rank
-     */
-    public Integer getRank() {
-	return rank;
+    public static ArrayList<CSVBeanTierRank> getCSVBeanTierRanks(Collection<ChampionTierRank> tierRanks ){
+	
+	if(tierRanks==null) return null;
+	ArrayList<CSVBeanTierRank> csvBeanTierRanks=new ArrayList<>();
+	tierRanks.forEach((tierRank)->{  csvBeanTierRanks.add(tierRank.getCSVBeanTierRank()); });
+	return csvBeanTierRanks;
+    }
+    
+    public CSVBeanTierRank getCSVBeanTierRank() {
+	return new CSVBeanTierRank(getRanking() + "",
+		role.getName(),
+		champ.getName(),
+		tier.name(),
+		winRate + "",
+		pickRate + "",
+		banRate + "",
+		matches + "",
+		getPatch().getId());
     }
 
-    /**
-     * @param rank the rank to set
-     */
-    public void setRank(Integer rank) {
-	this.rank = rank;
-    }
+    public class CSVBeanTierRank {
 
-    /**
-     * @return the role
-     */
-    public Role getRole() {
-	return role;
-    }
+	//<editor-fold defaultstate="collapsed" desc="Attributes">
+	@CsvBindByPosition(position = 0)
+	private String rank;
+	@CsvBindByPosition(position = 1)
+	private String role;
+	@CsvBindByPosition(position = 2)
+	private String champ;
+	@CsvBindByPosition(position = 3)
+	private String tier;
+	@CsvBindByPosition(position = 4)
+	private String winRate;
+	@CsvBindByPosition(position = 5)
+	private String pickRate;
+	private String banRate;
+	@CsvBindByPosition(position = 6)
+	private String matches;
+	@CsvBindByPosition(position = 7)
+	private String patch;
 
-    /**
-     * @param role the role to set
-     */
-    public void setRole(Role role) {
-	this.role = role;
-    }
+	//</editor-fold>
+	public CSVBeanTierRank(String rank, String role, String champ, String tier, String winRate, String pickRate,
+		String banRate, String matches, String patch) {
+	    log.trace("::CSVBeanCounter() - Start: ");
+	    notNullValidation(rank,
+		    role,
+		    champ,
+		    tier,
+		    winRate,
+		    pickRate,
+		    banRate,
+		    matches,
+		    patch);
+	    try {
+		this.rank = rank;
+		this.role = role;
+		this.champ = champ;
+		this.tier = tier;
+		this.winRate = winRate;
+		this.pickRate = pickRate;
+		this.banRate = banRate;
+		this.matches = matches;
+		this.patch = patch;
+		log.trace("::CSVBeanCounter() - Finish: ");
+	    } catch (Exception e) {
+		throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
+	    }
+	}
 
-    /**
-     * @return the champ
-     */
-    public Champion getChamp() {
-	return champ;
-    }
+	//<editor-fold defaultstate="collapsed" desc="Getters & Setters">
+	/**
+	 * @return the ranking
+	 */
+	public String getRank() {
+	    return rank;
+	}
 
-    /**
-     * @param champ the champ to set
-     */
-    public void setChamp(Champion champ) {
-	this.champ = champ;
-    }
+	/**
+	 * @param rank the ranking to set
+	 */
+	public void setRank(String rank) {
+	    this.rank = rank;
+	}
 
-    /**
-     * @return the tier
-     */
-    public Tier getTier() {
-	return tier;
-    }
+	/**
+	 * @return the role
+	 */
+	public String getRole() {
+	    return role;
+	}
 
-    /**
-     * @param tier the tier to set
-     */
-    public void setTier(Tier tier) {
-	this.tier = tier;
-    }
+	/**
+	 * @param role the role to set
+	 */
+	public void setRole(String role) {
+	    this.role = role;
+	}
 
-    /**
-     * @return the winRate
-     */
-    public Double getWinRate() {
-	return winRate;
-    }
+	/**
+	 * @return the champ
+	 */
+	public String getChamp() {
+	    return champ;
+	}
 
-    /**
-     * @param winRate the winRate to set
-     */
-    public void setWinRate(Double winRate) {
-	this.winRate = winRate;
-    }
+	/**
+	 * @param champ the champ to set
+	 */
+	public void setChamp(String champ) {
+	    this.champ = champ;
+	}
 
-    /**
-     * @return the pickRate
-     */
-    public Double getPickRate() {
-	return pickRate;
-    }
+	/**
+	 * @return the tier
+	 */
+	public String getTier() {
+	    return tier;
+	}
 
-    /**
-     * @param pickRate the pickRate to set
-     */
-    public void setPickRate(Double pickRate) {
-	this.pickRate = pickRate;
-    }
+	/**
+	 * @param tier the tier to set
+	 */
+	public void setTier(String tier) {
+	    this.tier = tier;
+	}
 
-    /**
-     * @return the banRate
-     */
-    public Double getBanRate() {
-	return banRate;
-    }
+	/**
+	 * @return the winRate
+	 */
+	public String getWinRate() {
+	    return winRate;
+	}
 
-    /**
-     * @param banRate the banRate to set
-     */
-    public void setBanRate(Double banRate) {
-	this.banRate = banRate;
-    }
+	/**
+	 * @param winRate the winRate to set
+	 */
+	public void setWinRate(String winRate) {
+	    this.winRate = winRate;
+	}
 
-    /**
-     * @return the matches
-     */
-    public Integer getMatches() {
-	return matches;
-    }
+	/**
+	 * @return the pickRate
+	 */
+	public String getPickRate() {
+	    return pickRate;
+	}
 
-    /**
-     * @param matches the matches to set
-     */
-    public void setMatches(Integer matches) {
-	this.matches = matches;
+	/**
+	 * @param pickRate the pickRate to set
+	 */
+	public void setPickRate(String pickRate) {
+	    this.pickRate = pickRate;
+	}
+
+	/**
+	 * @return the banRate
+	 */
+	public String getBanRate() {
+	    return banRate;
+	}
+
+	/**
+	 * @param banRate the banRate to set
+	 */
+	public void setBanRate(String banRate) {
+	    this.banRate = banRate;
+	}
+
+	/**
+	 * @return the matches
+	 */
+	public String getMatches() {
+	    return matches;
+	}
+
+	/**
+	 * @param matches the matches to set
+	 */
+	public void setMatches(String matches) {
+	    this.matches = matches;
+	}
+
+	/**
+	 * @return the patch
+	 */
+	public String getPatch() {
+	    return patch;
+	}
+
+	/**
+	 * @param patch the patch to set
+	 */
+	public void setPatch(String patch) {
+	    this.patch = patch;
+	}
+
+	//</editor-fold>
     }
     
 }

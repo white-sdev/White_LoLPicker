@@ -127,9 +127,10 @@ import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 import static org.white_sdev.propertiesmanager.model.service.PropertyProvider.getProperty;
-import org.white_sdev.white_lolpicker.model.bean.Patch;
+import org.white_sdev.white_lolpicker.model.persistence.Patch;
 import org.white_sdev.white_seleniumframework.framework.TestCase;
 import org.white_sdev.white_seleniumframework.framework.WebDriverUtils;
+import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
 
 /**
  * 
@@ -139,34 +140,56 @@ import org.white_sdev.white_seleniumframework.framework.WebDriverUtils;
 @Slf4j
 public class PatchExtractor implements TestCase{
     
-    private Boolean quitOnFinish=true;
+    public static ArrayList<Patch> patches=null;
     
     public static ArrayList<Patch> getPatches(WebDriver driver) {
         try{
-            Integer patchesToExtract=Integer.parseInt(getProperty("patches-to-extract"));
-            driver.get(getProperty("ugg.tiers"));
-            WebDriverUtils util = new WebDriverUtils(driver);
-            String patchId=util.textFromXpath(
-                    "//div[contains(@class,\"default-select__control default-select__control--is-disabled css-0\")]"
-                            + "//span[contains(@class,\"Select-value-label\")]");
-            util.clickXpath("//div[contains(@class,\"default-select filter-select patch css-0\")]");
-            String text=util.textFromXpath("//div[contains(@class,\"default-select__menu\")]");
-            
-            List<String> strPatches=new ArrayList<>(Arrays.asList(text.split("\n")));
-            List<String> boundedStrPatches=strPatches.subList(0, patchesToExtract);
-            ArrayList<Patch> patches=new ArrayList<>();
-            for (String strPatch:boundedStrPatches) {
-                patches.add(new Patch(strPatch));
-            }
+	    if (patches==null){
+		Integer patchesToExtract=Integer.parseInt(getProperty("patches-to-extract"));
+		driver.get(getProperty("ugg.tiers"));
+		WebDriverUtils util = new WebDriverUtils(driver);
+		String patchId=util.textFromXpath(
+			"//div[contains(@class,\"default-select__control default-select__control--is-disabled css-0\")]"
+				+ "//span[contains(@class,\"Select-value-label\")]");
+		util.clickXpath("//div[contains(@class,\"default-select filter-select patch css-0\")]");
+		String text=util.textFromXpath("//div[contains(@class,\"default-select__menu\")]");
+
+		List<String> strPatches=new ArrayList<>(Arrays.asList(text.split("\n")));
+		List<String> boundedStrPatches=strPatches.subList(0, patchesToExtract);
+		ArrayList<Patch> newPatches=new ArrayList<>();
+		boundedStrPatches.forEach((strPatch) -> {
+		    newPatches.add(new Patch(strPatch));
+		});
+		PatchExtractor.patches=newPatches;
+	    }
             return patches;
 	} catch (Exception e) {
             throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
         }
     }
 
+    public static Patch getLastPatch() {
+	log.trace("::getLastPatch(parameter) - Start: ");
+	notNullValidation(patches);
+	try {
+	    
+	    Patch lastPatch=null;
+	    for(Patch patch:patches){
+		if(lastPatch==null || Integer.parseInt(lastPatch.getId())<Integer.parseInt(patch.getId())){
+		    lastPatch=patch;
+		}
+	    }
+	    log.trace("::getLastPatch(parameter) - Finish: ");
+	    return lastPatch;
+	    
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
+	}
+    }
+
     @Override
-    public void test(WebDriver driver) throws Exception {
-        getPatches( driver);
+    public void test(WebDriverUtils utils) throws Exception {
+        getPatches( utils.driver);
     }
 
     @Override
@@ -174,14 +197,4 @@ public class PatchExtractor implements TestCase{
         return PatchExtractor.class.getCanonicalName();
     }
 
-    @Override
-    public void setQuitOnFinish(Boolean shouldQuitOnFish) {
-        quitOnFinish=shouldQuitOnFish;
-    }
-
-    @Override
-    public Boolean getQuitOnFinish() {
-        return quitOnFinish;
-    }
-    
 }

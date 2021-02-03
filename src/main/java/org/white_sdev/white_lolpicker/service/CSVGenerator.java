@@ -121,25 +121,28 @@
 
 package org.white_sdev.white_lolpicker.service;
 
-//import lombok.extern.slf4j.Slf4j;
-
 import com.opencsv.CSVWriter;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import static org.white_sdev.propertiesmanager.model.service.PropertyProvider.getProperty;
 import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
+import java.util.ArrayList;
 import java.util.List;
+import static org.white_sdev.propertiesmanager.model.service.PropertyProvider.getProperty;
+import org.white_sdev.white_lolpicker.model.persistence.Champion;
+import org.white_sdev.white_lolpicker.model.persistence.Counter;
+import org.white_sdev.white_lolpicker.model.persistence.Patch;
+import org.white_sdev.white_lolpicker.model.persistence.Role;
+import org.white_sdev.white_lolpicker.model.persistence.UggRank;
+import org.white_sdev.white_lolpicker.service.extraction.ugg.testcases.U_GGDatabaseExtraction;
 
-//import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
 
 /**
  * 
  * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
  * @since Dec 8, 2020
  */
-//@Slf4j
 public class CSVGenerator {
     
     public static <T> void generateCSV(List<T> objects,String outputFile){
@@ -152,6 +155,50 @@ public class CSVGenerator {
         }catch(Exception ex){
 	    throw new RuntimeException("Imposible to write CSV file",ex);
 	}
+    }
+    
+    public static void testGeneration(){
+	Patch eleven=new Patch("11.5");
+	Counter counter=new Counter();
+	Champion a= new Champion("A");
+	Champion b= new Champion("B");
+	Champion c= new Champion("C");
+	Champion d= new Champion("D");
+	UggRank rank= new UggRank("Silver", "silver", 1);
+	
+	
+	counter.setPatch(eleven);
+	counter.setRank(rank);
+	counter.setChampion(a);
+	counter.setChampionRole(Role.adc);
+	counter.setCounter(b);
+	counter.setCounterRole(Role.jungle);
+	counter.setWinratePercentage(55d);
+	counter.setCounterBonus(56d);
+	counter.setCounterCertaintyModifier(.8d);
+	counter.setLaneBonus(5d);
+	counter.setMatches(2000);
+	counter.setTotalBonus(20d);
+	
+	Counter counter2=new Counter();
+	counter2.setPatch(eleven);
+	counter2.setRank(rank);
+	counter2.setChampion(c);
+	counter2.setChampionRole(Role.top);
+	counter2.setCounter(d);
+	counter2.setCounterRole(Role.top);
+	counter2.setWinratePercentage(53d);
+	counter2.setCounterBonus(20d);
+	counter2.setCounterCertaintyModifier(.9d);
+	counter2.setLaneBonus(2d);
+	counter2.setMatches(2000);
+	counter2.setTotalBonus(21d);
+	
+	ArrayList<Counter> counters=new ArrayList<>();
+	counters.add(counter);
+	counters.add(counter2);
+	
+	generateCSV(new U_GGDatabaseExtraction().getCountersCSVBeans(counters),getProperty("counters-filename").replace(".csv", "-test.csv"));
     }
     
 }

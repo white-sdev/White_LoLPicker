@@ -1,5 +1,5 @@
 /*
- *  Filename:  Counter.java
+ *  Filename:  Role.java
  *  Creation Date:  Dec 7, 2020
  *  Purpose:   
  *  Author:    Obed Vazquez
@@ -119,12 +119,24 @@
  *  Creative Commons may be contacted at creativecommons.org.
  */
 
-package org.white_sdev.white_lolpicker.model.bean;
+package org.white_sdev.white_lolpicker.model.persistence;
 
+import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import lombok.extern.slf4j.Slf4j;
-import org.white_sdev.white_lolpicker.service.CounterExtractor;
-//import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.validation.constraints.NotBlank;
+import lombok.Data;
+
+import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
 
 /**
  * 
@@ -132,286 +144,119 @@ import org.white_sdev.white_lolpicker.service.CounterExtractor;
  * @since Dec 7, 2020
  */
 @Slf4j
-public class Counter {
+@Entity
+@Data
+public class Role implements Persistable{
+    public static Role top=new Role("top","topper","5"),
+	    jungle=new Role("jungle","jg","6"),
+	    middle=new Role("mid","middle","7"),
+	    adc=new Role("adc","bot","bottom","8"),
+//	    support=new Role("supp","support","(//div[contains(@class,'role-filter')][5])[1]");
+	    support=new Role("supp","support","9");			    //TODO Load ALL from DB
+    public static ArrayList<Role> allRoles=new ArrayList<>(){{
+	add(top);
+	add(jungle);
+	add(middle);
+	add(adc);
+	add(support);
+    }}; //TODO Load ALL from DB
     
-    private Patch patch;
-    private UggRank rank;
-    private Champion champion;
-    private Role championRole;
-    private Champion counter;
-    private Role counterRole;
-    private Double winratePercentage;
-    private Integer matches;
-    private Double laneBonus=0d;
-    private Double counterCertaintyModifier=0d;
-    private Double counterBonus=0d;
-    private Double totalBonus=0d;
-    
-    public Counter(){}
     /**
-     * Class Constructor.{Requirement_Reference}
-     * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
-     * @param patch
-     * @param rank
-     * @param champion
-     * @param championRole
-     * @param counter
-     * @param winrate
-     * @param matches
-     * @since Dec 7, 2020
-     * @throws IllegalArgumentException - if the argument provided is null.
+     * {@link Id} of the {@Entity}. Controlled by the framework and generated automatically, all id(s) are configured this way unless a field that will never change
+     * is clearly found in the {@link Entity} structure.
+     *
+     * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
+     * @since 2020-05-21
      */
-    public Counter(Patch patch,UggRank rank,Champion champion,Role championRole,Champion counter,Double winrate,Integer matches) {
-	log.trace("::Counter(champion, counter, winrate, bonus) - Start: ");
-	//notNullValidation(parameter,"Impossible to create the object. The parameter can't be null.");
+    @Id
+    @GeneratedValue
+    private Long id;
+    
+    @Column(unique = true)
+    @NotBlank
+    private String name;
+    
+    @ElementCollection
+    private ArrayList<String> synonyms;
+    
+    @Column
+    private String uGGSelectorXpath;
+    
+    //<editor-fold defaultstate="collapsed" desc="Useless">
+    @OneToMany(mappedBy = "championRole", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<LaneCounter> laneCoutners;
+    
+    @OneToMany(mappedBy = "counterRole", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<Counter> coutners;
+    
+    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<ChampionTierRank> championTierRanks;
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Constructors">
+
+    public Role(String name,List<String> synonyms,String uGGSelectorXpath){
+	log.trace("::Role(name) - Start: ");
+	notNullValidation(name);
 	try{
 	    
-	    this.patch=patch;
-	    this.rank=rank;
-	    this.champion=champion;
-	    this.championRole=championRole;
-	    this.counter=counter;
-	    this.winratePercentage=winrate;
-	    this.matches=matches;
+	    this.name=name;
+	    this.synonyms=synonyms==null?new ArrayList<String>():new ArrayList<>(synonyms);
+	    synonyms.add(name);
+	    this.uGGSelectorXpath=uGGSelectorXpath;
 	    
-	    this.counterRole=championRole;
-	    
-            patch.add(this);
-	    rank.counters.add(this);
-	    champion.counters.add(this);
-	    counter.counterOfChampions.add(this);
-
-	    log.trace("::Counter(champion, counter, winrate, bonus) - Finish: ");
+	    log.trace("::Role(name: ");
 	} catch (Exception e) {
             throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
         }
     }
     
-    
-    @Override
-    public String toString(){
-	return "["+(getChampion()!=null?"champion:"+getChampion():"")
-		+(getChampionRole()!=null?", role:"+getChampionRole():"")
-		+(", counter:"+getCounter())
-		+(getWinratePercentage()!=null?", winratePercentage:"+getWinratePercentage():"")
-		+(", matches:"+getMatches())
-		+(getLaneBonus()!=null?", laneBonus:"+getLaneBonus():"")
-		+(getCounterBonus()!=null?", counterBonus:"+getCounterBonus():"")
-		+(getTotalBonus()!=null?", totalBonus:"+getTotalBonus():"")
-		+"]";
+    public Role(String name,String uGGSelectorXpath){
+	this(name,(List<String>)null,uGGSelectorXpath);
     }
 
-    public void calculateBonus(List<LaneCounter> laneCounters) {
-	log.info("::calculateBonus(laneCounters) - Start: Calculating bonus for Counter: "+this);
+    public Role(String name,String...synonymsAndSelector){
+	
+	notNullValidation(synonymsAndSelector);
+	
+	ArrayList<String> synonyms=new ArrayList<>();
+	for(int i=0;i<synonymsAndSelector.length-1;++i){
+	    synonyms.add(synonymsAndSelector[i]);
+	}
+	String uGGSelectorXpath=synonymsAndSelector.length>0?synonymsAndSelector[synonymsAndSelector.length-1]:null;
+	
+	this.name=name;
+	this.synonyms=synonyms;
+	synonyms.add(name);
+	this.uGGSelectorXpath=uGGSelectorXpath;
+    }
+    
+    /**
+     * Required no-Arguments Constructor by 
+     * <a href="https://docs.jboss.org/hibernate/core/3.5/reference/en/html/persistent-classes.html#persistent-classes-pojo-constructor">Hibernate</a>.
+     * 
+     * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
+     * @since 2021-01-31
+     */
+    protected Role() { }
+    //</editor-fold>
+    
+    public static Role valueOfImgAlt(String text) {
+	log.trace("::valueOfImg(text) - Start: ");
+	if(text==null) return null;
 	try {
-	    LaneCounter matchingLaneCounter=null;
-	    
-	    if(laneCounters!=null) {
-	    log.debug("::calculateBonus(laneCounters): laneCounters is not null. Looking for lane counter");
-		for(LaneCounter laneCounter:laneCounters){
-		    if(laneCounter.champion.equals(this.getChampion()) && laneCounter.championRole.equals(this.getChampionRole())
-			    && laneCounter.counter.equals(this.getCounter())){
-			log.debug("::calculateBonus(laneCounters): matching Lane Counter found:"+laneCounter);
-			matchingLaneCounter=laneCounter;
-			break;
-		    }
-		}
-	    }else{
-		log.warn("::calculateBonus(laneCounters): laneCounters is null!!");
+	    log.trace("::valueOfImg(text) - Finish: ");
+	    for(Role role:allRoles){
+		if(role.synonyms.contains(text)) return role;
 	    }
-	    
-	    if(matchingLaneCounter== null) log.info("::calculateBonus(laneCounters): Lane Counter not found");
-	    
-	    setLaneBonus((Double) (matchingLaneCounter!=null?matchingLaneCounter.reCalculateBonus():0d));
-	    
-	    log.info("::calculateBonus(laneCounters): Calculated Lane Bonus :"+getLaneBonus());
-	    
-	    
-	    Double avg=rank.getAvgNumOfCounterTypesMatches().doubleValue();
-	    log.info("::calculateBonus(laneCounters): Calculating bonus certanty modifier: matches["+getMatches()+"] / ( (AllmatchAVG>500 ["+avg+"])/.5  ) ");
-	    
-	    counterCertaintyModifier=   getMatches()/  (avg/.5) ;
-	    log.info("::calculateBonus(laneCounters): Obtained Certanty modifier:"+counterCertaintyModifier);
-	    
-	    log.info("::calculateBonus(laneCounters): Calculating bonus : (50 - winrate%["+getWinratePercentage()+"] ) *10*( CertantyModifier["+counterCertaintyModifier+"]) ");
-	    setCounterBonus( -1d*( (50 - getWinratePercentage()) * 10 * counterCertaintyModifier) );
-	    log.info("::calculateBonus(laneCounters): Obtained Counter bonus:"+counterBonus);
-	    setTotalBonus(getLaneBonus() + getCounterBonus());
-	    log.info("::calculateBonus(laneCounters): Obtained Final Bonus: counterBonus["+counterBonus+"]+laneBonus["+laneBonus+"]="+totalBonus);
-	    
-	    log.info("::calculateBonus(laneCounters) - Finish: ");
-	    
+	    throw new RuntimeException("Impossible to obtain the Role, any of the register roles have that name: "+text+". \nRegistered Roles: "+allRoles);
 	} catch (Exception e) {
 	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
 	}
     }
-
-    /**
-     * @return the champion
-     */
-    public Champion getChampion() {
-	return champion;
-    }
-
-    /**
-     * @param champion the champion to set
-     */
-    public void setChampion(Champion champion) {
-	this.champion = champion;
-    }
-
-    /**
-     * @return the championRole
-     */
-    public Role getChampionRole() {
-	return championRole;
-    }
-
-    /**
-     * @param championRole the championRole to set
-     */
-    public void setChampionRole(Role championRole) {
-	this.championRole = championRole;
-    }
-
-    /**
-     * @return the counter
-     */
-    public Champion getCounter() {
-	return counter;
-    }
-
-    /**
-     * @param counter the counter to set
-     */
-    public void setCounter(Champion counter) {
-	this.counter = counter;
-    }
-
-    /**
-     * @return the counterRole
-     */
-    public Role getCounterRole() {
-	return counterRole;
-    }
-
-    /**
-     * @param counterRole the counterRole to set
-     */
-    public void setCounterRole(Role counterRole) {
-	this.counterRole = counterRole;
-    }
-
-    /**
-     * @return the winratePercentage
-     */
-    public Double getWinratePercentage() {
-	return winratePercentage;
-    }
-
-    /**
-     * @param winratePercentage the winratePercentage to set
-     */
-    public void setWinratePercentage(Double winratePercentage) {
-	this.winratePercentage = winratePercentage;
-    }
-
-    /**
-     * @return the matches
-     */
-    public Integer getMatches() {
-	return matches;
-    }
-
-    /**
-     * @param matches the matches to set
-     */
-    public void setMatches(Integer matches) {
-	this.matches = matches;
-    }
-
-    /**
-     * @return the laneBonus
-     */
-    public Double getLaneBonus() {
-	return laneBonus;
-    }
-
-    /**
-     * @param laneBonus the laneBonus to set
-     */
-    public void setLaneBonus(Double laneBonus) {
-	this.laneBonus = laneBonus;
-    }
-
-    /**
-     * @return the counterBonus
-     */
-    public Double getCounterBonus() {
-	return counterBonus;
-    }
-
-    /**
-     * @param counterBonus the counterBonus to set
-     */
-    public void setCounterBonus(Double counterBonus) {
-	this.counterBonus = counterBonus;
-    }
-
-    /**
-     * @return the totalBonus
-     */
-    public Double getTotalBonus() {
-	return totalBonus;
-    }
-
-    /**
-     * @param totalBonus the totalBonus to set
-     */
-    public void setTotalBonus(Double totalBonus) {
-	this.totalBonus = totalBonus;
-    }
-
-    /**
-     * @return the counterCertaintyModifier
-     */
-    public Double getCounterCertaintyModifier() {
-	return counterCertaintyModifier;
-    }
-
-    /**
-     * @param counterCertaintyModifier the counterCertaintyModifier to set
-     */
-    public void setCounterCertaintyModifier(Double counterCertaintyModifier) {
-	this.counterCertaintyModifier = counterCertaintyModifier;
-    }
-
-    /**
-     * @return the patch
-     */
-    public Patch getPatch() {
-        return patch;
-    }
-
-    /**
-     * @param patch the patch to set
-     */
-    public void setPatch(Patch patch) {
-        this.patch = patch;
-    }
-
-    /**
-     * @return the rank
-     */
-    public UggRank getRank() {
-	return rank;
-    }
-
-    /**
-     * @param rank the rank to set
-     */
-    public void setRank(UggRank rank) {
-	this.rank = rank;
-    }
     
+    @Override
+    public String toString(){
+	return "[name:"+name+"],[synonyms:{"+synonyms+"}],[uGGSelectorXpath:"+uGGSelectorXpath+"]";
+    }
 }

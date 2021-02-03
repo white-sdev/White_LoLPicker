@@ -1,5 +1,5 @@
 /*
- *  Filename:  Champion.java
+ *  Filename:  LaneCounter.java
  *  Creation Date:  Dec 7, 2020
  *  Purpose:   
  *  Author:    Obed Vazquez
@@ -119,9 +119,17 @@
  *  Creative Commons may be contacted at creativecommons.org.
  */
 
-package org.white_sdev.white_lolpicker.model.bean;
+package org.white_sdev.white_lolpicker.model.persistence;
 
-import java.util.ArrayList;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
 
@@ -131,57 +139,111 @@ import static org.white_sdev.white_validations.parameters.ParameterValidator.not
  * @since Dec 7, 2020
  */
 @Slf4j
-public class Champion {
+@Entity
+@Data
+public class LaneCounter implements Persistable{
     
-    private String name;
-    public ArrayList<Counter> counters= new ArrayList<>();
-    public ArrayList<Counter> counterOfChampions= new ArrayList<>();
-    public ArrayList<LaneCounter> laneCounters= new ArrayList<>();
-    public ArrayList<LaneCounter> laneCounterOfChampions= new ArrayList<>();
+    //<editor-fold defaultstate="collapsed" desc="Attributes">
+
+    @Id
+    @GeneratedValue
+    private Long id;
     
+    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.PERSIST)
+    public Patch patch;
+    
+    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private UggRank rank;
+    
+    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private Champion champion;
+    
+    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private Role championRole;
+    
+    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private Champion counter;
+    
+    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private Role counterRole;
+    
+    @Column
+    private Integer gold;
+    
+    @Column
+    private Integer matches;
+    
+    @Column
+    private Double bonus;
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Constructors">
+
+    /**
+     * Required no-Arguments Constructor by 
+     * <a href="https://docs.jboss.org/hibernate/core/3.5/reference/en/html/persistent-classes.html#persistent-classes-pojo-constructor">Hibernate</a>.
+     * 
+     * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
+     * @since 2021-02-02
+     */
+    protected LaneCounter() { }
     /**
      * Class Constructor.{Requirement_Reference}
      * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
-     * @param name
+     * @param patch
+     * @param rank
+     * @param champion
+     * @param championRole
+     * @param counter
+     * @param gold
+     * @param matches
      * @since Dec 7, 2020
      * @throws IllegalArgumentException - if the argument provided is null.
      */
-    public Champion(String name) {
-	log.trace("::Champion() - Start: ");
-	notNullValidation(name,"Impossible to create the object. The parameter can't be null.");
+    public LaneCounter(Patch patch,UggRank rank, Champion champion,Role championRole,Champion counter,Integer gold,Integer matches) {
+	log.trace("::LaneCounter() - Start: ");
+	notNullValidation(patch, rank,champion,championRole, counter, gold, matches);
 	try{
 	    
+	    this.patch=patch;
+	    this.rank=rank;
+	    this.champion=champion;
+	    this.championRole=championRole;
+	    this.counter=counter;
+	    this.gold=gold;
+	    this.matches=matches;
 	    
-	    this.name=name;
+	    this.counterRole=championRole;
 	    
+	    
+            patch.add(this);
+	    rank.getLaneCounters().add(this);
+	    champion.getLaneCounterChampions().add(this);
+	    counter.getLaneCounterCounters().add(this);
 
-	    log.trace("::Champion() - Finish: ");
+	    log.trace("::LaneCounter() - Finish: ");
 	} catch (Exception e) {
             throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
         }
     }
     
+    //</editor-fold>
+    
+    public Double reCalculateBonus(){
+	Double laneCounterCertaintyModifier=  matches/  (rank.getAvgNumOfCounterTypesMatches()/.5) ;
+	bonus=gold/20d*laneCounterCertaintyModifier;
+	return bonus;
+    }
+    
     @Override
     public String toString(){
-	return getName();
+	return "["+(champion!=null?"champion:"+champion:"")
+		+(championRole!=null?", role:"+championRole:"")
+		+(", counter:"+counter)
+		+(gold!=null?", gold:"+gold:"")
+		+(", matches:"+matches)
+		+(bonus!=null?", bonus:"+bonus:"")
+		+"]";
     }
 
-    /**
-     * @return the name
-     */
-    public String getName() {
-	return name;
-    }
-
-    /**
-     * @param name the name to set
-     */
-    public void setName(String name) {
-	this.name = name;
-    }
-    
-    public String getUggURLName() {
-	return name!=null?(name.contains("Nunu")?"nunu":name).toLowerCase().replace("'", ""):name;
-    }
-    
 }

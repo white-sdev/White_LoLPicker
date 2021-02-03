@@ -1,6 +1,6 @@
-/*
- *  Filename:  Role.java
- *  Creation Date:  Dec 7, 2020
+  /*
+ *  Filename:  Patch.java
+ *  Creation Date:  Dec 22, 2020
  *  Purpose:   
  *  Author:    Obed Vazquez
  *  E-mail:    obed.vazquez@gmail.com
@@ -119,94 +119,111 @@
  *  Creative Commons may be contacted at creativecommons.org.
  */
 
-package org.white_sdev.white_lolpicker.model.bean;
+package org.white_sdev.white_lolpicker.model.persistence;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.white_sdev.white_validations.exceptions.White_ValidationsException;
-
-import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
-
-//import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
 
 /**
- * 
+ * Structure:
+ *  Patches[
+ *	Counters[
+ *	    Champions[]
+ *	    Ranks[]
+ *	]
+ *	LaneCounters[
+ *	    Champions[]
+ *	    Ranks[]
+ *	]
+ *  ]
  * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
- * @since Dec 7, 2020
+ * @since Dec 22, 2020
  */
 @Slf4j
-public class Role {
-    public static Role top=new Role("top","topper","(//div[contains(@class,'role-filter')][1])[1]"),
-	    jungle=new Role("jungle","jg","(//div[contains(@class,'role-filter')][2])[1]"),
-	    middle=new Role("mid","middle","(//div[contains(@class,'role-filter')][3])[1]"),
-	    adc=new Role("adc","bot","bottom","(//div[contains(@class,'role-filter')][4])[1]"),
-	    support=new Role("supp","support","(//div[contains(@class,'role-filter')][5])[1]");
-    public static ArrayList<Role> allRoles=new ArrayList<>(){{
-	add(top);
-	add(jungle);
-	add(middle);
-	add(adc);
-	add(support);
-    }};
-    String name;
-    public ArrayList<String> synonyms;
-    public String uGGSelectorXpath;
+@Entity
+@Data
+public class Patch implements Persistable{
     
-    public Role(String name,List<String> synonyms,String uGGSelectorXpath){
-	log.trace("::Role(name) - Start: ");
-	notNullValidation(name,"Impossible to create the object. The parameter can't be null.");
-	try{
-	    
-	    this.name=name;
-	    this.synonyms=synonyms==null?new ArrayList<String>():new ArrayList<>(synonyms);
-	    synonyms.add(name);
-	    this.uGGSelectorXpath=uGGSelectorXpath;
-	    
-	    log.trace("::Role(name: ");
-	} catch (Exception e) {
-            throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
-        }
-    }
-    
-    public Role(String name,String uGGSelectorXpath){
-	this(name,(List<String>)null,uGGSelectorXpath);
-    }
+    //<editor-fold defaultstate="collapsed" desc="Attributes">
 
-    public Role(String name,String...synonymsAndSelector){
-	
-	notNullValidation(synonymsAndSelector,"Impossible to create the object. The parameter can't be null.");
-	
-	ArrayList<String> synonyms=new ArrayList<>();
-	for(int i=0;i<synonymsAndSelector.length-1;++i){
-	    synonyms.add(synonymsAndSelector[i]);
-	}
-	String uGGSelectorXpath=synonymsAndSelector.length>0?synonymsAndSelector[synonymsAndSelector.length]:null;
-	
-	this.name=name;
-	this.synonyms=synonyms;
-	synonyms.add(name);
-	this.uGGSelectorXpath=uGGSelectorXpath;
-    }
-
+    @Id
+    @GeneratedValue
+    private Long hibernateId;
     
-    public static Role valueOfImgAlt(String text) {
-	log.trace("::valueOfImg(text) - Start: ");
-	if(text==null) return null;
+    @Column(unique = true)
+    private String id;
+    
+    @OneToMany(mappedBy = "patch", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private ArrayList<Counter> counters=new ArrayList<>();
+    
+    @OneToMany(mappedBy = "patch", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private ArrayList<LaneCounter> laneCounters=new ArrayList<>();
+    
+    @OneToMany(mappedBy = "patch", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private ArrayList<ChampionTierRank> tiersRanks=null;
+    
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Constructors">
+
+    public Patch(String id){
+        this.id=id;
+    }
+    
+    /**
+     * Required no-Arguments Constructor by 
+     * <a href="https://docs.jboss.org/hibernate/core/3.5/reference/en/html/persistent-classes.html#persistent-classes-pojo-constructor">Hibernate</a>.
+     * 
+     * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
+     * @since 2021-02-02
+     */
+    protected Patch() { }
+    
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="Custom Methods">
+
+    public void add(Counter counter){
+        if(getCounters()==null) setCounters(new ArrayList<>());
+        getCounters().add(counter);
+    }
+    
+    public void add(LaneCounter counter){
+        if(getCounters()==null) setLaneCounters(new ArrayList<>());
+        getLaneCounters().add(counter);
+    }
+    
+    public void add(ArrayList<ChampionTierRank> chTRs) {
+	log.trace("::add(parameter) - Start: ");
+	if(chTRs==null) return;
 	try {
-	    log.trace("::valueOfImg(text) - Finish: ");
-	    for(Role role:allRoles){
-		if(role.synonyms.contains(text)) return role;
-	    }
-	    throw new RuntimeException("Impossible to obtain the Role, any of the register roles have that name: "+text+". \nRegistered Roles: "+allRoles);
+	    if(tiersRanks==null) tiersRanks=new ArrayList<>();
+	    tiersRanks.addAll(chTRs);
+	    log.trace("::add(parameter) - Finish: ");
 	} catch (Exception e) {
 	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
 	}
     }
     
+    public String getIdURLFormatted(){
+        return id.replace(".", "_");
+    }
+
     @Override
     public String toString(){
-	return "[name:"+name+"],[synonyms:{"+synonyms+"}],[uGGSelectorXpath:"+uGGSelectorXpath+"]";
+        return getId();
     }
+    //</editor-fold>
+
 }

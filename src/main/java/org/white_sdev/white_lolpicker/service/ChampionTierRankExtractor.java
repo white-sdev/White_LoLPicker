@@ -129,11 +129,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import static org.white_sdev.propertiesmanager.model.service.PropertyProvider.*;
-import org.white_sdev.white_lolpicker.model.bean.Champion;
-import org.white_sdev.white_lolpicker.model.bean.ChampionTierRank;
-import org.white_sdev.white_lolpicker.model.bean.Role;
-import org.white_sdev.white_lolpicker.service.extraction.ugg.testcases.U_GGDatabaseExtraction;
+import org.white_sdev.white_lolpicker.model.persistence.UggRank;
+import org.white_sdev.white_lolpicker.model.persistence.Champion;
+import org.white_sdev.white_lolpicker.model.persistence.ChampionTierRank;
+import org.white_sdev.white_lolpicker.model.persistence.Patch;
+import org.white_sdev.white_lolpicker.model.persistence.Role;
+import org.white_sdev.white_seleniumframework.exceptions.White_SeleniumFrameworkException;
 import org.white_sdev.white_seleniumframework.framework.WebDriverUtils;
+import static org.white_sdev.white_validations.parameters.ParameterValidator.msg;
 
 import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
 
@@ -144,31 +147,37 @@ import static org.white_sdev.white_validations.parameters.ParameterValidator.not
  */
 @Slf4j
 public class ChampionTierRankExtractor {
+    
+    public static ArrayList<ChampionTierRank> allTiersRanks=null;
 
-    public static List<ChampionTierRank> getChampionTierRanks(WebDriver driver) {
+    public static void loadChampionTierRanks(WebDriver driver) {
 	log.trace("::getChampionTierRanks(driver) - Start: ");
-	notNullValidation(driver, "The driver can't be null.");
+	notNullValidation(msg("The driver can't be null."), driver);
 	try {
-	    
+
 	    WebDriverUtils util = new WebDriverUtils(driver);
-	    driver.get(getProperty("ugg.tiers"));
-	    
-	    forceElementsLoad( driver);
-	    
-	    List<WebElement> webRanks=driver.findElements(By.xpath("//*[contains(@class, 'rt-tr')]//*[contains(@class, 'rt-td rank')]"));
-	    List<WebElement> webChamps=driver.findElements(By.xpath("//a//*[contains(@class, 'champion-name')]"));
-	    List<WebElement> webWinrates=driver.findElements(By.xpath("//*[contains(@class, 'rt-tr')]//*[contains(@class, 'winrate sorted')]"));
-	    List<WebElement> webRoles=driver.findElements(By.xpath("//img[contains(@class,'tier-list-role')]"));
-	    
-	    List<ChampionTierRank> chTRs=mapChampionTierRanks(webRanks,webChamps,webRoles,webWinrates);
-	    
-	    System.out.println("Champion Tiers:");
-	    for(ChampionTierRank chTR:chTRs) System.out.println(chTR.toString());
-	    
-	    log.trace("::getChampionTierRanks(driver) - Finish: ");
-	    return chTRs;
-	    
-	    
+	    if (PatchExtractor.patches == null) PatchExtractor.patches = PatchExtractor.getPatches(driver);
+	    List<UggRank> ranks = Boolean.parseBoolean(getProperty("counters.lower-ranks-only")) ? UggRank.lowerRanks : UggRank.everyRank;
+	    if(allTiersRanks==null) allTiersRanks=new ArrayList<>();
+	    for (Patch patch : PatchExtractor.patches) {
+		for (UggRank rank : ranks) {
+		    driver.get(rank.getTierListURL() + "&patch=" + patch.getIdURLFormatted());
+
+		    forceElementsLoad(driver);
+
+		    List<WebElement> webTierRanks = util.getElementsByXpath("//*[contains(@class, 'rt-tr')]//*[contains(@class, 'rt-td rank')]");
+		    List<WebElement> webChamps = util.getElementsByXpath("//a//*[contains(@class, 'champion-name')]");
+		    List<WebElement> webWinrates = util.getElementsByXpath("//*[contains(@class, 'rt-tr')]//*[contains(@class, 'winrate sorted')]");
+		    List<WebElement> webRoles = util.getElementsByXpath("//img[contains(@class,'tier-list-role')]");
+		    List<WebElement> matches = util.getElementsByXpath("//*[contains(@class, 'rt-tbody')]//*[contains(@class, 'matches')]");
+
+		    ArrayList<ChampionTierRank> chTRs = mapChampionTierRanks(patch, rank, webTierRanks, webChamps, webRoles, webWinrates, matches);
+		    patch.add(chTRs);
+		    allTiersRanks.addAll(chTRs);
+		}
+	    }
+	    log.trace("::getChampionTierRanks(driver): Champion Tier Ranks loaded, generating CSV files with extracted Data");
+
 	} catch (Exception e) {
 	    log.error("::getChampionTierRanks(driver) - Finish: ");
 	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
@@ -176,22 +185,30 @@ public class ChampionTierRankExtractor {
     }
     
     
-    public static ArrayList<ChampionTierRank> mapChampionTierRanks(List<WebElement> webRanks, List<WebElement> webChamps,List<WebElement> webRoles, List<WebElement> webWinrates) {
-	log.trace("::combine(parameter) - Start: ");
-	notNullValidation(new Object[]{webRanks,webChamps,webRoles,webWinrates}, "The parameter can't be null.");
-	if(webRanks.size()!=webChamps.size() || webChamps.size()!=webRoles.size() || webChamps.size()!=webWinrates.size()) throw new IllegalArgumentException("the size of the ranks, champions and/or the rankings differ.");
+    public static ArrayList<ChampionTierRank> mapChampionTierRanks(Patch patch,UggRank rank,
+	    List<WebElement> webTierRanks, List<WebElement> webChamps,List<WebElement> webRoles, List<WebElement> webWinrates, 
+	    List<WebElement> matches) {
+	log.trace("::combine(patch,rank,webTierRanks, webChamps,webRoles, webWinrates, matches) - Start: ");
+	notNullValidation(patch,rank,webTierRanks, webChamps,webRoles, webWinrates, matches);
+	if(webTierRanks.size()!=webChamps.size() || webChamps.size()!=webRoles.size() || webChamps.size()!=webWinrates.size()) throw new IllegalArgumentException("the size of the ranks, champions and/or the rankings differ.");
 	try {
 	    ArrayList<ChampionTierRank> championTierRanks= new ArrayList<>();
-	    for (int i = 0; i < webRanks.size(); i++) {
-		WebElement webRank=webRanks.get(i);
+	    for (int i = 0; i < webTierRanks.size(); i++) {
+		WebElement webTierRank=webTierRanks.get(i);
 		WebElement champ=webChamps.get(i);
+		Champion champion=getChampionFromName(champ.getText());
+		log.debug("::mapChampionTierRanks(patch,rank,webTierRanks, webChamps,webRoles, webWinrates, matches): Mapping: {}",champion.getName());
 		WebElement webRole=webRoles.get(i);
 		WebElement winRate=webWinrates.get(i);
+		WebElement match=matches.get(i);
 		championTierRanks.add(new ChampionTierRank(
-			Integer.parseInt(webRank.getText()),
-			getChampionFromName(champ.getText()),
+			Integer.parseInt(webTierRank.getText()),
+			champion,
 			Role.valueOfImgAlt(webRole.getAttribute("alt")),
-			Double.parseDouble(winRate.getText().replace("%", ""))));
+			Double.parseDouble(winRate.getText().replace("%", "")),
+			patch,
+			Integer.parseInt(match.getText().replaceAll(",", "")),
+			rank));
 	    }
 	    log.trace("::combine(parameter) - Finish: ");
 	    return championTierRanks;
@@ -214,8 +231,8 @@ public class ChampionTierRankExtractor {
 			webChamps2=driver.findElements(By.xpath("//a//*[contains(@class, 'champion-name')]"));
 		    }while(webChamps.size()!=webChamps2.size());
 		    webChamps=driver.findElements(By.xpath("//a//*[contains(@class, 'champion-name')]"));
-                    sleepAndPageDown(util,5000l);
-                    for (int i = 0; i < 4; i++) sleepAndPageDown(util,350l);
+                    sleepAndPageDown(util,2000l);
+                    for (int i = 0; i < 2; i++) sleepAndPageDown(util,350l);
 		    webChamps2=driver.findElements(By.xpath("//a//*[contains(@class, 'champion-name')]"));
 		}while(webChamps.size()!=webChamps2.size());
 		
@@ -230,6 +247,7 @@ public class ChampionTierRankExtractor {
     private static void sleepAndPageDown(WebDriverUtils util, Long sleepTime) {
         try{
             Thread.sleep(sleepTime);
+//	    util.waitFor(sleepTime);
             util.pageDown();
         }catch(Exception ex){
             throw new RuntimeException("Impossible to page down de website",ex);
@@ -238,7 +256,7 @@ public class ChampionTierRankExtractor {
 
     private static Champion getChampionFromName(String champName) {
 	log.trace("::getChampionFromName(champName) - Start: ");
-	notNullValidation(champName, "The champion Name can't be null.");
+	notNullValidation(champName);
 	try {
 	    for(Champion champ:ChampionExtractor.champs){
 		if(champ.getName().equals(champName)) return champ;

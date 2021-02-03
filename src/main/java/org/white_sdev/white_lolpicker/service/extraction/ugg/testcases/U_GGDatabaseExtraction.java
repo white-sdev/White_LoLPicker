@@ -121,6 +121,7 @@
 
 package org.white_sdev.white_lolpicker.service.extraction.ugg.testcases;
 
+import java.util.ArrayList;
 import org.white_sdev.white_lolpicker.service.ChampionTierRankExtractor;
 import org.white_sdev.white_lolpicker.service.CounterExtractor;
 import org.white_sdev.white_lolpicker.service.ChampionExtractor;
@@ -130,8 +131,14 @@ import org.openqa.selenium.WebDriver;
 import static org.white_sdev.propertiesmanager.model.service.PropertyProvider.getProperty;
 import org.white_sdev.white_seleniumframework.framework.TestCase;
 import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
-import org.white_sdev.white_lolpicker.model.bean.ChampionTierRank;
+import org.white_sdev.white_lolpicker.model.persistence.ChampionTierRank;
+import org.white_sdev.white_lolpicker.model.persistence.Counter;
+import org.white_sdev.white_lolpicker.model.persistence.Counter.CSVBeanCounter;
+import org.white_sdev.white_lolpicker.model.persistence.Patch;
 import org.white_sdev.white_lolpicker.service.CSVGenerator;
+import org.white_sdev.white_lolpicker.service.PatchExtractor;
+import org.white_sdev.white_seleniumframework.framework.WebDriverUtils;
+import static org.white_sdev.white_validations.parameters.ParameterValidator.msg;
 
 /**
  * 
@@ -141,23 +148,21 @@ import org.white_sdev.white_lolpicker.service.CSVGenerator;
 @Slf4j
 public class U_GGDatabaseExtraction implements TestCase{
     
-    Boolean quitOnFish=true;
-    
-    
     @Override
-    public void test(WebDriver driver) throws Exception {
+    public void test(WebDriverUtils utils) throws Exception {
 	log.trace("::test(driver) - Start: ");
-	notNullValidation(driver, "The Driver Must be specified or the test can complete.");
+	WebDriver driver= utils.driver;
+	notNullValidation(msg("The Driver Must be specified or the test can complete."),driver);
 	try {
 	    
 	    log.info("::test(driver): Extracting all Champions");
 	    ChampionExtractor.champs=ChampionExtractor.getChampions(driver);
-	    log.info("::test(driver): Extracting all season tier Ranks");
-	    List<ChampionTierRank> tierRanks=ChampionTierRankExtractor.getChampionTierRanks(driver);
 	    log.info("::test(driver): Extracting all coutners to load");
 	    CounterExtractor.loadAllCounters(driver);
-	    log.info("::test(driver): coutners loaded. Generating CSV files with extracted Data ");
-	    generateCSV(tierRanks);
+	    log.info("::test(driver): Extracting all season tier Ranks");
+	    ChampionTierRankExtractor.loadChampionTierRanks(driver);
+	    
+	    generateCSV();
 	    
 	} catch (Exception e) {
 	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
@@ -178,47 +183,29 @@ public class U_GGDatabaseExtraction implements TestCase{
 	}
     }
 
-    @Override
-    public void setQuitOnFinish(Boolean shouldQuitOnFish) {
-	log.trace("::setQuitOnFinish(parameter) - Start: ");
-	notNullValidation(shouldQuitOnFish, "the parameter shouldQuitOnFinish dhould be indicated.");
-	try {
-	    quitOnFish=shouldQuitOnFish;
-	    log.trace("::setQuitOnFinish(parameter) - Finish: ");
-	} catch (Exception e) {
-	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
-	}
-    }
+    
+    //</editor-fold>
 
-    @Override
-    public Boolean getQuitOnFinish() {
-	log.trace("::getQuitOnFinish(parameter) - Start: ");
+    public static void generateCSV() {
+	log.trace("::generateCVS() - Start: ");
 	try {
 	    
-	    log.trace("::getQuitOnFinish(parameter) - Finish: ");
-	    return quitOnFish;
+	    CSVGenerator.generateCSV(ChampionExtractor.champs,getProperty("champions-filename"));
+	    CSVGenerator.generateCSV(getCountersCSVBeans(CounterExtractor.counters),getProperty("counters-filename"));
+	    CSVGenerator.generateCSV(ChampionTierRankExtractor.allTiersRanks,getProperty("tiers-filename"));
+	    
+	    
+	    log.trace("::generateCVS() - Finish: ");
+	    
 	} catch (Exception e) {
 	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
 	}
     }
     
-    //</editor-fold>
-
-    public void generateCSV(List<ChampionTierRank> tierRanks) {
-	log.trace("::generateCVS(parameter) - Start: ");
-	notNullValidation(tierRanks, "The parameter can't be null.");
-	try {
-	    
-	    CSVGenerator.generateCSV(ChampionExtractor.champs,getProperty("champions-filename"));
-	    CSVGenerator.generateCSV(CounterExtractor.counters,getProperty("counters-filename"));
-	    CSVGenerator.generateCSV(tierRanks,getProperty("tiers-filename"));
-	    
-	    
-	    log.trace("::generateCVS(parameter) - Finish: ");
-	    
-	} catch (Exception e) {
-	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
-	}
+    public static List<CSVBeanCounter> getCountersCSVBeans(List<Counter> counters){
+	List<CSVBeanCounter> beans=new ArrayList<>();
+	counters.forEach((counter)->{ beans.add(counter.getCSVBeanCounter()); });
+	return beans;
     }
 
 }
