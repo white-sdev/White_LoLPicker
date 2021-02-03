@@ -132,7 +132,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import static org.white_sdev.propertiesmanager.model.service.PropertyProvider.getProperty;
 
@@ -143,7 +144,8 @@ import static org.white_sdev.propertiesmanager.model.service.PropertyProvider.ge
  */
 @Slf4j
 @Entity
-@Data
+@Getter
+@Setter
 public class UggRank implements Persistable{
     public static UggRank iron=new UggRank("Iron","iron",12),
 	    bronze=new UggRank("Bronze","bronze",11),

@@ -130,12 +130,13 @@ import lombok.extern.slf4j.Slf4j;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.validation.constraints.NotBlank;
-import lombok.Data;
 
 import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import lombok.Getter;
+import lombok.Setter;
 
 
 /**
@@ -145,7 +146,8 @@ import javax.persistence.OneToMany;
  */
 @Slf4j
 @Entity
-@Data
+@Getter
+@Setter
 public class Role implements Persistable{
     public static Role top=new Role("top","topper","5"),
 	    jungle=new Role("jungle","jg","6"),

@@ -129,7 +129,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
 
@@ -140,7 +141,8 @@ import static org.white_sdev.white_validations.parameters.ParameterValidator.not
  */
 @Slf4j
 @Entity
-@Data
+@Getter
+@Setter
 public class Champion implements Persistable{
     
     //<editor-fold defaultstate="collapsed" desc="Attributes">

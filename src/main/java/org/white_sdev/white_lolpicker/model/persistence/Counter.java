@@ -124,13 +124,13 @@ package org.white_sdev.white_lolpicker.model.persistence;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
 
@@ -141,7 +141,8 @@ import static org.white_sdev.white_validations.parameters.ParameterValidator.not
  */
 @Slf4j
 @Entity
-@Data
+@Getter
+@Setter
 public class Counter implements Persistable{
     
     //<editor-fold defaultstate="collapsed" desc="Attributes">
