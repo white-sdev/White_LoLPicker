@@ -145,7 +145,7 @@ import lombok.Setter;
  * @since Dec 7, 2020
  */
 @Slf4j
-@Entity
+@Entity //(name = "ChampionRole") //Role is a keyword in Oracle?
 @Getter
 @Setter
 public class Role implements Persistable{
@@ -179,7 +179,7 @@ public class Role implements Persistable{
     private String name;
     
     @ElementCollection
-    private ArrayList<String> synonyms;
+    private List<String> synonyms;
     
     @Column
     private String uGGSelectorXpath;

@@ -1,6 +1,6 @@
-  /*
- *  Filename:  Patch.java
- *  Creation Date:  Dec 22, 2020
+/*
+ *  Filename:  Tier.java
+ *  Creation Date:  Dec 7, 2020
  *  Purpose:   
  *  Author:    Obed Vazquez
  *  E-mail:    obed.vazquez@gmail.com
@@ -119,111 +119,14 @@
  *  Creative Commons may be contacted at creativecommons.org.
  */
 
-package org.white_sdev.white_lolpicker.model.persistence;
+package org.white_sdev.white_lolpicker.model.bean;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 
 /**
- * Structure:
- *  Patches[
- *	Counters[
- *	    Champions[]
- *	    Ranks[]
- *	]
- *	LaneCounters[
- *	    Champions[]
- *	    Ranks[]
- *	]
- *  ]
+ * 
  * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
- * @since Dec 22, 2020
+ * @since Dec 7, 2020
  */
-@Slf4j
-@Entity
-@Getter
-@Setter
-public class Patch implements Persistable{
-    
-    //<editor-fold defaultstate="collapsed" desc="Attributes">
-
-    @Id
-    @GeneratedValue
-    private Long hibernateId;
-    
-    @Column(unique = true)
-    private String id;
-    
-    @OneToMany(mappedBy = "patch", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<Counter> counters=new ArrayList<>();
-    
-    @OneToMany(mappedBy = "patch", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<LaneCounter> laneCounters=new ArrayList<>();
-    
-    @OneToMany(mappedBy = "patch", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<ChampionTierRank> tiersRanks=null;
-    
-    //</editor-fold>
-    
-    //<editor-fold defaultstate="collapsed" desc="Constructors">
-
-    public Patch(String id){
-        this.id=id;
-    }
-    
-    /**
-     * Required no-Arguments Constructor by 
-     * <a href="https://docs.jboss.org/hibernate/core/3.5/reference/en/html/persistent-classes.html#persistent-classes-pojo-constructor">Hibernate</a>.
-     * 
-     * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
-     * @since 2021-02-02
-     */
-    protected Patch() { }
-    
-    //</editor-fold>
-    
-    //<editor-fold defaultstate="collapsed" desc="Custom Methods">
-
-    public void add(Counter counter){
-        if(getCounters()==null) setCounters(new ArrayList<>());
-        getCounters().add(counter);
-    }
-    
-    public void add(LaneCounter counter){
-        if(getCounters()==null) setLaneCounters(new ArrayList<>());
-        getLaneCounters().add(counter);
-    }
-    
-    public void add(ArrayList<ChampionTierRank> chTRs) {
-	log.trace("::add(parameter) - Start: ");
-	if(chTRs==null) return;
-	try {
-	    if(tiersRanks==null) tiersRanks=new ArrayList<>();
-	    tiersRanks.addAll(chTRs);
-	    log.trace("::add(parameter) - Finish: ");
-	} catch (Exception e) {
-	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
-	}
-    }
-    
-    public String getIdURLFormatted(){
-        return id.replace(".", "_");
-    }
-
-    @Override
-    public String toString(){
-        return getId();
-    }
-    //</editor-fold>
-
+public enum Tier {
+    Splu,S,A,B,C;
 }

@@ -122,6 +122,7 @@
 package org.white_sdev.white_lolpicker.model.persistence;
 
 import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -154,20 +155,20 @@ public class Champion implements Persistable{
     @Column
     private String name;
     @OneToMany(mappedBy = "champion", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private ArrayList<Counter> counters= new ArrayList<>();
+    private List<Counter> counters= new ArrayList<>();
     
     @OneToMany(mappedBy = "counter", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private ArrayList<Counter> counterOfChampions= new ArrayList<>();
+    private List<Counter> counterOfChampions= new ArrayList<>();
     
     @OneToMany(mappedBy = "champion", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private ArrayList<LaneCounter> laneCounterChampions= new ArrayList<>();
+    private List<LaneCounter> laneCounterChampions= new ArrayList<>();
     
     @OneToMany(mappedBy = "counter", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private ArrayList<LaneCounter> laneCounterCounters= new ArrayList<>();
+    private List<LaneCounter> laneCounterCounters= new ArrayList<>();
     
 	//<editor-fold defaultstate="collapsed" desc="Useless">
      @OneToMany(mappedBy = "champ", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private ArrayList<ChampionTierRank> shampionTierRanks= new ArrayList<>();
+    private List<ChampionTierRank> shampionTierRanks= new ArrayList<>();
     //</editor-fold>
 	
     //</editor-fold>

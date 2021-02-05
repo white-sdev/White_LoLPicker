@@ -120,6 +120,7 @@
  */
 package org.white_sdev.white_lolpicker.model.persistence;
 
+import org.white_sdev.white_lolpicker.model.bean.Tier;
 import com.opencsv.bean.CsvBindByPosition;
 import java.util.ArrayList;
 import java.util.Collection;

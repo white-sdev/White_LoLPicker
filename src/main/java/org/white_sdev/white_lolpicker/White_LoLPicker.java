@@ -122,9 +122,9 @@ package org.white_sdev.white_lolpicker;
 
 import javax.swing.JOptionPane;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.white_sdev.white_lolpicker.view.White_LoLPickerJFrame;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.white_sdev.white_lolpicker.view.LoaderJFrame;
 
 /**
  *
@@ -133,16 +133,15 @@ import org.white_sdev.white_lolpicker.view.White_LoLPickerJFrame;
  */
 @SpringBootApplication
 @Slf4j
-@EnableAutoConfiguration
+//@EnableAutoConfiguration
 public class White_LoLPicker {
 
     public static void main(String[] args) {
-	log.trace("::Prueba() - TRACE: ");
-	log.debug("::Prueba() - DEBUG: ");
-	log.info("::Prueba() - INFO: ");
-	log.warn("::Prueba() - WARN: ");
-	log.error("::Prueba() - ERROR: ");
 	
+	
+//	SpringApplication.run(White_LoLPicker.class, args);
+	var context = new SpringApplicationBuilder(White_LoLPicker.class).headless(false).run(args);
+		
 	try {
 	    /* Set the Nimbus look and feel */
 	    //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -156,9 +155,15 @@ public class White_LoLPicker {
 		}
 	    }
 	    /* Create and display the form */
+//	    java.awt.EventQueue.invokeLater(() -> {
+//		new LoaderJFrame().setVisible(true);
+//	    });
+	    
 	    java.awt.EventQueue.invokeLater(() -> {
-		new White_LoLPickerJFrame().setVisible(true);
+		var ex = context.getBean(LoaderJFrame.class);
+		ex.setVisible(true);
 	    });
+	    
 	} catch (Exception ex) {
 	    log.error("An exception Ocurred", ex);
 	    JOptionPane.showMessageDialog(null, ex);

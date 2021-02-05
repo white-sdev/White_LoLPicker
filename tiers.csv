@@ -1,0 +1,1731 @@
+banRate,champ,id,log,matches,patch,pickRate,rank,ranking,role,tier,winRate
+,Swain,,,3326,11.3,,Bronze,1,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,57.76
+,Rammus,,,30814,11.3,,Bronze,2,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,55.81
+,Brand,,,11371,11.3,,Bronze,3,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,55.3
+,Dr. Mundo,,,22931,11.3,,Bronze,4,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,55.15
+,Shaco,,,14470,11.3,,Bronze,5,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,54.34
+,Swain,,,4959,11.3,,Bronze,6,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,54.26
+,Brand,,,41995,11.3,,Bronze,7,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,54.19
+,Swain,,,32717,11.3,,Bronze,8,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,53.51
+,Yorick,,,13095,11.3,,Bronze,9,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,53.45
+,Mordekaiser,,,4013,11.3,,Bronze,10,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,53.43
+,Garen,,,77333,11.3,,Bronze,11,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,53.33
+,Malzahar,,,16874,11.3,,Bronze,12,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,53.21
+,Skarner,,,4800,11.3,,Bronze,13,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,53.15
+,Cho'Gath,,,26618,11.3,,Bronze,14,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,52.94
+,Tristana,,,5900,11.3,,Bronze,15,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.93
+,Amumu,,,27256,11.3,,Bronze,16,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,52.89
+,Sion,,,8495,11.3,,Bronze,17,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,52.84
+,Nasus,,,45334,11.3,,Bronze,18,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,52.71
+,Singed,,,6672,11.3,,Bronze,19,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,52.7
+,Diana,,,33858,11.3,,Bronze,20,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.69
+,Udyr,,,39358,11.3,,Bronze,21,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,52.53
+,Teemo,,,3598,11.3,,Bronze,22,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.47
+,Galio,,,14267,11.3,,Bronze,23,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,52.44
+,Anivia,,,17327,11.3,,Bronze,24,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.37
+,Shaco,,,3170,11.3,,Bronze,25,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,52.3
+,Rell,,,16389,11.3,,Bronze,26,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,52.27
+,Garen,,,4674,11.3,,Bronze,27,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.2
+,Zyra,,,19927,11.3,,Bronze,28,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,52.17
+,Teemo,,,47950,11.3,,Bronze,29,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,52.12
+,Vel'Koz,,,13465,11.3,,Bronze,30,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,52.08
+,Ekko,,,34916,11.3,,Bronze,31,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,52.04
+,Senna,,,35820,11.3,,Bronze,32,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,51.96
+,Shyvana,,,22931,11.3,,Bronze,33,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.94
+,Vel'Koz,,,8352,11.3,,Bronze,34,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.93
+,Cho'Gath,,,3120,11.3,,Bronze,35,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.92
+,Fizz,,,39696,11.3,,Bronze,36,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.91
+,Annie,,,18138,11.3,,Bronze,37,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.89
+,Leona,,,64495,11.3,,Bronze,38,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.86
+,Malphite,,,46091,11.3,,Bronze,39,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.86
+,Morgana,,,7565,11.3,,Bronze,40,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.8
+,Neeko,,,22805,11.3,,Bronze,41,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.78
+,Heimerdinger,,,8946,11.3,,Bronze,42,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.75
+,Warwick,,,57506,11.3,,Bronze,43,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.71
+,Yone,,,71934,11.3,,Bronze,44,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.7
+,Volibear,,,24000,11.3,,Bronze,45,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.63
+,Yasuo,,,96539,11.3,,Bronze,46,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.62
+,Nocturne,,,37768,11.3,,Bronze,47,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.6
+,Maokai,,,18685,11.3,,Bronze,48,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.57
+,Malphite,,,8596,11.3,,Bronze,49,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.51
+,Ornn,,,26697,11.3,,Bronze,50,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.5
+,Alistar,,,26251,11.3,,Bronze,51,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.49
+,Master Yi,,,89538,11.3,,Bronze,52,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.48
+,Vi,,,22991,11.3,,Bronze,53,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.47
+,Zilean,,,8165,11.3,,Bronze,54,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.45
+,Seraphine,,,4582,11.3,,Bronze,55,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.42
+,Miss Fortune,,,133492,11.3,,Bronze,56,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,51.41
+,Pyke,,,9275,11.3,,Bronze,57,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.41
+,Illaoi,,,27977,11.3,,Bronze,58,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.37
+,Nocturne,,,4131,11.3,,Bronze,59,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.32
+,Elise,,,13661,11.3,,Bronze,60,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.26
+,Taric,,,4780,11.3,,Bronze,61,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.26
+,Jhin,,,107482,11.3,,Bronze,62,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,51.21
+,Viktor,,,10575,11.3,,Bronze,63,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.17
+,Tristana,,,75380,11.3,,Bronze,64,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,51.17
+,Xerath,,,20860,11.3,,Bronze,65,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.15
+,Zac,,,11645,11.3,,Bronze,66,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.13
+,Seraphine,,,49557,11.3,,Bronze,67,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.12
+,Karthus,,,7456,11.3,,Bronze,68,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.09
+,Wukong,,,15187,11.3,,Bronze,69,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.02
+,Yasuo,,,12828,11.3,,Bronze,70,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,51.01
+,Nautilus,,,49156,11.3,,Bronze,71,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.0
+,Galio,,,23814,11.3,,Bronze,72,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.99
+,Blitzcrank,,,52135,11.3,,Bronze,73,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.98
+,Urgot,,,25413,11.3,,Bronze,74,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.96
+,Vayne,,,63280,11.3,,Bronze,75,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,50.95
+,Renekton,,,6022,11.3,,Bronze,76,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.88
+,Sejuani,,,7091,11.3,,Bronze,77,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.87
+,Kai'Sa,,,137282,11.3,,Bronze,78,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,50.78
+,Hecarim,,,44390,11.3,,Bronze,79,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.78
+,Ekko,,,27501,11.3,,Bronze,80,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.75
+,Lux,,,33063,11.3,,Bronze,81,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.73
+,Shen,,,22035,11.3,,Bronze,82,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.72
+,Kled,,,6412,11.3,,Bronze,83,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.7
+,Nami,,,14275,11.3,,Bronze,84,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.6
+,Sona,,,14977,11.3,,Bronze,85,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.59
+,Poppy,,,4568,11.3,,Bronze,86,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.57
+,Dr. Mundo,,,12166,11.3,,Bronze,87,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.57
+,Aurelion Sol,,,3760,11.3,,Bronze,88,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.53
+,Ahri,,,34612,11.3,,Bronze,89,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.49
+,Twitch,,,18550,11.3,,Bronze,90,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,50.49
+,Jinx,,,49970,11.3,,Bronze,91,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,50.48
+,Sivir,,,14830,11.3,,Bronze,92,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,50.47
+,Volibear,,,20309,11.3,,Bronze,93,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.46
+,Veigar,,,31526,11.3,,Bronze,94,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.44
+,Morgana,,,88040,11.3,,Bronze,95,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.38
+,Nunu & Willump,,,30078,11.3,,Bronze,96,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.36
+,Pantheon,,,27969,11.3,,Bronze,97,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.32
+,Vladimir,,,13365,11.3,,Bronze,98,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.32
+,Ziggs,,,9003,11.3,,Bronze,99,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.31
+,Sett,,,58012,11.3,,Bronze,100,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.27
+,Quinn,,,12946,11.3,,Bronze,101,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.26
+,Jayce,,,3204,11.3,,Bronze,102,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.25
+,Kennen,,,7495,11.3,,Bronze,103,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.21
+,Kog'Maw,,,3633,11.3,,Bronze,104,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,50.18
+,Heimerdinger,,,8856,11.3,,Bronze,105,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.16
+,Fiddlesticks,,,14831,11.3,,Bronze,106,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.15
+,Sett,,,6811,11.3,,Bronze,107,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.12
+,Lissandra,,,3976,11.3,,Bronze,108,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.1
+,Mordekaiser,,,51195,11.3,,Bronze,109,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.05
+,Shaco,,,29328,11.3,,Bronze,110,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.04
+,Neeko,,,10707,11.3,,Bronze,111,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.04
+,Kayle,,,14445,11.3,,Bronze,112,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.04
+,Viego,,,15123,11.3,,Bronze,113,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.02
+,Jarvan IV,,,9121,11.3,,Bronze,114,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.97
+,Lux,,,113120,11.3,,Bronze,115,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.96
+,Ashe,,,70085,11.3,,Bronze,116,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,49.94
+,Yasuo,,,14249,11.3,,Bronze,117,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.9
+,Xerath,,,11863,11.3,,Bronze,118,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.85
+,Wukong,,,6047,11.3,,Bronze,119,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.83
+,Viego,,,61308,11.3,,Bronze,120,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.81
+,Rengar,,,4517,11.3,,Bronze,121,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.75
+,Warwick,,,5261,11.3,,Bronze,122,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.71
+,Tryndamere,,,25311,11.3,,Bronze,123,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.66
+,Vayne,,,18748,11.3,,Bronze,124,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.53
+,Trundle,,,7106,11.3,,Bronze,125,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.51
+,Cassiopeia,,,10114,11.3,,Bronze,126,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.5
+,Gnar,,,26442,11.3,,Bronze,127,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.46
+,Kayn,,,80214,11.3,,Bronze,128,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.4
+,Jax,,,23981,11.3,,Bronze,129,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.38
+,Jax,,,28101,11.3,,Bronze,130,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.36
+,Tahm Kench,,,6030,11.3,,Bronze,131,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.32
+,Katarina,,,47329,11.3,,Bronze,132,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.28
+,Lulu,,,19838,11.3,,Bronze,133,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.26
+,Maokai,,,3764,11.3,,Bronze,134,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.23
+,Shen,,,4430,11.3,,Bronze,135,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.21
+,Fiora,,,20535,11.3,,Bronze,136,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.1
+,Braum,,,10044,11.3,,Bronze,137,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.01
+,Lillia,,,15452,11.3,,Bronze,138,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.99
+,Darius,,,53983,11.3,,Bronze,139,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.98
+,Zed,,,64716,11.3,,Bronze,140,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,48.96
+,Varus,,,16339,11.3,,Bronze,141,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,48.95
+,Samira,,,61230,11.3,,Bronze,142,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,48.84
+,Soraka,,,18428,11.3,,Bronze,143,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.83
+,Yone,,,13937,11.3,,Bronze,144,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.8
+,Malphite,,,21215,11.3,,Bronze,145,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.8
+,Graves,,,27441,11.3,,Bronze,146,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.79
+,Ivern,,,4138,11.3,,Bronze,147,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.74
+,Rumble,,,4099,11.3,,Bronze,148,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.72
+,Bard,,,7476,11.3,,Bronze,149,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.72
+,Janna,,,8845,11.3,,Bronze,150,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.67
+,Aphelios,,,24649,11.3,,Bronze,151,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,48.58
+,Kha'Zix,,,45356,11.3,,Bronze,152,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.57
+,Evelynn,,,24759,11.3,,Bronze,153,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.56
+,Thresh,,,47114,11.3,,Bronze,154,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.52
+,LeBlanc,,,17064,11.3,,Bronze,155,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,48.48
+,Nasus,,,3167,11.3,,Bronze,156,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.47
+,Xin Zhao,,,20376,11.3,,Bronze,157,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.46
+,Tryndamere,,,4654,11.3,,Bronze,158,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.43
+,Riven,,,18552,11.3,,Bronze,159,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.36
+,Senna,,,54227,11.3,,Bronze,160,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.3
+,Veigar,,,9497,11.3,,Bronze,161,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.27
+,Olaf,,,35118,11.3,,Bronze,162,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.26
+,Ezreal,,,83204,11.3,,Bronze,163,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,48.26
+,Poppy,,,7382,11.3,,Bronze,164,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.23
+,Draven,,,15168,11.3,,Bronze,165,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,48.22
+,Pyke,,,51695,11.3,,Bronze,166,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.2
+,Viego,,,19512,11.3,,Bronze,167,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.17
+,Sett,,,13896,11.3,,Bronze,168,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.16
+,Renekton,,,43535,11.3,,Bronze,169,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.16
+,Caitlyn,,,66820,11.3,,Bronze,170,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,48.16
+,Kassadin,,,12279,11.3,,Bronze,171,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,48.16
+,Camille,,,22421,11.3,,Bronze,172,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.14
+,Syndra,,,12417,11.3,,Bronze,173,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,48.1
+,Jayce,,,6742,11.3,,Bronze,174,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.09
+,Trundle,,,3059,11.3,,Bronze,175,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.02
+,Xayah,,,22399,11.3,,Bronze,176,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,47.94
+,Ryze,,,3624,11.3,,Bronze,177,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.85
+,Cho'Gath,,,3002,11.3,,Bronze,178,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,47.83
+,Rakan,,,14398,11.3,,Bronze,179,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,47.74
+,Orianna,,,13244,11.3,,Bronze,180,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,47.73
+,Yuumi,,,38637,11.3,,Bronze,181,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,47.69
+,Kindred,,,14346,11.3,,Bronze,182,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,47.68
+,Sylas,,,34475,11.3,,Bronze,183,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,47.65
+,Irelia,,,28953,11.3,,Bronze,184,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,47.6
+,Aatrox,,,27570,11.3,,Bronze,185,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.57
+,Lucian,,,54998,11.3,,Bronze,186,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,47.55
+,Gragas,,,6838,11.3,,Bronze,187,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.44
+,Garen,,,2909,11.3,,Bronze,188,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,47.4
+,Talon,,,26680,11.3,,Bronze,189,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,47.27
+,Sett,,,4493,11.3,,Bronze,190,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,47.25
+,Karma,,,12666,11.3,,Bronze,191,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,47.19
+,Ashe,,,7961,11.3,,Bronze,192,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,47.1
+,Pantheon,,,29719,11.3,,Bronze,193,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,47.1
+,Anivia,,,3600,11.3,,Bronze,194,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,47.03
+,Sylas,,,7361,11.3,,Bronze,195,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,46.8
+,Malphite,,,3858,11.3,,Bronze,196,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,46.79
+,Lucian,,,17604,11.3,,Bronze,197,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,46.65
+,Gangplank,,,6625,11.3,,Bronze,198,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,46.54
+,Lee Sin,,,42924,11.3,,Bronze,199,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,46.51
+,Gragas,,,8158,11.3,,Bronze,200,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,46.42
+,Pantheon,,,15425,11.3,,Bronze,201,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,46.41
+,Rek'Sai,,,4703,11.3,,Bronze,202,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,46.4
+,Teemo,,,3189,11.3,,Bronze,203,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,46.32
+,Twisted Fate,,,16638,11.3,,Bronze,204,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,46.29
+,Lucian,,,4731,11.3,,Bronze,205,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,46.25
+,Nidalee,,,14020,11.3,,Bronze,206,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,46.09
+,Pantheon,,,20865,11.3,,Bronze,207,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,46.09
+,Irelia,,,31175,11.3,,Bronze,208,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,46.05
+,Rengar,,,11153,11.3,,Bronze,209,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,46.03
+,Ryze,,,11539,11.3,,Bronze,210,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,46.01
+,Miss Fortune,,,4563,11.3,,Bronze,211,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,46.0
+,Kalista,,,10245,11.3,,Bronze,212,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,45.96
+,Zoe,,,14766,11.3,,Bronze,213,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,45.75
+,Vladimir,,,4106,11.3,,Bronze,214,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,45.57
+,Akali,,,38645,11.3,,Bronze,215,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,45.47
+,Akali,,,11722,11.3,,Bronze,216,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,45.23
+,Azir,,,6710,11.3,,Bronze,217,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,44.81
+,Taliyah,,,6147,11.3,,Bronze,218,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,44.66
+,Ezreal,,,4245,11.3,,Bronze,219,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,44.5
+,Olaf,,,3579,11.3,,Bronze,220,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,44.2
+,Kalista,,,6115,11.3,,Bronze,221,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,43.83
+,Qiyana,,,5408,11.3,,Bronze,222,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,43.42
+,Twitch,,,3297,11.3,,Bronze,223,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,42.95
+,Swain,,,8390,11.3,,Silver,1,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,56.48
+,Dr. Mundo,,,58253,11.3,,Silver,2,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,54.77
+,Rammus,,,67433,11.3,,Silver,3,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,54.54
+,Skarner,,,16473,11.3,,Silver,4,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,54.31
+,Swain,,,10979,11.3,,Silver,5,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,54.0
+,Garen,,,9370,11.3,,Silver,6,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,53.94
+,Udyr,,,111048,11.3,,Silver,7,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,53.71
+,Shaco,,,37878,11.3,,Silver,8,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,53.66
+,Garen,,,136146,11.3,,Silver,9,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,53.41
+,Brand,,,20777,11.3,,Silver,10,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,53.32
+,Malzahar,,,45292,11.3,,Silver,11,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,53.24
+,Cho'Gath,,,58535,11.3,,Silver,12,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,53.19
+,Annie,,,41499,11.3,,Silver,13,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,53.05
+,Morgana,,,15202,11.3,,Silver,14,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.91
+,Diana,,,67005,11.3,,Silver,15,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.88
+,Nasus,,,84560,11.3,,Silver,16,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,52.65
+,Swain,,,72709,11.3,,Silver,17,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,52.58
+,Singed,,,18403,11.3,,Silver,18,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,52.38
+,Neeko,,,38513,11.3,,Silver,19,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.38
+,Brand,,,79818,11.3,,Silver,20,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,52.34
+,Malphite,,,106441,11.3,,Silver,21,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,52.28
+,Zilean,,,23288,11.3,,Silver,22,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,52.19
+,Mordekaiser,,,6881,11.3,,Silver,23,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.19
+,Nocturne,,,72884,11.3,,Silver,24,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,52.11
+,Malphite,,,20054,11.3,,Silver,25,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.08
+,Anivia,,,54398,11.3,,Silver,26,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.06
+,Vel'Koz,,,18569,11.3,,Silver,27,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.04
+,Sion,,,23211,11.3,,Silver,28,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,52.01
+,Seraphine,,,11459,11.3,,Silver,29,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.99
+,Fizz,,,88007,11.3,,Silver,30,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.9
+,Heimerdinger,,,12257,11.3,,Silver,31,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.89
+,Shaco,,,6899,11.3,,Silver,32,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.88
+,Rell,,,52602,11.3,,Silver,33,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.85
+,Warwick,,,64841,11.3,,Silver,34,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.84
+,Yorick,,,25486,11.3,,Silver,35,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.84
+,Poppy,,,11649,11.3,,Silver,36,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.83
+,Zyra,,,45799,11.3,,Silver,37,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.75
+,Rumble,,,8818,11.3,,Silver,38,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.75
+,Seraphine,,,110686,11.3,,Silver,39,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.72
+,Nunu & Willump,,,55630,11.3,,Silver,40,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.7
+,Wukong,,,35094,11.3,,Silver,41,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.67
+,Teemo,,,76777,11.3,,Silver,42,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.66
+,Senna,,,111741,11.3,,Silver,43,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,51.61
+,Viktor,,,44152,11.3,,Silver,44,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.56
+,Ornn,,,59216,11.3,,Silver,45,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.54
+,Galio,,,56395,11.3,,Silver,46,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.5
+,Pyke,,,12560,11.3,,Silver,47,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.48
+,Tristana,,,12902,11.3,,Silver,48,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.48
+,Vi,,,50883,11.3,,Silver,49,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.48
+,Jhin,,,274415,11.3,,Silver,50,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,51.47
+,Taric,,,10992,11.3,,Silver,51,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.46
+,Tristana,,,133029,11.3,,Silver,52,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,51.44
+,Ekko,,,62525,11.3,,Silver,53,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.44
+,Lux,,,62986,11.3,,Silver,54,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.41
+,Fiddlesticks,,,38982,11.3,,Silver,55,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.41
+,Sona,,,24905,11.3,,Silver,56,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.4
+,Nami,,,41782,11.3,,Silver,57,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.37
+,Maokai,,,44190,11.3,,Silver,58,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.34
+,Galio,,,29766,11.3,,Silver,59,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.3
+,Kled,,,17851,11.3,,Silver,60,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.26
+,Renekton,,,12251,11.3,,Silver,61,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.24
+,Volibear,,,49719,11.3,,Silver,62,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.24
+,Leona,,,152137,11.3,,Silver,63,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.24
+,Elise,,,53498,11.3,,Silver,64,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.21
+,Sett,,,10759,11.3,,Silver,65,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.21
+,Yone,,,145791,11.3,,Silver,66,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.2
+,Heimerdinger,,,15610,11.3,,Silver,67,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.2
+,Ekko,,,86063,11.3,,Silver,68,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.2
+,Hecarim,,,121342,11.3,,Silver,69,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.19
+,Quinn,,,29265,11.3,,Silver,70,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.19
+,Shaco,,,65824,11.3,,Silver,71,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.18
+,Xerath,,,30353,11.3,,Silver,72,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.16
+,Ahri,,,64785,11.3,,Silver,73,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.13
+,Maokai,,,11712,11.3,,Silver,74,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.13
+,Nocturne,,,7991,11.3,,Silver,75,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.12
+,Sivir,,,30486,11.3,,Silver,76,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,51.09
+,Blitzcrank,,,94491,11.3,,Silver,77,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.06
+,Karthus,,,21189,11.3,,Silver,78,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.05
+,Xerath,,,49661,11.3,,Silver,79,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.02
+,Shyvana,,,62807,11.3,,Silver,80,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.0
+,Vayne,,,162094,11.3,,Silver,81,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,50.99
+,Shen,,,62114,11.3,,Silver,82,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.98
+,Volibear,,,29519,11.3,,Silver,83,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.96
+,Amumu,,,47246,11.3,,Silver,84,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.95
+,Kai'Sa,,,364839,11.3,,Silver,85,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,50.94
+,Sejuani,,,19163,11.3,,Silver,86,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.91
+,Alistar,,,89527,11.3,,Silver,87,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.89
+,Pantheon,,,51778,11.3,,Silver,88,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.84
+,Illaoi,,,46152,11.3,,Silver,89,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.83
+,Mordekaiser,,,90582,11.3,,Silver,90,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.79
+,Miss Fortune,,,182842,11.3,,Silver,91,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,50.69
+,Vel'Koz,,,29432,11.3,,Silver,92,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.64
+,Wukong,,,10126,11.3,,Silver,93,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.63
+,Yasuo,,,168720,11.3,,Silver,94,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.63
+,Evelynn,,,53589,11.3,,Silver,95,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.48
+,Viego,,,35735,11.3,,Silver,96,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.48
+,Ivern,,,13434,11.3,,Silver,97,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.47
+,Sett,,,89205,11.3,,Silver,98,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.46
+,Urgot,,,47453,11.3,,Silver,99,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.46
+,Cho'Gath,,,7408,11.3,,Silver,100,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.46
+,Ashe,,,100829,11.3,,Silver,101,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,50.45
+,Twitch,,,39449,11.3,,Silver,102,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,50.41
+,Master Yi,,,123791,11.3,,Silver,103,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.29
+,Jarvan IV,,,30580,11.3,,Silver,104,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.24
+,Lulu,,,77348,11.3,,Silver,105,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.22
+,Aurelion Sol,,,7850,11.3,,Silver,106,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.22
+,Ziggs,,,16251,11.3,,Silver,107,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.19
+,Veigar,,,46809,11.3,,Silver,108,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.11
+,Rengar,,,14169,11.3,,Silver,109,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.1
+,Morgana,,,144607,11.3,,Silver,110,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.1
+,Kayle,,,25499,11.3,,Silver,111,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.08
+,Corki,,,7094,11.3,,Silver,112,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.06
+,Yasuo,,,16678,11.3,,Silver,113,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,50.05
+,Kha'Zix,,,104073,11.3,,Silver,114,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.99
+,Janna,,,28453,11.3,,Silver,115,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.99
+,Gnar,,,84334,11.3,,Silver,116,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.99
+,Warwick,,,11375,11.3,,Silver,117,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.96
+,Nautilus,,,111834,11.3,,Silver,118,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.95
+,Riven,,,55240,11.3,,Silver,119,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.91
+,Bard,,,23101,11.3,,Silver,120,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.9
+,Thresh,,,149197,11.3,,Silver,121,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.84
+,Zac,,,33421,11.3,,Silver,122,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.83
+,Viego,,,134118,11.3,,Silver,123,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.76
+,Zed,,,134840,11.3,,Silver,124,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.73
+,Jayce,,,8097,11.3,,Silver,125,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.66
+,Jinx,,,111609,11.3,,Silver,126,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,49.64
+,Lux,,,149790,11.3,,Silver,127,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.64
+,Vladimir,,,39390,11.3,,Silver,128,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.6
+,Darius,,,108909,11.3,,Silver,129,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.59
+,Dr. Mundo,,,23996,11.3,,Silver,130,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.5
+,Soraka,,,42415,11.3,,Silver,131,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.47
+,Cassiopeia,,,24671,11.3,,Silver,132,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.43
+,Vayne,,,38914,11.3,,Silver,133,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.39
+,Kog'Maw,,,7526,11.3,,Silver,134,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,49.38
+,Lissandra,,,14101,11.3,,Silver,135,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.36
+,Yuumi,,,85142,11.3,,Silver,136,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.3
+,Katarina,,,110273,11.3,,Silver,137,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.27
+,Kayn,,,145042,11.3,,Silver,138,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.25
+,Kennen,,,19029,11.3,,Silver,139,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.23
+,Poppy,,,21616,11.3,,Silver,140,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.22
+,Samira,,,149609,11.3,,Silver,141,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,49.05
+,Gragas,,,25234,11.3,,Silver,142,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.99
+,Jax,,,50367,11.3,,Silver,143,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.96
+,Gragas,,,23309,11.3,,Silver,144,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.89
+,Tryndamere,,,41948,11.3,,Silver,145,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.81
+,Senna,,,134166,11.3,,Silver,146,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.79
+,Pantheon,,,27654,11.3,,Silver,147,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.77
+,Rek'Sai,,,15767,11.3,,Silver,148,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.75
+,Xin Zhao,,,26913,11.3,,Silver,149,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.71
+,Neeko,,,15163,11.3,,Silver,150,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.71
+,Kassadin,,,34142,11.3,,Silver,151,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,48.69
+,Camille,,,74228,11.3,,Silver,152,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.68
+,Draven,,,34380,11.3,,Silver,153,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,48.67
+,Varus,,,24014,11.3,,Silver,154,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,48.66
+,Braum,,,25241,11.3,,Silver,155,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.66
+,LeBlanc,,,45564,11.3,,Silver,156,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,48.53
+,Yone,,,24920,11.3,,Silver,157,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.53
+,Anivia,,,6811,11.3,,Silver,158,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.41
+,Lillia,,,49419,11.3,,Silver,159,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.41
+,Tahm Kench,,,13014,11.3,,Silver,160,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.39
+,Fiora,,,52008,11.3,,Silver,161,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.38
+,Rakan,,,31743,11.3,,Silver,162,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.3
+,Rumble,,,12037,11.3,,Silver,163,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.3
+,Renekton,,,90679,11.3,,Silver,164,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.22
+,Xayah,,,50102,11.3,,Silver,165,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,48.09
+,Caitlyn,,,116684,11.3,,Silver,166,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,48.09
+,Olaf,,,67899,11.3,,Silver,167,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.09
+,Sylas,,,16378,11.3,,Silver,168,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.06
+,Aatrox,,,66346,11.3,,Silver,169,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.05
+,Pyke,,,82068,11.3,,Silver,170,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.04
+,Ezreal,,,208608,11.3,,Silver,171,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,48.03
+,Sylas,,,75725,11.3,,Silver,172,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,48.03
+,Shen,,,9726,11.3,,Silver,173,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.03
+,Veigar,,,11061,11.3,,Silver,174,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.01
+,Trundle,,,6237,11.3,,Silver,175,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.0
+,Trundle,,,12875,11.3,,Silver,176,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,47.95
+,Twitch,,,7622,11.3,,Silver,177,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,47.85
+,Yasuo,,,26307,11.3,,Silver,178,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.85
+,Talon,,,41545,11.3,,Silver,179,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,47.79
+,Lucian,,,125476,11.3,,Silver,180,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,47.76
+,Karma,,,38428,11.3,,Silver,181,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,47.74
+,Jax,,,34328,11.3,,Silver,182,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,47.74
+,Jayce,,,20790,11.3,,Silver,183,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.52
+,Malphite,,,25138,11.3,,Silver,184,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,47.52
+,Kindred,,,32914,11.3,,Silver,185,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,47.48
+,Graves,,,90422,11.3,,Silver,186,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,47.45
+,Orianna,,,45878,11.3,,Silver,187,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,47.35
+,Viego,,,52365,11.3,,Silver,188,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.33
+,Twisted Fate,,,59249,11.3,,Silver,189,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,47.2
+,Rengar,,,24564,11.3,,Silver,190,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,46.97
+,Sett,,,28018,11.3,,Silver,191,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,46.96
+,Ashe,,,19958,11.3,,Silver,192,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,46.95
+,Pantheon,,,52746,11.3,,Silver,193,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,46.94
+,Ryze,,,9970,11.3,,Silver,194,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,46.93
+,Irelia,,,58127,11.3,,Silver,195,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,46.84
+,Syndra,,,34696,11.3,,Silver,196,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,46.82
+,Aphelios,,,56716,11.3,,Silver,197,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,46.78
+,Lucian,,,43089,11.3,,Silver,198,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,46.73
+,Kalista,,,18758,11.3,,Silver,199,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,46.73
+,Taliyah,,,22148,11.3,,Silver,200,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,46.65
+,Irelia,,,72963,11.3,,Silver,201,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,46.62
+,Gangplank,,,25074,11.3,,Silver,202,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,46.61
+,Vladimir,,,11815,11.3,,Silver,203,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,46.53
+,Lee Sin,,,108354,11.3,,Silver,204,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,46.46
+,Nidalee,,,43006,11.3,,Silver,205,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,46.31
+,Lucian,,,11468,11.3,,Silver,206,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,46.14
+,Zoe,,,32382,11.3,,Silver,207,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,46.13
+,Ryze,,,26759,11.3,,Silver,208,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,45.43
+,Pantheon,,,41460,11.3,,Silver,209,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,45.39
+,Olaf,,,6160,11.3,,Silver,210,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,45.16
+,Azir,,,16668,11.3,,Silver,211,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,45.02
+,Akali,,,19558,11.3,,Silver,212,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,44.97
+,Qiyana,,,12473,11.3,,Silver,213,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,44.81
+,Akali,,,55741,11.3,,Silver,214,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,44.67
+,Miss Fortune,,,9773,11.3,,Silver,215,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,44.55
+,Ezreal,,,8779,11.3,,Silver,216,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,44.04
+,Kalista,,,10876,11.3,,Silver,217,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,42.54
+,Twitch,,,8993,11.3,,Silver,218,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,41.85
+,Swain,,,7122,11.3,,Gold,1,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,55.29
+,Swain,,,6975,11.3,,Gold,2,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,54.55
+,Skarner,,,16203,11.3,,Gold,3,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,54.46
+,Heimerdinger,,,6162,11.3,,Gold,4,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,54.11
+,Udyr,,,93200,11.3,,Gold,5,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,54.08
+,Rammus,,,40650,11.3,,Gold,6,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,53.97
+,Garen,,,6343,11.3,,Gold,7,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,53.89
+,Pyke,,,6790,11.3,,Gold,8,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,53.62
+,Cho'Gath,,,40866,11.3,,Gold,9,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,53.42
+,Seraphine,,,10855,11.3,,Gold,10,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,53.23
+,Garen,,,80155,11.3,,Gold,11,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,52.93
+,Morgana,,,8554,11.3,,Gold,12,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.91
+,Malzahar,,,31808,11.3,,Gold,13,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.87
+,Rumble,,,8435,11.3,,Gold,14,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.85
+,Dr. Mundo,,,39558,11.3,,Gold,15,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,52.64
+,Singed,,,15867,11.3,,Gold,16,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,52.64
+,Nasus,,,46342,11.3,,Gold,17,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,52.63
+,Annie,,,27885,11.3,,Gold,18,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.6
+,Zilean,,,21766,11.3,,Gold,19,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,52.47
+,Malphite,,,74574,11.3,,Gold,20,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,52.46
+,Fiddlesticks,,,33842,11.3,,Gold,21,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,52.41
+,Malphite,,,12426,11.3,,Gold,22,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.33
+,Wukong,,,6171,11.3,,Gold,23,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,52.33
+,Diana,,,43868,11.3,,Gold,24,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.3
+,Seraphine,,,89720,11.3,,Gold,25,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,52.27
+,Neeko,,,21842,11.3,,Gold,26,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.27
+,Anivia,,,49221,11.3,,Gold,27,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.27
+,Gragas,,,4641,11.3,,Gold,28,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.23
+,Wukong,,,30234,11.3,,Gold,29,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,52.21
+,Poppy,,,9065,11.3,,Gold,30,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,52.09
+,Vel'Koz,,,13554,11.3,,Gold,31,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.09
+,Shaco,,,31393,11.3,,Gold,32,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,52.08
+,Brand,,,9606,11.3,,Gold,33,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.04
+,Ivern,,,15200,11.3,,Gold,34,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.9
+,Galio,,,43872,11.3,,Gold,35,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.87
+,Volibear,,,37599,11.3,,Gold,36,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.86
+,Ahri,,,42524,11.3,,Gold,37,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.83
+,Nocturne,,,38982,11.3,,Gold,38,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.83
+,Tristana,,,8643,11.3,,Gold,39,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.79
+,Renekton,,,8425,11.3,,Gold,40,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.77
+,Sona,,,13791,11.3,,Gold,41,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.74
+,Rell,,,51967,11.3,,Gold,42,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.74
+,Fizz,,,60579,11.3,,Gold,43,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.69
+,Warwick,,,28768,11.3,,Gold,44,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.65
+,Pantheon,,,31725,11.3,,Gold,45,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.63
+,Maokai,,,9442,11.3,,Gold,46,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.59
+,Shaco,,,45453,11.3,,Gold,47,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.58
+,Maokai,,,31072,11.3,,Gold,48,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.56
+,Leona,,,102721,11.3,,Gold,49,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.54
+,Ekko,,,46769,11.3,,Gold,50,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.52
+,Jhin,,,209282,11.3,,Gold,51,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,51.52
+,Blitzcrank,,,59935,11.3,,Gold,52,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.45
+,Ekko,,,65156,11.3,,Gold,53,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.43
+,Hecarim,,,104899,11.3,,Gold,54,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.43
+,Nunu & Willump,,,37354,11.3,,Gold,55,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.41
+,Quinn,,,18851,11.3,,Gold,56,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.39
+,Warwick,,,8546,11.3,,Gold,57,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.38
+,Viktor,,,49505,11.3,,Gold,58,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.38
+,Elise,,,57650,11.3,,Gold,59,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.37
+,Shen,,,50370,11.3,,Gold,60,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.35
+,Nami,,,39237,11.3,,Gold,61,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.33
+,Cho'Gath,,,4785,11.3,,Gold,62,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.31
+,Ornn,,,41582,11.3,,Gold,63,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.29
+,Teemo,,,36293,11.3,,Gold,64,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.28
+,Heimerdinger,,,9590,11.3,,Gold,65,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.27
+,Vayne,,,122987,11.3,,Gold,66,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,51.27
+,Kai'Sa,,,304161,11.3,,Gold,67,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,51.24
+,Kha'Zix,,,80042,11.3,,Gold,68,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.21
+,Sivir,,,20695,11.3,,Gold,69,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,51.2
+,Karthus,,,20656,11.3,,Gold,70,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.15
+,Vi,,,31453,11.3,,Gold,71,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.12
+,Ashe,,,51055,11.3,,Gold,72,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,51.11
+,Galio,,,22024,11.3,,Gold,73,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.07
+,Senna,,,108119,11.3,,Gold,74,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,51.05
+,Mordekaiser,,,55530,11.3,,Gold,75,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.05
+,Evelynn,,,40171,11.3,,Gold,76,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.04
+,Viego,,,28453,11.3,,Gold,77,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.02
+,Illaoi,,,23126,11.3,,Gold,78,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.02
+,Lux,,,36392,11.3,,Gold,79,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.85
+,Aurelion Sol,,,6461,11.3,,Gold,80,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.84
+,Poppy,,,19422,11.3,,Gold,81,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.84
+,Tristana,,,72961,11.3,,Gold,82,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,50.83
+,Lulu,,,83977,11.3,,Gold,83,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.8
+,Rengar,,,12760,11.3,,Gold,84,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.75
+,Bard,,,23785,11.3,,Gold,85,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.75
+,Kled,,,15880,11.3,,Gold,86,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.74
+,Thresh,,,145283,11.3,,Gold,87,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.73
+,Gnar,,,81075,11.3,,Gold,88,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.73
+,Urgot,,,27662,11.3,,Gold,89,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.71
+,Zed,,,94461,11.3,,Gold,90,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.71
+,Sion,,,20625,11.3,,Gold,91,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.69
+,Darius,,,73130,11.3,,Gold,92,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.6
+,Cassiopeia,,,19304,11.3,,Gold,93,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.59
+,Swain,,,40687,11.3,,Gold,94,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.55
+,Alistar,,,85761,11.3,,Gold,95,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.51
+,Xerath,,,22059,11.3,,Gold,96,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.44
+,Nocturne,,,5092,11.3,,Gold,97,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.43
+,Riven,,,52259,11.3,,Gold,98,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.43
+,Brand,,,41483,11.3,,Gold,99,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.43
+,Taric,,,7773,11.3,,Gold,100,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.38
+,Miss Fortune,,,87506,11.3,,Gold,101,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,50.33
+,Twitch,,,29819,11.3,,Gold,102,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,50.33
+,Rek'Sai,,,17879,11.3,,Gold,103,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.32
+,Nautilus,,,75131,11.3,,Gold,104,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.3
+,Kassadin,,,32581,11.3,,Gold,105,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.29
+,Ziggs,,,9962,11.3,,Gold,106,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.24
+,Vel'Koz,,,17721,11.3,,Gold,107,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.23
+,Sett,,,6841,11.3,,Gold,108,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.23
+,Yone,,,104757,11.3,,Gold,109,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.2
+,Corki,,,6519,11.3,,Gold,110,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.18
+,Kennen,,,15382,11.3,,Gold,111,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.16
+,Zyra,,,27669,11.3,,Gold,112,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.09
+,Vladimir,,,36885,11.3,,Gold,113,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.07
+,Lissandra,,,13745,11.3,,Gold,114,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.02
+,Katarina,,,78898,11.3,,Gold,115,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.01
+,Morgana,,,80301,11.3,,Gold,116,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.95
+,Jarvan IV,,,27924,11.3,,Gold,117,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.91
+,Kayle,,,14841,11.3,,Gold,118,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.89
+,Shyvana,,,4318,11.3,,Gold,119,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.88
+,Yorick,,,14004,11.3,,Gold,120,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.86
+,Shyvana,,,50604,11.3,,Gold,121,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.81
+,Viego,,,93910,11.3,,Gold,122,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.77
+,Gragas,,,21461,11.3,,Gold,123,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.71
+,Vayne,,,21763,11.3,,Gold,124,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.69
+,Camille,,,77212,11.3,,Gold,125,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.68
+,Zac,,,25529,11.3,,Gold,126,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.65
+,Xerath,,,32490,11.3,,Gold,127,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.62
+,Master Yi,,,54716,11.3,,Gold,128,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.6
+,Draven,,,25537,11.3,,Gold,129,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,49.54
+,Janna,,,29779,11.3,,Gold,130,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.46
+,Yasuo,,,96676,11.3,,Gold,131,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.44
+,Sett,,,54137,11.3,,Gold,132,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.44
+,Neeko,,,8150,11.3,,Gold,133,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.39
+,Rengar,,,20693,11.3,,Gold,134,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.37
+,Samira,,,121848,11.3,,Gold,135,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,49.37
+,Jinx,,,79229,11.3,,Gold,136,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,49.35
+,Sejuani,,,13860,11.3,,Gold,137,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.34
+,Lux,,,59693,11.3,,Gold,138,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.22
+,Volibear,,,13888,11.3,,Gold,139,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.2
+,Yuumi,,,63940,11.3,,Gold,140,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.19
+,Jayce,,,6535,11.3,,Gold,141,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.07
+,Kayn,,,90072,11.3,,Gold,142,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.07
+,Olaf,,,45096,11.3,,Gold,143,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.03
+,Amumu,,,19962,11.3,,Gold,144,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.01
+,LeBlanc,,,35252,11.3,,Gold,145,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.01
+,Senna,,,105259,11.3,,Gold,146,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.99
+,Gragas,,,29040,11.3,,Gold,147,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.97
+,Yasuo,,,8051,11.3,,Gold,148,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,48.95
+,Talon,,,27191,11.3,,Gold,149,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,48.85
+,Soraka,,,28403,11.3,,Gold,150,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.79
+,Xin Zhao,,,13545,11.3,,Gold,151,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.75
+,Kog'Maw,,,4782,11.3,,Gold,152,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,48.64
+,Jax,,,35950,11.3,,Gold,153,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.64
+,Aatrox,,,56379,11.3,,Gold,154,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.62
+,Pyke,,,49415,11.3,,Gold,155,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.61
+,Pantheon,,,18205,11.3,,Gold,156,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.55
+,Veigar,,,21143,11.3,,Gold,157,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,48.54
+,Braum,,,17782,11.3,,Gold,158,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.48
+,Tahm Kench,,,6662,11.3,,Gold,159,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.47
+,Kindred,,,24462,11.3,,Gold,160,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.42
+,Varus,,,12537,11.3,,Gold,161,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,48.38
+,Sylas,,,13985,11.3,,Gold,162,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.3
+,Fiora,,,40272,11.3,,Gold,163,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.27
+,Renekton,,,67168,11.3,,Gold,164,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.23
+,Karma,,,39008,11.3,,Gold,165,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.21
+,Tryndamere,,,22429,11.3,,Gold,166,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.2
+,Caitlyn,,,61250,11.3,,Gold,167,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,48.06
+,Twisted Fate,,,62664,11.3,,Gold,168,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,48.01
+,Rakan,,,24337,11.3,,Gold,169,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.01
+,Trundle,,,7228,11.3,,Gold,170,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,47.98
+,Taliyah,,,23291,11.3,,Gold,171,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,47.97
+,Gragas,,,6675,11.3,,Gold,172,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,47.97
+,Dr. Mundo,,,13515,11.3,,Gold,173,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.94
+,Ezreal,,,156356,11.3,,Gold,174,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,47.86
+,Xayah,,,41625,11.3,,Gold,175,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,47.84
+,Jayce,,,21185,11.3,,Gold,176,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.77
+,Lucian,,,88126,11.3,,Gold,177,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,47.72
+,Sylas,,,58725,11.3,,Gold,178,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,47.66
+,Kalista,,,12337,11.3,,Gold,179,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,47.64
+,Vladimir,,,10493,11.3,,Gold,180,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.48
+,Yone,,,16437,11.3,,Gold,181,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.47
+,Pantheon,,,34444,11.3,,Gold,182,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,47.44
+,Lillia,,,48122,11.3,,Gold,183,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,47.43
+,Ashe,,,14429,11.3,,Gold,184,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,47.38
+,Rumble,,,9719,11.3,,Gold,185,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.27
+,Viego,,,42050,11.3,,Gold,186,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.1
+,Graves,,,83314,11.3,,Gold,187,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,47.0
+,Gangplank,,,26501,11.3,,Gold,188,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,46.99
+,Orianna,,,44199,11.3,,Gold,189,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,46.92
+,Irelia,,,58028,11.3,,Gold,190,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,46.85
+,Qiyana,,,10244,11.3,,Gold,191,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,46.84
+,Yasuo,,,14932,11.3,,Gold,192,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,46.77
+,Shen,,,5349,11.3,,Gold,193,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,46.76
+,Jax,,,12619,11.3,,Gold,194,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,46.74
+,Nidalee,,,43508,11.3,,Gold,195,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,46.64
+,Zoe,,,27517,11.3,,Gold,196,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,46.63
+,Ryze,,,18634,11.3,,Gold,197,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,46.6
+,Lucian,,,33934,11.3,,Gold,198,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,46.48
+,Lee Sin,,,86270,11.3,,Gold,199,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,46.48
+,Twitch,,,7861,11.3,,Gold,200,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,46.43
+,Ryze,,,7597,11.3,,Gold,201,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,46.26
+,Lucian,,,8342,11.3,,Gold,202,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,46.14
+,Syndra,,,28400,11.3,,Gold,203,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,46.11
+,Irelia,,,38452,11.3,,Gold,204,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,46.08
+,Azir,,,14536,11.3,,Gold,205,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,46.04
+,Aphelios,,,49260,11.3,,Gold,206,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,45.9
+,Sett,,,22823,11.3,,Gold,207,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,45.86
+,Malphite,,,7408,11.3,,Gold,208,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,45.28
+,Pantheon,,,26582,11.3,,Gold,209,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,44.75
+,Akali,,,29603,11.3,,Gold,210,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,44.29
+,Akali,,,12008,11.3,,Gold,211,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,44.22
+,Kalista,,,5959,11.3,,Gold,212,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,43.63
+,Miss Fortune,,,4657,11.3,,Gold,213,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,43.07
+,Twitch,,,4803,11.3,,Gold,214,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,41.33
+,Seraphine,,,2070,11.3,,Platinum,1,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,58.45
+,Pyke,,,2003,11.3,,Platinum,2,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,55.02
+,Skarner,,,6182,11.3,,Platinum,3,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,54.66
+,Renekton,,,2513,11.3,,Platinum,4,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,54.52
+,Swain,,,2162,11.3,,Platinum,5,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,54.02
+,Udyr,,,31133,11.3,,Platinum,6,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,53.9
+,Nocturne,,,1492,11.3,,Platinum,7,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,53.62
+,Fiddlesticks,,,12804,11.3,,Platinum,8,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,53.47
+,Heimerdinger,,,1591,11.3,,Platinum,9,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,53.17
+,Rumble,,,3389,11.3,,Platinum,10,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.97
+,Karthus,,,10348,11.3,,Platinum,11,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,52.81
+,Zilean,,,8065,11.3,,Platinum,12,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,52.78
+,Anivia,,,17218,11.3,,Platinum,13,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.76
+,Annie,,,7447,11.3,,Platinum,14,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.76
+,Rek'Sai,,,8856,11.3,,Platinum,15,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,52.64
+,Seraphine,,,4870,11.3,,Platinum,16,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.63
+,Maokai,,,3117,11.3,,Platinum,17,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,52.61
+,Garen,,,21159,11.3,,Platinum,18,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,52.61
+,Volibear,,,12398,11.3,,Platinum,19,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,52.56
+,Ivern,,,7299,11.3,,Platinum,20,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,52.49
+,Bard,,,11463,11.3,,Platinum,21,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,52.42
+,Pantheon,,,8746,11.3,,Platinum,22,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.36
+,Swain,,,1897,11.3,,Platinum,23,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.35
+,Cho'Gath,,,11668,11.3,,Platinum,24,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,52.28
+,Garen,,,1785,11.3,,Platinum,25,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.27
+,Wukong,,,11062,11.3,,Platinum,26,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,52.24
+,Galio,,,15151,11.3,,Platinum,27,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.22
+,Aurelion Sol,,,2195,11.3,,Platinum,28,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.21
+,Rammus,,,9228,11.3,,Platinum,29,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,52.11
+,Vel'Koz,,,4696,11.3,,Platinum,30,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.02
+,Shaco,,,9452,11.3,,Platinum,31,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,52.02
+,Malphite,,,21360,11.3,,Platinum,32,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.93
+,Neeko,,,5621,11.3,,Platinum,33,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.88
+,Singed,,,5347,11.3,,Platinum,34,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.86
+,Ahri,,,12174,11.3,,Platinum,35,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.86
+,Malzahar,,,8181,11.3,,Platinum,36,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.85
+,Nunu & Willump,,,12207,11.3,,Platinum,37,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.85
+,Galio,,,7291,11.3,,Platinum,38,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.84
+,Corki,,,2338,11.3,,Platinum,39,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.8
+,Maokai,,,9537,11.3,,Platinum,40,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.76
+,Kha'Zix,,,27188,11.3,,Platinum,41,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.72
+,Shaco,,,12713,11.3,,Platinum,42,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.66
+,Heimerdinger,,,2662,11.3,,Platinum,43,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.65
+,Malphite,,,2558,11.3,,Platinum,44,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.6
+,Leona,,,30370,11.3,,Platinum,45,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.59
+,Thresh,,,51992,11.3,,Platinum,46,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.55
+,Seraphine,,,32177,11.3,,Platinum,47,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.55
+,Morgana,,,1902,11.3,,Platinum,48,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.52
+,Riven,,,19779,11.3,,Platinum,49,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.51
+,Sion,,,7327,11.3,,Platinum,50,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.51
+,Kog'Maw,,,1307,11.3,,Platinum,51,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,51.49
+,Kassadin,,,13902,11.3,,Platinum,52,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.47
+,Sivir,,,6064,11.3,,Platinum,53,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,51.47
+,Sona,,,4314,11.3,,Platinum,54,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.46
+,Kai'Sa,,,100167,11.3,,Platinum,55,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,51.44
+,Evelynn,,,13271,11.3,,Platinum,56,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.43
+,Diana,,,12353,11.3,,Platinum,57,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.4
+,Twitch,,,11182,11.3,,Platinum,58,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,51.39
+,Katarina,,,23976,11.3,,Platinum,59,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.38
+,Elise,,,20661,11.3,,Platinum,60,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.26
+,Brand,,,1606,11.3,,Platinum,61,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.25
+,Quinn,,,4677,11.3,,Platinum,62,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.21
+,Darius,,,21985,11.3,,Platinum,63,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.2
+,Fizz,,,16887,11.3,,Platinum,64,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.18
+,Teemo,,,6807,11.3,,Platinum,65,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.14
+,Ashe,,,12666,11.3,,Platinum,66,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,51.12
+,Tristana,,,17096,11.3,,Platinum,67,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,51.09
+,Hecarim,,,36215,11.3,,Platinum,68,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.09
+,Rell,,,20400,11.3,,Platinum,69,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.04
+,Jayce,,,2058,11.3,,Platinum,70,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.02
+,Poppy,,,2325,11.3,,Platinum,71,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.01
+,Warwick,,,2516,11.3,,Platinum,72,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.95
+,Cassiopeia,,,6546,11.3,,Platinum,73,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.95
+,Blitzcrank,,,16798,11.3,,Platinum,74,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.87
+,Vayne,,,38187,11.3,,Platinum,75,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,50.86
+,Mordekaiser,,,14613,11.3,,Platinum,76,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.83
+,Draven,,,9237,11.3,,Platinum,77,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,50.76
+,Ekko,,,20390,11.3,,Platinum,78,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.73
+,Poppy,,,6447,11.3,,Platinum,79,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.72
+,Senna,,,39833,11.3,,Platinum,80,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,50.71
+,Jhin,,,62170,11.3,,Platinum,81,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,50.7
+,Rengar,,,4740,11.3,,Platinum,82,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.7
+,Tristana,,,2610,11.3,,Platinum,83,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.65
+,Lulu,,,32652,11.3,,Platinum,84,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.59
+,Shen,,,15879,11.3,,Platinum,85,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.56
+,Ekko,,,14910,11.3,,Platinum,86,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.55
+,Karma,,,1577,11.3,,Platinum,87,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.54
+,Viego,,,9620,11.3,,Platinum,88,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.52
+,Kled,,,5768,11.3,,Platinum,89,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.5
+,Nasus,,,10444,11.3,,Platinum,90,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.5
+,Dr. Mundo,,,10523,11.3,,Platinum,91,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.47
+,Zed,,,26820,11.3,,Platinum,92,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.46
+,Nocturne,,,7692,11.3,,Platinum,93,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.43
+,Vladimir,,,13228,11.3,,Platinum,94,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.41
+,Nami,,,14496,11.3,,Platinum,95,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.39
+,Swain,,,8359,11.3,,Platinum,96,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.38
+,Gnar,,,28962,11.3,,Platinum,97,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.32
+,Gragas,,,1739,11.3,,Platinum,98,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.32
+,Lux,,,8614,11.3,,Platinum,99,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.31
+,Kalista,,,4014,11.3,,Platinum,100,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,50.3
+,Sett,,,2124,11.3,,Platinum,101,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.24
+,Nautilus,,,21651,11.3,,Platinum,102,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.21
+,Rengar,,,8116,11.3,,Platinum,103,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.21
+,Yorick,,,3140,11.3,,Platinum,104,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.19
+,Kennen,,,4815,11.3,,Platinum,105,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.18
+,Xerath,,,6290,11.3,,Platinum,106,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.17
+,Zac,,,7277,11.3,,Platinum,107,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.13
+,Warwick,,,5977,11.3,,Platinum,108,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.09
+,Cho'Gath,,,1414,11.3,,Platinum,109,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.07
+,Alistar,,,30618,11.3,,Platinum,110,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.07
+,Xin Zhao,,,3122,11.3,,Platinum,111,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.06
+,Miss Fortune,,,21956,11.3,,Platinum,112,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,50.05
+,Janna,,,13051,11.3,,Platinum,113,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.03
+,Pantheon,,,5868,11.3,,Platinum,114,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.03
+,Vi,,,7120,11.3,,Platinum,115,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.03
+,Viktor,,,18283,11.3,,Platinum,116,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.02
+,Ornn,,,11823,11.3,,Platinum,117,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.99
+,Camille,,,31948,11.3,,Platinum,118,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.98
+,Morgana,,,19256,11.3,,Platinum,119,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.94
+,Kayle,,,4046,11.3,,Platinum,120,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.93
+,Xerath,,,6777,11.3,,Platinum,121,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.87
+,Gragas,,,7379,11.3,,Platinum,122,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.8
+,Samira,,,39357,11.3,,Platinum,123,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,49.75
+,Urgot,,,7060,11.3,,Platinum,124,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.69
+,Gragas,,,12700,11.3,,Platinum,125,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.65
+,Yone,,,31865,11.3,,Platinum,126,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.63
+,Volibear,,,3009,11.3,,Platinum,127,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.62
+,Yasuo,,,24042,11.3,,Platinum,128,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.58
+,Olaf,,,13636,11.3,,Platinum,129,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.52
+,LeBlanc,,,9915,11.3,,Platinum,130,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.51
+,Viego,,,26153,11.3,,Platinum,131,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.48
+,Jarvan IV,,,9263,11.3,,Platinum,132,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.41
+,Sett,,,14979,11.3,,Platinum,133,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.39
+,Rumble,,,3138,11.3,,Platinum,134,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.36
+,Zyra,,,6368,11.3,,Platinum,135,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.32
+,Aatrox,,,19807,11.3,,Platinum,136,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.32
+,Illaoi,,,4904,11.3,,Platinum,137,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.31
+,Kayn,,,24557,11.3,,Platinum,138,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.3
+,Lissandra,,,4737,11.3,,Platinum,139,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.29
+,Vayne,,,4199,11.3,,Platinum,140,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.25
+,Rakan,,,8845,11.3,,Platinum,141,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.19
+,Tryndamere,,,5573,11.3,,Platinum,142,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.11
+,Master Yi,,,10930,11.3,,Platinum,143,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.09
+,Brand,,,7814,11.3,,Platinum,144,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.04
+,Yone,,,4308,11.3,,Platinum,145,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.03
+,Twisted Fate,,,24122,11.3,,Platinum,146,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.02
+,Talon,,,8813,11.3,,Platinum,147,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,48.96
+,Nidalee,,,17048,11.3,,Platinum,148,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.84
+,Ziggs,,,2576,11.3,,Platinum,149,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,48.84
+,Yuumi,,,21601,11.3,,Platinum,150,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.83
+,Kindred,,,8022,11.3,,Platinum,151,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.8
+,Renekton,,,21088,11.3,,Platinum,152,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.77
+,Sejuani,,,3660,11.3,,Platinum,153,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.72
+,Vel'Koz,,,4445,11.3,,Platinum,154,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.71
+,Qiyana,,,4352,11.3,,Platinum,155,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,48.69
+,Senna,,,28675,11.3,,Platinum,156,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.68
+,Neeko,,,1846,11.3,,Platinum,157,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.65
+,Gragas,,,2869,11.3,,Platinum,158,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.59
+,Taric,,,2537,11.3,,Platinum,159,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.56
+,Lucian,,,24705,11.3,,Platinum,160,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,48.52
+,Wukong,,,1580,11.3,,Platinum,161,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.42
+,Taliyah,,,10027,11.3,,Platinum,162,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.41
+,Jax,,,11897,11.3,,Platinum,163,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.33
+,Braum,,,4912,11.3,,Platinum,164,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.29
+,Gangplank,,,10294,11.3,,Platinum,165,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.28
+,Soraka,,,7986,11.3,,Platinum,166,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.26
+,Jinx,,,23546,11.3,,Platinum,167,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,48.14
+,Karma,,,15953,11.3,,Platinum,168,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.14
+,Zoe,,,10656,11.3,,Platinum,169,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,48.12
+,Jayce,,,7958,11.3,,Platinum,170,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.08
+,Sylas,,,18421,11.3,,Platinum,171,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,48.07
+,Lux,,,9971,11.3,,Platinum,172,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.07
+,Viego,,,12662,11.3,,Platinum,173,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.06
+,Ryze,,,2018,11.3,,Platinum,174,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.97
+,Pyke,,,13611,11.3,,Platinum,175,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,47.93
+,Ezreal,,,45622,11.3,,Platinum,176,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,47.81
+,Varus,,,3123,11.3,,Platinum,177,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,47.81
+,Shyvana,,,15288,11.3,,Platinum,178,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,47.79
+,Xayah,,,15074,11.3,,Platinum,179,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,47.74
+,Yasuo,,,3461,11.3,,Platinum,180,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.62
+,Vladimir,,,3880,11.3,,Platinum,181,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.6
+,Caitlyn,,,13320,11.3,,Platinum,182,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,47.57
+,Yasuo,,,1888,11.3,,Platinum,183,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,47.51
+,Trundle,,,1739,11.3,,Platinum,184,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,47.5
+,Ashe,,,3198,11.3,,Platinum,185,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,47.5
+,Pantheon,,,8502,11.3,,Platinum,186,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,47.46
+,Graves,,,29201,11.3,,Platinum,187,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,47.38
+,Dr. Mundo,,,2917,11.3,,Platinum,188,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.34
+,Orianna,,,16531,11.3,,Platinum,189,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,47.32
+,Fiora,,,12393,11.3,,Platinum,190,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.19
+,Amumu,,,3121,11.3,,Platinum,191,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,47.13
+,Sylas,,,4914,11.3,,Platinum,192,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.11
+,Karma,,,1346,11.3,,Platinum,193,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,47.1
+,Irelia,,,18104,11.3,,Platinum,194,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.02
+,Lucian,,,2320,11.3,,Platinum,195,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,46.98
+,Aphelios,,,19592,11.3,,Platinum,196,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,46.8
+,Irelia,,,10532,11.3,,Platinum,197,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,46.61
+,Lillia,,,17578,11.3,,Platinum,198,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,46.58
+,Lee Sin,,,24047,11.3,,Platinum,199,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,46.54
+,Azir,,,5215,11.3,,Platinum,200,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,46.4
+,Twitch,,,2992,11.3,,Platinum,201,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,46.32
+,Veigar,,,4083,11.3,,Platinum,202,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,46.22
+,Syndra,,,9251,11.3,,Platinum,203,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,46.12
+,Lucian,,,10368,11.3,,Platinum,204,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,45.84
+,Akali,,,3288,11.3,,Platinum,205,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,45.29
+,Ryze,,,5379,11.3,,Platinum,206,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,45.27
+,Jax,,,2019,11.3,,Platinum,207,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,45.17
+,Sett,,,7236,11.3,,Platinum,208,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,44.78
+,Pantheon,,,6502,11.3,,Platinum,209,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,43.89
+,Akali,,,6789,11.3,,Platinum,210,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,43.2
+,Swain,,,13828,11.2,,Bronze,1,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,57.28
+,Rammus,,,123305,11.2,,Bronze,2,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,55.94
+,Swain,,,22145,11.2,,Bronze,3,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,55.1
+,Brand,,,51731,11.2,,Bronze,4,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,54.7
+,Skarner,,,17819,11.2,,Bronze,5,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,54.69
+,Dr. Mundo,,,72062,11.2,,Bronze,6,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,54.59
+,Swain,,,141896,11.2,,Bronze,7,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,54.5
+,Shaco,,,55736,11.2,,Bronze,8,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,54.26
+,Brand,,,194822,11.2,,Bronze,9,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,54.2
+,Yorick,,,58324,11.2,,Bronze,10,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,54.08
+,Garen,,,18413,11.2,,Bronze,11,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,53.89
+,Cho'Gath,,,114351,11.2,,Bronze,12,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,53.73
+,Garen,,,339867,11.2,,Bronze,13,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,53.51
+,Nasus,,,209599,11.2,,Bronze,14,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,53.4
+,Malzahar,,,71594,11.2,,Bronze,15,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,53.25
+,Sion,,,36653,11.2,,Bronze,16,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,53.15
+,Udyr,,,99680,11.2,,Bronze,17,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,53.08
+,Diana,,,161460,11.2,,Bronze,18,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,53.07
+,Rell,,,55737,11.2,,Bronze,19,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,53.03
+,Amumu,,,126160,11.2,,Bronze,20,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,52.99
+,Anivia,,,77016,11.2,,Bronze,21,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.71
+,Heimerdinger,,,46893,11.2,,Bronze,22,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.6
+,Fizz,,,171811,11.2,,Bronze,23,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.55
+,Viktor,,,41265,11.2,,Bronze,24,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.55
+,Neeko,,,101895,11.2,,Bronze,25,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.55
+,Vel'Koz,,,38092,11.2,,Bronze,26,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.54
+,Vi,,,101919,11.2,,Bronze,27,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,52.37
+,Seraphine,,,20421,11.2,,Bronze,28,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.32
+,Ekko,,,153275,11.2,,Bronze,29,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,52.31
+,Illaoi,,,131800,11.2,,Bronze,30,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,52.27
+,Zyra,,,90140,11.2,,Bronze,31,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,52.21
+,Nocturne,,,145072,11.2,,Bronze,32,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,52.15
+,Morgana,,,34235,11.2,,Bronze,33,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.1
+,Mordekaiser,,,16811,11.2,,Bronze,34,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.0
+,Teemo,,,224956,11.2,,Bronze,35,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.99
+,Miss Fortune,,,683722,11.2,,Bronze,36,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,51.95
+,Malphite,,,32681,11.2,,Bronze,37,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.95
+,Seraphine,,,215343,11.2,,Bronze,38,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.93
+,Pyke,,,35336,11.2,,Bronze,39,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.9
+,Sett,,,27581,11.2,,Bronze,40,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.88
+,Warwick,,,275023,11.2,,Bronze,41,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.85
+,Elise,,,56683,11.2,,Bronze,42,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.84
+,Poppy,,,17145,11.2,,Bronze,43,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.81
+,Annie,,,75529,11.2,,Bronze,44,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.8
+,Senna,,,79181,11.2,,Bronze,45,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,51.8
+,Leona,,,274755,11.2,,Bronze,46,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.77
+,Master Yi,,,415220,11.2,,Bronze,47,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.76
+,Ekko,,,126728,11.2,,Bronze,48,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.75
+,Teemo,,,17248,11.2,,Bronze,49,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.73
+,Malphite,,,189134,11.2,,Bronze,50,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.72
+,Wukong,,,67944,11.2,,Bronze,51,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.69
+,Vel'Koz,,,59725,11.2,,Bronze,52,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.67
+,Kled,,,30522,11.2,,Bronze,53,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.65
+,Lux,,,150300,11.2,,Bronze,54,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.65
+,Xerath,,,79905,11.2,,Bronze,55,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.63
+,Galio,,,98404,11.2,,Bronze,56,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.52
+,Urgot,,,124162,11.2,,Bronze,57,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.51
+,Dr. Mundo,,,53517,11.2,,Bronze,58,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.5
+,Jhin,,,479179,11.2,,Bronze,59,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,51.47
+,Tristana,,,22974,11.2,,Bronze,60,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.45
+,Galio,,,56977,11.2,,Bronze,61,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.43
+,Tristana,,,357504,11.2,,Bronze,62,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,51.39
+,Olaf,,,183359,11.2,,Bronze,63,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.38
+,Pantheon,,,132150,11.2,,Bronze,64,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.34
+,Volibear,,,104581,11.2,,Bronze,65,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.33
+,Taric,,,21446,11.2,,Bronze,66,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.31
+,Maokai,,,92413,11.2,,Bronze,67,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.31
+,Renekton,,,21444,11.2,,Bronze,68,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.3
+,Sejuani,,,30759,11.2,,Bronze,69,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.29
+,Xerath,,,48427,11.2,,Bronze,70,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.26
+,Veigar,,,150687,11.2,,Bronze,71,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.26
+,Zac,,,43304,11.2,,Bronze,72,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.24
+,Heimerdinger,,,40810,11.2,,Bronze,73,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.2
+,Hecarim,,,190159,11.2,,Bronze,74,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.16
+,Ornn,,,103292,11.2,,Bronze,75,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.08
+,Zilean,,,34367,11.2,,Bronze,76,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.07
+,Yasuo,,,63555,11.2,,Bronze,77,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,50.95
+,Yasuo,,,433660,11.2,,Bronze,78,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.93
+,Alistar,,,94938,11.2,,Bronze,79,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.92
+,Wukong,,,28323,11.2,,Bronze,80,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.9
+,Volibear,,,94215,11.2,,Bronze,81,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.85
+,Nunu & Willump,,,140599,11.2,,Bronze,82,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.83
+,Morgana,,,407796,11.2,,Bronze,83,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.79
+,Kai'Sa,,,547147,11.2,,Bronze,84,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,50.78
+,Jarvan IV,,,35782,11.2,,Bronze,85,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.76
+,Shen,,,92302,11.2,,Bronze,86,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.73
+,Trundle,,,14919,11.2,,Bronze,87,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.71
+,Vayne,,,265826,11.2,,Bronze,88,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,50.64
+,Nocturne,,,14856,11.2,,Bronze,89,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.63
+,Blitzcrank,,,226810,11.2,,Bronze,90,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.62
+,Sett,,,271872,11.2,,Bronze,91,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.44
+,Pantheon,,,114875,11.2,,Bronze,92,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.41
+,Tahm Kench,,,25464,11.2,,Bronze,93,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.4
+,Lux,,,531045,11.2,,Bronze,94,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.37
+,Yone,,,318423,11.2,,Bronze,95,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.36
+,Singed,,,20676,11.2,,Bronze,96,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.34
+,Nautilus,,,205462,11.2,,Bronze,97,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.26
+,Sona,,,72782,11.2,,Bronze,98,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.24
+,Kayle,,,67061,11.2,,Bronze,99,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.2
+,Cho'Gath,,,12325,11.2,,Bronze,100,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.16
+,Warwick,,,21963,11.2,,Bronze,101,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.12
+,Ziggs,,,40295,11.2,,Bronze,102,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.09
+,Ahri,,,157038,11.2,,Bronze,103,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.09
+,Tryndamere,,,121078,11.2,,Bronze,104,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.05
+,Gnar,,,94806,11.2,,Bronze,105,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.04
+,Viego,,,67044,11.2,,Bronze,106,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.03
+,Karthus,,,25153,11.2,,Bronze,107,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.95
+,Kog'Maw,,,17291,11.2,,Bronze,108,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,49.95
+,Aurelion Sol,,,15393,11.2,,Bronze,109,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.94
+,Nami,,,63768,11.2,,Bronze,110,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.84
+,Ashe,,,344989,11.2,,Bronze,111,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,49.84
+,Quinn,,,57350,11.2,,Bronze,112,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.8
+,Maokai,,,15769,11.2,,Bronze,113,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.78
+,Shaco,,,125115,11.2,,Bronze,114,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.78
+,Trundle,,,33625,11.2,,Bronze,115,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.77
+,Twitch,,,86944,11.2,,Bronze,116,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,49.73
+,Jax,,,140774,11.2,,Bronze,117,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.66
+,Braum,,,45627,11.2,,Bronze,118,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.65
+,Jayce,,,13280,11.2,,Bronze,119,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.64
+,Jinx,,,182643,11.2,,Bronze,120,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,49.61
+,Sivir,,,64002,11.2,,Bronze,121,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,49.59
+,Ivern,,,21601,11.2,,Bronze,122,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.59
+,Jax,,,113231,11.2,,Bronze,123,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.56
+,Lissandra,,,17686,11.2,,Bronze,124,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.52
+,Veigar,,,43629,11.2,,Bronze,125,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.47
+,Cassiopeia,,,45917,11.2,,Bronze,126,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.43
+,Fiddlesticks,,,59963,11.2,,Bronze,127,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.34
+,Fiora,,,87171,11.2,,Bronze,128,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.27
+,Mordekaiser,,,219150,11.2,,Bronze,129,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.26
+,Kayn,,,375100,11.2,,Bronze,130,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.25
+,Neeko,,,47458,11.2,,Bronze,131,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.25
+,Malphite,,,126098,11.2,,Bronze,132,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.08
+,Anivia,,,16403,11.2,,Bronze,133,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.07
+,Katarina,,,208648,11.2,,Bronze,134,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.06
+,Shen,,,18459,11.2,,Bronze,135,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.0
+,Lillia,,,62712,11.2,,Bronze,136,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.96
+,Soraka,,,86092,11.2,,Bronze,137,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.95
+,Shyvana,,,58148,11.2,,Bronze,138,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.94
+,Janna,,,39651,11.2,,Bronze,139,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.89
+,Darius,,,237253,11.2,,Bronze,140,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.87
+,Vladimir,,,48719,11.2,,Bronze,141,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,48.84
+,Xin Zhao,,,97977,11.2,,Bronze,142,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.84
+,Zed,,,294105,11.2,,Bronze,143,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,48.8
+,Kennen,,,33249,11.2,,Bronze,144,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.78
+,LeBlanc,,,69154,11.2,,Bronze,145,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,48.77
+,Evelynn,,,108583,11.2,,Bronze,146,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.75
+,Varus,,,83535,11.2,,Bronze,147,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,48.74
+,Kha'Zix,,,210271,11.2,,Bronze,148,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.71
+,Rengar,,,16778,11.2,,Bronze,149,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.71
+,Yasuo,,,69150,11.2,,Bronze,150,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.69
+,Caitlyn,,,324565,11.2,,Bronze,151,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,48.63
+,Bard,,,34580,11.2,,Bronze,152,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.47
+,Draven,,,77557,11.2,,Bronze,153,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,48.36
+,Senna,,,214079,11.2,,Bronze,154,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.34
+,Lucian,,,257604,11.2,,Bronze,155,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,48.32
+,Rumble,,,16969,11.2,,Bronze,156,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.29
+,Renekton,,,186042,11.2,,Bronze,157,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.28
+,Lulu,,,80833,11.2,,Bronze,158,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.27
+,Aphelios,,,106911,11.2,,Bronze,159,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,48.25
+,Poppy,,,29375,11.2,,Bronze,160,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.23
+,Pyke,,,236489,11.2,,Bronze,161,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.2
+,Pantheon,,,84009,11.2,,Bronze,162,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.17
+,Thresh,,,188375,11.2,,Bronze,163,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.16
+,Sett,,,57424,11.2,,Bronze,164,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.15
+,Kassadin,,,53273,11.2,,Bronze,165,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,48.12
+,Orianna,,,51374,11.2,,Bronze,166,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,48.07
+,Nasus,,,14437,11.2,,Bronze,167,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.05
+,Taliyah,,,31885,11.2,,Bronze,168,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.0
+,Vayne,,,78484,11.2,,Bronze,169,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.96
+,Tryndamere,,,23029,11.2,,Bronze,170,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,47.94
+,Viego,,,328600,11.2,,Bronze,171,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,47.93
+,Xayah,,,92986,11.2,,Bronze,172,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,47.84
+,Sylas,,,129457,11.2,,Bronze,173,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,47.83
+,Syndra,,,55509,11.2,,Bronze,174,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,47.79
+,Rakan,,,63511,11.2,,Bronze,175,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,47.77
+,Samira,,,275138,11.2,,Bronze,176,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,47.76
+,Camille,,,88523,11.2,,Bronze,177,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.68
+,Yone,,,69933,11.2,,Bronze,178,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.64
+,Olaf,,,20199,11.2,,Bronze,179,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.63
+,Pantheon,,,139467,11.2,,Bronze,180,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,47.61
+,Teemo,,,16079,11.2,,Bronze,181,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,47.6
+,Ezreal,,,284143,11.2,,Bronze,182,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,47.6
+,Aatrox,,,122845,11.2,,Bronze,183,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.53
+,Gragas,,,19420,11.2,,Bronze,184,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.47
+,Irelia,,,123093,11.2,,Bronze,185,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,47.45
+,Talon,,,126429,11.2,,Bronze,186,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,47.33
+,Graves,,,119081,11.2,,Bronze,187,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,47.33
+,Gragas,,,35446,11.2,,Bronze,188,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,47.2
+,Viego,,,93829,11.2,,Bronze,189,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.13
+,Kindred,,,64156,11.2,,Bronze,190,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,47.13
+,Ryze,,,14129,11.2,,Bronze,191,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.09
+,Jayce,,,28097,11.2,,Bronze,192,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.04
+,Kalista,,,45541,11.2,,Bronze,193,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,47.0
+,Yuumi,,,164944,11.2,,Bronze,194,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,46.78
+,Miss Fortune,,,17487,11.2,,Bronze,195,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,46.71
+,Riven,,,63857,11.2,,Bronze,196,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,46.67
+,Malphite,,,16555,11.2,,Bronze,197,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,46.63
+,Ryze,,,48054,11.2,,Bronze,198,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,46.6
+,Ashe,,,36243,11.2,,Bronze,199,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,46.59
+,Karma,,,47495,11.2,,Bronze,200,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,46.56
+,Irelia,,,136362,11.2,,Bronze,201,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,46.49
+,Lucian,,,20701,11.2,,Bronze,202,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,46.35
+,Vladimir,,,15624,11.2,,Bronze,203,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,46.3
+,Lucian,,,77362,11.2,,Bronze,204,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,46.15
+,Twisted Fate,,,59972,11.2,,Bronze,205,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,45.92
+,Lee Sin,,,181616,11.2,,Bronze,206,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,45.9
+,Sylas,,,42024,11.2,,Bronze,207,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,45.83
+,Rek'Sai,,,18832,11.2,,Bronze,208,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,45.76
+,Sett,,,20983,11.2,,Bronze,209,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,45.53
+,Akali,,,207986,11.2,,Bronze,210,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,45.29
+,Gangplank,,,26765,11.2,,Bronze,211,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,45.14
+,Zoe,,,66613,11.2,,Bronze,212,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,45.14
+,Rengar,,,52559,11.2,,Bronze,213,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,44.85
+,Nidalee,,,53656,11.2,,Bronze,214,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,44.81
+,Azir,,,24850,11.2,,Bronze,215,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,44.77
+,Akali,,,61352,11.2,,Bronze,216,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,44.72
+,Kalista,,,18595,11.2,,Bronze,217,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,44.52
+,Twitch,,,12662,11.2,,Bronze,218,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,44.35
+,Ezreal,,,14161,11.2,,Bronze,219,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,43.63
+,Qiyana,,,25263,11.2,,Bronze,220,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,43.52
+,Swain,,,51671,11.2,,Silver,1,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,56.96
+,Rammus,,,367724,11.2,,Silver,2,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,55.36
+,Swain,,,63925,11.2,,Silver,3,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,54.83
+,Skarner,,,71922,11.2,,Silver,4,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,54.72
+,Dr. Mundo,,,218073,11.2,,Silver,5,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,54.61
+,Cho'Gath,,,325054,11.2,,Silver,6,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,54.02
+,Brand,,,125143,11.2,,Silver,7,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,53.94
+,Garen,,,48777,11.2,,Silver,8,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,53.77
+,Udyr,,,370587,11.2,,Silver,9,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,53.77
+,Seraphine,,,65112,11.2,,Silver,10,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,53.73
+,Garen,,,786527,11.2,,Silver,11,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,53.58
+,Anivia,,,322922,11.2,,Silver,12,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,53.56
+,Malzahar,,,260114,11.2,,Silver,13,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,53.56
+,Shaco,,,197516,11.2,,Silver,14,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,53.55
+,Morgana,,,88759,11.2,,Silver,15,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,53.24
+,Diana,,,402906,11.2,,Silver,16,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,53.23
+,Annie,,,227835,11.2,,Silver,17,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.95
+,Nasus,,,505100,11.2,,Silver,18,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,52.91
+,Yorick,,,154984,11.2,,Silver,19,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,52.82
+,Heimerdinger,,,81420,11.2,,Silver,20,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.8
+,Brand,,,477472,11.2,,Silver,21,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,52.74
+,Swain,,,424101,11.2,,Silver,22,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,52.68
+,Seraphine,,,587851,11.2,,Silver,23,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,52.67
+,Neeko,,,218325,11.2,,Silver,24,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.64
+,Fizz,,,502644,11.2,,Silver,25,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.58
+,Ivern,,,88001,11.2,,Silver,26,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,52.5
+,Vel'Koz,,,109542,11.2,,Silver,27,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.48
+,Sion,,,124451,11.2,,Silver,28,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,52.42
+,Elise,,,289813,11.2,,Silver,29,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,52.39
+,Viktor,,,225587,11.2,,Silver,30,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.28
+,Rell,,,215242,11.2,,Silver,31,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,52.26
+,Poppy,,,59668,11.2,,Silver,32,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,52.19
+,Rumble,,,43225,11.2,,Silver,33,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.18
+,Zilean,,,123092,11.2,,Silver,34,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,52.14
+,Pyke,,,62823,11.2,,Silver,35,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.13
+,Malphite,,,110523,11.2,,Silver,36,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.12
+,Senna,,,275076,11.2,,Silver,37,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,52.05
+,Olaf,,,494968,11.2,,Silver,38,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,52.05
+,Malphite,,,581737,11.2,,Silver,39,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,52.05
+,Renekton,,,59203,11.2,,Silver,40,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.01
+,Pantheon,,,330033,11.2,,Silver,41,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.0
+,Nocturne,,,358249,11.2,,Silver,42,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.99
+,Wukong,,,201195,11.2,,Silver,43,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.96
+,Ekko,,,372334,11.2,,Silver,44,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.95
+,Shaco,,,33878,11.2,,Silver,45,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.94
+,Jhin,,,1638518,11.2,,Silver,46,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,51.77
+,Ekko,,,503640,11.2,,Silver,47,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.75
+,Tristana,,,845199,11.2,,Silver,48,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,51.71
+,Sett,,,57943,11.2,,Silver,49,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.69
+,Amumu,,,306370,11.2,,Silver,50,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.68
+,Teemo,,,471590,11.2,,Silver,51,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.67
+,Nunu & Willump,,,346564,11.2,,Silver,52,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.65
+,Lux,,,376380,11.2,,Silver,53,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.63
+,Zyra,,,271376,11.2,,Silver,54,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.57
+,Warwick,,,413991,11.2,,Silver,55,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.57
+,Vi,,,301449,11.2,,Silver,56,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.54
+,Galio,,,302694,11.2,,Silver,57,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.51
+,Illaoi,,,290871,11.2,,Silver,58,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.48
+,Cho'Gath,,,36954,11.2,,Silver,59,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.36
+,Volibear,,,280301,11.2,,Silver,60,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.35
+,Nocturne,,,39809,11.2,,Silver,61,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.35
+,Hecarim,,,639027,11.2,,Silver,62,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.35
+,Mordekaiser,,,38259,11.2,,Silver,63,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.33
+,Maokai,,,307563,11.2,,Silver,64,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.27
+,Leona,,,879819,11.2,,Silver,65,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.26
+,Fiddlesticks,,,200574,11.2,,Silver,66,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.26
+,Miss Fortune,,,1325651,11.2,,Silver,67,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,51.24
+,Heimerdinger,,,90778,11.2,,Silver,68,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.24
+,Galio,,,167998,11.2,,Silver,69,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.23
+,Tristana,,,64581,11.2,,Silver,70,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.22
+,Ornn,,,312855,11.2,,Silver,71,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.2
+,Vayne,,,905381,11.2,,Silver,72,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,51.2
+,Vel'Koz,,,167552,11.2,,Silver,73,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.16
+,Nami,,,238384,11.2,,Silver,74,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.13
+,Ahri,,,378774,11.2,,Silver,75,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.1
+,Kled,,,105621,11.2,,Silver,76,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.06
+,Xerath,,,261780,11.2,,Silver,77,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.05
+,Sona,,,149179,11.2,,Silver,78,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.03
+,Maokai,,,58944,11.2,,Silver,79,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.01
+,Urgot,,,307956,11.2,,Silver,80,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.94
+,Xerath,,,159654,11.2,,Silver,81,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.92
+,Taric,,,64048,11.2,,Silver,82,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.88
+,Blitzcrank,,,534745,11.2,,Silver,83,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.86
+,Shaco,,,361176,11.2,,Silver,84,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.83
+,Alistar,,,435136,11.2,,Silver,85,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.8
+,Sivir,,,159090,11.2,,Silver,86,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,50.8
+,Pantheon,,,337000,11.2,,Silver,87,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.79
+,Shen,,,341715,11.2,,Silver,88,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.77
+,Wukong,,,62616,11.2,,Silver,89,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.76
+,Kai'Sa,,,1975337,11.2,,Silver,90,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,50.69
+,Veigar,,,297187,11.2,,Silver,91,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.69
+,Ashe,,,667569,11.2,,Silver,92,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,50.58
+,Morgana,,,870774,11.2,,Silver,93,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.54
+,Zac,,,180412,11.2,,Silver,94,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.54
+,Master Yi,,,781732,11.2,,Silver,95,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.51
+,Jarvan IV,,,154512,11.2,,Silver,96,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.5
+,Warwick,,,63937,11.2,,Silver,97,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.45
+,Dr. Mundo,,,148750,11.2,,Silver,98,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.43
+,Twitch,,,234382,11.2,,Silver,99,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,50.43
+,Karthus,,,89139,11.2,,Silver,100,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.42
+,Volibear,,,182956,11.2,,Silver,101,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.39
+,Gnar,,,386056,11.2,,Silver,102,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.37
+,Kayle,,,155515,11.2,,Silver,103,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.31
+,Aurelion Sol,,,42476,11.2,,Silver,104,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.31
+,Kog'Maw,,,46923,11.2,,Silver,105,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,50.26
+,Ziggs,,,92356,11.2,,Silver,106,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.18
+,Quinn,,,167106,11.2,,Silver,107,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.18
+,Evelynn,,,300209,11.2,,Silver,108,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.16
+,Sett,,,555347,11.2,,Silver,109,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.13
+,Corki,,,38532,11.2,,Silver,110,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.08
+,Sejuani,,,109881,11.2,,Silver,111,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.07
+,Anivia,,,41820,11.2,,Silver,112,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.98
+,Rengar,,,66837,11.2,,Silver,113,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.93
+,Yasuo,,,116962,11.2,,Silver,114,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,49.85
+,Jayce,,,45433,11.2,,Silver,115,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.84
+,Kha'Zix,,,610702,11.2,,Silver,116,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.83
+,Nautilus,,,634003,11.2,,Silver,117,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.83
+,Lissandra,,,78805,11.2,,Silver,118,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.82
+,Soraka,,,258486,11.2,,Silver,119,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.81
+,Bard,,,126180,11.2,,Silver,120,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.79
+,Mordekaiser,,,494459,11.2,,Silver,121,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.76
+,Trundle,,,43860,11.2,,Silver,122,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.72
+,Cassiopeia,,,143658,11.2,,Silver,123,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.69
+,Darius,,,634483,11.2,,Silver,124,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.66
+,Kayn,,,885934,11.2,,Silver,125,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.65
+,Lulu,,,402227,11.2,,Silver,126,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.65
+,Lux,,,948624,11.2,,Silver,127,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.64
+,Janna,,,157892,11.2,,Silver,128,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.63
+,Kennen,,,107499,11.2,,Silver,129,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.61
+,Yone,,,815831,11.2,,Silver,130,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.53
+,Singed,,,68141,11.2,,Silver,131,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.53
+,Thresh,,,757273,11.2,,Silver,132,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.5
+,Yasuo,,,975931,11.2,,Silver,133,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.49
+,Poppy,,,110775,11.2,,Silver,134,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.45
+,Fiora,,,282875,11.2,,Silver,135,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.44
+,Jinx,,,395863,11.2,,Silver,136,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,49.42
+,Trundle,,,84366,11.2,,Silver,137,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.37
+,Viego,,,194847,11.2,,Silver,138,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.27
+,Zed,,,790379,11.2,,Silver,139,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.25
+,Pantheon,,,201308,11.2,,Silver,140,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.21
+,Tryndamere,,,259998,11.2,,Silver,141,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.2
+,Jax,,,292129,11.2,,Silver,142,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.19
+,Tahm Kench,,,75904,11.2,,Silver,143,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.18
+,Katarina,,,622747,11.2,,Silver,144,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.12
+,Vladimir,,,184428,11.2,,Silver,145,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.1
+,Kassadin,,,185568,11.2,,Silver,146,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.06
+,Senna,,,625783,11.2,,Silver,147,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.97
+,Renekton,,,508278,11.2,,Silver,148,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.94
+,Xin Zhao,,,168034,11.2,,Silver,149,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.93
+,LeBlanc,,,253272,11.2,,Silver,150,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,48.88
+,Yuumi,,,471146,11.2,,Silver,151,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.87
+,Gragas,,,88246,11.2,,Silver,152,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.79
+,Braum,,,149496,11.2,,Silver,153,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.78
+,Camille,,,382994,11.2,,Silver,154,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.76
+,Neeko,,,90119,11.2,,Silver,155,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.65
+,Vayne,,,210573,11.2,,Silver,156,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.63
+,Shyvana,,,154482,11.2,,Silver,157,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.6
+,Aatrox,,,387062,11.2,,Silver,158,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.54
+,Caitlyn,,,811895,11.2,,Silver,159,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,48.54
+,Varus,,,167766,11.2,,Silver,160,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,48.41
+,Twitch,,,36010,11.2,,Silver,161,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.33
+,Veigar,,,70805,11.2,,Silver,162,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.31
+,Taliyah,,,146314,11.2,,Silver,163,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.31
+,Rek'Sai,,,78286,11.2,,Silver,164,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.27
+,Lucian,,,778577,11.2,,Silver,165,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,48.16
+,Lillia,,,255077,11.2,,Silver,166,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.15
+,Jax,,,234262,11.2,,Silver,167,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.13
+,Draven,,,226917,11.2,,Silver,168,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,48.11
+,Gragas,,,132648,11.2,,Silver,169,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.1
+,Sylas,,,333197,11.2,,Silver,170,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,48.08
+,Rumble,,,66102,11.2,,Silver,171,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.08
+,Xayah,,,236169,11.2,,Silver,172,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,48.07
+,Talon,,,255070,11.2,,Silver,173,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,48.07
+,Shen,,,52401,11.2,,Silver,174,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,47.81
+,Olaf,,,45668,11.2,,Silver,175,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.79
+,Rakan,,,182104,11.2,,Silver,176,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,47.73
+,Riven,,,220017,11.2,,Silver,177,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.68
+,Pyke,,,477767,11.2,,Silver,178,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,47.67
+,Ashe,,,127125,11.2,,Silver,179,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,47.59
+,Samira,,,856591,11.2,,Silver,180,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,47.58
+,Orianna,,,223979,11.2,,Silver,181,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,47.54
+,Viego,,,886806,11.2,,Silver,182,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,47.5
+,Yone,,,159392,11.2,,Silver,183,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.43
+,Pantheon,,,327886,11.2,,Silver,184,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,47.37
+,Kindred,,,184834,11.2,,Silver,185,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,47.36
+,Karma,,,170972,11.2,,Silver,186,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,47.35
+,Yasuo,,,162470,11.2,,Silver,187,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.34
+,Ezreal,,,875138,11.2,,Silver,188,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,47.29
+,Kalista,,,111806,11.2,,Silver,189,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,47.21
+,Syndra,,,202045,11.2,,Silver,190,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,47.14
+,Malphite,,,217678,11.2,,Silver,191,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,47.12
+,Twisted Fate,,,253688,11.2,,Silver,192,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,47.07
+,Jayce,,,107032,11.2,,Silver,193,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,46.98
+,Graves,,,502909,11.2,,Silver,194,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,46.97
+,Irelia,,,320963,11.2,,Silver,195,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,46.91
+,Ryze,,,50510,11.2,,Silver,196,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,46.91
+,Aphelios,,,328189,11.2,,Silver,197,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,46.82
+,Viego,,,291667,11.2,,Silver,198,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,46.74
+,Sylas,,,112943,11.2,,Silver,199,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,46.73
+,Sett,,,148306,11.2,,Silver,200,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,46.71
+,Vladimir,,,53889,11.2,,Silver,201,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,46.55
+,Lee Sin,,,610570,11.2,,Silver,202,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,46.52
+,Lucian,,,63277,11.2,,Silver,203,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,46.4
+,Irelia,,,409888,11.2,,Silver,204,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,46.31
+,Rengar,,,138271,11.2,,Silver,205,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,46.28
+,Ryze,,,144408,11.2,,Silver,206,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,46.19
+,Lucian,,,236179,11.2,,Silver,207,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,46.11
+,Nidalee,,,214559,11.2,,Silver,208,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,45.88
+,Sett,,,36742,11.2,,Silver,209,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,45.8
+,Zoe,,,185965,11.2,,Silver,210,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,45.67
+,Miss Fortune,,,56328,11.2,,Silver,211,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,45.64
+,Gangplank,,,127349,11.2,,Silver,212,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,45.59
+,Azir,,,78098,11.2,,Silver,213,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,45.11
+,Qiyana,,,72745,11.2,,Silver,214,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,44.69
+,Akali,,,413620,11.2,,Silver,215,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,44.69
+,Malphite,,,36648,11.2,,Silver,216,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,44.69
+,Akali,,,134703,11.2,,Silver,217,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,44.53
+,Kalista,,,45752,11.2,,Silver,218,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,43.65
+,Twitch,,,41562,11.2,,Silver,219,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,42.9
+,Ezreal,,,36423,11.2,,Silver,220,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,42.56
+,Swain,,,56242,11.2,,Gold,1,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,56.75
+,Seraphine,,,81413,11.2,,Gold,2,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,54.81
+,Swain,,,50964,11.2,,Gold,3,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,54.52
+,Garen,,,40205,11.2,,Gold,4,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,54.49
+,Skarner,,,84134,11.2,,Gold,5,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,54.48
+,Rammus,,,275756,11.2,,Gold,6,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,54.38
+,Udyr,,,418343,11.2,,Gold,7,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,54.29
+,Cho'Gath,,,284083,11.2,,Gold,8,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,54.21
+,Ivern,,,134588,11.2,,Gold,9,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,53.76
+,Anivia,,,400456,11.2,,Gold,10,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,53.74
+,Annie,,,200526,11.2,,Gold,11,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,53.66
+,Garen,,,574355,11.2,,Gold,12,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,53.6
+,Seraphine,,,592412,11.2,,Gold,13,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,53.44
+,Morgana,,,64971,11.2,,Gold,14,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,53.37
+,Brand,,,75361,11.2,,Gold,15,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,53.27
+,Malzahar,,,245631,11.2,,Gold,16,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,53.16
+,Olaf,,,449443,11.2,,Gold,17,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,52.98
+,Dr. Mundo,,,183758,11.2,,Gold,18,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,52.95
+,Diana,,,327209,11.2,,Gold,19,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.83
+,Elise,,,426589,11.2,,Gold,20,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,52.82
+,Neeko,,,144592,11.2,,Gold,21,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.73
+,Shaco,,,210764,11.2,,Gold,22,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,52.66
+,Wukong,,,216918,11.2,,Gold,23,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,52.6
+,Pyke,,,40144,11.2,,Gold,24,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.58
+,Pantheon,,,257383,11.2,,Gold,25,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.54
+,Fizz,,,444437,11.2,,Gold,26,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.39
+,Fiddlesticks,,,228114,11.2,,Gold,27,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,52.37
+,Rumble,,,55371,11.2,,Gold,28,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.36
+,Nasus,,,350981,11.2,,Gold,29,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,52.32
+,Renekton,,,53207,11.2,,Gold,30,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.31
+,Heimerdinger,,,47836,11.2,,Gold,31,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.31
+,Gragas,,,31280,11.2,,Gold,32,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.23
+,Vel'Koz,,,102344,11.2,,Gold,33,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.22
+,Zilean,,,144688,11.2,,Gold,34,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,52.17
+,Malphite,,,530166,11.2,,Gold,35,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,52.16
+,Poppy,,,61739,11.2,,Gold,36,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,52.11
+,Galio,,,293607,11.2,,Gold,37,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.1
+,Nunu & Willump,,,293199,11.2,,Gold,38,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.98
+,Ekko,,,352950,11.2,,Gold,39,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.97
+,Senna,,,330174,11.2,,Gold,40,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,51.94
+,Volibear,,,260931,11.2,,Gold,41,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.93
+,Sion,,,142839,11.2,,Gold,42,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.92
+,Malphite,,,88683,11.2,,Gold,43,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.92
+,Viktor,,,337441,11.2,,Gold,44,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.83
+,Hecarim,,,703007,11.2,,Gold,45,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.8
+,Nocturne,,,261446,11.2,,Gold,46,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.79
+,Sett,,,42813,11.2,,Gold,47,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.76
+,Rell,,,252719,11.2,,Gold,48,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.73
+,Jhin,,,1679549,11.2,,Gold,49,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,51.59
+,Sona,,,103448,11.2,,Gold,50,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.59
+,Heimerdinger,,,68100,11.2,,Gold,51,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.55
+,Tristana,,,612452,11.2,,Gold,52,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,51.53
+,Ahri,,,313387,11.2,,Gold,53,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.52
+,Aurelion Sol,,,45767,11.2,,Gold,54,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.46
+,Lux,,,283045,11.2,,Gold,55,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.37
+,Warwick,,,213791,11.2,,Gold,56,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.37
+,Vayne,,,908823,11.2,,Gold,57,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,51.3
+,Maokai,,,59200,11.2,,Gold,58,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.3
+,Kled,,,120185,11.2,,Gold,59,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.28
+,Cho'Gath,,,31590,11.2,,Gold,60,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.26
+,Leona,,,772182,11.2,,Gold,61,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.24
+,Swain,,,305778,11.2,,Gold,62,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.23
+,Maokai,,,299137,11.2,,Gold,63,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.21
+,Pantheon,,,313620,11.2,,Gold,64,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.18
+,Evelynn,,,281509,11.2,,Gold,65,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.17
+,Blitzcrank,,,414730,11.2,,Gold,66,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.16
+,Nami,,,297478,11.2,,Gold,67,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.15
+,Ornn,,,285046,11.2,,Gold,68,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.15
+,Ekko,,,487917,11.2,,Gold,69,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.15
+,Shaco,,,317327,11.2,,Gold,70,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.15
+,Galio,,,161383,11.2,,Gold,71,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.14
+,Illaoi,,,183176,11.2,,Gold,72,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.14
+,Shen,,,364510,11.2,,Gold,73,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.1
+,Teemo,,,284039,11.2,,Gold,74,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.1
+,Yorick,,,109098,11.2,,Gold,75,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.07
+,Kai'Sa,,,2192648,11.2,,Gold,76,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,51.07
+,Karthus,,,108652,11.2,,Gold,77,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.01
+,Vi,,,241258,11.2,,Gold,78,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.0
+,Bard,,,172917,11.2,,Gold,79,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.94
+,Wukong,,,46500,11.2,,Gold,80,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.89
+,Miss Fortune,,,844377,11.2,,Gold,81,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,50.86
+,Gnar,,,490628,11.2,,Gold,82,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.85
+,Darius,,,540530,11.2,,Gold,83,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.83
+,Ashe,,,430648,11.2,,Gold,84,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,50.82
+,Tristana,,,55001,11.2,,Gold,85,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.79
+,Brand,,,322574,11.2,,Gold,86,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.79
+,Nocturne,,,32746,11.2,,Gold,87,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.75
+,Kha'Zix,,,585867,11.2,,Gold,88,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.73
+,Zyra,,,216720,11.2,,Gold,89,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.72
+,Twitch,,,225084,11.2,,Gold,90,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,50.69
+,Jarvan IV,,,185164,11.2,,Gold,91,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.65
+,Warwick,,,59638,11.2,,Gold,92,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.64
+,Quinn,,,138578,11.2,,Gold,93,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.62
+,Pantheon,,,172401,11.2,,Gold,94,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.5
+,Urgot,,,225073,11.2,,Gold,95,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.48
+,Sivir,,,130792,11.2,,Gold,96,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,50.45
+,Thresh,,,960316,11.2,,Gold,97,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.43
+,Cassiopeia,,,140795,11.2,,Gold,98,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.41
+,Anivia,,,33436,11.2,,Gold,99,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.4
+,Alistar,,,556325,11.2,,Gold,100,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.38
+,Poppy,,,131554,11.2,,Gold,101,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.37
+,Morgana,,,604089,11.2,,Gold,102,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.34
+,Lissandra,,,102451,11.2,,Gold,103,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.33
+,Lulu,,,595495,11.2,,Gold,104,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.32
+,Xerath,,,150586,11.2,,Gold,105,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.26
+,Kassadin,,,222631,11.2,,Gold,106,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.24
+,Corki,,,44224,11.2,,Gold,107,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.22
+,Ziggs,,,72468,11.2,,Gold,108,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.11
+,Xerath,,,226369,11.2,,Gold,109,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.1
+,Vel'Koz,,,130477,11.2,,Gold,110,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.09
+,Rek'Sai,,,109396,11.2,,Gold,111,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.09
+,Rengar,,,80224,11.2,,Gold,112,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.07
+,Kayle,,,117818,11.2,,Gold,113,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.01
+,Veigar,,,174130,11.2,,Gold,114,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.95
+,Kennen,,,113161,11.2,,Gold,115,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.88
+,Camille,,,520332,11.2,,Gold,116,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.85
+,Sett,,,408929,11.2,,Gold,117,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.84
+,Mordekaiser,,,367814,11.2,,Gold,118,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.84
+,Taric,,,59172,11.2,,Gold,119,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.81
+,Zed,,,704421,11.2,,Gold,120,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.78
+,Amumu,,,173567,11.2,,Gold,121,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.74
+,Janna,,,224617,11.2,,Gold,122,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.72
+,Nautilus,,,535104,11.2,,Gold,123,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.72
+,Kog'Maw,,,40800,11.2,,Gold,124,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,49.7
+,Sejuani,,,105861,11.2,,Gold,125,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.67
+,Katarina,,,559398,11.2,,Gold,126,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.66
+,Zac,,,182831,11.2,,Gold,127,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.63
+,Vladimir,,,213202,11.2,,Gold,128,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.63
+,Volibear,,,105708,11.2,,Gold,129,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.49
+,Senna,,,616792,11.2,,Gold,130,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.44
+,Kayn,,,684277,11.2,,Gold,131,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.4
+,Lux,,,466072,11.2,,Gold,132,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.38
+,Master Yi,,,443782,11.2,,Gold,133,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.33
+,Gragas,,,139875,11.2,,Gold,134,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.31
+,Renekton,,,485226,11.2,,Gold,135,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.28
+,Soraka,,,239315,11.2,,Gold,136,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.27
+,Aatrox,,,422434,11.2,,Gold,137,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.25
+,Trundle,,,35525,11.2,,Gold,138,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.24
+,Viego,,,177405,11.2,,Gold,139,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.22
+,Jinx,,,237837,11.2,,Gold,140,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,49.22
+,Talon,,,203633,11.2,,Gold,141,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.2
+,Gragas,,,156754,11.2,,Gold,142,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.19
+,Fiora,,,290330,11.2,,Gold,143,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.17
+,Xin Zhao,,,101369,11.2,,Gold,144,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.15
+,Jayce,,,43933,11.2,,Gold,145,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.15
+,Taliyah,,,216135,11.2,,Gold,146,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.14
+,Singed,,,69767,11.2,,Gold,147,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.13
+,Olaf,,,33485,11.2,,Gold,148,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.09
+,Yuumi,,,446612,11.2,,Gold,149,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.04
+,Vayne,,,151558,11.2,,Gold,150,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.98
+,Braum,,,139149,11.2,,Gold,151,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.91
+,Yasuo,,,73656,11.2,,Gold,152,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,48.89
+,Trundle,,,62861,11.2,,Gold,153,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.86
+,LeBlanc,,,260206,11.2,,Gold,154,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,48.81
+,Dr. Mundo,,,114995,11.2,,Gold,155,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.75
+,Caitlyn,,,598754,11.2,,Gold,156,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,48.75
+,Riven,,,248619,11.2,,Gold,157,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.66
+,Tahm Kench,,,51182,11.2,,Gold,158,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.64
+,Yone,,,735988,11.2,,Gold,159,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,48.59
+,Varus,,,112047,11.2,,Gold,160,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,48.54
+,Tryndamere,,,173260,11.2,,Gold,161,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.53
+,Neeko,,,58341,11.2,,Gold,162,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.52
+,Jax,,,266873,11.2,,Gold,163,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.5
+,Draven,,,217702,11.2,,Gold,164,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,48.4
+,Yasuo,,,696050,11.2,,Gold,165,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,48.4
+,Lucian,,,740143,11.2,,Gold,166,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,48.24
+,Rakan,,,170921,11.2,,Gold,167,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.22
+,Rengar,,,143031,11.2,,Gold,168,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.18
+,Twisted Fate,,,352198,11.2,,Gold,169,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,48.12
+,Sylas,,,294788,11.2,,Gold,170,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,48.12
+,Gragas,,,38016,11.2,,Gold,171,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.04
+,Xayah,,,222030,11.2,,Gold,172,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,48.03
+,Shyvana,,,117517,11.2,,Gold,173,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,47.94
+,Rumble,,,70812,11.2,,Gold,174,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.94
+,Pyke,,,346283,11.2,,Gold,175,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,47.93
+,Orianna,,,286855,11.2,,Gold,176,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,47.87
+,Pantheon,,,272726,11.2,,Gold,177,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,47.76
+,Samira,,,874815,11.2,,Gold,178,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,47.71
+,Kindred,,,173576,11.2,,Gold,179,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,47.52
+,Lillia,,,318722,11.2,,Gold,180,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,47.3
+,Jayce,,,137020,11.2,,Gold,181,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.27
+,Sylas,,,113602,11.2,,Gold,182,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.17
+,Ashe,,,128091,11.2,,Gold,183,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,47.16
+,Kalista,,,89680,11.2,,Gold,184,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,47.16
+,Vladimir,,,62353,11.2,,Gold,185,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.13
+,Viego,,,742935,11.2,,Gold,186,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,47.12
+,Karma,,,207785,11.2,,Gold,187,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,47.07
+,Lee Sin,,,639716,11.2,,Gold,188,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,46.96
+,Shen,,,38049,11.2,,Gold,189,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,46.94
+,Twitch,,,49804,11.2,,Gold,190,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,46.86
+,Veigar,,,32444,11.2,,Gold,191,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,46.84
+,Ezreal,,,773133,11.2,,Gold,192,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,46.84
+,Jax,,,106396,11.2,,Gold,193,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,46.83
+,Viego,,,274317,11.2,,Gold,194,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,46.8
+,Qiyana,,,76129,11.2,,Gold,195,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,46.73
+,Azir,,,86760,11.2,,Gold,196,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,46.73
+,Ryze,,,49391,11.2,,Gold,197,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,46.65
+,Yone,,,130203,11.2,,Gold,198,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,46.62
+,Irelia,,,417222,11.2,,Gold,199,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,46.57
+,Gangplank,,,182269,11.2,,Gold,200,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,46.55
+,Zoe,,,198512,11.2,,Gold,201,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,46.49
+,Nidalee,,,270532,11.2,,Gold,202,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,46.48
+,Lucian,,,59580,11.2,,Gold,203,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,46.42
+,Syndra,,,215907,11.2,,Gold,204,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,46.41
+,Yasuo,,,119799,11.2,,Gold,205,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,46.33
+,Ryze,,,128712,11.2,,Gold,206,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,46.3
+,Irelia,,,270858,11.2,,Gold,207,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,46.25
+,Graves,,,596268,11.2,,Gold,208,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,46.25
+,Aphelios,,,376876,11.2,,Gold,209,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,46.03
+,Lucian,,,238214,11.2,,Gold,210,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,45.95
+,Malphite,,,90474,11.2,,Gold,211,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,45.78
+,Sett,,,150072,11.2,,Gold,212,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,45.77
+,Akali,,,279140,11.2,,Gold,213,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,44.07
+,Akali,,,109510,11.2,,Gold,214,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,43.85
+,Miss Fortune,,,37600,11.2,,Gold,215,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,43.69
+,Kalista,,,31608,11.2,,Gold,216,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,42.65
+,Twitch,,,30265,11.2,,Gold,217,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,42.0
+,Seraphine,,,17086,11.2,,Platinum,1,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,58.71
+,Seraphine,,,37343,11.2,,Platinum,2,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,55.07
+,Swain,,,19950,11.2,,Platinum,3,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,54.96
+,Ivern,,,68722,11.2,,Platinum,4,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,54.25
+,Swain,,,14493,11.2,,Platinum,5,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,54.25
+,Anivia,,,142435,11.2,,Platinum,6,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,54.2
+,Udyr,,,141067,11.2,,Platinum,7,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,54.04
+,Skarner,,,30094,11.2,,Platinum,8,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,53.94
+,Cho'Gath,,,82099,11.2,,Platinum,9,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,53.65
+,Seraphine,,,214800,11.2,,Platinum,10,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,53.54
+,Olaf,,,146746,11.2,,Platinum,11,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,53.34
+,Annie,,,53325,11.2,,Platinum,12,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,53.14
+,Pantheon,,,72625,11.2,,Platinum,13,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,53.05
+,Rammus,,,62277,11.2,,Platinum,14,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,53.02
+,Heimerdinger,,,11465,11.2,,Platinum,15,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.98
+,Fiddlesticks,,,87804,11.2,,Platinum,16,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,52.85
+,Garen,,,145829,11.2,,Platinum,17,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,52.82
+,Elise,,,172834,11.2,,Platinum,18,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,52.72
+,Rumble,,,23108,11.2,,Platinum,19,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.69
+,Gragas,,,13353,11.2,,Platinum,20,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.59
+,Heimerdinger,,,18052,11.2,,Platinum,21,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,52.59
+,Galio,,,102389,11.2,,Platinum,22,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.49
+,Renekton,,,17238,11.2,,Platinum,23,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.48
+,Aurelion Sol,,,17810,11.2,,Platinum,24,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.41
+,Diana,,,89469,11.2,,Platinum,25,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.34
+,Wukong,,,82263,11.2,,Platinum,26,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,52.33
+,Pyke,,,12004,11.2,,Platinum,27,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.21
+,Karthus,,,52241,11.2,,Platinum,28,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,52.15
+,Malzahar,,,62038,11.2,,Platinum,29,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.14
+,Garen,,,10899,11.2,,Platinum,30,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.11
+,Malphite,,,20399,11.2,,Platinum,31,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,52.07
+,Rell,,,95255,11.2,,Platinum,32,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,52.0
+,Neeko,,,32930,11.2,,Platinum,33,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.94
+,Rek'Sai,,,55746,11.2,,Platinum,34,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.87
+,Vel'Koz,,,32929,11.2,,Platinum,35,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.8
+,Kassadin,,,97515,11.2,,Platinum,36,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.8
+,Darius,,,160709,11.2,,Platinum,37,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.79
+,Zilean,,,52954,11.2,,Platinum,38,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.76
+,Morgana,,,14545,11.2,,Platinum,39,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.76
+,Fizz,,,129017,11.2,,Platinum,40,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.76
+,Wukong,,,13058,11.2,,Platinum,41,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.75
+,Brand,,,12928,11.2,,Platinum,42,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.7
+,Volibear,,,86326,11.2,,Platinum,43,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.7
+,Bard,,,83695,11.2,,Platinum,44,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.68
+,Poppy,,,18259,11.2,,Platinum,45,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.6
+,Galio,,,58246,11.2,,Platinum,46,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.58
+,Ahri,,,88497,11.2,,Platinum,47,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.58
+,Hecarim,,,245686,11.2,,Platinum,48,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.57
+,Sona,,,28870,11.2,,Platinum,49,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.56
+,Evelynn,,,92913,11.2,,Platinum,50,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.56
+,Ekko,,,116449,11.2,,Platinum,51,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.55
+,Maokai,,,19026,11.2,,Platinum,52,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.55
+,Kled,,,45736,11.2,,Platinum,53,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.49
+,Pantheon,,,55164,11.2,,Platinum,54,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.47
+,Malphite,,,159403,11.2,,Platinum,55,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.47
+,Kai'Sa,,,778283,11.2,,Platinum,56,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,51.43
+,Shaco,,,62917,11.2,,Platinum,57,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.4
+,Rengar,,,32301,11.2,,Platinum,58,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.39
+,Shaco,,,87322,11.2,,Platinum,59,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.36
+,Kha'Zix,,,194739,11.2,,Platinum,60,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.34
+,Senna,,,129476,11.2,,Platinum,61,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,51.34
+,Maokai,,,91914,11.2,,Platinum,62,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.33
+,Sion,,,53290,11.2,,Platinum,63,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.32
+,Pantheon,,,100641,11.2,,Platinum,64,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.3
+,Tristana,,,145647,11.2,,Platinum,65,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,51.3
+,Twitch,,,81276,11.2,,Platinum,66,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,51.29
+,Quinn,,,34542,11.2,,Platinum,67,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.27
+,Poppy,,,46280,11.2,,Platinum,68,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.27
+,Leona,,,224231,11.2,,Platinum,69,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.24
+,Nunu & Willump,,,95895,11.2,,Platinum,70,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,51.24
+,Nasus,,,75588,11.2,,Platinum,71,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.21
+,Viktor,,,134109,11.2,,Platinum,72,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.19
+,Sett,,,13251,11.2,,Platinum,73,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,51.18
+,Blitzcrank,,,115556,11.2,,Platinum,74,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.17
+,Vayne,,,284707,11.2,,Platinum,75,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,51.17
+,Thresh,,,356989,11.2,,Platinum,76,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,51.08
+,Warwick,,,18969,11.2,,Platinum,77,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,51.03
+,Jhin,,,533038,11.2,,Platinum,78,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,50.98
+,Shen,,,120862,11.2,,Platinum,79,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.91
+,Illaoi,,,39346,11.2,,Platinum,80,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.89
+,Urgot,,,54688,11.2,,Platinum,81,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.87
+,Ashe,,,102948,11.2,,Platinum,82,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,50.87
+,Katarina,,,171083,11.2,,Platinum,83,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.84
+,Cassiopeia,,,49087,11.2,,Platinum,84,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.74
+,Dr. Mundo,,,48920,11.2,,Platinum,85,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.65
+,Taliyah,,,103027,11.2,,Platinum,86,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.63
+,Lulu,,,239764,11.2,,Platinum,87,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.61
+,Tristana,,,16719,11.2,,Platinum,88,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.57
+,Gnar,,,185283,11.2,,Platinum,89,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.55
+,Ekko,,,153974,11.2,,Platinum,90,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.53
+,Miss Fortune,,,219978,11.2,,Platinum,91,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,50.5
+,Vi,,,55866,11.2,,Platinum,92,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.47
+,Nocturne,,,55023,11.2,,Platinum,93,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.47
+,Ornn,,,84284,11.2,,Platinum,94,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.43
+,Camille,,,227768,11.2,,Platinum,95,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.4
+,Lissandra,,,36243,11.2,,Platinum,96,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.32
+,Talon,,,68368,11.2,,Platinum,97,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.31
+,Aatrox,,,158384,11.2,,Platinum,98,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.31
+,Nami,,,116346,11.2,,Platinum,99,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.3
+,Warwick,,,42147,11.2,,Platinum,100,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.29
+,Lux,,,65910,11.2,,Platinum,101,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.27
+,Yorick,,,24456,11.2,,Platinum,102,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.25
+,Jarvan IV,,,62780,11.2,,Platinum,103,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,50.24
+,Corki,,,16329,11.2,,Platinum,104,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,50.14
+,Alistar,,,211286,11.2,,Platinum,105,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,50.12
+,Teemo,,,51302,11.2,,Platinum,106,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,50.11
+,Taric,,,18111,11.2,,Platinum,107,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.96
+,Nautilus,,,157509,11.2,,Platinum,108,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.94
+,Kennen,,,37779,11.2,,Platinum,109,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.88
+,Zed,,,204450,11.2,,Platinum,110,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.87
+,Singed,,,23748,11.2,,Platinum,111,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.84
+,Swain,,,61444,11.2,,Platinum,112,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.82
+,Sivir,,,36795,11.2,,Platinum,113,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,49.81
+,Gragas,,,54630,11.2,,Platinum,114,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.8
+,Janna,,,104076,11.2,,Platinum,115,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.75
+,Kayle,,,31334,11.2,,Platinum,116,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.74
+,Ziggs,,,19515,11.2,,Platinum,117,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.74
+,Morgana,,,146034,11.2,,Platinum,118,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.64
+,Viego,,,59046,11.2,,Platinum,119,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.63
+,Riven,,,89927,11.2,,Platinum,120,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.62
+,Jayce,,,14457,11.2,,Platinum,121,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.57
+,Renekton,,,160577,11.2,,Platinum,122,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.57
+,Brand,,,62970,11.2,,Platinum,123,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.57
+,Zyra,,,49893,11.2,,Platinum,124,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.55
+,Senna,,,183205,11.2,,Platinum,125,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.55
+,Gragas,,,66085,11.2,,Platinum,126,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.5
+,Kayn,,,185676,11.2,,Platinum,127,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.47
+,Vel'Koz,,,32421,11.2,,Platinum,128,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.45
+,Xin Zhao,,,24042,11.2,,Platinum,129,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.36
+,Sett,,,112897,11.2,,Platinum,130,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.28
+,Vladimir,,,79502,11.2,,Platinum,131,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.28
+,Rengar,,,57150,11.2,,Platinum,132,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.23
+,Sejuani,,,28825,11.2,,Platinum,133,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,49.19
+,Tahm Kench,,,10630,11.2,,Platinum,134,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.18
+,Vayne,,,29615,11.2,,Platinum,135,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.17
+,Yuumi,,,154005,11.2,,Platinum,136,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.14
+,Xerath,,,51081,11.2,,Platinum,137,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,49.14
+,Xerath,,,42669,11.2,,Platinum,138,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.13
+,Draven,,,75222,11.2,,Platinum,139,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,49.13
+,LeBlanc,,,78061,11.2,,Platinum,140,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,49.1
+,Varus,,,28450,11.2,,Platinum,141,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,49.08
+,Jinx,,,46778,11.2,,Platinum,142,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,49.07
+,Mordekaiser,,,93371,11.2,,Platinum,143,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,49.03
+,Kog'Maw,,,11300,11.2,,Platinum,144,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,48.96
+,Fiora,,,94556,11.2,,Platinum,145,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.94
+,Twisted Fate,,,141290,11.2,,Platinum,146,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,48.91
+,Jax,,,87374,11.2,,Platinum,147,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.91
+,Caitlyn,,,139461,11.2,,Platinum,148,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,48.8
+,Tryndamere,,,41559,11.2,,Platinum,149,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.79
+,Braum,,,39462,11.2,,Platinum,150,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.79
+,Qiyana,,,31226,11.2,,Platinum,151,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,48.71
+,Rakan,,,61726,11.2,,Platinum,152,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.68
+,Gragas,,,17572,11.2,,Platinum,153,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.68
+,Neeko,,,14560,11.2,,Platinum,154,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.67
+,Volibear,,,20782,11.2,,Platinum,155,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.65
+,Lux,,,75183,11.2,,Platinum,156,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.57
+,Soraka,,,72016,11.2,,Platinum,157,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.5
+,Yasuo,,,17842,11.2,,Platinum,158,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,48.45
+,Kalista,,,27122,11.2,,Platinum,159,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,48.41
+,Zac,,,52539,11.2,,Platinum,160,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.37
+,Pyke,,,97473,11.2,,Platinum,161,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,48.36
+,Master Yi,,,85783,11.2,,Platinum,162,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.34
+,Lucian,,,217704,11.2,,Platinum,163,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,48.32
+,Vladimir,,,23899,11.2,,Platinum,164,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,48.23
+,Yone,,,225140,11.2,,Platinum,165,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,48.17
+,Xayah,,,78088,11.2,,Platinum,166,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,48.12
+,Veigar,,,31976,11.2,,Platinum,167,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,48.11
+,Zoe,,,79215,11.2,,Platinum,168,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,48.08
+,Samira,,,294991,11.2,,Platinum,169,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,48.05
+,Kindred,,,55470,11.2,,Platinum,170,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,48.01
+,Azir,,,31022,11.2,,Platinum,171,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,47.99
+,Yasuo,,,172010,11.2,,Platinum,172,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,47.94
+,Sylas,,,91376,11.2,,Platinum,173,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,47.92
+,Orianna,,,106991,11.2,,Platinum,174,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,47.76
+,Nidalee,,,112312,11.2,,Platinum,175,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,47.69
+,Sylas,,,37160,11.2,,Platinum,176,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.6
+,Pantheon,,,72695,11.2,,Platinum,177,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,47.54
+,Jayce,,,54470,11.2,,Platinum,178,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.44
+,Gangplank,,,70023,11.2,,Platinum,179,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.43
+,Rumble,,,22097,11.2,,Platinum,180,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.41
+,Lee Sin,,,193294,11.2,,Platinum,181,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,47.36
+,Shyvana,,,28487,11.2,,Platinum,182,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,47.17
+,Amumu,,,26419,11.2,,Platinum,183,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,47.16
+,Irelia,,,137355,11.2,,Platinum,184,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.04
+,Viego,,,83291,11.2,,Platinum,185,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,47.01
+,Dr. Mundo,,,26611,11.2,,Platinum,186,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,46.97
+,Karma,,,78681,11.2,,Platinum,187,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,46.81
+,Ezreal,,,209325,11.2,,Platinum,188,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,46.58
+,Ryze,,,14200,11.2,,Platinum,189,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,46.49
+,Viego,,,197421,11.2,,Platinum,190,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,46.4
+,Trundle,,,14442,11.2,,Platinum,191,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,46.37
+,Lucian,,,16577,11.2,,Platinum,192,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,46.34
+,Yone,,,35134,11.2,,Platinum,193,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,46.33
+,Ryze,,,38176,11.2,,Platinum,194,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,46.29
+,Yasuo,,,27693,11.2,,Platinum,195,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,46.21
+,Jax,,,16003,11.2,,Platinum,196,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,46.16
+,Lillia,,,119340,11.2,,Platinum,197,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,46.14
+,Syndra,,,72191,11.2,,Platinum,198,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,46.09
+,Twitch,,,19580,11.2,,Platinum,199,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,46.06
+,Graves,,,210393,11.2,,Platinum,200,[name:jungle]",[synonyms:{[jg", jungle]}]",[uGGSelectorXpath:6],,45.95
+,Aphelios,,,156340,11.2,,Platinum,201,[name:adc]",[synonyms:{[bot", bottom", adc]}]",[uGGSelectorXpath:8],,45.94
+,Ashe,,,32018,11.2,,Platinum,202,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,45.93
+,Lucian,,,75851,11.2,,Platinum,203,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,45.83
+,Irelia,,,78156,11.2,,Platinum,204,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,45.56
+,Sett,,,51914,11.2,,Platinum,205,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,45.16
+,Malphite,,,10453,11.2,,Platinum,206,[name:supp]",[synonyms:{[support", supp]}]",[uGGSelectorXpath:9],,44.24
+,Akali,,,69385,11.2,,Platinum,207,[name:mid]",[synonyms:{[middle", mid]}]",[uGGSelectorXpath:7],,43.6
+,Akali,,,31238,11.2,,Platinum,208,[name:top]",[synonyms:{[topper", top]}]",[uGGSelectorXpath:5],,43.03

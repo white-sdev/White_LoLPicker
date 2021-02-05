@@ -1,6 +1,6 @@
 /*
- *  Filename:  Tier.java
- *  Creation Date:  Dec 7, 2020
+ *  Filename:  LoaderController.java
+ *  Creation Date:  Feb 5, 2021
  *  Purpose:   
  *  Author:    Obed Vazquez
  *  E-mail:    obed.vazquez@gmail.com
@@ -119,14 +119,35 @@
  *  Creative Commons may be contacted at creativecommons.org.
  */
 
-package org.white_sdev.white_lolpicker.model.persistence;
+package org.white_sdev.white_lolpicker.controller;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Controller;
 
 /**
  * 
  * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
- * @since Dec 7, 2020
+ * @since Feb 5, 2021
  */
-public enum Tier {
-    Splu,S,A,B,C;
+@Slf4j
+@Controller
+public class LoaderController {
+    
+    /**
+     * Loads the Filters in the view.
+     * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
+     * @since 2021-02-05
+     */
+    public void getFilters( ) {
+	log.trace("::getFilters() - Start: ");
+	try{
+	    
+	    log.warn("Working");
+
+	    log.trace("::getFilters() - Finish: ");
+	} catch (Exception e) {
+            throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
+        }
+    }
+    
 }

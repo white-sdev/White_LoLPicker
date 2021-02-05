@@ -415,42 +415,19 @@ public class CounterExtractor {
 	    Champion champ=counterSearch.champ;
 	    WebDriver driver=counterSearch.driver;
 	    
-	    if(counterSearch.champ!=null && lastCounterSearch!=null && counterSearch.champ.equals(lastCounterSearch.champ)){
-		if(counterSearch.patch!=null && counterSearch.patch.equals(lastCounterSearch.patch)){
-		    if(counterSearch.rank!=null && counterSearch.rank.equals(lastCounterSearch.rank)){ //only role is different
-			try{
-			    changeRoleTo(role,driver);
-			}catch(Exception e){
-			    log.warn("::loadChampionCounterWebpage(counterSearch,role): Error navigating throught the webpage. Last-search ["+lastCounterSearch+"] new-Search ["+counterSearch+"].");
-			    driver.get(getChampionCounterURL(champ,patch,rank,role));
-			}
-		    }else{//role and rank changed
-			try{
-			    changeRoleTo(role,driver);
-			    changeRankTo(rank,driver);
-			}catch(Exception e){
-			    log.warn("::loadChampionCounterWebpage(counterSearch,role): Error navigating throught the webpage. Last-search ["+lastCounterSearch+"] new-Search ["+counterSearch+"].");
-			    driver.get(getChampionCounterURL(champ,patch,rank,role));
-			}
+	    if(champ!=null && lastCounterSearch!=null && champ.equals(lastCounterSearch.champ)){
+		try{
+		    if(patch!=null && patch.equals(lastCounterSearch.patch)){
+			if(rank!=null && !rank.equals(lastCounterSearch.rank))  changeRankTo(rank,driver);
+			changeRoleTo(role,driver);
+		    }else{//patch, role and rank changed
+			if(rank!=null && !rank.equals(lastCounterSearch.rank)) changeRankTo(rank,driver);
+			changeRoleTo(role,driver);
+			changePatchTo(patch,driver);
 		    }
-		}else{//patch, role and rank changed
-		    if(counterSearch.rank!=null && counterSearch.rank.equals(lastCounterSearch.rank)){
-			try{
-			    changeRoleTo(role,driver);
-			}catch(Exception e){
-			    log.warn("::loadChampionCounterWebpage(counterSearch,role): Error navigating throught the webpage. Last-search ["+lastCounterSearch+"] new-Search ["+counterSearch+"].");
-			    driver.get(getChampionCounterURL(champ,patch,rank,role));
-			}
-		    }else{
-			try{
-			    changeRoleTo(role,driver);
-			    changeRankTo(rank,driver);
-			    changePatchTo(patch,driver);
-			}catch(Exception e){
-			    log.warn("::loadChampionCounterWebpage(counterSearch,role): Error navigating throught the webpage. Last-search ["+lastCounterSearch+"] new-Search ["+counterSearch+"].");
-			    driver.get(getChampionCounterURL(champ,patch,rank,role));
-			}
-		    }
+		}catch(Exception e){
+		    log.warn("::loadChampionCounterWebpage(counterSearch,role): Error navigating throught the webpage. Last-search ["+lastCounterSearch+"] new-Search ["+counterSearch+"].");
+		    driver.get(getChampionCounterURL(champ,patch,rank,role));
 		}
 	    }else{
 		driver.get(getChampionCounterURL(champ,patch,rank,role));

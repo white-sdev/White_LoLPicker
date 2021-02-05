@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    
-    <parent>
-	<groupId>org.springframework.boot</groupId>
-	<artifactId>spring-boot-starter-parent</artifactId>
-	<version>2.3.0.RELEASE</version>
-	<relativePath/> <!-- lookup parent from repository -->
-    </parent>
-    
+    <modelVersion>4.0.0</modelVersion>    
     <groupId>org.white_sdev</groupId>
     <artifactId>White_LoLPicker</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -21,17 +13,52 @@
 	<maven.compiler.target>12</maven.compiler.target>
     </properties>
     
+    <parent>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-parent</artifactId>
+	<version>2.3.0.RELEASE</version>
+	<relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    
     <dependencies>	
+	<!--  ******************* Spring boot needed? *******************-->
+	<dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter</artifactId>
+	</dependency>
+
+	<dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-configuration-processor</artifactId>
+	    <optional>true</optional>
+	</dependency>
+	<dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-test</artifactId>
+	    <scope>test</scope>
+	</dependency>
+	<!-- ****************** End of Spring Boot Config ****************** -->
 	
+	<!-- usinng Controller for JSONs -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+	
+	<!--Spring boot persistence -->
 	<dependency>
 	    <groupId>org.springframework.boot</groupId>
 	    <artifactId>spring-boot-starter-data-jpa</artifactId>
 	</dependency>
-	
+	 
+	 <!-- Hibernate -->
 	<dependency>
-	    <groupId>org.springframework.boot</groupId>
-	    <artifactId>spring-boot-starter-web</artifactId>
+	    <groupId>org.hibernate</groupId>
+	    <artifactId>hibernate-core</artifactId>
+<!--	    <scope>compile</scope>
+	    <type>jar</type>-->
 	</dependency>
+	
 	
 	<!-- https://mvnrepository.com/artifact/com.oracle/ojdbc14 -->
 	<dependency>
@@ -40,18 +67,14 @@
 	    <scope>runtime</scope>
 	</dependency>
 	
-	<dependency>
-	    <groupId>org.hibernate</groupId>
-	    <artifactId>hibernate-core</artifactId>
-	    <type>jar</type>
-	</dependency>
-	
 	<!-- Hibernate Entities Validations @NotBlank (manually added )-->
 	<dependency>
 	    <groupId>javax.validation</groupId>
 	    <artifactId>validation-api</artifactId>
 	    <type>jar</type>
 	</dependency>
+	
+	<!-- Lombok Annotations -->
 	<dependency>
 	    <groupId>org.projectlombok</groupId>
 	    <artifactId>lombok</artifactId>
@@ -98,20 +121,23 @@
             <version>3.3.9</version>
             <type>jar</type>
         </dependency>
-
     </dependencies>
     
     
     <build>
 	<plugins>
 	    
-	    <!-- This might be needed for JPA to work for SpringBoot -->
+	    <!--  ******************* Spring boot needed? *******************-->
 	    <plugin>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-maven-plugin</artifactId>
+		<configuration>
+		    <fork>true</fork>
+		</configuration>
 	    </plugin>
+	    <!-- ****************** End of Spring Boot Config ****************** -->
 	    
-	    <!-- should eliminate compilation glitches for the IDEs -->
+	     <!-- Eliminates compilation glitches for the IDEs when using lombok -->
 	    <plugin>
 		<groupId>org.projectlombok</groupId>
 		<artifactId>lombok-maven-plugin</artifactId>
