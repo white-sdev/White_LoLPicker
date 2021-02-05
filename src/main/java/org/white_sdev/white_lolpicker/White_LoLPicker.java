@@ -122,6 +122,7 @@ package org.white_sdev.white_lolpicker;
 
 import javax.swing.JOptionPane;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.white_sdev.white_lolpicker.view.White_LoLPickerJFrame;
 
@@ -132,6 +133,7 @@ import org.white_sdev.white_lolpicker.view.White_LoLPickerJFrame;
  */
 @SpringBootApplication
 @Slf4j
+@EnableAutoConfiguration
 public class White_LoLPicker {
 
     public static void main(String[] args) {
