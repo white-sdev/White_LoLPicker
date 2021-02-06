@@ -1,6 +1,6 @@
 /*
- *  Filename:  Counter.java
- *  Creation Date:  Dec 7, 2020
+ *  Filename:  UggFilterExtractorService.java
+ *  Creation Date:  Feb 5, 2021
  *  Purpose:   
  *  Author:    Obed Vazquez
  *  E-mail:    obed.vazquez@gmail.com
@@ -118,423 +118,282 @@
  *  
  *  Creative Commons may be contacted at creativecommons.org.
  */
+package org.white_sdev.white_lolpicker.service.extraction.ugg;
 
-package org.white_sdev.white_lolpicker.model.persistence;
-
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import lombok.Getter;
-import lombok.Setter;
+import javax.swing.JOptionPane;
 import lombok.extern.slf4j.Slf4j;
+import org.openqa.selenium.WebElement;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
+import static org.white_sdev.propertiesmanager.model.service.PropertyProvider.getProperty;
+import org.white_sdev.white_lolpicker.model.persistence.Champion;
+import org.white_sdev.white_lolpicker.model.persistence.Patch;
+import org.white_sdev.white_lolpicker.model.persistence.Role;
+import org.white_sdev.white_lolpicker.model.persistence.UggRank;
+import org.white_sdev.white_lolpicker.repo.ChampionRepositoryImpl;
+import org.white_sdev.white_lolpicker.repo.patch.PatchRepositoryImpl;
+import org.white_sdev.white_seleniumframework.framework.TestCase;
+import org.white_sdev.white_seleniumframework.framework.TestSuite;
+import org.white_sdev.white_seleniumframework.framework.WebDriverUtils;
 import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
 
 /**
- * 
+ *
  * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
- * @since Dec 7, 2020
+ * @since Feb 5, 2021
  */
 @Slf4j
-@Entity
-@Getter
-@Setter
-public class Counter implements Persistable{
-    
-    //<editor-fold defaultstate="collapsed" desc="Attributes">
+@Service
+public class UggFilterExtractorService {
 
-    @Id
-    @GeneratedValue
-    private Long id;
-    
-    
-    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.PERSIST)
-    public PatchRank patchRank;
-    
-    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.PERSIST)
-    private Champion champion;
-    
-    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.PERSIST)
-    private Role championRole;
-    
-    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.PERSIST)
-    private Champion counter;
-    
-    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.PERSIST)
-    private Role counterRole;
-    
-    
-    @Column
-    private Double winratePercentage;
-    @Column
-    private Integer matches;
-    @Column
-    private Double laneBonus=0d;
-    @Column
-    private Double counterCertaintyModifier=0d;
-    @Column
-    private Double counterBonus=0d;
-    @Column
-    private Double totalBonus=0d;
-    
-    //</editor-fold>
-    
-    //<editor-fold defaultstate="collapsed" desc="Constructors">
+    public static List<Patch> extractedPatches;
+    public static List<UggRank> extractedRanks;
+    public static List<Champion> extractedChampions;
+    public static List<Role> extractedRoles;
+
+    @Autowired
+    ChampionRepositoryImpl championCustomRepository;
+
+    @Autowired
+    JpaRepository<Champion, Long> championRepository;
+
+    @Autowired
+    PatchRepositoryImpl patchCustomRepository;
+
+    @Autowired
+    JpaRepository<Patch, Long> patchRepository;
 
     /**
-     * Required no-Arguments Constructor by 
-     * <a href="https://docs.jboss.org/hibernate/core/3.5/reference/en/html/persistent-classes.html#persistent-classes-pojo-constructor">Hibernate</a>.
+     * Obtains all the patches detected on u.gg published data on real-time. ; Due to real-time restrictions this will access the published website and take a while to extract the
+     * data.
+     *
+     * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
+     * @since 2021-02-05
+     * @return returned {@link List<Champion>} value as the result of the operation.
+     * @throws IllegalArgumentException - if the provided parameter is null.
+     */
+    public List<Patch> extractPatches() {
+	log.trace("::extractPatches() - Start: ");
+
+	try {
+	    //This will define the extraction process within an anonimous class for the White_SeleniumFramework to execute
+	    TestSuite.registerTest(new TestCase() {
+		@Override
+		public void test(WebDriverUtils utils) {
+		    log.trace("::test(utils) - Start: ");
+		    
+		    List<String> patchesId = getPatchesFromUgg(utils);
+		    utils.driver.close();
+
+		    extractedPatches = new ArrayList<>();
+		    List<Patch> foundNewPatches = new ArrayList<>();
+		    for (String patchId : patchesId) {
+			log.debug("::test(utils): Looking for patch: '" + patchId + "'");
+
+			List<Patch> patchFoundWithId = patchCustomRepository.findBy("id", patchId);
+			if (patchFoundWithId != null && patchFoundWithId.size() > 1)
+			    throw new RuntimeException("More than 1 Patch with the same id ['" + patchId + "'] where found");
+
+			Patch patch;
+			if (patchFoundWithId == null || patchFoundWithId.size() < 1) {
+			    patch = new Patch(patchId);
+			    foundNewPatches.add(patch);
+			} else {
+			    log.debug("::test(utils): Champion found");
+			    patch = patchFoundWithId.get(0);
+			    extractedPatches.add(patch);
+			}
+		    }
+
+		    if (foundNewPatches.size() > 0) {
+			Boolean saveNewEntities = true;
+			if (Boolean.parseBoolean(getProperty("org.white_sdev.white_lolpicker.desktop-app-active"))) {
+			    Integer answer = JOptionPane.showConfirmDialog(null, "New Patche(s) found! Please store it/them in the DataBase", "Store new Champions", JOptionPane.YES_NO_OPTION);
+			    saveNewEntities = answer == 0 || answer == -1;
+			} else {
+			    log.warn("::test(utils): Some new Patches where found when extracting data from u.gg, by default the system will store them, "
+				    + "if you want to change this behavior look for the property org.white_sdev.white_lolpicker.desktop-app-active "
+				    + "and manually cancel it when prompt on desktop");
+			}
+			if (saveNewEntities) {
+			    foundNewPatches = patchRepository.saveAll(foundNewPatches); //Persistent state Entities
+			    extractedPatches.addAll(foundNewPatches);
+			}
+		    }
+
+		    log.trace("::test(utils) - Finish: ");
+		}
+
+		@Override
+		public String getTestFullName() {
+		    try {
+			return UggFilterExtractorService.class.getCanonicalName() + "#extractPatches()::TestCase$1#";
+		    } catch (Exception e) {
+			throw new RuntimeException("Impossible to obtain the full name.", e);
+		    }
+		}
+
+		@Override
+		public Boolean getQuitOnFinish() {
+		    return true;
+		}
+
+	    });
+	    TestSuite.launchTests();
+
+	    log.trace("::extractPatches() - Finish: Extraction process finished, champions should be extracted now");
+	    return extractedPatches;
+
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to extract the Patches.", e);
+	}
+    }
+
+    /**
+     * Obtains all the champions detected on u.gg published data on real-time. ; Due to real-time restrictions this will access the published website and take a while to extract
+     * the data.
+     *
+     * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
+     * @since 2021-02-05
+     * @return returned {@link List<Champion>} value as the result of the operation.
+     * @throws IllegalArgumentException - if the provided parameter is null.
+     */
+    public List<Champion> extractChampions() {
+	log.trace("::extractChampions() - Start: ");
+
+	try {
+	    //This will define the extraction process within an anonimous class for the White_SeleniumFramework to execute
+	    TestSuite.registerTest(new TestCase() {
+		@Override
+		public void test(WebDriverUtils utils) {
+		    log.trace("::test(utils) - Start: ");
+		    
+		    List<String> championNames = getChampionsFromUgg(utils);
+		    utils.driver.close();
+
+		    extractedChampions = new ArrayList<>();
+		    List<Champion> foundNewChampions = new ArrayList<>();
+		    for (String championName : championNames) {
+			log.debug("::test(utils): Looking for champion: '" + championName + "'");
+
+			List<Champion> championsWithName = championCustomRepository.findBy("name", championName);
+			if (championsWithName != null && championsWithName.size() > 1)
+			    throw new RuntimeException("More than 1 Champion with the same name ['" + championName + "'] where found");
+
+			Champion champion;
+			if (championsWithName == null || championsWithName.size() < 1) {
+			    champion = new Champion(championName);
+			    foundNewChampions.add(champion);
+			} else {
+			    log.debug("::test(utils): Champion found");
+			    champion = championsWithName.get(0);
+			    extractedChampions.add(champion);
+			}
+		    }
+
+		    if (foundNewChampions.size() > 0) {
+			Boolean saveNewChampions = true;
+			if (Boolean.parseBoolean(getProperty("org.white_sdev.white_lolpicker.desktop-app-active"))) {
+			    Integer answer = JOptionPane.showConfirmDialog(null, "New Champions found! Please store them in the DataBase?", "Store new Champions", JOptionPane.YES_NO_OPTION);
+			    saveNewChampions = answer == 0 || answer == -1;
+			} else {
+			    log.warn("::test(utils): Some new Champions where found when extracting data from u.gg, by default the system will store them, "
+				    + "if you want to change this behavior look for the property org.white_sdev.white_lolpicker.desktop-app-active "
+				    + "and manually cancel it when prompt on desktop");
+			}
+			if (saveNewChampions) {
+			    foundNewChampions = championRepository.saveAll(foundNewChampions); //Persistent state Entities
+			    extractedChampions.addAll(foundNewChampions);
+			}
+		    }
+
+		    log.trace("::test(utils) - Finish: ");
+		}
+
+		@Override
+		public String getTestFullName() {
+		    try {
+			return UggFilterExtractorService.class.getCanonicalName() + "#extractChampions()::TestCase$1#";
+		    } catch (Exception e) {
+			throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
+		    }
+		}
+
+		@Override
+		public Boolean getQuitOnFinish() {
+		    return true;
+		}
+
+	    });
+	    TestSuite.launchTests();
+
+	    log.trace("::extractChampions() - Finish: Extraction process finished, champions should be extracted now");
+	    return extractedChampions;
+
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to extract the champions.", e);
+	}
+    }
+
+    
+    /**
+     * Obtain patches from view.  
      * 
      * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
-     * @since 2021-02-02
+     * @since 2021-02-06
+     * @param utils {@link WebDriverUtils} to perform the operation with.
+     * @return returned {@link List<String>}  value as the result of the operation.
+     * @throws IllegalArgumentException - if the provided parameter is null.
      */
-    public Counter() { }
-    
-    /**
-     * Class Constructor.{Requirement_Reference}
-     * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
-     * @param patchRank
-     * @param champion
-     * @param championRole
-     * @param counter
-     * @param winrate
-     * @param matches
-     * @since Dec 7, 2020
-     * @throws IllegalArgumentException - if the argument provided is null.
-     */
-    public Counter(PatchRank patchRank,Champion champion,Role championRole,Champion counter,Double winrate,Integer matches) {
-	log.trace("::Counter(champion, counter, winrate, bonus) - Start: ");
-	notNullValidation(patchRank, champion, championRole, counter, winrate, matches);
+    public List<String> getPatchesFromUgg(WebDriverUtils utils) {
+	log.trace("::getPatchesFromUgg(utils) - Start: ");
+	notNullValidation(utils);
 	try{
 	    
-	    this.patchRank=patchRank;
-	    this.champion=champion;
-	    this.championRole=championRole;
-	    this.counter=counter;
-	    this.winratePercentage=winrate;
-	    this.matches=matches;
-	    
-	    this.counterRole=championRole;
-	    
-            patchRank.add(this);
-	    champion.getCounters().add(this);
-	    counter.getCounterOfChampions().add(this);
+	    utils.driver.get(getProperty("ugg.tiers"));
+	    utils.clickXpath("//div[contains(@class,'default-select filter-select patch css-0')]");//click on patches (to expand all)
+	    String allPatchesText = utils.textFromXpath("//div[contains(@class,'default-select__menu')]");
+	    List<String> patchesId = new ArrayList<>(Arrays.asList(allPatchesText.split("\n")));
+	    log.trace("::getPatchesFromUgg(utils) - Finish: ");
+	    return patchesId;
 
-	    log.trace("::Counter(champion, counter, winrate, bonus) - Finish: ");
 	} catch (Exception e) {
-            throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
+            throw new RuntimeException("Impossible to Obtain patches from view.", e);
         }
     }
     
-    //</editor-fold>
-    
-    @Override
-    public String toString(){
-	return "["+(getChampion()!=null?"champion:"+getChampion():"")
-		+(getChampionRole()!=null?", role:"+getChampionRole():"")
-		+(", counter:"+getCounter())
-		+(getWinratePercentage()!=null?", winratePercentage:"+getWinratePercentage():"")
-		+(", matches:"+getMatches())
-		+(getLaneBonus()!=null?", laneBonus:"+getLaneBonus():"")
-		+(getCounterBonus()!=null?", counterBonus:"+getCounterBonus():"")
-		+(getTotalBonus()!=null?", totalBonus:"+getTotalBonus():"")
-		+"]";
-    }
+    /**
+     * Obtain champions from view.  
+     * 
+     * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
+     * @since 2021-02-06
+     * @param utils {@link WebDriverUtils} to perform the operation with.
+     * @return returned {@link List<String>}  value as the result of the operation.
+     * @throws IllegalArgumentException - if the provided parameter is null.
+     */
+    public List<String> getChampionsFromUgg(WebDriverUtils utils) {
+	log.trace("::getChampionsFromUgg(utils) - Start: ");
+	notNullValidation(utils);
+	try{
+	    
+	    utils.driver.get(getProperty("ugg.champions"));
+	    List<WebElement> webChamps = utils.getElementsByClassName("champion-name");
+	    ArrayList<String> championNames = new ArrayList<>();
+	    webChamps.forEach((WebElement webChamp) -> {
+		championNames.add(webChamp.getText());
+	    });
+	    log.trace("::getChampionsFromUgg(utils) - Finish: ");
+	    return championNames;
 
-    public void calculateBonus(List<LaneCounter> laneCounters) {
-	log.trace("::calculateBonus(laneCounters) - Start: Calculating bonus for Counter: "+this);
-	try {
-	    LaneCounter matchingLaneCounter=null;
-	    
-	    if(laneCounters!=null) {
-	    log.debug("::calculateBonus(laneCounters): laneCounters is not null. Looking for lane counter");
-		for(LaneCounter laneCounter:laneCounters){
-		    if(laneCounter.getChampion().equals(this.getChampion()) && laneCounter.getChampionRole().equals(this.getChampionRole())
-			    && laneCounter.getChampion().equals(this.getCounter())){
-			log.debug("::calculateBonus(laneCounters): matching Lane Counter found:"+laneCounter);
-			matchingLaneCounter=laneCounter;
-			break;
-		    }
-		}
-	    }else{
-		log.warn("::calculateBonus(laneCounters): laneCounters is null!!");
-	    }
-	    
-	    if(matchingLaneCounter== null) log.debug("::calculateBonus(laneCounters): Lane Counter not found");
-	    
-	    setLaneBonus((Double) (matchingLaneCounter!=null?matchingLaneCounter.reCalculateBonus():0d));
-	    
-	    log.debug("::calculateBonus(laneCounters): Calculated Lane Bonus :"+getLaneBonus());
-	    
-	    
-	    Double avg = patchRank.getAvgNumOfCounterTypesMatches().doubleValue();
-	    
-	    if(matches<avg){
-		counterCertaintyModifier=matches/avg;
-	    }else{
-		Double x=matches-avg;
-		Double extra=Math.log(Math.pow(x+1,1/11.5));
-		counterCertaintyModifier=1+extra<.5?extra:.5;
-	    }
-	    
-	    log.debug("::calculateBonus(laneCounters): Obtained Certanty modifier:"+counterCertaintyModifier);
-	    
-	    log.debug("::calculateBonus(laneCounters): Calculating bonus : (50 - winrate%["+getWinratePercentage()+"] ) *10*( CertantyModifier["+counterCertaintyModifier+"]) ");
-	    setCounterBonus( -1d*( (50 - getWinratePercentage()) * 8.3 * counterCertaintyModifier) );
-	    log.debug("::calculateBonus(laneCounters): Obtained Counter bonus:"+counterBonus);
-	    setTotalBonus(getLaneBonus() + getCounterBonus());
-	    log.debug("::calculateBonus(laneCounters): Obtained Final Bonus: counterBonus["+counterBonus+"]+laneBonus["+laneBonus+"]="+totalBonus);
-	    
-	    log.trace("::calculateBonus(laneCounters) - Finish: ");
-	    
 	} catch (Exception e) {
-	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
-	}
-    }
-
-    public CSVBeanCounter getCSVBeanCounter(){
-	return new CSVBeanCounter(patchRank.patch.getId(),
-		patchRank.rank.getPrintableName(),
-		champion.getName(), 
-		championRole.getName(), 
-		counter.getName(), 
-		counterRole.getName(), 
-		matches+"", 
-		winratePercentage+"", 
-		counterBonus+"", 
-		counterCertaintyModifier+"", 
-		laneBonus+"", 
-		totalBonus+"");
+            throw new RuntimeException("Impossible to Obtain champions from view.", e);
+        }
     }
     
-    public class CSVBeanCounter {
-
-	/**
-	 * @return the patch
-	 */
-	public String getPatch() {
-	    return patch;
-	}
-
-	/**
-	 * @param patch the patch to set
-	 */
-	public void setPatch(String patch) {
-	    this.patch = patch;
-	}
-
-	/**
-	 * @return the rank
-	 */
-	public String getRank() {
-	    return rank;
-	}
-
-	/**
-	 * @param rank the rank to set
-	 */
-	public void setRank(String rank) {
-	    this.rank = rank;
-	}
     
-	
-	//<editor-fold defaultstate="collapsed" desc="Attributes">
-    	
-	private String patch;
-	private String rank;
-	private String champion;
-    	private String role;
-    	private String counter;
-    	private String counterRole;
-    	private String matches;
-    	private String winrate;
-    	private String counterBonus;
-    	private String certantyModifier;
-    	private String laneBonus;
-    	private String totalBonus;
-
-	//</editor-fold>
     
-	public CSVBeanCounter(String patch, String rank,String champion,String role,String counter,String counterRole,String matches,String winrate,
-		String counterBonus,String certantyModifier,String laneBonus,String totalBonus) {
-	    log.trace("::CSVBeanCounter() - Start: ");
-	    notNullValidation(patch, 
-		    rank, 
-		    champion,
-		    role,
-		    counter,
-		    counterRole,
-		    matches,
-		    winrate,
-		    counterBonus,
-		    certantyModifier,
-		    laneBonus,
-		    totalBonus);
-	    try{
-		this.patch=patch;
-		this.rank=rank;
-		this.champion=champion;
-		this.role=role;
-		this.counter=counter;
-		this.counterRole=counterRole;
-		this.matches=matches;
-		this.winrate=winrate;
-		this.counterBonus=counterBonus;
-		this.certantyModifier=certantyModifier;
-		this.laneBonus=laneBonus;
-		this.totalBonus=totalBonus;
-		log.trace("::CSVBeanCounter() - Finish: ");
-	    } catch (Exception e) {
-		throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
-	    }
-	}
-	
-	//<editor-fold defaultstate="collapsed" desc="Setters&Getters">
-
-    
-	/**
-	 * @return the champion
-	 */
-	public String getChampion() {
-	    return champion;
-	}
-
-	/**
-	 * @param champion the champion to set
-	 */
-	public void setChampion(String champion) {
-	    this.champion = champion;
-	}
-
-	/**
-	 * @return the role
-	 */
-	public String getRole() {
-	    return role;
-	}
-
-	/**
-	 * @param role the role to set
-	 */
-	public void setRole(String role) {
-	    this.role = role;
-	}
-
-	/**
-	 * @return the counter
-	 */
-	public String getCounter() {
-	    return counter;
-	}
-
-	/**
-	 * @param counter the counter to set
-	 */
-	public void setCounter(String counter) {
-	    this.counter = counter;
-	}
-
-	/**
-	 * @return the counterRole
-	 */
-	public String getCounterRole() {
-	    return counterRole;
-	}
-
-	/**
-	 * @param counterRole the counterRole to set
-	 */
-	public void setCounterRole(String counterRole) {
-	    this.counterRole = counterRole;
-	}
-
-	/**
-	 * @return the matches
-	 */
-	public String getMatches() {
-	    return matches;
-	}
-
-	/**
-	 * @param matches the matches to set
-	 */
-	public void setMatches(String matches) {
-	    this.matches = matches;
-	}
-
-	/**
-	 * @return the winrate
-	 */
-	public String getWinrate() {
-	    return winrate;
-	}
-
-	/**
-	 * @param winrate the winrate to set
-	 */
-	public void setWinrate(String winrate) {
-	    this.winrate = winrate;
-	}
-
-	/**
-	 * @return the counterBonus
-	 */
-	public String getCounterBonus() {
-	    return counterBonus;
-	}
-
-	/**
-	 * @param counterBonus the counterBonus to set
-	 */
-	public void setCounterBonus(String counterBonus) {
-	    this.counterBonus = counterBonus;
-	}
-
-	/**
-	 * @return the certantyModifier
-	 */
-	public String getCertantyModifier() {
-	    return certantyModifier;
-	}
-
-	/**
-	 * @param certantyModifier the certantyModifier to set
-	 */
-	public void setCertantyModifier(String certantyModifier) {
-	    this.certantyModifier = certantyModifier;
-	}
-
-	/**
-	 * @return the laneBonus
-	 */
-	public String getLaneBonus() {
-	    return laneBonus;
-	}
-
-	/**
-	 * @param laneBonus the laneBonus to set
-	 */
-	public void setLaneBonus(String laneBonus) {
-	    this.laneBonus = laneBonus;
-	}
-
-	/**
-	 * @return the totalBonus
-	 */
-	public String getTotalBonus() {
-	    return totalBonus;
-	}
-
-	/**
-	 * @param totalBonus the totalBonus to set
-	 */
-	public void setTotalBonus(String totalBonus) {
-	    this.totalBonus = totalBonus;
-	}
-	//</editor-fold>
-    }
 }

@@ -151,10 +151,7 @@ public class LaneCounter implements Persistable{
     private Long id;
     
     @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.PERSIST)
-    public Patch patch;
-    
-    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.PERSIST)
-    private UggRank rank;
+    public PatchRank patchRank;
     
     @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.PERSIST)
     private Champion champion;
@@ -231,7 +228,7 @@ public class LaneCounter implements Persistable{
     //</editor-fold>
     
     public Double reCalculateBonus(){
-	Double laneCounterCertaintyModifier=  matches/  (rank.getAvgNumOfCounterTypesMatches()/.5) ;
+	Double laneCounterCertaintyModifier=  matches/  (patchRank.getAvgNumOfCounterTypesMatches()/.5) ;
 	bonus=gold/20d*laneCounterCertaintyModifier;
 	return bonus;
     }

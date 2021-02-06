@@ -127,9 +127,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.white_sdev.white_lolpicker.model.persistence.Champion;
 import org.white_sdev.white_seleniumframework.framework.WebDriverUtils;
 import static org.white_sdev.propertiesmanager.model.service.PropertyProvider.*;
+import org.white_sdev.white_lolpicker.repo.ChampionRepository;
 import static org.white_sdev.white_validations.parameters.ParameterValidator.msg;
 import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
 
@@ -142,6 +144,9 @@ import static org.white_sdev.white_validations.parameters.ParameterValidator.not
 public class ChampionExtractor {
     
     public static ArrayList<Champion> champs=new ArrayList<>();
+    
+    @Autowired
+    ChampionRepository championRepository;
 
     public static ArrayList<Champion> getChampions(WebDriver driver) {
 	log.trace("::getChampoions(parameter) - Start: ");
@@ -156,6 +161,7 @@ public class ChampionExtractor {
 	    
 	    champs=new ArrayList<>();
 	    for(WebElement webChamp:webChamps){
+//		championRepository.findBy("","");
 		champs.add(new Champion(webChamp.getText()));
 	    }
 	    

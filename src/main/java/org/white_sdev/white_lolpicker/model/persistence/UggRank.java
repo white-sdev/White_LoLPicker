@@ -222,8 +222,8 @@ public class UggRank implements Persistable{
     @OneToMany(mappedBy = "rank", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<LaneCounter> laneCounters= new ArrayList<>();
     
-    @Column
-    private Long avgNumOfCounterMatches;
+    @OneToMany(mappedBy = "rank", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<PatchRank> patchRanks= new ArrayList<>();
     
     @Column
     private String tierListURL;
@@ -253,64 +253,6 @@ public class UggRank implements Persistable{
     
     //</editor-fold>
     
-    public void calculateAvgNumOfMatches() {
-	log.trace("::calculateAvgNumOfMatches() - Start: ");
-	
-	try {
-	    
-	    if(avgNumOfCounterMatches==null){
-		Double addition=0d;
-		Integer matches;
-		Integer cont=0;
-		Integer minNumOfMatchesToCount=Integer.parseInt(getProperty("ignore-match-count-when-lower-than"));
-		for(Counter counter:counters){
-		    matches=counter.getMatches();
-		    if(matches>minNumOfMatchesToCount){
-			addition+=counter.getMatches();
-			cont++;
-		    }
-		}
-		for(LaneCounter lCounter:laneCounters){
-		    matches=lCounter.getMatches();
-		    if(matches>minNumOfMatchesToCount){
-			addition+=lCounter.getMatches();
-			cont++;
-		    }
-		}
-		avgNumOfCounterMatches=Math.round(addition/cont);
-		log.info("::getCounterMatchAverage(): counter number of Matches Average: "+avgNumOfCounterMatches);
-	    }
-	    
-	    log.trace("::calculateAvgNumOfMatches() - Finish: ");
-	} catch (Exception e) {
-	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
-	}
-    }
-    
-    /**
-     * Obtains the avg number of matches that all counter have registered in this rank with this patch.  ;
-     * Ignoring the lower elements that will fall under the lower limit specified in config files.
-     * Old Description: Obtains the average number of matches that ALL {@link #counters} have.	 
-     * This will use the property "ignore-match-count-when-lower-than" and 
-     * ignore those quantities under that number when calculating the average.
-     * 
-     * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
-     * @since 2021-01-17
-     * @return returned {@link Long}  value as the result of the operation.
-     * @throws IllegalArgumentException - if the provided parameter is null.
-     */
-    public Long getAvgNumOfCounterTypesMatches() {
-	log.trace("::getAvgNumOfMatches() - Start: ");
-	try{
-	    
-	    if(avgNumOfCounterMatches==null || avgNumOfCounterMatches==0) calculateAvgNumOfMatches();
-	    log.trace("::getAvgNumOfMatches() - Finish: ");
-	    return avgNumOfCounterMatches;
-
-	} catch (Exception e) {
-            throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
-        }
-    }
     
     
     public void add(ChampionTierRank ranking){

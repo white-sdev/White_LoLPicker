@@ -149,9 +149,9 @@ public class PatchExtractor implements TestCase{
 		driver.get(getProperty("ugg.tiers"));
 		WebDriverUtils util = new WebDriverUtils(driver);
 		String patchId=util.textFromXpath(
-			"//div[contains(@class,\"default-select__control default-select__control--is-disabled css-0\")]"
-				+ "//span[contains(@class,\"Select-value-label\")]");
-		util.clickXpath("//div[contains(@class,\"default-select filter-select patch css-0\")]");
+			"//div[contains(@class,'default-select__control default-select__control--is-disabled css-0')]"
+				+ "//span[contains(@class,'Select-value-label')]");
+		util.clickXpath("//div[contains(@class,'default-select filter-select patch css-0')]");
 		String text=util.textFromXpath("//div[contains(@class,\"default-select__menu\")]");
 
 		List<String> strPatches=new ArrayList<>(Arrays.asList(text.split("\n")));

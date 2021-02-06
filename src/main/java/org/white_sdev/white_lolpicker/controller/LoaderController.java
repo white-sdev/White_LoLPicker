@@ -121,8 +121,18 @@
 
 package org.white_sdev.white_lolpicker.controller;
 
+import java.util.List;
+import javax.swing.JCheckBox;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.white_sdev.white_lolpicker.model.persistence.Champion;
+import org.white_sdev.white_lolpicker.model.persistence.Patch;
+import org.white_sdev.white_lolpicker.model.persistence.Role;
+import org.white_sdev.white_lolpicker.model.persistence.UggRank;
+import org.white_sdev.white_lolpicker.service.extraction.ugg.UggFilterExtractorService;
+import org.white_sdev.white_lolpicker.view.LoaderJFrame;
+import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
 
 /**
  * 
@@ -133,21 +143,35 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class LoaderController {
     
+    @Autowired
+    UggFilterExtractorService uggFilterExtractorService;
+    
+    public static Boolean useFilters=false;
+
     /**
      * Loads the Filters in the view.
      * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
+     * @param frame
+     * @param filtersCheckBox
+     * @param event
      * @since 2021-02-05
      */
-    public void getFilters( ) {
-	log.trace("::getFilters() - Start: ");
-	try{
+    public void filtersCheckBoxActionPerformed(LoaderJFrame frame, JCheckBox filtersCheckBox,java.awt.event.ActionEvent event) {
+	log.trace("::filtersCheckBoxActionPerformed(frame,filtersCheckBox,event) - Start: ");
+	notNullValidation(frame,filtersCheckBox,event);
+	try {
+	    if(filtersCheckBox.isSelected()){
+		useFilters=true;
+		List<Patch> patches=uggFilterExtractorService.extractPatches();
+//		List<UggRank> ranks=uggFilterExtractorService.extractRanks();
+		List<Champion> champions=uggFilterExtractorService.extractChampions();
+//		List<Role> roles=uggFilterExtractorService.extractRoles();
+	    }
 	    
-	    log.warn("Working");
-
-	    log.trace("::getFilters() - Finish: ");
+	    log.trace("::filtersCheckBoxActionPerformed(frame,filtersCheckBox,event) - Finish: ");
 	} catch (Exception e) {
-            throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
-        }
+	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
+	}
     }
     
 }

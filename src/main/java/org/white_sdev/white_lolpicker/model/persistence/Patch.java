@@ -173,6 +173,9 @@ public class Patch implements Persistable{
     @OneToMany(mappedBy = "patch", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<ChampionTierRank> tiersRanks=null;
     
+    @OneToMany(mappedBy = "patch", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private List<PatchRank> patchRanks= new ArrayList<>();
+    
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Constructors">
