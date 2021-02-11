@@ -122,6 +122,8 @@
 package org.white_sdev.white_lolpicker.model.persistence;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -131,6 +133,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -153,6 +156,7 @@ import lombok.extern.slf4j.Slf4j;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class Patch implements Persistable{
     
     //<editor-fold defaultstate="collapsed" desc="Attributes">
@@ -164,16 +168,10 @@ public class Patch implements Persistable{
     @Column(unique = true)
     private String id;
     
-    @OneToMany(mappedBy = "patch", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<Counter> counters=new ArrayList<>();
-    
-    @OneToMany(mappedBy = "patch", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<LaneCounter> laneCounters=new ArrayList<>();
-    
-    @OneToMany(mappedBy = "patch", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "patch", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
     private List<ChampionTierRank> tiersRanks=null;
     
-    @OneToMany(mappedBy = "patch", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "patch", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
     private List<PatchRank> patchRanks= new ArrayList<>();
     
     //</editor-fold>
@@ -184,27 +182,26 @@ public class Patch implements Persistable{
         this.id=id;
     }
     
-    /**
-     * Required no-Arguments Constructor by 
-     * <a href="https://docs.jboss.org/hibernate/core/3.5/reference/en/html/persistent-classes.html#persistent-classes-pojo-constructor">Hibernate</a>.
-     * 
-     * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
-     * @since 2021-02-02
-     */
-    protected Patch() { }
     
     //</editor-fold>
     
     //<editor-fold defaultstate="collapsed" desc="Custom Methods">
 
-    public void add(Counter counter){
-        if(getCounters()==null) setCounters(new ArrayList<>());
-        getCounters().add(counter);
+    public void add(PatchRank...patchRanks){
+	try {
+	    add(new ArrayList<>(Arrays.asList(patchRanks)));
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible add patchRanks"+patchRanks+" to this patch "+this,e);
+	}
     }
     
-    public void add(LaneCounter counter){
-        if(getCounters()==null) setLaneCounters(new ArrayList<>());
-        getLaneCounters().add(counter);
+    public void add(Collection<PatchRank> patchRanks){
+	try{
+	    if(this.patchRanks==null) this.patchRanks= new ArrayList<>();
+	    this.patchRanks.addAll(patchRanks);
+	}catch(Exception ex){
+	    throw new RuntimeException("Impossible to add the PatchRanks to this Patch");
+	}
     }
     
     public void add(ArrayList<ChampionTierRank> chTRs) {

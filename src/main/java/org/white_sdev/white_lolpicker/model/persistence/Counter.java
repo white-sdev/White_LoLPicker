@@ -121,14 +121,16 @@
 
 package org.white_sdev.white_lolpicker.model.persistence;
 
-import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -141,6 +143,7 @@ import static org.white_sdev.white_validations.parameters.ParameterValidator.not
  */
 @Slf4j
 @Entity
+//@Table(uniqueConstraints=@UniqueConstraint(columnNames={"patchRank", "champion", "championRole", "counter", "counterRole"}))
 @Getter
 @Setter
 public class Counter implements Persistable{
@@ -152,19 +155,24 @@ public class Counter implements Persistable{
     private Long id;
     
     
-    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinColumn(name="patchRank")
     public PatchRank patchRank;
     
-    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinColumn(name="champion")
     private Champion champion;
     
-    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinColumn(name="championRole")
     private Role championRole;
     
-    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinColumn(name="counter")
     private Champion counter;
     
-    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinColumn(name="counterRole")
     private Role counterRole;
     
     
@@ -245,14 +253,14 @@ public class Counter implements Persistable{
 		+"]";
     }
 
-    public void calculateBonus(List<LaneCounter> laneCounters) {
+    public void forceBonusRecalculation() {
 	log.trace("::calculateBonus(laneCounters) - Start: Calculating bonus for Counter: "+this);
 	try {
 	    LaneCounter matchingLaneCounter=null;
 	    
-	    if(laneCounters!=null) {
-	    log.debug("::calculateBonus(laneCounters): laneCounters is not null. Looking for lane counter");
-		for(LaneCounter laneCounter:laneCounters){
+	    if(patchRank.getLaneCounters()!=null) {
+		log.debug("::calculateBonus(laneCounters): laneCounters is not null. Looking for lane counter");
+		for(LaneCounter laneCounter:patchRank.getLaneCounters()){
 		    if(laneCounter.getChampion().equals(this.getChampion()) && laneCounter.getChampionRole().equals(this.getChampionRole())
 			    && laneCounter.getChampion().equals(this.getCounter())){
 			log.debug("::calculateBonus(laneCounters): matching Lane Counter found:"+laneCounter);

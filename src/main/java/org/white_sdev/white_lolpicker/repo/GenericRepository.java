@@ -123,18 +123,32 @@ package org.white_sdev.white_lolpicker.repo;
 
 //import lombok.extern.slf4j.Slf4j;
 
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
 import java.io.Serializable;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.EntityManager;
+import javax.persistence.Id;
 import javax.persistence.TypedQuery;
+import javax.persistence.UniqueConstraint;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import org.hibernate.SessionFactory;
+import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
 
 //import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
 
@@ -148,11 +162,25 @@ import javax.persistence.criteria.Root;
 //@Slf4j
 public interface GenericRepository <E extends Object, ID extends Serializable>  {
     
+    public EntityManager getEntityManager();
+    
+    public default SessionFactory getSessionFactory(){
+	try {
+	    return getEntityManager().unwrap(SessionFactory.class);
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to complete operation",e);
+	}
+    }
     
     public default List<E> findBy(String field, Object value) {
 	return filteredFind(new HashMap<String, Object>(){{put(field, value);}});
     }
     
+    /**
+     * JPA
+     * @param filters
+     * @return 
+     */
     public default List<E> filteredFind(Map<String, Object> filters) {
 //	Criteria crit = getCurrentSession().createCriteria(getEntityClass());
 	CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
@@ -184,7 +212,354 @@ public interface GenericRepository <E extends Object, ID extends Serializable>  
 	return entities;
     }
     
-    public EntityManager getEntityManager();
+    /**
+     * It is the same as SaveOrUpdate()
+     * Forces a Managed State in the {@link Entity}. (Push in case of found) In the event that the {@link Entity entity} is found in the DataSource, 
+     * this will update the DataSource. It is similar to a simple save but for all states of an entity. Uses {@link #saveOrUpdate(java.lang.Object) } or 
+     * COPY OF {@link #saveOrUpdate(java.lang.Object) }.
+     * @param entity
+     * @return the persisted entity
+     */
+    
+    public default E forceManaged(E entity){
+	try{
+	    if(isTranscient(entity)){
+		getEntityManager().persist(entity);
+		return entity;
+	    }else if(isDetached(entity)){
+		return getEntityManager().merge(entity);
+	    }else if(isPersistent(entity)){
+		//warn log
+		return entity;
+	    }else{
+		throw new RuntimeException("The provided entity is nor Transcient,Detached or Persistent, this should never happen please report this Bug.");
+	    }
+	}catch(Exception ex){
+	    throw new RuntimeException("Impossible to save the entity "+entity,ex);
+	}
+    }
+    
+    //Push
+    public default E mergeByUniqueOrPersist(E entity){
+	notNullValidation(entity);
+	try {
+	    E foundEntity=null;
+	    try{
+		foundEntity=findByUnique(entity);
+	    }catch(Exception ex){}
+	    
+	    if(foundEntity==null) {
+		getEntityManager().persist(entity);
+		return entity;
+	    }
+	    
+	    copyId(foundEntity,entity);
+	    return getEntityManager().merge(entity);
+	    
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to mergeByUniqueOrPersist the entity"+entity,e);
+	}
+    }
+    
+    /**
+     * Uses reflection to obtain the name of the fields marked as (the first) Unique constraints and their respective values on the provided {@code E entity} 
+     * and store them as pairs in the {@link LinkedHashMap} used to {@link #filteredFind(java.util.Map) } a query to the DataBase looking 
+     * for an entity that will match and return that entity or call {@link #synchronize(java.lang.Object) } to save it if it is not found
+     * @param entity
+     * @return 
+     */
+    //findOrSave does not exist bc you need an ID too Look for it and a transient object cant have one.
+    public default E findByUniqueOrPersist(E entity){
+	try {
+	    E foundEntity=null;
+	    try{
+		foundEntity=findByUnique(entity);
+	    }catch(Exception ex){}
+	    
+	    if(foundEntity!=null) return foundEntity;
+	    getEntityManager().persist(entity);
+	    return entity;
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to findByUniqueOrSave the entity",e);
+	}
+    }
+    
+    /**
+     * Uses reflection to obtain the name of the fields marked as (the first) Unique constraints and their respective values on the provided {@code E entity} 
+     * and store them as pairs in the {@link LinkedHashMap} used to {@link #filteredFind(java.util.Map) } a query to the DataBase looking 
+     * for an entity that will match and return that entity or {@code null} if not found.
+     * @param entity
+     * @return 
+     */
+    public default E findByUnique(E entity){
+	try {
+	    LinkedHashMap<String,Object> multipleFieldsUniqueConstraints= getUniqueConstraintsToFilterMap(entity);
+	    if(multipleFieldsUniqueConstraints!=null || multipleFieldsUniqueConstraints.size()<1) return null;
+
+	    List<E> entitiesFound=filteredFind(multipleFieldsUniqueConstraints);
+	    if(entitiesFound==null || entitiesFound.size()<1) return null;
+	    if(entitiesFound.size()>1) throw new RuntimeException("More than 1 entity was found with the same Unique Key. Please report the entire scenario.");
+
+	    return entitiesFound.get(0);
+
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to findByUnique Columns",e);
+	}
+    }
+    
+    public default E saveOrUpdate(E entity){
+	try {
+	    getSessionFactory().getCurrentSession().saveOrUpdate(entity);
+	    return entity;
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to complete operation",e);
+	}
+    }
+    
+    //<editor-fold defaultstate="collapsed" desc="Util">
+
+    public default boolean isTranscient(E entity){
+	try{
+	    return getIdValue(entity)==null;
+	}catch(Exception ex){
+	    throw new RuntimeException("Impossible to determine if the entity "+entity+" is transcient",ex);
+	}
+    }
+    
+    public default boolean isDetached(E entity){
+	try{
+	    return getIdValue(entity)!=null;
+	}catch(Exception ex){
+	    throw new RuntimeException("Impossible to determine if the entity "+entity+" is Detached",ex);
+	}
+    }
+    
+    public default boolean isPersistent(E entity){
+	try{
+	    return getEntityManager().contains(entity);
+	}catch(Exception ex){
+	    throw new RuntimeException("Impossible to determine if the entity "+entity+" is Detached",ex);
+	}
+    }
+
+    public default ID getIdValue(E entity){
+	try{
+//	    EntityManagerFactory factory=Persistence.createEntityManagerFactory(getEntityClass().getCanonicalName());
+//	    return (ID)factory.getPersistenceUnitUtil().getIdentifier(entity);
+	    return (ID)getEntityManager().getEntityManagerFactory().getPersistenceUnitUtil().getIdentifier(entity);
+	}catch(Exception ex){
+	    return null;
+	}
+    }
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Reflexion">
+
+    
+    public default Field getIdType() {
+	try {
+	    for (Field field : getEntityClass().getDeclaredFields()) {
+		if ( !field.isAnnotationPresent(Id.class)){
+		    Method method=getGetterMethod(field,getEntityClass());
+		    if((method!=null && method.isAnnotationPresent(Id.class)))return field;
+		}
+		return field;
+	    }
+	    return null;
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to obtain the ID Field of this Entity Class",e);
+	}
+    }
+    
+    public default void copyId(E source, E target) {
+	try {
+	    Field field=getIdType();
+	    try{
+		var srcIdValue=getIdValue(source);
+		if(srcIdValue==null) throw new RuntimeException("Entity "+source+" has no Id in it to copy to "+target);
+		field.set(target, srcIdValue);
+	    }catch (Exception ex){
+		getSetterMethod(field,getEntityClass()).invoke(target, getIdValue(source));
+	    }
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to copy ID from entity "+source + " to targetEntity: "+target,e);
+	}
+    }
+    
+    /**
+     * Uses Java Reflection to obtain the name and value (format used in {@link #filteredFind(java.util.Map) }) of the first Unique constraint (single or Multiple fields) marked in the 
+     * {@code E} Entity (used by the coder as a primary key instead of the formal {@link Id} usually because the DataBase requires an int as a primary for performance issues).
+     * @param entity
+     * @return 
+     */
+    public default LinkedHashMap<String,Object> getUniqueConstraintsToFilterMap(E entity){
+	try {
+	    List<String> uniqueConstraintFieldNames = getUniqueConstraintNames(getEntityClass());
+	    LinkedHashMap<String,Object> multipleFieldsUniqueConstraints=new LinkedHashMap<>();
+	    
+	    if(multipleFieldsUniqueConstraints!=null) for(String uniqueFieldName:uniqueConstraintFieldNames)  
+		multipleFieldsUniqueConstraints.put(uniqueFieldName,getValueOfField(uniqueFieldName,entity));
+	    
+	    
+	    if(multipleFieldsUniqueConstraints.size()<1){
+		Field uniqueConstraintFieldName = getSingleUniqueConstraintField();
+		return uniqueConstraintFieldName!=null
+			?new LinkedHashMap<String,Object>(){{put(uniqueConstraintFieldName.getName(),uniqueConstraintFieldName);}}
+			:null;
+	    }else{
+		return multipleFieldsUniqueConstraints;
+	    }
+
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to getUniqueConstraintsToFilterMap",e);
+	}
+    }
+    
+    public default List<String> getUniqueConstraintNames(Class<E> clazz){
+	try {
+	    ArrayList<String> uniqueKeyFieldsName= new ArrayList<>();
+	    for (Annotation annotation : clazz.getAnnotations()) {
+		Class<? extends Annotation> type = annotation.annotationType();
+		if(type.equals(javax.persistence.Table.class)){
+		    for (Method method : type.getDeclaredMethods()) {
+			javax.persistence.UniqueConstraint[] nestedAnnotation;
+			try{
+			    nestedAnnotation = (javax.persistence.UniqueConstraint[])method.invoke(annotation, (Object[])null);
+			}catch(Exception ex){
+			    continue;
+			}
+		       UniqueConstraint uniqueConstraintAnnotation=nestedAnnotation[0];
+		       Class<? extends Annotation> uniqueConstraintType=uniqueConstraintAnnotation.annotationType();
+		       for (Method uniqueConstraintMethod : uniqueConstraintType.getDeclaredMethods()) {
+			    Object value = uniqueConstraintMethod.invoke(uniqueConstraintAnnotation, (Object[])null);
+			    if(uniqueConstraintMethod.getName().equals("columnNames")){
+				String[] fieldNames=(String[])value;
+				uniqueKeyFieldsName=new ArrayList<>(Arrays.asList(fieldNames));
+			    }
+			}
+		    }
+		}
+	    }
+	    return uniqueKeyFieldsName;
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to getUniqueConstraintNames of class "+clazz,e);
+	}
+    }
+    
+    public default Field getSingleUniqueConstraintField(){
+	try {
+	    for (Field field : getEntityClass().getDeclaredFields()) {
+		if ( field.isAnnotationPresent(Column.class)){
+		    if(isColumnUnique(field)){
+			return field;
+		    }
+		}else{
+		    try{
+			Method method=getGetterMethod(field,getEntityClass());
+			if((method!=null && method.isAnnotationPresent(Column.class))){
+			    if(isColumnUnique(method)){
+				return field;
+			    }
+			}
+		    }catch(Exception ex){}
+		}
+	    }
+	    return null;
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to get Single Field with UniqueConstraint",e);
+	}
+    }
+    
+    public static boolean isColumnUnique(Field field){
+	try {
+	    for(Annotation annotation:field.getAnnotations()){
+		Class<? extends Annotation> type = annotation.annotationType();
+		if(type.equals(Column.class)){
+		    for (Method method : type.getDeclaredMethods()) {
+			Boolean value=false;
+			try{ 
+			    value = (Boolean)method.invoke(annotation);
+			}catch(Exception e){
+			    
+			}
+			if(method.getName().equals("unique") && value){
+			    return true;
+			}
+		    }
+		}
+	    }
+	    return false;
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to check if the field has the colum Column or if it has the method Unique",e);
+	}
+    }
+    
+    public static boolean isColumnUnique(Method method){
+	try {
+	    for(Annotation annotation:method.getAnnotations()){
+		Class<? extends Annotation> type = annotation.annotationType();
+		if(type.equals(Column.class)){
+		    for (Method annotationMethod : type.getDeclaredMethods()) {
+			Boolean value = (Boolean)method.invoke(annotation, (Object[])null);
+			if(annotationMethod.getName().equals("unique") && value){
+			    return true;
+			}
+		    }
+		}
+	    }
+	    return false;
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to check if the field has the colum Column or if it has the method Unique",e);
+	}
+    }
+    
+    
+    public default Object getValueOfField(String fieldName,E instance){
+	try {
+	    Class<?> clazz=getEntityClass();
+	    for (Field field : clazz.getDeclaredFields()) {
+		if(field.getName().equals(fieldName)) {
+			boolean isAccessible = field.isAccessible();
+			try {
+			    field.setAccessible(true);
+			    Object value = field.get(instance);
+			    field.setAccessible(isAccessible);
+			    return value;
+			}  catch (ReflectiveOperationException e) {
+			    throw new RuntimeException("Impossible to obtain the Value of field "+fieldName+" of instance "+instance, e);
+			}
+		}
+	    }
+	    throw new RuntimeException("Field "+fieldName+" not found in instance "+instance);
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to complete operation",e);
+	}
+    }
+    
+    public default Method getGetterMethod(Field field,Class<?> entityClass) {
+	try{
+	    for (PropertyDescriptor pd:Introspector.getBeanInfo(entityClass).getPropertyDescriptors()){
+		if(pd.getName().equals(field.getName())){
+		    return pd.getReadMethod();
+		}
+	    }
+	}catch(IntrospectionException e){
+	    throw new RuntimeException("Impossible to getGetterMethod of "+entityClass,e);
+	}
+	return null;
+    }
+    
+    public default Method getSetterMethod(Field field,Class<?> entityClass) {
+	try{
+	    for (PropertyDescriptor pd:Introspector.getBeanInfo(entityClass).getPropertyDescriptors()){
+		if(pd.getName().equals(field.getName())){
+		    return pd.getWriteMethod();
+		}
+	    }
+	}catch(IntrospectionException e){
+	    throw new RuntimeException("Impossible to getGetterMethod of "+entityClass,e);
+	}
+	return null;
+    }
     
     public default Class<E> getEntityClass(){
 	Class<E> entityClass=null;
@@ -194,4 +569,9 @@ public interface GenericRepository <E extends Object, ID extends Serializable>  
 	}
 	return entityClass;
     }
+    
+    //</editor-fold>
+    
+
+    
 }

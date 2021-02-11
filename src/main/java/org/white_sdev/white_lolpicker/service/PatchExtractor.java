@@ -128,9 +128,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 import static org.white_sdev.propertiesmanager.model.service.PropertyProvider.getProperty;
 import org.white_sdev.white_lolpicker.model.persistence.Patch;
-import org.white_sdev.white_seleniumframework.framework.TestCase;
 import org.white_sdev.white_seleniumframework.framework.WebDriverUtils;
 import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
+import org.white_sdev.white_seleniumframework.framework.AutomationScenario;
 
 /**
  * 
@@ -138,7 +138,7 @@ import static org.white_sdev.white_validations.parameters.ParameterValidator.not
  * @since Dec 23, 2020
  */
 @Slf4j
-public class PatchExtractor implements TestCase{
+public class PatchExtractor implements AutomationScenario{
     
     public static ArrayList<Patch> patches=null;
     
@@ -188,7 +188,7 @@ public class PatchExtractor implements TestCase{
     }
 
     @Override
-    public void test(WebDriverUtils utils) throws Exception {
+    public void run(WebDriverUtils utils) throws Exception {
         getPatches( utils.driver);
     }
 

@@ -134,12 +134,13 @@ import org.white_sdev.white_lolpicker.model.persistence.Champion;
 import org.white_sdev.white_lolpicker.model.persistence.Patch;
 import org.white_sdev.white_lolpicker.model.persistence.Role;
 import org.white_sdev.white_lolpicker.model.persistence.UggRank;
-import org.white_sdev.white_lolpicker.repo.ChampionRepositoryImpl;
-import org.white_sdev.white_lolpicker.repo.patch.PatchRepositoryImpl;
-import org.white_sdev.white_seleniumframework.framework.TestCase;
-import org.white_sdev.white_seleniumframework.framework.TestSuite;
+import org.white_sdev.white_lolpicker.repo.ChampionCustomRepositoryImpl;
+import org.white_sdev.white_lolpicker.repo.PatchRepositoryImpl;
+import org.white_sdev.white_seleniumframework.framework.AutomationScenario;
+import org.white_sdev.white_seleniumframework.framework.AutomationSuite;
 import org.white_sdev.white_seleniumframework.framework.WebDriverUtils;
 import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
+import org.white_sdev.white_seleniumframework.framework.SilentAutomationScenario;
 
 /**
  *
@@ -149,23 +150,33 @@ import static org.white_sdev.white_validations.parameters.ParameterValidator.not
 @Slf4j
 @Service
 public class UggFilterExtractorService {
+    
+    //<editor-fold defaultstate="collapsed" desc="Attributes">
 
     public static List<Patch> extractedPatches;
-    public static List<UggRank> extractedRanks;
+    public static List<UggRank> ranks;
     public static List<Champion> extractedChampions;
-    public static List<Role> extractedRoles;
+    public static List<Role> roles;
+    
+
+	//<editor-fold defaultstate="collapsed" desc="Spring Beans">
 
     @Autowired
-    ChampionRepositoryImpl championCustomRepository;
+    public JpaRepository<Champion, Long> championRepository;
+    
+    @Autowired
+    ChampionCustomRepositoryImpl championCustomRepository;
 
     @Autowired
-    JpaRepository<Champion, Long> championRepository;
-
+    public JpaRepository<Patch, Long> repository;
+    
     @Autowired
-    PatchRepositoryImpl patchCustomRepository;
+    PatchRepositoryImpl patchRepository;
+    //</editor-fold>
 
-    @Autowired
-    JpaRepository<Patch, Long> patchRepository;
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Methods">
 
     /**
      * Obtains all the patches detected on u.gg published data on real-time. ; Due to real-time restrictions this will access the published website and take a while to extract the
@@ -181,9 +192,9 @@ public class UggFilterExtractorService {
 
 	try {
 	    //This will define the extraction process within an anonimous class for the White_SeleniumFramework to execute
-	    TestSuite.registerTest(new TestCase() {
+	    AutomationSuite.registerTest(new SilentAutomationScenario() {
 		@Override
-		public void test(WebDriverUtils utils) {
+		public void run(WebDriverUtils utils) {
 		    log.trace("::test(utils) - Start: ");
 		    
 		    List<String> patchesId = getPatchesFromUgg(utils);
@@ -194,7 +205,7 @@ public class UggFilterExtractorService {
 		    for (String patchId : patchesId) {
 			log.debug("::test(utils): Looking for patch: '" + patchId + "'");
 
-			List<Patch> patchFoundWithId = patchCustomRepository.findBy("id", patchId);
+			List<Patch> patchFoundWithId = patchRepository.findBy("id", patchId);
 			if (patchFoundWithId != null && patchFoundWithId.size() > 1)
 			    throw new RuntimeException("More than 1 Patch with the same id ['" + patchId + "'] where found");
 
@@ -220,7 +231,7 @@ public class UggFilterExtractorService {
 				    + "and manually cancel it when prompt on desktop");
 			}
 			if (saveNewEntities) {
-			    foundNewPatches = patchRepository.saveAll(foundNewPatches); //Persistent state Entities
+			    foundNewPatches = repository.saveAll(foundNewPatches); //Persistent state Entities
 			    extractedPatches.addAll(foundNewPatches);
 			}
 		    }
@@ -243,7 +254,7 @@ public class UggFilterExtractorService {
 		}
 
 	    });
-	    TestSuite.launchTests();
+	    AutomationSuite.launchTests();
 
 	    log.trace("::extractPatches() - Finish: Extraction process finished, champions should be extracted now");
 	    return extractedPatches;
@@ -267,9 +278,9 @@ public class UggFilterExtractorService {
 
 	try {
 	    //This will define the extraction process within an anonimous class for the White_SeleniumFramework to execute
-	    TestSuite.registerTest(new TestCase() {
+	    AutomationSuite.registerTest(new SilentAutomationScenario() {
 		@Override
-		public void test(WebDriverUtils utils) {
+		public void run(WebDriverUtils utils) {
 		    log.trace("::test(utils) - Start: ");
 		    
 		    List<String> championNames = getChampionsFromUgg(utils);
@@ -329,7 +340,7 @@ public class UggFilterExtractorService {
 		}
 
 	    });
-	    TestSuite.launchTests();
+	    AutomationSuite.launchTests();
 
 	    log.trace("::extractChampions() - Finish: Extraction process finished, champions should be extracted now");
 	    return extractedChampions;
@@ -339,7 +350,171 @@ public class UggFilterExtractorService {
 	}
     }
 
+    /**
+     * Obtains all the champions detected on u.gg published data on real-time. ; Due to real-time restrictions this will access the published website and take a while to extract
+     * the data.
+     *
+     * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
+     * @since 2021-02-05
+     * @return returned {@link List<Champion>} value as the result of the operation.
+     * @throws IllegalArgumentException - if the provided parameter is null.
+     */
+    public void extractAndLoadAllFilters() {
+	log.trace("::extractChampions() - Start: ");
+
+	try {
+	    //This will define the extraction process within an anonimous class for the White_SeleniumFramework to execute
+	    AutomationSuite.registerTest(new AutomationScenario() {
+		@Override
+		public void run(WebDriverUtils utils) {
+		    log.trace("::test(utils) - Start: ");
+		    List<String> patchesId = getPatchesFromUgg(utils);
+		    
+		    List<String> championNames = getChampionsFromUgg(utils);
+		    utils.driver.close();
+
+		    extractedPatches = new ArrayList<>();
+		    List<Patch> foundNewPatches = new ArrayList<>();
+		    for (String patchId : patchesId) {
+			log.debug("::test(utils): Looking for patch: '" + patchId + "'");
+
+			List<Patch> patchFoundWithId = patchRepository.findBy("id", patchId);
+			if (patchFoundWithId != null && patchFoundWithId.size() > 1)
+			    throw new RuntimeException("More than 1 Patch with the same id ['" + patchId + "'] where found");
+
+			Patch patch;
+			if (patchFoundWithId == null || patchFoundWithId.size() < 1) {
+			    patch = new Patch(patchId);
+			    foundNewPatches.add(patch);
+			} else {
+			    log.debug("::test(utils): Champion found");
+			    patch = patchFoundWithId.get(0);
+			    extractedPatches.add(patch);
+			}
+		    }
+
+		    if (foundNewPatches.size() > 0) {
+			Boolean saveNewEntities = true;
+			if (Boolean.parseBoolean(getProperty("org.white_sdev.white_lolpicker.desktop-app-active"))) {
+			    Integer answer = JOptionPane.showConfirmDialog(null, "New Patche(s) found! Please store it/them in the DataBase", "Store new Champions", JOptionPane.YES_NO_OPTION);
+			    saveNewEntities = answer == 0 || answer == -1;
+			} else {
+			    log.warn("::test(utils): Some new Patches where found when extracting data from u.gg, by default the system will store them, "
+				    + "if you want to change this behavior look for the property org.white_sdev.white_lolpicker.desktop-app-active "
+				    + "and manually cancel it when prompt on desktop");
+			}
+			if (saveNewEntities) {
+			    foundNewPatches = repository.saveAll(foundNewPatches); //Persistent state Entities
+			    extractedPatches.addAll(foundNewPatches);
+			}
+		    }
+
+		    log.trace("::test(utils): Patches Loaded. ");
+		    
+
+		    extractedChampions = new ArrayList<>();
+		    List<Champion> foundNewChampions = new ArrayList<>();
+		    for (String championName : championNames) {
+			log.debug("::test(utils): Looking for champion: '" + championName + "'");
+
+			List<Champion> championsWithName = championCustomRepository.findBy("name", championName);
+			if (championsWithName != null && championsWithName.size() > 1)
+			    throw new RuntimeException("More than 1 Champion with the same name ['" + championName + "'] where found");
+
+			Champion champion;
+			if (championsWithName == null || championsWithName.size() < 1) {
+			    champion = new Champion(championName);
+			    foundNewChampions.add(champion);
+			} else {
+			    log.debug("::test(utils): Champion found");
+			    champion = championsWithName.get(0);
+			    extractedChampions.add(champion);
+			}
+		    }
+
+		    if (foundNewChampions.size() > 0) {
+			Boolean saveNewChampions = true;
+			if (Boolean.parseBoolean(getProperty("org.white_sdev.white_lolpicker.desktop-app-active"))) {
+			    Integer answer = JOptionPane.showConfirmDialog(null, "New Champions found! Please store them in the DataBase?", "Store new Champions", JOptionPane.YES_NO_OPTION);
+			    saveNewChampions = answer == 0 || answer == -1;
+			} else {
+			    log.warn("::test(utils): Some new Champions where found when extracting data from u.gg, by default the system will store them, "
+				    + "if you want to change this behavior look for the property org.white_sdev.white_lolpicker.desktop-app-active "
+				    + "and manually cancel it when prompt on desktop");
+			}
+			if (saveNewChampions) {
+			    foundNewChampions = championRepository.saveAll(foundNewChampions); //Persistent state Entities
+			    extractedChampions.addAll(foundNewChampions);
+			}
+		    }
+
+		    log.trace("::test(utils) - Finish: Champions Loaded");
+		}
+
+		@Override
+		public String getTestFullName() {
+		    try {
+			return UggFilterExtractorService.class.getCanonicalName() + "#extractAndLoadAllFilters()::TestCase$1#";
+		    } catch (Exception e) {
+			throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
+		    }
+		}
+
+		@Override
+		public Boolean getQuitOnFinish() {
+		    return true;
+		}
+
+	    });
+	    AutomationSuite.launchTests();//Load Pand Champions
+	    //Ranks
+	    ranks=getRanks();
+	    roles=getRoles();
+	    
+	    log.trace("::extractChampions() - Finish: Extraction process finished, champions should be extracted now");
+	    
+	    
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to extract the champions.", e);
+	}
+    }
+
     
+    /**
+     * Obtains the UggRanks.  ;
+     * 
+     * 
+     * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
+     * @since 2021-02-06
+     * @return returned {@link List<UggRank>}  value as the result of the operation.
+     * @throws IllegalArgumentException - if the provided parameter is null.
+     */
+    public List<UggRank> getRanks( ) {
+	log.trace("::getRanks() - Start: ");
+	try{
+	    
+	    log.trace("::getRanks() - Finish: ");
+	    return UggRank.everyRank;
+
+	} catch (Exception e) {
+            throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
+        }
+    }
+    
+    public List<Role> getRoles( ) {
+	log.trace("::getRoles() - Start: ");
+	try{
+	    
+	    log.trace("::getRoles() - Finish: ");
+	    return Role.allRoles;
+
+	} catch (Exception e) {
+            throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
+        }
+    }
+    
+	//<editor-fold defaultstate="collapsed" desc="Local Methods">
+
     /**
      * Obtain patches from view.  
      * 
@@ -394,6 +569,8 @@ public class UggFilterExtractorService {
         }
     }
     
+    //</editor-fold>
     
+    //</editor-fold>
     
 }

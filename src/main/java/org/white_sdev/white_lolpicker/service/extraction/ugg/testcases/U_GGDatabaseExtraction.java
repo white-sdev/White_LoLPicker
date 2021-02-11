@@ -123,13 +123,12 @@ package org.white_sdev.white_lolpicker.service.extraction.ugg.testcases;
 
 import java.util.ArrayList;
 import org.white_sdev.white_lolpicker.service.ChampionTierRankExtractor;
-import org.white_sdev.white_lolpicker.service.CounterExtractor;
+import org.white_sdev.white_lolpicker.service.OldCounterExtractor;
 import org.white_sdev.white_lolpicker.service.ChampionExtractor;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 import static org.white_sdev.propertiesmanager.model.service.PropertyProvider.getProperty;
-import org.white_sdev.white_seleniumframework.framework.TestCase;
 import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
 import org.white_sdev.white_lolpicker.model.persistence.ChampionTierRank;
 import org.white_sdev.white_lolpicker.model.persistence.Counter;
@@ -139,6 +138,7 @@ import org.white_sdev.white_lolpicker.service.CSVGenerator;
 import org.white_sdev.white_lolpicker.service.PatchExtractor;
 import org.white_sdev.white_seleniumframework.framework.WebDriverUtils;
 import static org.white_sdev.white_validations.parameters.ParameterValidator.msg;
+import org.white_sdev.white_seleniumframework.framework.AutomationScenario;
 
 /**
  * 
@@ -146,10 +146,10 @@ import static org.white_sdev.white_validations.parameters.ParameterValidator.msg
  * @since Dec 7, 2020
  */
 @Slf4j
-public class U_GGDatabaseExtraction implements TestCase{
+public class U_GGDatabaseExtraction implements AutomationScenario{
     
     @Override
-    public void test(WebDriverUtils utils) throws Exception {
+    public void run(WebDriverUtils utils) throws Exception {
 	log.trace("::test(driver) - Start: ");
 	WebDriver driver= utils.driver;
 	notNullValidation(msg("The Driver Must be specified or the test can complete."),driver);
@@ -158,7 +158,7 @@ public class U_GGDatabaseExtraction implements TestCase{
 	    log.info("::test(driver): Extracting all Champions");
 	    ChampionExtractor.champs=ChampionExtractor.getChampions(driver);
 	    log.info("::test(driver): Extracting all coutners to load");
-	    CounterExtractor.loadAllCounters(driver);
+	    new OldCounterExtractor().loadAllCounters(driver);
 	    log.info("::test(driver): Extracting all season tier Ranks");
 	    ChampionTierRankExtractor.loadChampionTierRanks(driver);
 	    
@@ -191,7 +191,7 @@ public class U_GGDatabaseExtraction implements TestCase{
 	try {
 	    
 	    CSVGenerator.generateCSV(ChampionExtractor.champs,getProperty("champions-filename"));
-	    CSVGenerator.generateCSV(getCountersCSVBeans(CounterExtractor.counters),getProperty("counters-filename"));
+	    CSVGenerator.generateCSV(getCountersCSVBeans(OldCounterExtractor.counters),getProperty("counters-filename"));
 	    CSVGenerator.generateCSV(ChampionTierRankExtractor.allTiersRanks,getProperty("tiers-filename"));
 	    
 	    

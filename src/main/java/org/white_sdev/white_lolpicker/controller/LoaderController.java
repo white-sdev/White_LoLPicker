@@ -118,60 +118,267 @@
  *  
  *  Creative Commons may be contacted at creativecommons.org.
  */
-
 package org.white_sdev.white_lolpicker.controller;
 
+import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JCheckBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
+import org.white_sdev.white_lolpicker.White_LoLPicker;
 import org.white_sdev.white_lolpicker.model.persistence.Champion;
 import org.white_sdev.white_lolpicker.model.persistence.Patch;
 import org.white_sdev.white_lolpicker.model.persistence.Role;
 import org.white_sdev.white_lolpicker.model.persistence.UggRank;
+import org.white_sdev.white_lolpicker.repo.ChampionRepository;
+import org.white_sdev.white_lolpicker.repo.RoleRepository;
+import org.white_sdev.white_lolpicker.repo.UggRankRepository;
+import org.white_sdev.white_lolpicker.repo.PatchRepository;
 import org.white_sdev.white_lolpicker.service.extraction.ugg.UggFilterExtractorService;
+import org.white_sdev.white_lolpicker.service.extraction.ugg.page.UggCounterPageService;
+import org.white_sdev.white_lolpicker.service.extraction.ugg.testcases.U_GGDatabaseExtraction;
 import org.white_sdev.white_lolpicker.view.LoaderJFrame;
+import org.white_sdev.white_lolpicker.view.LoadingDataMessageFrame;
+import org.white_sdev.white_seleniumframework.framework.AutomationSuite;
 import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
 
 /**
- * 
+ *
  * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
  * @since Feb 5, 2021
  */
 @Slf4j
 @Controller
 public class LoaderController {
+
+    
+    @Autowired
+    ApplicationContext applicationContext;
+    
+    @Autowired
+    LoaderJFrame view;
     
     @Autowired
     UggFilterExtractorService uggFilterExtractorService;
+
+    @Autowired
+    UggCounterPageService uggCounterPageService;
     
-    public static Boolean useFilters=false;
+    @Autowired
+    PatchRepository patchRepository;
+    
+    @Autowired
+    UggRankRepository rankRepository;
+    
+    @Autowired
+    ChampionRepository championRepository;
+    
+    @Autowired
+    RoleRepository roleRepository;
+    
+    
+    
+    public static Boolean usingFilters = false;
+    
+    public static Boolean filtersLoaded = false;
+    
+    public static Patch noFilterPatch=new Patch("- All -");
+    public static UggRank noFilterRank=new UggRank("- All -", "- All -",-1);
+    public static Champion noFilterChampion=new Champion("- All -");
+    public static Role noFilterRole=new Role("- All -",(List<String>)null,"- All -");
+    
+//    @PostConstruct
+    public void init(){
+	try {
+//	    java.awt.EventQueue.invokeLater(new Runnable() {
+//		@Override
+//		public void run() {
+//		    javax.swing.JOptionPane.showMessageDialog(null, "Filters are loading on the filter section, you can used them but they might not be updated, the process might take abut half of a minute but another message will let you know when they are ready");
+//		}
+//	    });
+//	    new Thread(){
+//		@Override
+//		public void run(){
+//		    JOptionPane.showMessageDialog(null, "Filters are loading on the filter section, you can used them but they might not be updated, the process might take abut half of a minute but another message will let you know when they are ready");
+//		}
+//	    }.start();
+	    
+//	    SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(null, "Filters are loading on the filter section, you can used them but they might not be updated, the process might take abut half of a minute but another message will let you know when they are ready"));
+
+//	    java.awt.EventQueue.invokeLater(new Runnable() {
+//		public void run() {
+//		    new LoadingDataMessageFrame().setVisible(true);
+//		}
+//	    });
+
+//	    java.awt.EventQueue.invokeLater(() -> {
+//		var ex = applicationContext.getBean(LoadingDataMessageFrame.class);
+//		ex.setVisible(true);
+//	    });
+//	    
+//	    new Thread(){
+//		@Override
+//		public void run(){
+//		    var ex = applicationContext.getBean(LoadingDataMessageFrame.class);
+//		    ex.setVisible(true);
+//		}
+//	    }.start();
+
+	    //first Load them from database
+	    loadFiltersFromDataBase();
+	    //then load them from Website
+	    loadFilters();
+	    
+	} catch (Exception ex) {
+	    log.error("Error while initializing LoaderJFrame",ex);
+	    JOptionPane.showMessageDialog(view, "An error has ocurred when Loading Filters of the Window.","Unknown Error!",JOptionPane.ERROR_MESSAGE);
+	}
+    }
 
     /**
      * Loads the Filters in the view.
+     *
      * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
      * @param frame
-     * @param filtersCheckBox
-     * @param event
      * @since 2021-02-05
      */
-    public void filtersCheckBoxActionPerformed(LoaderJFrame frame, JCheckBox filtersCheckBox,java.awt.event.ActionEvent event) {
+    public void filtersCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {
 	log.trace("::filtersCheckBoxActionPerformed(frame,filtersCheckBox,event) - Start: ");
-	notNullValidation(frame,filtersCheckBox,event);
+	notNullValidation(view);
 	try {
-	    if(filtersCheckBox.isSelected()){
-		useFilters=true;
-		List<Patch> patches=uggFilterExtractorService.extractPatches();
-//		List<UggRank> ranks=uggFilterExtractorService.extractRanks();
-		List<Champion> champions=uggFilterExtractorService.extractChampions();
-//		List<Role> roles=uggFilterExtractorService.extractRoles();
-	    }
-	    
+	    setFiltersStatus(view.filtersCheckBox.isSelected());
 	    log.trace("::filtersCheckBoxActionPerformed(frame,filtersCheckBox,event) - Finish: ");
-	} catch (Exception e) {
-	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
+	} catch (Exception ex) {
+	    log.error("Error while filtersCheckBoxActionPerformed",ex);
+	    JOptionPane.showMessageDialog(view, "An error has ocurred when the main process was running.","Unknown Error!",JOptionPane.ERROR_MESSAGE);
 	}
     }
     
+    public void loadFilters(){
+	try {
+
+	    uggFilterExtractorService.extractAndLoadAllFilters();
+	    
+	    setFiltersStatus(false);
+	    view.filtersCheckBox.setSelected(false);
+	    new Thread(){
+		@Override
+		public void run(){
+		    JOptionPane.showMessageDialog(view, "Filters have been Updated");
+		}
+	    }.start();
+	    
+	    loadFiltersWith(UggFilterExtractorService.extractedPatches,UggFilterExtractorService.ranks,UggFilterExtractorService.extractedChampions,UggFilterExtractorService.roles);
+	    filtersLoaded=true;
+
+	} catch (Exception ex) {
+	    log.error("Impossible to loadFilters",ex);
+	    JOptionPane.showMessageDialog(view, "Impossible to loadFilters.","Unknown Error!",JOptionPane.ERROR_MESSAGE);
+	}
+    }
+    
+    public void startOldExtractionProcess(){
+	try {
+	    AutomationSuite.registerTest(new U_GGDatabaseExtraction());
+	    AutomationSuite.launchTests();
+	} catch(Exception ex){
+	    log.error("An exception Ocurred",ex);
+	    JOptionPane.showMessageDialog(null, ex);
+	}
+    }
+    
+    public void startExtractionProcess(){
+	
+	try {
+	    
+	    List<Patch> selectedPatches=usingFilters && !view.patchesComboBox.getSelectedItem().equals(noFilterPatch)?
+			new ArrayList<>(){{add((Patch)view.patchesComboBox.getSelectedItem());}}:
+			    uggFilterExtractorService.extractedPatches;
+	    
+	    List<UggRank> selectedRanks=usingFilters && !view.ranksComboBox.getSelectedItem().equals(noFilterRank)?
+			new ArrayList<>(){{add((UggRank)view.ranksComboBox.getSelectedItem());}}:
+			    uggFilterExtractorService.ranks;
+	    
+	    List<Champion> selectedChampions=usingFilters && !view.championsComboBox.getSelectedItem().equals(noFilterChampion)?
+			new ArrayList<>(){{add((Champion)view.championsComboBox.getSelectedItem());}}:
+			    uggFilterExtractorService.extractedChampions;
+	    
+	    List<Role> selectedRoles=usingFilters && !view.rolesComboBox.getSelectedItem().equals(noFilterRole)?
+			new ArrayList<>(){{add((Role)view.rolesComboBox.getSelectedItem());}}:
+			    uggFilterExtractorService.roles;
+	    
+	    uggCounterPageService.extractCountersToDB(selectedPatches, selectedRanks, selectedChampions, selectedRoles);
+	    
+	} catch (Exception ex) {
+	    log.error("Imposible to start Extraction process",(Throwable)ex);
+	    JOptionPane.showMessageDialog(view, "Imposible to start Extraction process.","Unknown Error!",JOptionPane.ERROR_MESSAGE);
+	    throw new RuntimeException("logs are not printing correctly: ", ex);
+	}
+    }
+    
+    public void loadFiltersWith(List<Patch> patches,List<UggRank> ranks,List<Champion> champions,List<Role> roles){
+	notNullValidation(patches,ranks,champions,roles);
+	try {
+	    
+	    patches.add(0, noFilterPatch);
+	    view.patchesComboBox.setModel(new DefaultComboBoxModel<>(patches.toArray(new Patch[0])));
+	    ranks.add(0,noFilterRank);
+	    view.ranksComboBox.setModel(new DefaultComboBoxModel<>(ranks.toArray(new UggRank[0])));
+	    champions.add(0,noFilterChampion);
+	    view.championsComboBox.setModel(new DefaultComboBoxModel<>(champions.toArray(new Champion[0])));
+	    roles.add(0,noFilterRole);
+	    view.rolesComboBox.setModel(new DefaultComboBoxModel<>(roles.toArray(new Role[0])));
+	    
+	    setFilterComboStatus(usingFilters);
+	    
+	} catch (Exception ex) {
+	    log.error("Impossible to loadFiltersWith "+patches+", "+ranks+", "+champions+", "+roles,ex);
+	    JOptionPane.showMessageDialog(view, "Impossible to loadFiltersWith "+patches+", "+ranks+", "+champions+", "+roles,"Unknown Error!",JOptionPane.ERROR_MESSAGE);
+	}
+    }
+    
+    public void setFiltersStatus(Boolean status){
+	try {
+	    usingFilters=status;
+	    view.filterPanel.setEnabled(status);
+	    setFilterComboStatus(status);
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to complete operation",e);
+	}
+    }
+
+    private void setFilterComboStatus(Boolean usingFilters) {
+	log.trace("::setFilterComboStatus(usingFilters) - Start: ");
+	notNullValidation(usingFilters);
+	try {
+	    view.patchesComboBox.setEnabled(usingFilters);
+	    view.ranksComboBox.setEnabled(usingFilters);
+	    view.championsComboBox.setEnabled(usingFilters);
+	    view.rolesComboBox.setEnabled(usingFilters);
+	    
+	    view.patchesLabel.setEnabled(usingFilters);
+	    view.ranksLabel.setEnabled(usingFilters);
+	    view.championsLabel.setEnabled(usingFilters);
+	    view.rolesLabel.setEnabled(usingFilters);
+	    
+	    log.trace("::setFilterComboStatus(usingFilters) - Finish: ");
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to setFilterComboStatus: " + null, e);
+	}
+    }
+
+    public void loadFiltersFromDataBase() {
+	log.trace("::loadFiltersFromDataBase() - Start: ");
+	try {
+	    loadFiltersWith(patchRepository.findAll(),rankRepository.findAll(),championRepository.findAll(),roleRepository.findAll());
+	    log.trace("::loadFiltersFromDataBase() - Finish: ");
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to loadFiltersFromDataBase: " + null, e);
+	}
+    }
+
 }

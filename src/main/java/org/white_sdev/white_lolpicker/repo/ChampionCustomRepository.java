@@ -1,6 +1,6 @@
 /*
  *  Filename:  ChampionCustomRepository.java
- *  Creation Date:  Feb 6, 2021
+ *  Creation Date:  Feb 11, 2021
  *  Purpose:   
  *  Author:    Obed Vazquez
  *  E-mail:    obed.vazquez@gmail.com
@@ -121,74 +121,13 @@
 
 package org.white_sdev.white_lolpicker.repo;
 
-//import lombok.extern.slf4j.Slf4j;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import org.white_sdev.white_lolpicker.model.persistence.Champion;
 
-//import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
-
 /**
- * 
+ *
  * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
- * @since Feb 6, 2021
+ * @since Feb 11, 2021
  */
-//@Slf4j
-public interface ChampionCustomRepository {
-    
-    
-    public default List<Champion> findBy(String field, Object value) {
-	return filteredFind(new HashMap<String, Object>(){{put(field, value);}});
-    }
-    
-    public default List<Champion> filteredFind(Map<String, Object> filters) {
-//	Criteria crit = getCurrentSession().createCriteria(getEntityClass());
-	CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
-	CriteriaQuery<Champion> criteriaQuery = criteriaBuilder.createQuery(getEntityClass());
-	Root<Champion> root= criteriaQuery.from(getEntityClass());
-	
-//	Predicate authorNamePredicate = cb.equal(book.get("author"), authorName);
-//        Predicate titlePredicate = cb.like(book.get("title"), "%" + title + "%");
-//        cq.where(authorNamePredicate, titlePredicate);
-	
-	ArrayList<Predicate> predicates=new ArrayList<>();
-	filters.entrySet().forEach(filter -> {
-	    String key=filter.getKey();
-	    Object value=filter.getValue();
-	    predicates.add(criteriaBuilder.equal(root.get(key), value));
-	    
-//	    crit.add(value!=null?Restrictions.eq(filter.getKey(), value):Restrictions.isNull(filter.getKey()));
-	});
-	
-	List<Champion> entities;
-//	entities = (List<Champion>) crit.list();//Main search
-	Predicate[] predicatesArray= new Predicate[predicates.size()];
-	predicates.toArray(predicatesArray);
-	criteriaQuery.where(predicatesArray);
-	TypedQuery<Champion> query = getEntityManager().createQuery(criteriaQuery);
-	entities = query.getResultList();//Main search
+public interface ChampionCustomRepository extends GenericRepository<Champion, Long>{
 
-	if (entities == null || entities.isEmpty()) entities = new ArrayList<>();
-	return entities;
-    }
-    
-    public EntityManager getEntityManager();
-    
-    public Class<Champion> getEntityClass();
-//    {
-//	if (entityClass == null) {
-//	    ParameterizedType thisType = (ParameterizedType) getClass().getGenericSuperclass();
-//	    entityClass = (Class<Champion>) thisType.getActualTypeArguments()[0];
-//	}
-//	return entityClass;
-//    }
 }

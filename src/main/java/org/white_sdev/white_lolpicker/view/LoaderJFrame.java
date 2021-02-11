@@ -129,7 +129,7 @@ import org.white_sdev.white_lolpicker.service.PatchExtractor;
 import org.white_sdev.white_lolpicker.service.extraction.ugg.testcases.TestCounterExtraction;
 import org.white_sdev.white_lolpicker.service.extraction.ugg.testcases.U_GGChampionTierRankExtractor;
 import org.white_sdev.white_lolpicker.service.extraction.ugg.testcases.U_GGDatabaseExtraction;
-import org.white_sdev.white_seleniumframework.framework.TestSuite;
+import org.white_sdev.white_seleniumframework.framework.AutomationSuite;
 
 /**
  *
@@ -161,15 +161,15 @@ public class LoaderJFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        filterPanel = new javax.swing.JPanel();
+        patchesLabel = new javax.swing.JLabel();
         patchesComboBox = new javax.swing.JComboBox<>();
         ranksComboBox = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
+        ranksLabel = new javax.swing.JLabel();
         championsComboBox = new javax.swing.JComboBox<>();
-        jLabel3 = new javax.swing.JLabel();
+        championsLabel = new javax.swing.JLabel();
         rolesComboBox = new javax.swing.JComboBox<>();
-        jLabel4 = new javax.swing.JLabel();
+        rolesLabel = new javax.swing.JLabel();
         filtersCheckBox = new javax.swing.JCheckBox();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
@@ -181,77 +181,80 @@ public class LoaderJFrame extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("White_LoLPicker Loader");
+        setAlwaysOnTop(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Filters"));
-        jPanel2.setEnabled(false);
+        filterPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Filters"));
+        filterPanel.setEnabled(false);
 
-        jLabel1.setText("Patches");
-        jLabel1.setEnabled(false);
+        patchesLabel.setText("Patches");
+        patchesLabel.setEnabled(false);
 
-        patchesComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All" }));
         patchesComboBox.setEnabled(false);
 
-        ranksComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All" }));
         ranksComboBox.setEnabled(false);
 
-        jLabel2.setText("Ranks");
-        jLabel2.setEnabled(false);
+        ranksLabel.setText("Ranks");
+        ranksLabel.setEnabled(false);
 
-        championsComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All" }));
         championsComboBox.setEnabled(false);
 
-        jLabel3.setText("Champions");
-        jLabel3.setEnabled(false);
+        championsLabel.setText("Champions");
+        championsLabel.setEnabled(false);
 
-        rolesComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All" }));
         rolesComboBox.setEnabled(false);
 
-        jLabel4.setText("Roles");
-        jLabel4.setEnabled(false);
+        rolesLabel.setText("Roles");
+        rolesLabel.setEnabled(false);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout filterPanelLayout = new javax.swing.GroupLayout(filterPanel);
+        filterPanel.setLayout(filterPanelLayout);
+        filterPanelLayout.setHorizontalGroup(
+            filterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(filterPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(filterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(filterPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
+                        .addComponent(patchesLabel)
                         .addGap(628, 628, 628))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, filterPanelLayout.createSequentialGroup()
+                        .addGroup(filterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ranksLabel)
+                            .addComponent(championsLabel)
+                            .addComponent(rolesLabel))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(filterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(championsComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(ranksComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(rolesComboBox, 0, 73, Short.MAX_VALUE)
                             .addComponent(patchesComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        filterPanelLayout.setVerticalGroup(
+            filterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(filterPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                .addGroup(filterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(patchesLabel)
                     .addComponent(patchesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(filterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ranksComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(ranksLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(filterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(championsComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(championsLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(filterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rolesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(rolesLabel))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -262,9 +265,14 @@ public class LoaderJFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton7.setText("Reload New");
+        jButton7.setText("Extract Tier List");
 
-        jButton8.setText("Reload All");
+        jButton8.setText("Extract Counters");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -285,7 +293,7 @@ public class LoaderJFrame extends javax.swing.JFrame {
         jButton1.setText("start extraction process");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                startOldExtractionProcess(evt);
             }
         });
 
@@ -342,23 +350,26 @@ public class LoaderJFrame extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(filtersCheckBox)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton8))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(filterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addComponent(filtersCheckBox)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton8)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(filterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(filtersCheckBox)
@@ -389,37 +400,34 @@ public class LoaderJFrame extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void startOldExtractionProcess(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startOldExtractionProcess
         
 	try {
-	    TestSuite.registerTest(new U_GGDatabaseExtraction());
-	    TestSuite.launchTests();
+	    controller.startOldExtractionProcess();
 	} catch(Exception ex){
-	    log.error("An exception Ocurred",ex);
-	    JOptionPane.showMessageDialog(null, ex);
+	    
 	}
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_startOldExtractionProcess
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try {
-	    TestSuite.registerTests(new U_GGChampionTierRankExtractor());
-	    TestSuite.launchTests();
+	    AutomationSuite.registerTests(new U_GGChampionTierRankExtractor());
+	    AutomationSuite.launchTests();
 	} catch(Exception ex){
-	    log.error("An exception Ocurred",ex);
-	    JOptionPane.showMessageDialog(null, ex);
+	    
 	}
 	
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         try {
-	    TestSuite.registerTest(new PatchExtractor());
-	    TestSuite.launchTests();
+	    AutomationSuite.registerTest(new PatchExtractor());
+	    AutomationSuite.launchTests();
 	} catch(Exception ex){
-	    log.error("An exception Ocurred",ex);
-	    JOptionPane.showMessageDialog(null, ex);
+	    
 	}
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -429,26 +437,47 @@ public class LoaderJFrame extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
 	try {
-	    TestSuite.registerTests(new TestCounterExtraction());
-	    TestSuite.launchTests();
+	    AutomationSuite.registerTests(new TestCounterExtraction());
+	    AutomationSuite.launchTests();
 	} catch (Exception ex) {
-	    throw new RuntimeException("Error while testing Counters",ex);
+	    
 	}
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void filtersCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtersCheckBoxActionPerformed
         try{
-	    controller.filtersCheckBoxActionPerformed(this,filtersCheckBox,evt);
+	    controller.filtersCheckBoxActionPerformed(evt);
 	}catch(Exception ex){
-	    log.error("Error when activating the filters",ex);
-	    JOptionPane.showMessageDialog(this, "An error has ocurred when activating the filters, please report it.","Unknown Error!",JOptionPane.ERROR_MESSAGE);
+	    
 	}
     }//GEN-LAST:event_filtersCheckBoxActionPerformed
 
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        try{
+	    controller.startExtractionProcess();
+	}catch(Exception ex){
+	    throw new RuntimeException("logs are not printing correctly: ", ex);
+	}
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        try{
+//	    new Thread(){
+//		@Override
+//		public void run(){
+//		    controller.init();
+//		}
+//	    }.start();
+	    controller.loadFiltersFromDataBase();
+	}catch(Exception ex){}
+    }//GEN-LAST:event_formWindowOpened
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> championsComboBox;
-    private javax.swing.JCheckBox filtersCheckBox;
+    public javax.swing.JComboBox<org.white_sdev.white_lolpicker.model.persistence.Champion> championsComboBox;
+    public javax.swing.JLabel championsLabel;
+    public javax.swing.JPanel filterPanel;
+    public javax.swing.JCheckBox filtersCheckBox;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -456,15 +485,13 @@ public class LoaderJFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JComboBox<String> patchesComboBox;
-    private javax.swing.JComboBox<String> ranksComboBox;
-    private javax.swing.JComboBox<String> rolesComboBox;
+    public javax.swing.JComboBox<org.white_sdev.white_lolpicker.model.persistence.Patch> patchesComboBox;
+    public javax.swing.JLabel patchesLabel;
+    public javax.swing.JComboBox<org.white_sdev.white_lolpicker.model.persistence.UggRank> ranksComboBox;
+    public javax.swing.JLabel ranksLabel;
+    public javax.swing.JComboBox<org.white_sdev.white_lolpicker.model.persistence.Role> rolesComboBox;
+    public javax.swing.JLabel rolesLabel;
     // End of variables declaration//GEN-END:variables
 }

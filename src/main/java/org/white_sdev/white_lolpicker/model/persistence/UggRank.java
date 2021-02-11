@@ -122,6 +122,8 @@
 package org.white_sdev.white_lolpicker.model.persistence;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -133,9 +135,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import static org.white_sdev.propertiesmanager.model.service.PropertyProvider.getProperty;
 
 /**
  * 
@@ -146,6 +148,7 @@ import static org.white_sdev.propertiesmanager.model.service.PropertyProvider.ge
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class UggRank implements Persistable{
     public static UggRank iron=new UggRank("Iron","iron",12),
 	    bronze=new UggRank("Bronze","bronze",11),
@@ -159,7 +162,7 @@ public class UggRank implements Persistable{
 	    masterPlus=new UggRank("Master +","master_plus",2),
 	    grandMaster=new UggRank("Grand Master","grandmaster",5),
 	    challenger=new UggRank("Challenger","challenger",4),
-	    allRanks=new UggRank("All Ranks","overall",3);//TODO Get them from Database
+	    allRanks=new UggRank("All Ranks","overall",3);
     
     
     /**
@@ -175,7 +178,7 @@ public class UggRank implements Persistable{
 		add(silver);
 		add(gold);
 		add(platinum);
-	    }}; //TODO GET Them from DB
+	    }}; 
     
     /**
      * All the lower ranks that the app supports. 
@@ -198,7 +201,7 @@ public class UggRank implements Persistable{
 		add(grandMaster);
 		add(challenger);
 		add(allRanks);
-	    }}; //TODO GET Them from DB
+	    }}; 
     
     //<editor-fold defaultstate="collapsed" desc="Attributes">
     
@@ -215,20 +218,13 @@ public class UggRank implements Persistable{
     @Column
     private Integer uGGOrder;
     
-    
-    @OneToMany(mappedBy = "rank", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<Counter> counters= new ArrayList<>();
-    
-    @OneToMany(mappedBy = "rank", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<LaneCounter> laneCounters= new ArrayList<>();
-    
-    @OneToMany(mappedBy = "rank", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "rank", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
     private List<PatchRank> patchRanks= new ArrayList<>();
     
     @Column
     private String tierListURL;
     
-    @OneToMany(mappedBy = "rank", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "rank", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
     private Set<ChampionTierRank> rankings=new HashSet<>();
     
     //</editor-fold>
@@ -242,15 +238,6 @@ public class UggRank implements Persistable{
 	this.tierListURL="http://u.gg/lol/tier-list?rank="+uggName;
     }
     
-    /**
-     * Required no-Arguments Constructor by 
-     * <a href="https://docs.jboss.org/hibernate/core/3.5/reference/en/html/persistent-classes.html#persistent-classes-pojo-constructor">Hibernate</a>.
-     * 
-     * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
-     * @since 2021-02-02
-     */
-    public UggRank() { }
-    
     //</editor-fold>
     
     
@@ -260,6 +247,18 @@ public class UggRank implements Persistable{
         rankings.add(ranking);
     }
     
+    public void add(PatchRank...patchRanks){
+	add(new ArrayList<>(Arrays.asList(patchRanks)));
+    }
+    
+    public void add(Collection<PatchRank> patchRanks){
+	try{
+	    if(this.patchRanks==null) this.patchRanks= new ArrayList<>();
+	    this.patchRanks.addAll(patchRanks);
+	}catch(Exception ex){
+	    throw new RuntimeException("Impossible to add the PatchRanks to this Patch");
+	}
+    }
     
     @Override
     public String toString(){

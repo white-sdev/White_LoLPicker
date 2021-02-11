@@ -1,6 +1,6 @@
 /*
- *  Filename:  PatchRepository.java
- *  Creation Date:  Feb 5, 2021
+ *  Filename:  RoleRepository.java
+ *  Creation Date:  Feb 6, 2021
  *  Purpose:   
  *  Author:    Obed Vazquez
  *  E-mail:    obed.vazquez@gmail.com
@@ -119,20 +119,23 @@
  *  Creative Commons may be contacted at creativecommons.org.
  */
 
-package org.white_sdev.white_lolpicker.repo.patch;
+package org.white_sdev.white_lolpicker.repo;
 
 //import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import org.white_sdev.white_lolpicker.model.persistence.Patch;
+import org.white_sdev.white_lolpicker.model.persistence.Role;
+
+//import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
 
 /**
  * 
  * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
- * @since Feb 5, 2021
+ * @since Feb 6, 2021
  */
 //@Slf4j
 @Repository
-public interface PatchRepository extends JpaRepository<Patch, Long>{
+public interface RoleRepository extends JpaRepository<Role, Long>{
     
 }

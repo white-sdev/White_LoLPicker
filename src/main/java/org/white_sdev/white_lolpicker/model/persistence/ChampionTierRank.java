@@ -154,19 +154,19 @@ public class ChampionTierRank implements Persistable{
     @GeneratedValue
     private Long id;
     
-    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.MERGE)
     private Patch patch;
     
     @Column
     private Integer ranking;
     
-    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.MERGE)
     private Role role;
     
-    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.MERGE)
     private UggRank rank;
     
-    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.MERGE)
     private Champion champ;
     
     @Column

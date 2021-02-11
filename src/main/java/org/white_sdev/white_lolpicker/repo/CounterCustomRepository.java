@@ -1,6 +1,6 @@
 /*
- *  Filename:  PatchRepositoryImpl.java
- *  Creation Date:  Feb 5, 2021
+ *  Filename:  CounterCustomRepository.java
+ *  Creation Date:  Feb 11, 2021
  *  Purpose:   
  *  Author:    Obed Vazquez
  *  E-mail:    obed.vazquez@gmail.com
@@ -119,21 +119,15 @@
  *  Creative Commons may be contacted at creativecommons.org.
  */
 
-package org.white_sdev.white_lolpicker.repo.patch;
+package org.white_sdev.white_lolpicker.repo;
 
-//import lombok.extern.slf4j.Slf4j;
-
-import org.white_sdev.white_lolpicker.repo.*;
-import org.white_sdev.white_lolpicker.model.persistence.Patch;
-
-//import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
+import org.white_sdev.white_lolpicker.model.persistence.Counter;
 
 /**
- * 
+ *
  * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
- * @since Feb 5, 2021
+ * @since Feb 11, 2021
  */
-//@Slf4j
-public class PatchRepositoryImpl extends GenericRepositoryImpl <Patch,Long>{
-    
+public interface CounterCustomRepository extends GenericRepository<Counter, Long> {
+
 }

@@ -1,6 +1,6 @@
 /*
- *  Filename:  CounterExtractor.java
- *  Creation Date:  Dec 7, 2020
+ *  Filename:  LoadingDataMessageFrame.java
+ *  Creation Date:  Feb 9, 2021
  *  Purpose:   
  *  Author:    Obed Vazquez
  *  E-mail:    obed.vazquez@gmail.com
@@ -118,426 +118,143 @@
  *  
  *  Creative Commons may be contacted at creativecommons.org.
  */
-
-package org.white_sdev.white_lolpicker.service;
-
-import java.text.DecimalFormat;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import lombok.extern.slf4j.Slf4j;
-import org.openqa.selenium.By;
-
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import static org.white_sdev.propertiesmanager.model.service.PropertyProvider.getProperty;
-import org.white_sdev.white_lolpicker.model.persistence.Champion;
-import org.white_sdev.white_lolpicker.model.persistence.Counter;
-import org.white_sdev.white_lolpicker.model.bean.CounterSearch;
-import org.white_sdev.white_lolpicker.model.persistence.LaneCounter;
-import org.white_sdev.white_lolpicker.model.persistence.Patch;
-import org.white_sdev.white_lolpicker.model.persistence.Role;
-import org.white_sdev.white_lolpicker.model.persistence.UggRank;
-import org.white_sdev.white_seleniumframework.framework.WebDriverUtils;
-
-import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
+package org.white_sdev.white_lolpicker.view;
 
 /**
- * 
+ *
  * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
- * @since Dec 7, 2020
  */
-@Slf4j
-public class CounterExtractor {
+@org.springframework.stereotype.Component
+public class LoadingDataMessageFrame extends javax.swing.JFrame {
 
-    
-
-    public static List<Patch> extractedPatches=null;
-    public static List<LaneCounter> laneCounters=new ArrayList<>();
-    public static List<Counter> counters=new ArrayList<>();
-    public static Double average=null;
-    public static CounterSearch lastCounterSearch;
-    
-    public static void loadAllCounters(WebDriver driver) {
-	log.trace("::loadCounters(driver) - Start: ");
-	notNullValidation(driver);
-	try {
-	    
-            ArrayList<Patch> patchesToExtract=PatchExtractor.getPatches(driver);
-            List<UggRank> ranks=Boolean.parseBoolean(getProperty("counters.lower-ranks-only"))?UggRank.lowerRanks:UggRank.everyRank;
-	    
-	    
-	    Integer patchCounter=0,rankCounter=0,champCounter=0;
-	    Double patchStatus=0d, rankStatus=0d, champStatus=0d;
-	    log.info("::loadCounters(driver): Starting Counter Extraction Process at "+java.time.LocalDateTime.now().format(DateTimeFormatter.ISO_TIME));
-	    DecimalFormat twoDecimalsFormat=new DecimalFormat("#.##");
-	    List<Champion> champions=ChampionExtractor.champs;
-	    if(champions == null || champions.size()<1) throw new RuntimeException("Champions have not been loaded. Please first load the champions then call this method. "
-		    + "You can use ChampionExctractor to load all champions from U.GG");
-	    
-	    for(Champion champ:champions){
-		log.info("::loadCounters(driver): Extracting Champion Counters: "+champ);
-		for(UggRank rank:ranks){
-		    log.info("::loadCounters(driver): Extracting U.GG Rank: "+rank.getPrintableName());
-		    for(Patch patch:patchesToExtract){
-			loadChampionCounters(new CounterSearch(patch,rank,champ,driver));
-			
-			++patchCounter;
-			patchStatus=patchCounter*100d/champions.size()/ranks.size()/patchesToExtract.size();
-			log.info("::loadCounters(driver): Extraction Process Status: "+twoDecimalsFormat.format(champStatus+rankStatus+patchStatus)+"%");
-			
-		    }patchCounter=0;
-		    rank.calculateAvgNumOfMatches();
-		    
-		    ++rankCounter;
-		    rankStatus=rankCounter*100d/champions.size()/ranks.size();
-		    log.info("::loadCounters(driver): Extraction Process Status: "+twoDecimalsFormat.format(champStatus+rankStatus)+"%");
-		    
-		}rankCounter=0;
-                
-		
-		++champCounter;
-		champStatus=((champCounter*100d)/champions.size());
-		log.info("::loadCounters(driver): Extraction Process Status: "+twoDecimalsFormat.format(champStatus)+"%");
-            }
-	    
-	    
-	    log.info("::loadCounters(driver): Calculating Counter Bonus at "+java.time.LocalDateTime.now().format(DateTimeFormatter.ISO_TIME));
-	    counters.forEach((counter) -> {
-		counter.calculateBonus(laneCounters);
-	    });
-	    
-	    extractedPatches=patchesToExtract;
-	    
-	    log.info("::loadCounters(driver): Counter Extraction Process Finished at "+java.time.LocalDateTime.now());
-	    
-	    
-	    log.trace("::loadCounters(driver) - Finish: ");
-	} catch (Exception e) {
-	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
-	}
+    /** Creates new form LoadingDataFrame */
+    public LoadingDataMessageFrame() {
+	initComponents();
     }
 
-    public static void loadChampionCounters(CounterSearch counterSearch) {
-	log.trace("::loadChampionCounters(counterSearch) - Start: ");
-	notNullValidation(counterSearch);
-	try {
-	    
-	    Patch patch=counterSearch.patch;
-	    UggRank rank=counterSearch.rank;
-	    Champion champ=counterSearch.champ;
-	    WebDriver driver=counterSearch.driver;
-	    
-	    for(Role rol:Role.allRoles){
-		loadChampionCounterWebpage(new CounterSearch(patch, rank, champ, driver),rol);
-		
-		forceElementsLoad(driver); //multiple clicks on "View More Champions" button
-		
-		Boolean loadLaneCountersSuccesfully=true;
-		List<WebElement> webLaneCounters=null;
-		List<WebElement> webGoldDiferences=null;
-		List<WebElement> webMatchTotalGames=null;
-		
-		try{ //Loading LANE Counters
-		    webLaneCounters=driver.findElements(By.xpath("//*[contains(@class, 'counters-list gold-diff')]//*[contains(@class, 'champion-name')]"));
-		    webGoldDiferences=driver.findElements(By.xpath("//*[contains(@class, 'counters-list gold-diff')]//div[contains(@class, 'col-3')]//div[contains(@class, 'win-rate')]"));
-		    webMatchTotalGames=driver.findElements(By.xpath("//*[contains(@class, 'counters-list gold-diff')]//div[contains(@class, 'col-3')]//div[contains(@class, 'total-games')]"));
-
-		    
-		}catch(Exception e){
-		    log.debug("::loadChampionCounters(counterSearch): Impossible to load Champion ["+champ+"] laneCounters");
-		    loadLaneCountersSuccesfully=false;
-		}
-		if(loadLaneCountersSuccesfully)	    mapLaneCounters(patch, rank, champ, rol,webLaneCounters,webGoldDiferences,webMatchTotalGames);
-		
-		//Loading Counters
-		List<WebElement> webCounters=driver.findElements(By.xpath("//*[contains(@class, 'counters-list best-win-rate')]//*[contains(@class, 'champion-name')]"));
-		List<WebElement> webWinrates=driver.findElements(By.xpath("//*[contains(@class, 'counters-list best-win-rate')]//div[contains(@class, 'col-3')]//div[contains(@class, 'win-rate')]"));
-		List<WebElement> webWinratesTotalGames=driver.findElements(By.xpath("//*[contains(@class, 'counters-list best-win-rate')]//div[contains(@class, 'col-3')]//div[contains(@class, 'total-games')]"));
-		
-		log.debug("::loadChampionCounters(counterSearch):  Loading Champion Counters [champ:"+champ+"],[patch:"+patch+"], [rank:"+rank.getPrintableName()+"], [rol:"+rol+"]");
-		mapCounters(patch, rank,champ, rol,webCounters,webWinrates,webWinratesTotalGames);
-		
-		
-		
-		
-	    }
-	    
-	    
-	    
-	    log.trace("::loadChampionCounters(patch,rank,champ,driver) - Finish: ");
-	} catch (Exception e) {
-	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
-	}
-    }
-    
-    public static void forceElementsLoad(WebDriver driver ) {
-	log.trace("::forceElementsLoad(parameter) - Start: ");
-	try {
-	    synchronized (driver){
-		WebDriverUtils util = new WebDriverUtils(driver);
-		List<WebElement> webChamps=driver.findElements(By.xpath("//a//*[contains(@class, 'champion-name')]"));
-		List<WebElement> webChamps2;
-		do{
-		    do{
-			webChamps=driver.findElements(By.xpath("//a//*[contains(@class, 'champion-name')]"));
-			try{
-			    Thread.sleep(400);
-			    util.clickXpath("//div[contains(@class,\"counters-list best-win-rate\")]//div[contains(@class,\"view-more-btn btn-gray\")]",0);
-			    Thread.sleep(250);
-			    util.clickXpath("//div[contains(@class,\"counters-list best-win-rate\")]//div[contains(@class,\"view-more-btn btn-gray\")]",0);
-			    Thread.sleep(250);
-			    util.clickXpath("//div[contains(@class,\"counters-list best-win-rate\")]//div[contains(@class,\"view-more-btn btn-gray\")]",0);
-			}catch(Exception ex){}
-			webChamps2=driver.findElements(By.xpath("//a//*[contains(@class, 'champion-name')]"));
-		    }while(webChamps.size()!=webChamps2.size());
-		    try{
-			webChamps=driver.findElements(By.xpath("//a//*[contains(@class, 'champion-name')]"));
-			Thread.sleep(800);
-			util.clickXpath("//div[contains(@class,\"counters-list best-win-rate\")]//div[contains(@class,\"view-more-btn btn-gray\")]",0);
-			Thread.sleep(250);
-			util.clickXpath("//div[contains(@class,\"counters-list best-win-rate\")]//div[contains(@class,\"view-more-btn btn-gray\")]",0);
-		    }catch(Exception ex){}
-		    webChamps2=driver.findElements(By.xpath("//a//*[contains(@class, 'champion-name')]"));
-		}while(webChamps.size()!=webChamps2.size());
-		
-		log.trace("::forceElementsLoad(parameter) - Finish: ");
-	    }
-	} catch (Exception e) {
-	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
-	}
-    }
-    
-    
-    public static void mapLaneCounters(Patch patch,UggRank rank, Champion champ,Role role,List<WebElement> webLaneCounters, List<WebElement> webGoldDiferences, List<WebElement> webMatchTotalGames) {
-	log.trace("::mapLaneCounters(parameter) - Start: ");
-	notNullValidation(champ,role,webLaneCounters,webGoldDiferences,webMatchTotalGames);
-	List<Integer> webGoldIntDiferences=removeBlanksOnGlodDif(webGoldDiferences);
-	if(webLaneCounters.size()!=webGoldDiferences.size() || webGoldDiferences.size()!=webMatchTotalGames.size()) 
-	    throw new IllegalArgumentException("webLaneCounters,webGoldDiferences or webGoldDifTotalGames lists sizes differ");
-	try {
-	    
-	    if(laneCounters==null) laneCounters=new ArrayList<>();
-	    
-	    for (int i = 0; i < webLaneCounters.size(); i++) {
-		Integer webGoldIntDiference=webGoldIntDiferences.get(i);
-		
-		if(webGoldIntDiference>0){
-		    WebElement webLaneCounter=webLaneCounters.get(i);
-		    WebElement webMatchTotalGame=webMatchTotalGames.get(i);
-		    laneCounters.add(new LaneCounter(patch, rank, champ, role, 
-			    getChampionWithName(webLaneCounter.getText()), 
-			    webGoldIntDiference, 
-			    Integer.parseInt(webMatchTotalGame.getText().replace(" games", "").replace(",", ""))));
-		}
-	    }
-	    
-	    log.trace("::mapLaneCounters(parameter) - Finish: ");
-	    
-	} catch (Exception e) {
-	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
-	}
-    }
-    
-    
-    private static Champion getChampionWithName(String champName) {
-	log.trace("::getChampionWithName(parameter) - Start: ");
-	notNullValidation(champName);
-	try {
-	    for(Champion champ:ChampionExtractor.champs){
-		if(champ.getName().equals(champName)) return champ;
-	    }
-	    
-	    log.trace("::getChampionWithName(parameter) - Finish: ");
-	    throw new RuntimeException("Could not obtain the champion with the specified name");
-	} catch (Exception e) {
-	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
-	}
-    }
-
-    private static void mapCounters(Patch patch,UggRank rank,Champion champ, Role role, List<WebElement> webCounters, List<WebElement> webWinrates, List<WebElement> webWinratesTotalGames) {
-	log.trace("::mapCounters(patch,champ,rol,webCounters,webWinrates,webWinratesTotalGames) - Start: ");
-	notNullValidation(champ,role,webCounters,webWinrates,webWinratesTotalGames);
-	if(webCounters.size()!=webWinrates.size() || webWinrates.size()!=webWinratesTotalGames.size()) 
-	    throw new IllegalArgumentException("webLaneCounters,webGoldDiferences or webGoldDifTotalGames lists sizes differ");
-	try {
-	    
-	    if(counters==null) counters=new ArrayList<>();
-	    
-	    for (int i = 0; i < webCounters.size(); i++) {
-		WebElement webWinrate=webWinrates.get(i);
-		Double winrate=Double.parseDouble(webWinrate.getText().replace("% WR", ""));
-		if(winrate>50){
-		    WebElement webCounter=webCounters.get(i);
-		    WebElement webWinrateTotalGames=webWinratesTotalGames.get(i);
-		    Counter counter=new Counter(patch, rank, champ, role, 
-			    getChampionWithName(webCounter.getText()), 
-			    winrate, 
-			    Integer.parseInt(webWinrateTotalGames.getText().replace(",", "").replace(" games", "")));
-		    counters.add(counter);
-		}
-	    }
-	    
-    	    log.trace("::mapCounters(patch,champ,rol,webCounters,webWinrates,webWinratesTotalGames) - Finish: ");
-	} catch (Exception e) {
-	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
-	}
-    }
-
-    private static List<Integer> removeBlanksOnGlodDif(List<WebElement> webGoldDiferences) {
-	log.trace("::removeBlanksOnGlodDif(parameter) - Start: ");
-	notNullValidation(webGoldDiferences);
-	try {
-	    List<Integer> newWebGoldDiferences= new ArrayList<>();
-	    for(WebElement webGoldDiference:webGoldDiferences){
-		if(!webGoldDiference.getText().isBlank()){
-		    
-		    newWebGoldDiferences.add(Integer.parseInt(webGoldDiference.getText().replace(" GD15", "")));
-		}
-	    }
-	    
-	    log.trace("::removeBlanksOnGlodDif(parameter) - Finish: ");
-	    return newWebGoldDiferences;
-	    
-	} catch (Exception e) {
-	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
-	}
-    }
-
-
-    public static void loadChampionCounterWebpage(CounterSearch counterSearch, Role role) {
-	log.trace("::loadChampionCounterWebpage(counterSearch,role) - Start: ");
-	notNullValidation(counterSearch, role);
-	try {
-	    
-	    Patch patch=counterSearch.patch;
-	    UggRank rank=counterSearch.rank;
-	    Champion champ=counterSearch.champ;
-	    WebDriver driver=counterSearch.driver;
-	    
-	    if(champ!=null && lastCounterSearch!=null && champ.equals(lastCounterSearch.champ)){
-		try{
-		    if(patch!=null && patch.equals(lastCounterSearch.patch)){
-			if(rank!=null && !rank.equals(lastCounterSearch.rank))  changeRankTo(rank,driver);
-			changeRoleTo(role,driver);
-		    }else{//patch, role and rank changed
-			if(rank!=null && !rank.equals(lastCounterSearch.rank)) changeRankTo(rank,driver);
-			changeRoleTo(role,driver);
-			changePatchTo(patch,driver);
-		    }
-		}catch(Exception e){
-		    log.warn("::loadChampionCounterWebpage(counterSearch,role): Error navigating throught the webpage. Last-search ["+lastCounterSearch+"] new-Search ["+counterSearch+"].");
-		    driver.get(getChampionCounterURL(champ,patch,rank,role));
-		}
-	    }else{
-		driver.get(getChampionCounterURL(champ,patch,rank,role));
-	    }
-	    
-	    
-	    lastCounterSearch=counterSearch;
-	    log.trace("::loadChampionCounterWebpage(counterSearch,role) - Finish: URL must be oppened at this point");
-	} catch (Exception e) {
-	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
-	}
-    }
-    
-    /**
-     * Obtains the Champion URL with the given champion parameters.
-     * It requires the entire description of the search so it can provide the {@link String} back to the caller.
-     * 
-     * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
-     * @since 2020-01-25
-     * @param champion {@link Champion} to perform the operation with.
-     * @param patch
-     * @param rank
-     * @param role
-     * @return returned {@link String} with the final URL loaded.
-     * @throws IllegalArgumentException - if the provided parameter is null.
+    /** This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The content of this method is always regenerated by the Form
+     * Editor.
      */
-    public static String getChampionCounterURL(Champion champion, Patch patch, UggRank rank,Role role) {
-	log.trace("::getChampionCounterURL(champion,patch,rank,role) - Start: ");
-	notNullValidation(champion,patch,rank,role);
-	try{
-	    
-	    String counterURL="https://u.gg/lol/champions/"+champion.getUggURLName()+"/counter?"+
-		    "patch="+patch.getIdURLFormatted()+
-		    "&rank="+rank.getUggName()+
-		    "&role="+role.getName().toLowerCase();
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
 
-	    log.trace("::getChampionCounterURL(champion,patch,rank,role) - Finish: ");
-	    return counterURL;
-	    
-	} catch (Exception e) {
-            throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
-        }
-    }
-    
-    private static void changeRoleTo(Role role, WebDriver driver) {
-	log.trace("::changeRoleTo(role,driver) - Start: ");
-	notNullValidation(role,driver);
-	try {
-	    WebDriverUtils util= new WebDriverUtils(driver);
-	    util.pageUp();
-	    Long wait=100l;
-	    util.waitFor(wait);
-	    util.pageUp();
-	    util.waitFor(wait);
-	    util.pageUp();
-	    util.getElementsByClassName("role-filter").get(Integer.parseInt(role.getUGGSelectorXpath())).click();
-	    
-	    log.trace("::changeRoleTo(parameter) - Finish: ");
-	} catch (Exception e) {
-	    log.error("::changeRoleTo(role,driver): Couldn't click on the new Role: "+role.getName());
-	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
-	}
-    }
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
-    private static void changeRankTo(UggRank rank, WebDriver driver) {
-	log.trace("::changeRankTo(rank,driver) - Start: ");
-	notNullValidation(rank,driver);
-	try {
-	    
-	    
-	    
-	    WebDriverUtils util = new WebDriverUtils(driver);
-	    driver.findElements(By.className("filter-select_rank")).get(1).click(); //Click on Rank Button
-//	    driver.findElement(By.xpath("//span[text() = '"+rank.printableName+"']")).click(); //click on the selected rank
-//	    util.clickLinkText(rank.printableName);
-	    util.clickText(rank.getPrintableName());
-	    
-	    log.trace("::changeRankTo(rank,driver) - Finish: ");
-	} catch (Exception e) {
-	    log.error("::changeRankTo(rank,driver): Couldn't click on the new rank: "+rank);
-	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
-	}
-    }
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Loading Filters Data");
+        setAlwaysOnTop(true);
 
+        jLabel1.setText("Filters are loading on the filter section, you can used them");
 
-    private static void changePatchTo(Patch patch, WebDriver driver) {
-	log.trace("::changePatchTo(patch,driver) - Start: ");
-	notNullValidation(patch,driver);
-	try {
-	    
-	    WebDriverUtils util = new WebDriverUtils(driver);
-	    try{
-		WebElement moreButton=util.getElementByXPath("//div[contains(@class,'filter-collapse')]//*[contains(text(),'More')]",false);// Grab "More" Button
-		if(moreButton!=null) moreButton.click();// Click "More" Button
-	    }catch(Exception ex){ } 
-	    
-	    util.clickClass("Select-value-label");// click patch Button
-//	    util.clickXpath("//div[contains(@class,'default-select filter-select patch css-0')]"); //click on patches button
-	    
-//	    util.clickXpath("//div[contains(text(), '"+patch.getId()+"')]"); //Click on the patch number 
-//	    util.clickText(patch.getId());
-	    util.clickXpath("//div[contains(@class,'default-select__menu-list')]//*[contains(text(),'"+patch.getId()+"')]"); //click selected patch number
-//	    driver.findElement(By.xpath("//*[contains(text(),'"+patch.getId()+"')]")).click();
-	    
+        jLabel2.setText(" but they might not be updated, the process might take abut half of a minute ");
 
-	    log.trace("::changePatchTo(patch,driver) - Finish: ");
-	} catch (Exception e) {
-	    log.error("::changePatchTo(patch,driver): Couldn't click on the new patch: "+patch);
-	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
-	}
-    }
-    
+        jLabel3.setText("but another message will let you know when they are ready");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jButton1.setText("OK");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        pack();
+        setLocationRelativeTo(null);
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+//    public static void main(String args[]) {
+//	/* Set the Nimbus look and feel */
+//	//<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//	/* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//	 */
+//	try {
+//	    for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//		if ("Nimbus".equals(info.getName())) {
+//		    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//		    break;
+//		}
+//	    }
+//	} catch (ClassNotFoundException ex) {
+//	    java.util.logging.Logger.getLogger(LoadingDataMessageFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//	} catch (InstantiationException ex) {
+//	    java.util.logging.Logger.getLogger(LoadingDataMessageFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//	} catch (IllegalAccessException ex) {
+//	    java.util.logging.Logger.getLogger(LoadingDataMessageFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//	} catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//	    java.util.logging.Logger.getLogger(LoadingDataMessageFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//	}
+//	//</editor-fold>
+//
+//	/* Create and display the form */
+//	java.awt.EventQueue.invokeLater(new Runnable() {
+//	    public void run() {
+//		new LoadingDataMessageFrame().setVisible(true);
+//	    }
+//	});
+//    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    // End of variables declaration//GEN-END:variables
 }

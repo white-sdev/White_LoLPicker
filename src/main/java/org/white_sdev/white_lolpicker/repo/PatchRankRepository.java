@@ -1,5 +1,5 @@
 /*
- *  Filename:  ChampionRepositoryImpl.java
+ *  Filename:  UggRankRepository.java
  *  Creation Date:  Feb 5, 2021
  *  Purpose:   
  *  Author:    Obed Vazquez
@@ -122,10 +122,11 @@
 package org.white_sdev.white_lolpicker.repo;
 
 //import lombok.extern.slf4j.Slf4j;
-
-import org.white_sdev.white_lolpicker.model.persistence.Champion;
-
-//import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import org.white_sdev.white_lolpicker.model.persistence.Patch;
+import org.white_sdev.white_lolpicker.model.persistence.PatchRank;
+import org.white_sdev.white_lolpicker.model.persistence.UggRank;
 
 /**
  * 
@@ -133,6 +134,5 @@ import org.white_sdev.white_lolpicker.model.persistence.Champion;
  * @since Feb 5, 2021
  */
 //@Slf4j
-public class ChampionRepositoryImpl extends GenericRepositoryImpl<Champion,Long>{
-    
-}
+@Repository
+public interface PatchRankRepository extends JpaRepository<PatchRank, Long>{ }

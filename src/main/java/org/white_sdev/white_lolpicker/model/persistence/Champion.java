@@ -131,6 +131,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
@@ -144,6 +145,7 @@ import static org.white_sdev.white_validations.parameters.ParameterValidator.not
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class Champion implements Persistable{
     
     //<editor-fold defaultstate="collapsed" desc="Attributes">
@@ -152,23 +154,23 @@ public class Champion implements Persistable{
     @GeneratedValue
     private Long id;
     
-    @Column
+    @Column(unique = true)
     private String name;
-    @OneToMany(mappedBy = "champion", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "champion", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
     private List<Counter> counters= new ArrayList<>();
     
-    @OneToMany(mappedBy = "counter", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "counter", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
     private List<Counter> counterOfChampions= new ArrayList<>();
     
-    @OneToMany(mappedBy = "champion", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "champion", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
     private List<LaneCounter> laneCounterChampions= new ArrayList<>();
     
-    @OneToMany(mappedBy = "counter", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "counter", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
     private List<LaneCounter> laneCounterCounters= new ArrayList<>();
     
 	//<editor-fold defaultstate="collapsed" desc="Useless">
-     @OneToMany(mappedBy = "champ", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
-    private List<ChampionTierRank> shampionTierRanks= new ArrayList<>();
+     @OneToMany(mappedBy = "champ", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
+    private List<ChampionTierRank> championTierRanks= new ArrayList<>();
     //</editor-fold>
 	
     //</editor-fold>
@@ -196,15 +198,6 @@ public class Champion implements Persistable{
             throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
         }
     }
-    
-    /**
-     * Required no-Arguments Constructor by 
-     * <a href="https://docs.jboss.org/hibernate/core/3.5/reference/en/html/persistent-classes.html#persistent-classes-pojo-constructor">Hibernate</a>.
-     * 
-     * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
-     * @since 2021-02-02
-     */
-    protected Champion() { }
     
     //</editor-fold>
     

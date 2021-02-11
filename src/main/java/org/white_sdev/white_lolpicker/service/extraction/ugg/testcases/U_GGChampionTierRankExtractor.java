@@ -126,10 +126,10 @@ import static org.white_sdev.propertiesmanager.model.service.PropertyProvider.ge
 import org.white_sdev.white_lolpicker.service.CSVGenerator;
 import org.white_sdev.white_lolpicker.service.ChampionExtractor;
 import org.white_sdev.white_lolpicker.service.ChampionTierRankExtractor;
-import org.white_sdev.white_seleniumframework.framework.TestCase;
 import org.white_sdev.white_seleniumframework.framework.WebDriverUtils;
 import static org.white_sdev.white_validations.parameters.ParameterValidator.msg;
 import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
+import org.white_sdev.white_seleniumframework.framework.AutomationScenario;
 
 /**
  * 
@@ -137,13 +137,13 @@ import static org.white_sdev.white_validations.parameters.ParameterValidator.not
  * @since Dec 8, 2020
  */
 @Slf4j
-public class U_GGChampionTierRankExtractor implements TestCase{
+public class U_GGChampionTierRankExtractor implements AutomationScenario{
 
     
     Boolean quitOnFish=true;
     
     @Override
-    public void test(WebDriverUtils util) throws Exception {
+    public void run(WebDriverUtils util) throws Exception {
 	log.trace("::test(parameter) - Start: ");
 	notNullValidation(msg("The driver can't be null."),util);
 	try {

@@ -1,6 +1,6 @@
 /*
- *  Filename:  Role.java
- *  Creation Date:  Dec 7, 2020
+ *  Filename:  PatchRankRepositoryImpl.java
+ *  Creation Date:  Feb 5, 2021
  *  Purpose:   
  *  Author:    Obed Vazquez
  *  E-mail:    obed.vazquez@gmail.com
@@ -118,152 +118,82 @@
  *  
  *  Creative Commons may be contacted at creativecommons.org.
  */
+package org.white_sdev.white_lolpicker.repo;
 
-package org.white_sdev.white_lolpicker.model.persistence;
-
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import lombok.extern.slf4j.Slf4j;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.validation.constraints.NotBlank;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import org.springframework.stereotype.Repository;
+import org.white_sdev.white_lolpicker.model.persistence.Patch;
+import org.white_sdev.white_lolpicker.model.persistence.PatchRank;
+import org.white_sdev.white_lolpicker.model.persistence.UggRank;
 
-import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import lombok.Getter;
-import lombok.Setter;
-
-
+//import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
 /**
- * 
+ *
  * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
- * @since Dec 7, 2020
+ * @since Feb 5, 2021
  */
 @Slf4j
-@Entity (name = "ChampionRole") //Role is a keyword in Oracle?
-@Getter
-@Setter
-public class Role implements Persistable{
-    public static Role top=new Role("top","topper","5"),
-	    jungle=new Role("jungle","jg","6"),
-	    middle=new Role("mid","middle","7"),
-	    adc=new Role("adc","bot","bottom","8"),
-//	    support=new Role("supp","support","(//div[contains(@class,'role-filter')][5])[1]");
-	    support=new Role("supp","support","9");			   
-    public static ArrayList<Role> allRoles=new ArrayList<>(){{
-	add(top);
-	add(jungle);
-	add(middle);
-	add(adc);
-	add(support);
-    }}; 
-    
-    /**
-     * {@link Id} of the {@Entity}. Controlled by the framework and generated automatically, all id(s) are configured this way unless a field that will never change
-     * is clearly found in the {@link Entity} structure.
-     *
-     * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
-     * @since 2020-05-21
-     */
-    @Id
-    @GeneratedValue
-    private Long id;
-    
-    @Column(unique = true)
-    @NotBlank
-    private String name;
-    
-    @ElementCollection(fetch= FetchType.EAGER)
-    private List<String> synonyms;
-    
-    @Column
-    private String uGGSelectorXpath;
-    
-    //<editor-fold defaultstate="collapsed" desc="Useless">
-    @OneToMany(mappedBy = "championRole", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
-    private List<LaneCounter> laneCoutners;
-    
-    @OneToMany(mappedBy = "counterRole", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
-    private List<Counter> coutners;
-    
-    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
-    private List<ChampionTierRank> championTierRanks;
-    //</editor-fold>
-    
-    //<editor-fold defaultstate="collapsed" desc="Constructors">
-
-    public Role(String name,List<String> synonyms,String uGGSelectorXpath){
-	log.trace("::Role(name) - Start: ");
-	notNullValidation(name);
-	try{
-	    
-	    this.name=name;
-	    this.synonyms=synonyms==null?new ArrayList<String>():new ArrayList<>(synonyms);
-	    this.synonyms.add(name);
-	    this.uGGSelectorXpath=uGGSelectorXpath;
-	    
-	    log.trace("::Role(name: ");
-	} catch (Exception e) {
-            throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
-        }
-    }
-    
-    public Role(String name,String uGGSelectorXpath){
-	this(name,(List<String>)null,uGGSelectorXpath);
-    }
+@Repository
+public class PatchRankRepositoryImpl extends GenericRepositoryImpl<PatchRank, Long> implements PatchRankCustomRepository {
 
     
-    public Role(String name,String...synonymsAndSelector){
-	
-	notNullValidation(synonymsAndSelector);
-	
-	ArrayList<String> synonyms=new ArrayList<>();
-	for(int i=0;i<synonymsAndSelector.length-1;++i){
-	    synonyms.add(synonymsAndSelector[i]);
-	}
-	String uGGSelectorXpath=synonymsAndSelector.length>0?synonymsAndSelector[synonymsAndSelector.length-1]:null;
-	
-	this.name=name;
-	this.synonyms=synonyms;
-	synonyms.add(name);
-	this.uGGSelectorXpath=uGGSelectorXpath;
-    }
-    
-    /**
-     * Required no-Arguments Constructor by 
-     * <a href="https://docs.jboss.org/hibernate/core/3.5/reference/en/html/persistent-classes.html#persistent-classes-pojo-constructor">Hibernate</a>.
-     * 
-     * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
-     * @since 2021-01-31
-     */
-    protected Role() { }
-    //</editor-fold>
-    
-    public static Role valueOfImgAlt(String text) {
-	log.trace("::valueOfImg(text) - Start: ");
-	if(text==null) return null;
-	try {
-	    log.trace("::valueOfImg(text) - Finish: ");
-	    for(Role role:allRoles){
-		if(role.synonyms.contains(text)) return role;
-	    }
-	    throw new RuntimeException("Impossible to obtain the Role, any of the register roles have that name: "+text+". \nRegistered Roles: "+allRoles);
-	} catch (Exception e) {
-	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
-	}
-    }
-    
-    public String stringRepresentation(){
-	return "[name:"+name+"],[synonyms:{"+synonyms+"}],[uGGSelectorXpath:"+uGGSelectorXpath+"]";
+    public PatchRank save(PatchRank patchRank){
+	getEntityManager().persist(patchRank);
+	return patchRank;
     }
     
     @Override
-    public String toString(){
-	return name;
+    public PatchRank getOrCreate(Patch patch, UggRank rank) {
+	log.trace("::getOrCreate(patch,rank) - Start: ");
+	try {
+
+	    List<PatchRank> patchRanks = filteredFind(new HashMap<>() {
+		{
+		    put("patch", patch);
+		    put("rank", rank);
+		}
+	    });
+	    PatchRank foundOrCreatedPatchRank;
+
+	    if (patchRanks != null && patchRanks.size() > 1)
+		throw new RuntimeException("More than 1 PatchRank were found with the given patch [" + patch + "] and rank [" + rank + "]");
+
+	    if (patchRanks == null || patchRanks.size() < 1) {
+		log.trace("::getOrCreate(patch,rank): Creating PatchRank");
+		foundOrCreatedPatchRank = new PatchRank(patch, rank);
+		foundOrCreatedPatchRank = save(foundOrCreatedPatchRank);
+		log.trace("::getOrCreate(patch,rank): PatchRank Created");
+	    } else {
+		log.trace("::getOrCreate(patch,rank): PatchRank found!");
+		foundOrCreatedPatchRank = patchRanks.get(0);
+	    }
+	    log.trace("::getOrCreate(patch,rank) - Finish: ");
+	    return foundOrCreatedPatchRank;
+	} catch (Exception ex) {
+	    throw new RuntimeException("Imposible to obtain or create a new entity with the provided patch [" + patch + "] and rank [" + rank + "]", ex);
+	}
     }
+
+//    @Override
+//    public PatchRank findByUniqueOrSave(PatchRank entity) {
+//	log.trace("::findByUniqueOrSave(entity) - Start: ");
+//	try {
+//	    List<PatchRank> patchRanksFound=filteredFind(
+//		    new LinkedHashMap<>(){{
+//			put("patch",entity.patch);
+//			put("rank",entity.rank);
+//		    }}
+//		);
+//	    if(patchRanksFound==null || patchRanksFound.size()<1) return synchronize(entity);
+//	    if(patchRanksFound.size()>1) throw new RuntimeException("2 or more enetities of PatchRank were found with the same unique key.");
+//	    return patchRanksFound.get(0);
+//	    
+//	} catch (Exception e) {
+//	    throw new RuntimeException("Impossible find PatchRank ByUniqueOrSave",e);
+//	}
+//    }
+    
 }

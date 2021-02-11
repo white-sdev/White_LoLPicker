@@ -1,6 +1,6 @@
 /*
- *  Filename:  CounterSearch.java
- *  Creation Date:  Jan 25, 2021
+ *  Filename:  ChampionCustomRepositoryImpl.java
+ *  Creation Date:  Feb 5, 2021
  *  Purpose:   
  *  Author:    Obed Vazquez
  *  E-mail:    obed.vazquez@gmail.com
@@ -119,60 +119,24 @@
  *  Creative Commons may be contacted at creativecommons.org.
  */
 
-package org.white_sdev.white_lolpicker.model.bean;
+package org.white_sdev.white_lolpicker.repo;
 
-import org.white_sdev.white_lolpicker.model.persistence.UggRank;
-import lombok.extern.slf4j.Slf4j;
+//import lombok.extern.slf4j.Slf4j;
 
-import org.openqa.selenium.WebDriver;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import org.white_sdev.white_lolpicker.model.persistence.Champion;
-import org.white_sdev.white_lolpicker.model.persistence.Patch;
-import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
+
+//import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
 
 /**
  * 
  * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
- * @since Jan 25, 2021
+ * @since Feb 5, 2021
  */
-@Slf4j
-public class CounterSearch {
-    
-    public Patch patch;
-    public UggRank rank;
-    public Champion champ;
-    public WebDriver driver;
-    
-    /**
-     * Class Constructor.{Requirement_Reference}
-     * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
-     * @param patch The {@linkn Object} parameter to create <code>this</code> instance.
-     * @param rank
-     * @param champ
-     * @param driver
-     * @since Jan 25, 2021
-     * @throws IllegalArgumentException - if the argument provided is null.
-     */
-    public CounterSearch(Patch patch,UggRank rank,Champion champ,WebDriver driver) {
-	log.trace("::CounterSearch(patch,rank,champ,driver) - Start: ");
-	notNullValidation(patch,rank,champ,driver);
-	try{
-	    
-	    
-	    this.patch=patch;
-	    this.rank=rank;
-	    this.champ=champ;
-	    this.driver=driver;
-	    
-
-	    log.trace("::CounterSearch() - Finish: ");
-	} catch (Exception e) {
-            throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
-        }
-    }
-    
-    @Override
-    public String toString(){
-	return "{[patch:"+patch+"],[rank:"+rank+"],[champ:"+champ+"]}";
-    }
+//@Slf4j
+@Repository
+public class ChampionCustomRepositoryImpl extends GenericRepositoryImpl<Champion,Long> implements ChampionCustomRepository{
     
 }

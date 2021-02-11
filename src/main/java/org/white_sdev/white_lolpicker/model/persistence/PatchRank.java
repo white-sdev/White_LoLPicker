@@ -129,9 +129,13 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import static org.white_sdev.propertiesmanager.model.service.PropertyProvider.getProperty;
@@ -143,24 +147,28 @@ import static org.white_sdev.propertiesmanager.model.service.PropertyProvider.ge
  */
 @Slf4j
 @Entity
+@Table(uniqueConstraints=@UniqueConstraint(columnNames={"patch", "rank"}))
 @Getter
 @Setter
+@NoArgsConstructor
 public class PatchRank implements Persistable{
     
     @Id
     @GeneratedValue
     private Long id;
     
-    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.PERSIST)
-    Patch patch;
+    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "patch")
+    public Patch patch;
     
-    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.PERSIST)
-    UggRank rank;
+    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "rank")
+    public UggRank rank;
     
-    @OneToMany(mappedBy = "patchRank", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "patchRank", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
     private List<Counter> counters=new ArrayList<>();
     
-    @OneToMany(mappedBy = "patchRank", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "patchRank", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
     private List<LaneCounter> laneCounters=new ArrayList<>();
     
     /**
@@ -169,6 +177,19 @@ public class PatchRank implements Persistable{
     @Column
     private Long avgNumOfCounterMatches;
     
+    public PatchRank(Patch patch,UggRank rank){
+	try {
+
+	    this.patch=patch;
+	    this.rank=rank;
+
+//	    patch.add(this);
+//	    rank.add(this);
+	
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to Create Patch instance with "+patch+" "+rank,e);
+	}
+    }
     
     
     public void calculateAvgNumOfMatches() {
@@ -229,4 +250,42 @@ public class PatchRank implements Persistable{
             throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
         }
     }
+    
+    
+    public void add(Counter...counters){
+	try{
+	    if(this.counters==null) this.counters=new ArrayList<>();
+	    for(Counter counter:counters){
+		this.counters.add(counter);
+	    }
+	}catch(Exception ex){
+	    throw new RuntimeException("Impossible to add provided counters to the list of Counters in PatchRank",ex);
+	}
+    }
+    
+    public void add(LaneCounter...laneCounters){
+	try{
+	    if(this.laneCounters==null) this.laneCounters=new ArrayList<>();
+	    for(LaneCounter laneCounter:laneCounters){
+		this.laneCounters.add(laneCounter);
+	    }
+	}catch(Exception ex){
+	    throw new RuntimeException("Impossible to add provided counters to the list of Counters in PatchRank",ex);
+	}
+    }
+
+    public void forceCountersBonusRecalculation() {
+	log.trace("::forcePatchBonusReCalculation() - Start: ");
+	try {
+	    
+	    counters.forEach(counter -> {
+		counter.forceBonusRecalculation();
+	    });
+	    
+	    log.trace("::forcePatchBonusReCalculation() - Finish: ");
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to forcePatchBonusReCalculation ", e);
+	}
+    }
+    
 }

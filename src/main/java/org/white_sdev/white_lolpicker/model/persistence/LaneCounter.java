@@ -127,7 +127,10 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -140,6 +143,7 @@ import static org.white_sdev.white_validations.parameters.ParameterValidator.not
  */
 @Slf4j
 @Entity
+//@Table(uniqueConstraints=@UniqueConstraint(columnNames={"patchRank", "champion", "championRole", "counter", "counterRole"}))
 @Getter
 @Setter
 public class LaneCounter implements Persistable{
@@ -150,19 +154,24 @@ public class LaneCounter implements Persistable{
     @GeneratedValue
     private Long id;
     
-    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinColumn(name="patchRank")
     public PatchRank patchRank;
     
-    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinColumn(name="champion")
     private Champion champion;
     
-    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinColumn(name="championRole")
     private Role championRole;
     
-    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinColumn(name="counter")
     private Champion counter;
     
-    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinColumn(name="counterRole")
     private Role counterRole;
     
     @Column
@@ -188,6 +197,7 @@ public class LaneCounter implements Persistable{
     /**
      * Class Constructor.{Requirement_Reference}
      * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
+     * @param patchRank
      * @param patch
      * @param rank
      * @param champion
@@ -198,13 +208,12 @@ public class LaneCounter implements Persistable{
      * @since Dec 7, 2020
      * @throws IllegalArgumentException - if the argument provided is null.
      */
-    public LaneCounter(Patch patch,UggRank rank, Champion champion,Role championRole,Champion counter,Integer gold,Integer matches) {
+    public LaneCounter(PatchRank patchRank, Champion champion,Role championRole,Champion counter,Integer gold,Integer matches) {
 	log.trace("::LaneCounter() - Start: ");
-	notNullValidation(patch, rank,champion,championRole, counter, gold, matches);
+	notNullValidation(patchRank,champion,championRole, counter, gold, matches);
 	try{
 	    
-	    this.patch=patch;
-	    this.rank=rank;
+	    this.patchRank=patchRank;
 	    this.champion=champion;
 	    this.championRole=championRole;
 	    this.counter=counter;
@@ -214,10 +223,9 @@ public class LaneCounter implements Persistable{
 	    this.counterRole=championRole;
 	    
 	    
-            patch.add(this);
-	    rank.getLaneCounters().add(this);
-	    champion.getLaneCounterChampions().add(this);
-	    counter.getLaneCounterCounters().add(this);
+            patchRank.add(this);
+//	    champion.getLaneCounterChampions().add(this);
+//	    counter.getLaneCounterCounters().add(this);
 
 	    log.trace("::LaneCounter() - Finish: ");
 	} catch (Exception e) {

@@ -123,9 +123,23 @@ package org.white_sdev.white_lolpicker.repo;
 
 //import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
 import javax.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.white_sdev.white_lolpicker.model.persistence.UggRank;
+import static org.white_sdev.white_lolpicker.model.persistence.UggRank.allRanks;
+import static org.white_sdev.white_lolpicker.model.persistence.UggRank.bronze;
+import static org.white_sdev.white_lolpicker.model.persistence.UggRank.challenger;
+import static org.white_sdev.white_lolpicker.model.persistence.UggRank.diamond;
+import static org.white_sdev.white_lolpicker.model.persistence.UggRank.diamondPlus;
+import static org.white_sdev.white_lolpicker.model.persistence.UggRank.gold;
+import static org.white_sdev.white_lolpicker.model.persistence.UggRank.grandMaster;
+import static org.white_sdev.white_lolpicker.model.persistence.UggRank.iron;
+import static org.white_sdev.white_lolpicker.model.persistence.UggRank.master;
+import static org.white_sdev.white_lolpicker.model.persistence.UggRank.masterPlus;
+import static org.white_sdev.white_lolpicker.model.persistence.UggRank.platinum;
+import static org.white_sdev.white_lolpicker.model.persistence.UggRank.platinumPlus;
+import static org.white_sdev.white_lolpicker.model.persistence.UggRank.silver;
 
 //import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
 
@@ -135,13 +149,46 @@ import org.white_sdev.white_lolpicker.model.persistence.UggRank;
  * @since Feb 5, 2021
  */
 //@Slf4j
+@Repository
 public class UggRankRepositoryImpl extends GenericRepositoryImpl <UggRank,Long>{
-    
-    @Autowired
-    UggRankRepository repository;
     
     @PostConstruct
     public void init(){
+	UggRank.iron=findBy("printableName","Iron").get(0);
+	UggRank.bronze=findBy("printableName","Bronze").get(0);
+	UggRank.silver=findBy("printableName","Silver").get(0);
+	UggRank.gold=findBy("printableName","Gold").get(0);
+	UggRank.platinum=findBy("printableName","Platinum").get(0);
+	UggRank.platinumPlus=findBy("printableName","Platinum +").get(0);
+	UggRank.diamond=findBy("printableName","Diamond").get(0);
+	UggRank.diamondPlus=findBy("printableName","Diamond +").get(0);
+	UggRank.master=findBy("printableName","Master").get(0);
+	UggRank.masterPlus=findBy("printableName","Master +").get(0);
+	UggRank.grandMaster=findBy("printableName","Grand Master").get(0);
+	UggRank.challenger=findBy("printableName","Challenger").get(0);
+	UggRank.allRanks=findBy("printableName","All Ranks").get(0);
 	
+	UggRank.lowerRanks=new ArrayList<>(){{
+		//add(iron); //it has to low match counts
+		add(bronze);
+		add(silver);
+		add(gold);
+		add(platinum);
+	    }};
+	UggRank.everyRank=new ArrayList<>(){{
+		add(iron);
+		add(bronze);
+		add(silver);
+		add(gold);
+		add(platinum);
+		add(platinumPlus);
+		add(diamond);
+		add(diamondPlus);
+		add(master);
+		add(masterPlus);
+		add(grandMaster);
+		add(challenger);
+		add(allRanks);
+	    }};
     }
 }

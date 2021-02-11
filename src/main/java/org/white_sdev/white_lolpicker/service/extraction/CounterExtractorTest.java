@@ -127,17 +127,19 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
+import org.springframework.beans.factory.annotation.Autowired;
 import static org.white_sdev.propertiesmanager.model.service.PropertyProvider.getProperty;
-import org.white_sdev.white_lolpicker.model.bean.CounterSearch;
+import org.white_sdev.white_lolpicker.model.bean.CountersSearch;
 import org.white_sdev.white_lolpicker.model.persistence.Champion;
 import org.white_sdev.white_lolpicker.model.persistence.Patch;
 import org.white_sdev.white_lolpicker.model.persistence.UggRank;
+import org.white_sdev.white_lolpicker.repo.PatchRankRepositoryImpl;
 import org.white_sdev.white_lolpicker.service.ChampionExtractor;
-import org.white_sdev.white_lolpicker.service.CounterExtractor;
-import static org.white_sdev.white_lolpicker.service.CounterExtractor.counters;
-import static org.white_sdev.white_lolpicker.service.CounterExtractor.laneCounters;
-import static org.white_sdev.white_lolpicker.service.CounterExtractor.loadChampionCounters;
+import org.white_sdev.white_lolpicker.service.OldCounterExtractor;
+import static org.white_sdev.white_lolpicker.service.OldCounterExtractor.counters;
+import static org.white_sdev.white_lolpicker.service.OldCounterExtractor.laneCounters;
 import org.white_sdev.white_lolpicker.service.PatchExtractor;
+import org.white_sdev.white_seleniumframework.framework.WebDriverUtils;
 import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
 
 /**
@@ -148,8 +150,10 @@ import static org.white_sdev.white_validations.parameters.ParameterValidator.not
 @Slf4j
 public class CounterExtractorTest {
     
+    @Autowired
+    PatchRankRepositoryImpl patchRankRepository;
     
-    public static void loadAllCounters(WebDriver driver) {
+    public void loadAllCounters(WebDriver driver) {
 	log.trace("::loadCounters(driver) - Start: ");
 	notNullValidation(driver);
 	try {
@@ -173,14 +177,14 @@ public class CounterExtractorTest {
 		for(UggRank rank:ranks){
 		    log.info("::loadCounters(driver): Extracting U.GG Rank: "+rank.getPrintableName());
 		    for(Patch patch:patchesToExtract){
-			loadChampionCounters(new CounterSearch(patch,rank,champ,driver));
+//			new OldCounterExtractor().loadChampionCounters(new CountersSearch(patch,rank,champ,new WebDriverUtils(driver)));
 			
 			++patchCounter;
 			patchStatus=patchCounter*100d/champions.size()/ranks.size()/patchesToExtract.size();
 			log.info("::loadCounters(driver): Extraction Process Status: "+twoDecimalsFormat.format(champStatus+rankStatus+patchStatus)+"%");
 			
 		    }patchCounter=0;
-		    rank.calculateAvgNumOfMatches();
+		    
 		    
 		    ++rankCounter;
 		    rankStatus=rankCounter*100d/champions.size()/ranks.size();
@@ -193,14 +197,17 @@ public class CounterExtractorTest {
 		champStatus=((champCounter*100d)/champions.size());
 		log.info("::loadCounters(driver): Extraction Process Status: "+twoDecimalsFormat.format(champStatus)+"%");
             }
+	    for(UggRank rank:ranks)
+		    for(Patch patch:patchesToExtract)
+			patchRankRepository.getOrCreate(patch,rank).calculateAvgNumOfMatches();
 	    
 	    
 	    log.info("::loadCounters(driver): Calculating Counter Bonus at "+java.time.LocalDateTime.now().format(DateTimeFormatter.ISO_TIME));
 	    counters.forEach((counter) -> {
-		counter.calculateBonus(laneCounters);
+//		counter.calculateBonus(laneCounters);
 	    });
 	    
-	    CounterExtractor.extractedPatches=patchesToExtract;
+	    OldCounterExtractor.extractedPatches=patchesToExtract;
 	    
 	    log.info("::loadCounters(driver): Counter Extraction Process Finished at "+java.time.LocalDateTime.now());
 	    

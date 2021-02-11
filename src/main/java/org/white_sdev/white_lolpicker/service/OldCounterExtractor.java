@@ -1,5 +1,5 @@
 /*
- *  Filename:  Role.java
+ *  Filename:  OldCounterExtractor.java
  *  Creation Date:  Dec 7, 2020
  *  Purpose:   
  *  Author:    Obed Vazquez
@@ -119,25 +119,30 @@
  *  Creative Commons may be contacted at creativecommons.org.
  */
 
-package org.white_sdev.white_lolpicker.model.persistence;
+package org.white_sdev.white_lolpicker.service;
 
+import java.text.DecimalFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import lombok.extern.slf4j.Slf4j;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.validation.constraints.NotBlank;
+import org.openqa.selenium.By;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.springframework.beans.factory.annotation.Autowired;
+import static org.white_sdev.propertiesmanager.model.service.PropertyProvider.getProperty;
+import org.white_sdev.white_lolpicker.model.persistence.Champion;
+import org.white_sdev.white_lolpicker.model.persistence.Counter;
+import org.white_sdev.white_lolpicker.model.bean.CountersSearch;
+import org.white_sdev.white_lolpicker.model.persistence.LaneCounter;
+import org.white_sdev.white_lolpicker.model.persistence.Patch;
+import org.white_sdev.white_lolpicker.model.persistence.Role;
+import org.white_sdev.white_lolpicker.model.persistence.UggRank;
+import org.white_sdev.white_lolpicker.repo.PatchRankRepositoryImpl;
+import org.white_sdev.white_seleniumframework.framework.WebDriverUtils;
 
 import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import lombok.Getter;
-import lombok.Setter;
-
 
 /**
  * 
@@ -145,125 +150,400 @@ import lombok.Setter;
  * @since Dec 7, 2020
  */
 @Slf4j
-@Entity (name = "ChampionRole") //Role is a keyword in Oracle?
-@Getter
-@Setter
-public class Role implements Persistable{
-    public static Role top=new Role("top","topper","5"),
-	    jungle=new Role("jungle","jg","6"),
-	    middle=new Role("mid","middle","7"),
-	    adc=new Role("adc","bot","bottom","8"),
-//	    support=new Role("supp","support","(//div[contains(@class,'role-filter')][5])[1]");
-	    support=new Role("supp","support","9");			   
-    public static ArrayList<Role> allRoles=new ArrayList<>(){{
-	add(top);
-	add(jungle);
-	add(middle);
-	add(adc);
-	add(support);
-    }}; 
-    
-    /**
-     * {@link Id} of the {@Entity}. Controlled by the framework and generated automatically, all id(s) are configured this way unless a field that will never change
-     * is clearly found in the {@link Entity} structure.
-     *
-     * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
-     * @since 2020-05-21
-     */
-    @Id
-    @GeneratedValue
-    private Long id;
-    
-    @Column(unique = true)
-    @NotBlank
-    private String name;
-    
-    @ElementCollection(fetch= FetchType.EAGER)
-    private List<String> synonyms;
-    
-    @Column
-    private String uGGSelectorXpath;
-    
-    //<editor-fold defaultstate="collapsed" desc="Useless">
-    @OneToMany(mappedBy = "championRole", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
-    private List<LaneCounter> laneCoutners;
-    
-    @OneToMany(mappedBy = "counterRole", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
-    private List<Counter> coutners;
-    
-    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
-    private List<ChampionTierRank> championTierRanks;
-    //</editor-fold>
-    
-    //<editor-fold defaultstate="collapsed" desc="Constructors">
-
-    public Role(String name,List<String> synonyms,String uGGSelectorXpath){
-	log.trace("::Role(name) - Start: ");
-	notNullValidation(name);
-	try{
-	    
-	    this.name=name;
-	    this.synonyms=synonyms==null?new ArrayList<String>():new ArrayList<>(synonyms);
-	    this.synonyms.add(name);
-	    this.uGGSelectorXpath=uGGSelectorXpath;
-	    
-	    log.trace("::Role(name: ");
-	} catch (Exception e) {
-            throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
-        }
-    }
-    
-    public Role(String name,String uGGSelectorXpath){
-	this(name,(List<String>)null,uGGSelectorXpath);
-    }
+public class OldCounterExtractor { //TODO Once DB Extraction is kind of working delete this class
 
     
-    public Role(String name,String...synonymsAndSelector){
-	
-	notNullValidation(synonymsAndSelector);
-	
-	ArrayList<String> synonyms=new ArrayList<>();
-	for(int i=0;i<synonymsAndSelector.length-1;++i){
-	    synonyms.add(synonymsAndSelector[i]);
-	}
-	String uGGSelectorXpath=synonymsAndSelector.length>0?synonymsAndSelector[synonymsAndSelector.length-1]:null;
-	
-	this.name=name;
-	this.synonyms=synonyms;
-	synonyms.add(name);
-	this.uGGSelectorXpath=uGGSelectorXpath;
-    }
+
+    public static List<Patch> extractedPatches=null;
+    public static List<LaneCounter> laneCounters=new ArrayList<>();
+    public static List<Counter> counters=new ArrayList<>();
+    public static Double average=null;
+    public static CountersSearch lastCounterSearch;
     
-    /**
-     * Required no-Arguments Constructor by 
-     * <a href="https://docs.jboss.org/hibernate/core/3.5/reference/en/html/persistent-classes.html#persistent-classes-pojo-constructor">Hibernate</a>.
-     * 
-     * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
-     * @since 2021-01-31
-     */
-    protected Role() { }
-    //</editor-fold>
     
-    public static Role valueOfImgAlt(String text) {
-	log.trace("::valueOfImg(text) - Start: ");
-	if(text==null) return null;
+    @Autowired
+    PatchRankRepositoryImpl patchRankRepository;
+    
+    public void loadAllCounters(WebDriver driver) {
+	log.trace("::loadCounters(driver) - Start: ");
+	notNullValidation(driver);
 	try {
-	    log.trace("::valueOfImg(text) - Finish: ");
-	    for(Role role:allRoles){
-		if(role.synonyms.contains(text)) return role;
+	    
+            ArrayList<Patch> patchesToExtract=PatchExtractor.getPatches(driver);
+            List<UggRank> ranks=Boolean.parseBoolean(getProperty("counters.lower-ranks-only"))?UggRank.lowerRanks:UggRank.everyRank;
+	    List<Champion> champions=ChampionExtractor.champs;
+	    
+	    
+	    Integer patchCounter=0,rankCounter=0,champCounter=0;
+	    Double patchStatus=0d, rankStatus=0d, champStatus=0d;
+	    log.info("::loadCounters(driver): Starting Counter Extraction Process at "+java.time.LocalDateTime.now().format(DateTimeFormatter.ISO_TIME));
+	    DecimalFormat twoDecimalsFormat=new DecimalFormat("#.##");
+	    if(champions == null || champions.size()<1) throw new RuntimeException("Champions have not been loaded. Please first load the champions then call this method. "
+		    + "You can use ChampionExctractor to load all champions from U.GG");
+	    
+	    for(Champion champ:champions){
+		log.info("::loadCounters(driver): Extracting Champion Counters: "+champ);
+		for(UggRank rank:ranks){
+		    log.info("::loadCounters(driver): Extracting U.GG Rank: "+rank.getPrintableName());
+		    for(Patch patch:patchesToExtract){
+//			loadChampionCounters(new CountersSearch(patch,rank,champ,driver));
+			
+			++patchCounter;
+			patchStatus=patchCounter*100d/champions.size()/ranks.size()/patchesToExtract.size();
+			log.info("::loadCounters(driver): Extraction Process Status: "+twoDecimalsFormat.format(champStatus+rankStatus+patchStatus)+"%");
+			
+		    }patchCounter=0;
+//		    rank.calculateAvgNumOfMatches();
+		    
+		    ++rankCounter;
+		    rankStatus=rankCounter*100d/champions.size()/ranks.size();
+		    log.info("::loadCounters(driver): Extraction Process Status: "+twoDecimalsFormat.format(champStatus+rankStatus)+"%");
+		    
+		}rankCounter=0;
+                
+		
+		++champCounter;
+		champStatus=((champCounter*100d)/champions.size());
+		log.info("::loadCounters(driver): Extraction Process Status: "+twoDecimalsFormat.format(champStatus)+"%");
+            }
+	    
+	    
+	    log.info("::loadCounters(driver): Calculating Counter Bonus at "+java.time.LocalDateTime.now().format(DateTimeFormatter.ISO_TIME));
+	    counters.forEach((counter) -> {
+//		counter.calculateBonus(laneCounters);
+	    });
+	    
+	    extractedPatches=patchesToExtract;
+	    
+	    log.info("::loadCounters(driver): Counter Extraction Process Finished at "+java.time.LocalDateTime.now());
+	    
+	    
+	    log.trace("::loadCounters(driver) - Finish: ");
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
+	}
+    }
+
+    public void loadChampionCounters(CountersSearch counterSearch) {
+	log.trace("::loadChampionCounters(counterSearch) - Start: ");
+	notNullValidation(counterSearch);
+	try {
+	    
+	    Patch patch=counterSearch.patchRank.patch;
+	    UggRank rank=counterSearch.patchRank.rank;
+	    Champion champ=counterSearch.champ;
+	    WebDriver driver=counterSearch.utils.driver;
+	    
+	    for(Role rol:Role.allRoles){
+//		loadChampionCounterWebpage(new CountersSearch(patch, rank, champ, driver),rol);
+		
+		forceElementsLoad(driver); //multiple clicks on "View More Champions" button
+		
+		Boolean loadLaneCountersSuccesfully=true;
+		List<WebElement> webLaneCounters=null;
+		List<WebElement> webGoldDiferences=null;
+		List<WebElement> webMatchTotalGames=null;
+		
+		try{ //Loading LANE Counters
+		    webLaneCounters=driver.findElements(By.xpath("//*[contains(@class, 'counters-list gold-diff')]//*[contains(@class, 'champion-name')]"));
+		    webGoldDiferences=driver.findElements(By.xpath("//*[contains(@class, 'counters-list gold-diff')]//div[contains(@class, 'col-3')]//div[contains(@class, 'win-rate')]"));
+		    webMatchTotalGames=driver.findElements(By.xpath("//*[contains(@class, 'counters-list gold-diff')]//div[contains(@class, 'col-3')]//div[contains(@class, 'total-games')]"));
+
+		    
+		}catch(Exception e){
+		    log.debug("::loadChampionCounters(counterSearch): Impossible to load Champion ["+champ+"] laneCounters");
+		    loadLaneCountersSuccesfully=false;
+		}
+		if(loadLaneCountersSuccesfully)	    mapLaneCounters(patch, rank, champ, rol,webLaneCounters,webGoldDiferences,webMatchTotalGames);
+		
+		//Loading Counters
+		List<WebElement> webCounters=driver.findElements(By.xpath("//*[contains(@class, 'counters-list best-win-rate')]//*[contains(@class, 'champion-name')]"));
+		List<WebElement> webWinrates=driver.findElements(By.xpath("//*[contains(@class, 'counters-list best-win-rate')]//div[contains(@class, 'col-3')]//div[contains(@class, 'win-rate')]"));
+		List<WebElement> webWinratesTotalGames=driver.findElements(By.xpath("//*[contains(@class, 'counters-list best-win-rate')]//div[contains(@class, 'col-3')]//div[contains(@class, 'total-games')]"));
+		
+		log.debug("::loadChampionCounters(counterSearch):  Loading Champion Counters [champ:"+champ+"],[patch:"+patch+"], [rank:"+rank.getPrintableName()+"], [rol:"+rol+"]");
+		mapCounters(patch, rank,champ, rol,webCounters,webWinrates,webWinratesTotalGames);
+		
+		
+		
+		
 	    }
-	    throw new RuntimeException("Impossible to obtain the Role, any of the register roles have that name: "+text+". \nRegistered Roles: "+allRoles);
+	    
+	    
+	    
+	    log.trace("::loadChampionCounters(patch,rank,champ,driver) - Finish: ");
 	} catch (Exception e) {
 	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
 	}
     }
     
-    public String stringRepresentation(){
-	return "[name:"+name+"],[synonyms:{"+synonyms+"}],[uGGSelectorXpath:"+uGGSelectorXpath+"]";
+    public static void forceElementsLoad(WebDriver driver ) {
+	log.trace("::forceElementsLoad(parameter) - Start: ");
+	try {
+	    synchronized (driver){
+		WebDriverUtils util = new WebDriverUtils(driver);
+		List<WebElement> webChamps=driver.findElements(By.xpath("//a//*[contains(@class, 'champion-name')]"));
+		List<WebElement> webChamps2;
+		do{
+		    do{
+			webChamps=driver.findElements(By.xpath("//a//*[contains(@class, 'champion-name')]"));
+			try{
+			    Thread.sleep(400);
+			    util.clickXpath("//div[contains(@class,\"counters-list best-win-rate\")]//div[contains(@class,\"view-more-btn btn-gray\")]",0);
+			    Thread.sleep(250);
+			    util.clickXpath("//div[contains(@class,\"counters-list best-win-rate\")]//div[contains(@class,\"view-more-btn btn-gray\")]",0);
+			    Thread.sleep(250);
+			    util.clickXpath("//div[contains(@class,\"counters-list best-win-rate\")]//div[contains(@class,\"view-more-btn btn-gray\")]",0);
+			}catch(Exception ex){}
+			webChamps2=driver.findElements(By.xpath("//a//*[contains(@class, 'champion-name')]"));
+		    }while(webChamps.size()!=webChamps2.size());
+		    try{
+			webChamps=driver.findElements(By.xpath("//a//*[contains(@class, 'champion-name')]"));
+			Thread.sleep(800);
+			util.clickXpath("//div[contains(@class,\"counters-list best-win-rate\")]//div[contains(@class,\"view-more-btn btn-gray\")]",0);
+			Thread.sleep(250);
+			util.clickXpath("//div[contains(@class,\"counters-list best-win-rate\")]//div[contains(@class,\"view-more-btn btn-gray\")]",0);
+		    }catch(Exception ex){}
+		    webChamps2=driver.findElements(By.xpath("//a//*[contains(@class, 'champion-name')]"));
+		}while(webChamps.size()!=webChamps2.size());
+		
+		log.trace("::forceElementsLoad(parameter) - Finish: ");
+	    }
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
+	}
     }
     
-    @Override
-    public String toString(){
-	return name;
+    
+    public void mapLaneCounters(Patch patch,UggRank rank, Champion champ,Role role,List<WebElement> webLaneCounters, List<WebElement> webGoldDiferences, List<WebElement> webMatchTotalGames) {
+	log.trace("::mapLaneCounters(parameter) - Start: ");
+	notNullValidation(champ,role,webLaneCounters,webGoldDiferences,webMatchTotalGames);
+	List<Integer> webGoldIntDiferences=removeBlanksOnGlodDif(webGoldDiferences);
+	if(webLaneCounters.size()!=webGoldDiferences.size() || webGoldDiferences.size()!=webMatchTotalGames.size()) 
+	    throw new IllegalArgumentException("webLaneCounters,webGoldDiferences or webGoldDifTotalGames lists sizes differ");
+	try {
+	    
+	    if(laneCounters==null) laneCounters=new ArrayList<>();
+	    
+	    for (int i = 0; i < webLaneCounters.size(); i++) {
+		Integer webGoldIntDiference=webGoldIntDiferences.get(i);
+		
+		if(webGoldIntDiference>0){
+		    WebElement webLaneCounter=webLaneCounters.get(i);
+		    WebElement webMatchTotalGame=webMatchTotalGames.get(i);
+		    laneCounters.add(new LaneCounter(patchRankRepository.getOrCreate(patch, rank), champ, role, 
+			    getChampionWithName(webLaneCounter.getText()), 
+			    webGoldIntDiference, 
+			    Integer.parseInt(webMatchTotalGame.getText().replace(" games", "").replace(",", ""))));
+		}
+	    }
+	    
+	    log.trace("::mapLaneCounters(parameter) - Finish: ");
+	    
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
+	}
     }
+    
+    
+    private static Champion getChampionWithName(String champName) {
+	log.trace("::getChampionWithName(parameter) - Start: ");
+	notNullValidation(champName);
+	try {
+	    for(Champion champ:ChampionExtractor.champs){
+		if(champ.getName().equals(champName)) return champ;
+	    }
+	    
+	    log.trace("::getChampionWithName(parameter) - Finish: ");
+	    throw new RuntimeException("Could not obtain the champion with the specified name");
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
+	}
+    }
+
+    private void mapCounters(Patch patch,UggRank rank,Champion champ, Role role, List<WebElement> webCounters, List<WebElement> webWinrates, List<WebElement> webWinratesTotalGames) {
+	log.trace("::mapCounters(patch,champ,rol,webCounters,webWinrates,webWinratesTotalGames) - Start: ");
+	notNullValidation(champ,role,webCounters,webWinrates,webWinratesTotalGames);
+	if(webCounters.size()!=webWinrates.size() || webWinrates.size()!=webWinratesTotalGames.size()) 
+	    throw new IllegalArgumentException("webLaneCounters,webGoldDiferences or webGoldDifTotalGames lists sizes differ");
+	try {
+	    
+	    if(counters==null) counters=new ArrayList<>();
+	    
+	    for (int i = 0; i < webCounters.size(); i++) {
+		WebElement webWinrate=webWinrates.get(i);
+		Double winrate=Double.parseDouble(webWinrate.getText().replace("% WR", ""));
+		if(winrate>50){
+		    WebElement webCounter=webCounters.get(i);
+		    WebElement webWinrateTotalGames=webWinratesTotalGames.get(i);
+		    Counter counter=new Counter(patchRankRepository.getOrCreate(patch, rank), champ, role, 
+			    getChampionWithName(webCounter.getText()), 
+			    winrate, 
+			    Integer.parseInt(webWinrateTotalGames.getText().replace(",", "").replace(" games", "")));
+		    counters.add(counter);
+		}
+	    }
+	    
+    	    log.trace("::mapCounters(patch,champ,rol,webCounters,webWinrates,webWinratesTotalGames) - Finish: ");
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
+	}
+    }
+
+    private static List<Integer> removeBlanksOnGlodDif(List<WebElement> webGoldDiferences) {
+	log.trace("::removeBlanksOnGlodDif(parameter) - Start: ");
+	notNullValidation(webGoldDiferences);
+	try {
+	    List<Integer> newWebGoldDiferences= new ArrayList<>();
+	    for(WebElement webGoldDiference:webGoldDiferences){
+		if(!webGoldDiference.getText().isBlank()){
+		    
+		    newWebGoldDiferences.add(Integer.parseInt(webGoldDiference.getText().replace(" GD15", "")));
+		}
+	    }
+	    
+	    log.trace("::removeBlanksOnGlodDif(parameter) - Finish: ");
+	    return newWebGoldDiferences;
+	    
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
+	}
+    }
+
+
+    public static void loadChampionCounterWebpage(CountersSearch counterSearch, Role role) {
+	log.trace("::loadChampionCounterWebpage(counterSearch,role) - Start: ");
+	notNullValidation(counterSearch, role);
+	try {
+	    
+	    Patch patch=counterSearch.patchRank.patch;
+	    UggRank rank=counterSearch.patchRank.rank;
+	    Champion champ=counterSearch.champ;
+	    WebDriver driver=counterSearch.utils.driver;
+	    
+	    if(champ!=null && lastCounterSearch!=null && champ.equals(lastCounterSearch.champ)){
+		try{
+		    if(patch!=null && patch.equals(lastCounterSearch.patchRank.patch)){
+			if(rank!=null && !rank.equals(lastCounterSearch.patchRank.rank))  changeRankTo(rank,driver);
+			changeRoleTo(role,driver);
+		    }else{//patch, role and rank changed
+			if(rank!=null && !rank.equals(lastCounterSearch.patchRank.rank)) changeRankTo(rank,driver);
+			changeRoleTo(role,driver);
+			changePatchTo(patch,driver);
+		    }
+		}catch(Exception e){
+		    log.warn("::loadChampionCounterWebpage(counterSearch,role): Error navigating throught the webpage. Last-search ["+lastCounterSearch+"] new-Search ["+counterSearch+"].");
+		    driver.get(getChampionCounterURL(champ,patch,rank,role));
+		}
+	    }else{
+		driver.get(getChampionCounterURL(champ,patch,rank,role));
+	    }
+	    
+	    
+	    lastCounterSearch=counterSearch;
+	    log.trace("::loadChampionCounterWebpage(counterSearch,role) - Finish: URL must be oppened at this point");
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
+	}
+    }
+    
+    /**
+     * Obtains the Champion URL with the given champion parameters.
+     * It requires the entire description of the search so it can provide the {@link String} back to the caller.
+     * 
+     * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
+     * @since 2020-01-25
+     * @param champion {@link Champion} to perform the operation with.
+     * @param patch
+     * @param rank
+     * @param role
+     * @return returned {@link String} with the final URL loaded.
+     * @throws IllegalArgumentException - if the provided parameter is null.
+     */
+    public static String getChampionCounterURL(Champion champion, Patch patch, UggRank rank,Role role) {
+	log.trace("::getChampionCounterURL(champion,patch,rank,role) - Start: ");
+	notNullValidation(champion,patch,rank,role);
+	try{
+	    
+	    String counterURL="https://u.gg/lol/champions/"+champion.getUggURLName()+"/counter?"+
+		    "patch="+patch.getIdURLFormatted()+
+		    "&rank="+rank.getUggName()+
+		    "&role="+role.getName().toLowerCase();
+
+	    log.trace("::getChampionCounterURL(champion,patch,rank,role) - Finish: ");
+	    return counterURL;
+	    
+	} catch (Exception e) {
+            throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
+        }
+    }
+    
+    private static void changeRoleTo(Role role, WebDriver driver) {
+	log.trace("::changeRoleTo(role,driver) - Start: ");
+	notNullValidation(role,driver);
+	try {
+	    WebDriverUtils util= new WebDriverUtils(driver);
+	    util.pageUp();
+	    Long wait=100l;
+	    util.waitFor(wait);
+	    util.pageUp();
+	    util.waitFor(wait);
+	    util.pageUp();
+	    util.getElementsByClassName("role-filter").get(Integer.parseInt(role.getUGGSelectorXpath())).click();
+	    
+	    log.trace("::changeRoleTo(parameter) - Finish: ");
+	} catch (Exception e) {
+	    log.error("::changeRoleTo(role,driver): Couldn't click on the new Role: "+role.getName());
+	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
+	}
+    }
+
+    private static void changeRankTo(UggRank rank, WebDriver driver) {
+	log.trace("::changeRankTo(rank,driver) - Start: ");
+	notNullValidation(rank,driver);
+	try {
+	    
+	    
+	    
+	    WebDriverUtils util = new WebDriverUtils(driver);
+	    driver.findElements(By.className("filter-select_rank")).get(1).click(); //Click on Rank Button
+//	    driver.findElement(By.xpath("//span[text() = '"+rank.printableName+"']")).click(); //click on the selected rank
+//	    util.clickLinkText(rank.printableName);
+	    util.clickText(rank.getPrintableName());
+	    
+	    log.trace("::changeRankTo(rank,driver) - Finish: ");
+	} catch (Exception e) {
+	    log.error("::changeRankTo(rank,driver): Couldn't click on the new rank: "+rank);
+	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
+	}
+    }
+
+
+    private static void changePatchTo(Patch patch, WebDriver driver) {
+	log.trace("::changePatchTo(patch,driver) - Start: ");
+	notNullValidation(patch,driver);
+	try {
+	    
+	    WebDriverUtils util = new WebDriverUtils(driver);
+	    try{
+		WebElement moreButton=util.getElementByXPath("//div[contains(@class,'filter-collapse')]//*[contains(text(),'More')]",false);// Grab "More" Button
+		if(moreButton!=null) moreButton.click();// Click "More" Button
+	    }catch(Exception ex){ } 
+	    
+	    util.clickClass("Select-value-label");// click patch Button
+//	    util.clickXpath("//div[contains(@class,'default-select filter-select patch css-0')]"); //click on patches button
+	    
+//	    util.clickXpath("//div[contains(text(), '"+patch.getId()+"')]"); //Click on the patch number 
+//	    util.clickText(patch.getId());
+	    util.clickXpath("//div[contains(@class,'default-select__menu-list')]//*[contains(text(),'"+patch.getId()+"')]"); //click selected patch number
+//	    driver.findElement(By.xpath("//*[contains(text(),'"+patch.getId()+"')]")).click();
+	    
+
+	    log.trace("::changePatchTo(patch,driver) - Finish: ");
+	} catch (Exception e) {
+	    log.error("::changePatchTo(patch,driver): Couldn't click on the new patch: "+patch);
+	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
+	}
+    }
+    
 }

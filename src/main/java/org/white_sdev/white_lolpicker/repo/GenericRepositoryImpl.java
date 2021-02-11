@@ -125,7 +125,10 @@ package org.white_sdev.white_lolpicker.repo;
 
 import java.io.Serializable;
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.stereotype.Repository;
 
 //import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
@@ -138,15 +141,16 @@ import org.springframework.stereotype.Repository;
  * @since Feb 5, 2021
  */
 //@Slf4j
-@Repository
 public class GenericRepositoryImpl <E extends Object, ID extends Serializable> implements GenericRepository<E,Long>{
     
     @Autowired
     EntityManager entityManager;
     
     @Override 
+    @Transactional()
     public EntityManager getEntityManager(){
 	return entityManager;
     }
+
     
 }

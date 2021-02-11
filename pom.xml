@@ -138,7 +138,7 @@
 	    <!-- ****************** End of Spring Boot Config ****************** -->
 	    
 	     <!-- Eliminates compilation glitches for the IDEs when using lombok -->
-	    <plugin>
+<!--	    <plugin>
 		<groupId>org.projectlombok</groupId>
 		<artifactId>lombok-maven-plugin</artifactId>
 		<version>1.18.12.0</version>
@@ -149,14 +149,14 @@
 		</configuration>
 		<executions>
 		    <execution>
-			<!-- Generate delomboked code -->
+			 Generate delomboked code 
 			<phase>generate-sources</phase>
 			<goals>
 			    <goal>delombok</goal>
 			</goals>
 		    </execution>
 		</executions>
-	    </plugin>
+	    </plugin>-->
 	    
 	    <plugin>
 		<groupId>org.apache.maven.plugins</groupId>

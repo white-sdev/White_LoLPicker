@@ -133,6 +133,7 @@ import static org.white_sdev.propertiesmanager.model.service.PropertyProvider.ge
 import org.white_sdev.white_lolpicker.model.persistence.Champion;
 import org.white_sdev.white_lolpicker.model.persistence.Counter;
 import org.white_sdev.white_lolpicker.model.persistence.Patch;
+import org.white_sdev.white_lolpicker.model.persistence.PatchRank;
 import org.white_sdev.white_lolpicker.model.persistence.Role;
 import org.white_sdev.white_lolpicker.model.persistence.UggRank;
 import org.white_sdev.white_lolpicker.service.extraction.ugg.testcases.U_GGDatabaseExtraction;
@@ -165,10 +166,9 @@ public class CSVGenerator {
 	Champion c= new Champion("C");
 	Champion d= new Champion("D");
 	UggRank rank= new UggRank("Silver", "silver", 1);
+	PatchRank patchRank=new PatchRank(eleven,rank);
 	
-	
-	counter.setPatch(eleven);
-	counter.setRank(rank);
+	counter.setPatchRank(patchRank);
 	counter.setChampion(a);
 	counter.setChampionRole(Role.adc);
 	counter.setCounter(b);
@@ -181,8 +181,7 @@ public class CSVGenerator {
 	counter.setTotalBonus(20d);
 	
 	Counter counter2=new Counter();
-	counter2.setPatch(eleven);
-	counter2.setRank(rank);
+	counter2.setPatchRank(patchRank);
 	counter2.setChampion(c);
 	counter2.setChampionRole(Role.top);
 	counter2.setCounter(d);
@@ -198,7 +197,7 @@ public class CSVGenerator {
 	counters.add(counter);
 	counters.add(counter2);
 	
-	generateCSV(new U_GGDatabaseExtraction().getCountersCSVBeans(counters),getProperty("counters-filename").replace(".csv", "-test.csv"));
+	generateCSV(U_GGDatabaseExtraction.getCountersCSVBeans(counters),getProperty("counters-filename").replace(".csv", "-test.csv"));
     }
     
 }

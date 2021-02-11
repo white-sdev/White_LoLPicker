@@ -127,11 +127,11 @@ import org.white_sdev.white_lolpicker.service.ChampionExtractor;
 import org.white_sdev.white_lolpicker.service.ChampionTierRankExtractor;
 import org.white_sdev.white_lolpicker.service.extraction.CounterExtractorTest;
 
-import org.white_sdev.white_seleniumframework.framework.TestCase;
 import org.white_sdev.white_seleniumframework.framework.WebDriverUtils;
 import static org.white_sdev.white_validations.parameters.ParameterValidator.msg;
 
 import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
+import org.white_sdev.white_seleniumframework.framework.AutomationScenario;
 
 /**
  * 
@@ -139,10 +139,10 @@ import static org.white_sdev.white_validations.parameters.ParameterValidator.not
  * @since Feb 3, 2021
  */
 @Slf4j
-public class TestCounterExtraction implements TestCase{
+public class TestCounterExtraction implements AutomationScenario{
     
     @Override
-    public void test(WebDriverUtils utils) throws Exception {
+    public void run(WebDriverUtils utils) throws Exception {
 	log.trace("::test(driver) - Start: ");
 	WebDriver driver= utils.driver;
 	notNullValidation(msg("The Driver Must be specified or the test can complete."),driver);
@@ -151,7 +151,7 @@ public class TestCounterExtraction implements TestCase{
 	    log.info("::test(driver): Extracting all Champions");
 	    ChampionExtractor.champs=ChampionExtractor.getChampions(driver);
 	    log.info("::test(driver): Extracting all coutners to load");
-	    CounterExtractorTest.loadAllCounters(driver);
+	    new CounterExtractorTest().loadAllCounters(driver);
 	    log.info("::test(driver): Extracting all season tier Ranks");
 	    ChampionTierRankExtractor.loadChampionTierRanks(driver);
 	    
