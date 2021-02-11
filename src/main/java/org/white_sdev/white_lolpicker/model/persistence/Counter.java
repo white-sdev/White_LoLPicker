@@ -143,7 +143,7 @@ import static org.white_sdev.white_validations.parameters.ParameterValidator.not
  */
 @Slf4j
 @Entity
-//@Table(uniqueConstraints=@UniqueConstraint(columnNames={"patchRank", "champion", "championRole", "counter", "counterRole"}))
+@Table(uniqueConstraints=@UniqueConstraint(columnNames={"patchrank", "champion", "championrole", "counter", "counterrole"}))
 @Getter
 @Setter
 public class Counter implements Persistable{
@@ -156,24 +156,24 @@ public class Counter implements Persistable{
     
     
     @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.MERGE)
-    @JoinColumn(name="patchRank")
-    public PatchRank patchRank;
+    @JoinColumn(name="patchrank")
+    public PatchRank patchrank;
     
     @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name="champion")
     private Champion champion;
     
     @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.MERGE)
-    @JoinColumn(name="championRole")
-    private Role championRole;
+    @JoinColumn(name="championrole")
+    private Role championrole;
     
     @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name="counter")
     private Champion counter;
     
     @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.MERGE)
-    @JoinColumn(name="counterRole")
-    private Role counterRole;
+    @JoinColumn(name="counterrole")
+    private Role counterrole;
     
     
     @Column
@@ -219,14 +219,14 @@ public class Counter implements Persistable{
 	notNullValidation(patchRank, champion, championRole, counter, winrate, matches);
 	try{
 	    
-	    this.patchRank=patchRank;
+	    this.patchrank=patchRank;
 	    this.champion=champion;
-	    this.championRole=championRole;
+	    this.championrole=championRole;
 	    this.counter=counter;
 	    this.winratePercentage=winrate;
 	    this.matches=matches;
 	    
-	    this.counterRole=championRole;
+	    this.counterrole=championRole;
 	    
             patchRank.add(this);
 	    champion.getCounters().add(this);
@@ -243,7 +243,7 @@ public class Counter implements Persistable{
     @Override
     public String toString(){
 	return "["+(getChampion()!=null?"champion:"+getChampion():"")
-		+(getChampionRole()!=null?", role:"+getChampionRole():"")
+		+(championrole!=null?", role:"+championrole:"")
 		+(", counter:"+getCounter())
 		+(getWinratePercentage()!=null?", winratePercentage:"+getWinratePercentage():"")
 		+(", matches:"+getMatches())
@@ -258,10 +258,10 @@ public class Counter implements Persistable{
 	try {
 	    LaneCounter matchingLaneCounter=null;
 	    
-	    if(patchRank.getLaneCounters()!=null) {
+	    if(patchrank.getLaneCounters()!=null) {
 		log.debug("::calculateBonus(laneCounters): laneCounters is not null. Looking for lane counter");
-		for(LaneCounter laneCounter:patchRank.getLaneCounters()){
-		    if(laneCounter.getChampion().equals(this.getChampion()) && laneCounter.getChampionRole().equals(this.getChampionRole())
+		for(LaneCounter laneCounter:patchrank.getLaneCounters()){
+		    if(laneCounter.getChampion().equals(this.getChampion()) && laneCounter.getChampionrole().equals(this.getChampionrole())
 			    && laneCounter.getChampion().equals(this.getCounter())){
 			log.debug("::calculateBonus(laneCounters): matching Lane Counter found:"+laneCounter);
 			matchingLaneCounter=laneCounter;
@@ -279,7 +279,7 @@ public class Counter implements Persistable{
 	    log.debug("::calculateBonus(laneCounters): Calculated Lane Bonus :"+getLaneBonus());
 	    
 	    
-	    Double avg = patchRank.getAvgNumOfCounterTypesMatches().doubleValue();
+	    Double avg = patchrank.getAvgNumOfCounterTypesMatches().doubleValue();
 	    
 	    if(matches<avg){
 		counterCertaintyModifier=matches/avg;
@@ -305,12 +305,12 @@ public class Counter implements Persistable{
     }
 
     public CSVBeanCounter getCSVBeanCounter(){
-	return new CSVBeanCounter(patchRank.patch.getId(),
-		patchRank.rank.getPrintableName(),
+	return new CSVBeanCounter(patchrank.patch.getId(),
+		patchrank.rank.getPrintableName(),
 		champion.getName(), 
-		championRole.getName(), 
+		championrole.getName(), 
 		counter.getName(), 
-		counterRole.getName(), 
+		counterrole.getName(), 
 		matches+"", 
 		winratePercentage+"", 
 		counterBonus+"", 
@@ -447,14 +447,14 @@ public class Counter implements Persistable{
 	}
 
 	/**
-	 * @return the counterRole
+	 * @return the counterrole
 	 */
 	public String getCounterRole() {
 	    return counterRole;
 	}
 
 	/**
-	 * @param counterRole the counterRole to set
+	 * @param counterRole the counterrole to set
 	 */
 	public void setCounterRole(String counterRole) {
 	    this.counterRole = counterRole;

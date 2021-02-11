@@ -168,11 +168,11 @@ public class CSVGenerator {
 	UggRank rank= new UggRank("Silver", "silver", 1);
 	PatchRank patchRank=new PatchRank(eleven,rank);
 	
-	counter.setPatchRank(patchRank);
+	counter.setPatchrank(patchRank);
 	counter.setChampion(a);
-	counter.setChampionRole(Role.adc);
+	counter.setChampionrole(Role.adc);
 	counter.setCounter(b);
-	counter.setCounterRole(Role.jungle);
+	counter.setCounterrole(Role.jungle);
 	counter.setWinratePercentage(55d);
 	counter.setCounterBonus(56d);
 	counter.setCounterCertaintyModifier(.8d);
@@ -181,11 +181,11 @@ public class CSVGenerator {
 	counter.setTotalBonus(20d);
 	
 	Counter counter2=new Counter();
-	counter2.setPatchRank(patchRank);
+	counter2.setPatchrank(patchRank);
 	counter2.setChampion(c);
-	counter2.setChampionRole(Role.top);
+	counter2.setChampionrole(Role.top);
 	counter2.setCounter(d);
-	counter2.setCounterRole(Role.top);
+	counter2.setCounterrole(Role.top);
 	counter2.setWinratePercentage(53d);
 	counter2.setCounterBonus(20d);
 	counter2.setCounterCertaintyModifier(.9d);

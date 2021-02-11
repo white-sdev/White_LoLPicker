@@ -143,7 +143,7 @@ import static org.white_sdev.white_validations.parameters.ParameterValidator.not
  */
 @Slf4j
 @Entity
-//@Table(uniqueConstraints=@UniqueConstraint(columnNames={"patchRank", "champion", "championRole", "counter", "counterRole"}))
+@Table(uniqueConstraints=@UniqueConstraint(columnNames={"patchrank", "champion", "championrole", "counter", "counterrole"}))
 @Getter
 @Setter
 public class LaneCounter implements Persistable{
@@ -155,8 +155,8 @@ public class LaneCounter implements Persistable{
     private Long id;
     
     @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.MERGE)
-    @JoinColumn(name="patchRank")
-    public PatchRank patchRank;
+    @JoinColumn(name="patchrank")
+    public PatchRank patchrank;
     
     @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name="champion")
@@ -164,7 +164,7 @@ public class LaneCounter implements Persistable{
     
     @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name="championRole")
-    private Role championRole;
+    private Role championrole;
     
     @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name="counter")
@@ -172,7 +172,7 @@ public class LaneCounter implements Persistable{
     
     @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name="counterRole")
-    private Role counterRole;
+    private Role counterrole;
     
     @Column
     private Integer gold;
@@ -213,14 +213,14 @@ public class LaneCounter implements Persistable{
 	notNullValidation(patchRank,champion,championRole, counter, gold, matches);
 	try{
 	    
-	    this.patchRank=patchRank;
+	    this.patchrank=patchRank;
 	    this.champion=champion;
-	    this.championRole=championRole;
+	    this.championrole=championRole;
 	    this.counter=counter;
 	    this.gold=gold;
 	    this.matches=matches;
 	    
-	    this.counterRole=championRole;
+	    this.counterrole=championRole;
 	    
 	    
             patchRank.add(this);
@@ -236,7 +236,7 @@ public class LaneCounter implements Persistable{
     //</editor-fold>
     
     public Double reCalculateBonus(){
-	Double laneCounterCertaintyModifier=  matches/  (patchRank.getAvgNumOfCounterTypesMatches()/.5) ;
+	Double laneCounterCertaintyModifier=  matches/  (patchrank.getAvgNumOfCounterTypesMatches()/.5) ;
 	bonus=gold/20d*laneCounterCertaintyModifier;
 	return bonus;
     }
@@ -244,7 +244,7 @@ public class LaneCounter implements Persistable{
     @Override
     public String toString(){
 	return "["+(champion!=null?"champion:"+champion:"")
-		+(championRole!=null?", role:"+championRole:"")
+		+(championrole!=null?", role:"+championrole:"")
 		+(", counter:"+counter)
 		+(gold!=null?", gold:"+gold:"")
 		+(", matches:"+matches)

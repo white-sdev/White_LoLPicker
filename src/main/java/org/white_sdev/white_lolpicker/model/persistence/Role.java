@@ -185,11 +185,17 @@ public class Role implements Persistable{
     private String uGGSelectorXpath;
     
     //<editor-fold defaultstate="collapsed" desc="Useless">
-    @OneToMany(mappedBy = "championRole", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
-    private List<LaneCounter> laneCoutners;
+    @OneToMany(mappedBy = "championrole", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
+    private List<LaneCounter> laneCounters;
     
-    @OneToMany(mappedBy = "counterRole", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
+    @OneToMany(mappedBy = "championrole", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
     private List<Counter> coutners;
+    
+    @OneToMany(mappedBy = "counterrole", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
+    private List<LaneCounter> laneCounterCounters;
+    
+    @OneToMany(mappedBy = "counterrole", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
+    private List<Counter> counterCounters;
     
     @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
     private List<ChampionTierRank> championTierRanks;

@@ -165,10 +165,10 @@ public class PatchRank implements Persistable{
     @JoinColumn(name = "rank")
     public UggRank rank;
     
-    @OneToMany(mappedBy = "patchRank", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
+    @OneToMany(mappedBy = "patchrank", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
     private List<Counter> counters=new ArrayList<>();
     
-    @OneToMany(mappedBy = "patchRank", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
+    @OneToMany(mappedBy = "patchrank", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
     private List<LaneCounter> laneCounters=new ArrayList<>();
     
     /**
