@@ -132,6 +132,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
@@ -146,6 +147,7 @@ import static org.white_sdev.white_validations.parameters.ParameterValidator.not
 @Table(uniqueConstraints=@UniqueConstraint(columnNames={"patchrank", "champion", "championrole", "counter", "counterrole"}))
 @Getter
 @Setter
+@NoArgsConstructor
 public class LaneCounter implements Persistable{
     
     //<editor-fold defaultstate="collapsed" desc="Attributes">
@@ -158,19 +160,19 @@ public class LaneCounter implements Persistable{
     @JoinColumn(name="patchrank")
     public PatchRank patchrank;
     
-    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.MERGE)
+    @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="champion")
     private Champion champion;
     
-    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.MERGE)
+    @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="championRole")
     private Role championrole;
     
-    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.MERGE)
+    @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="counter")
     private Champion counter;
     
-    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.MERGE)
+    @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="counterRole")
     private Role counterrole;
     
@@ -186,14 +188,6 @@ public class LaneCounter implements Persistable{
     
     //<editor-fold defaultstate="collapsed" desc="Constructors">
 
-    /**
-     * Required no-Arguments Constructor by 
-     * <a href="https://docs.jboss.org/hibernate/core/3.5/reference/en/html/persistent-classes.html#persistent-classes-pojo-constructor">Hibernate</a>.
-     * 
-     * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
-     * @since 2021-02-02
-     */
-    protected LaneCounter() { }
     /**
      * Class Constructor.{Requirement_Reference}
      * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
@@ -223,7 +217,7 @@ public class LaneCounter implements Persistable{
 	    this.counterrole=championRole;
 	    
 	    
-            patchRank.add(this);
+//            patchRank.add(this);
 //	    champion.getLaneCounterChampions().add(this);
 //	    counter.getLaneCounterCounters().add(this);
 

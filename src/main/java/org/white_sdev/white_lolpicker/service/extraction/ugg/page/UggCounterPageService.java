@@ -260,6 +260,7 @@ public class UggCounterPageService {
 		log.info("::test(utils): Calculating Counter Bonus at "+java.time.LocalDateTime.now().format(DateTimeFormatter.ISO_TIME));
 		foundPatchRanks.forEach((patchRank) -> {
 		    patchRank.forceCountersBonusRecalculation();
+		    patchRankCustomRepository.merge(patchRank);
 		});
 
 
@@ -513,11 +514,13 @@ public class UggCounterPageService {
 		if(webGoldIntDiference>0){
 		    WebElement webLaneCounter=webLaneCounters.get(i);
 		    WebElement webMatchTotalGame=webMatchTotalGames.get(i);
+		    Champion uggChampion=new Champion(webLaneCounter.getText());
+		    Champion persistedChampion=championCustomRepository.findByUniqueOrPersist(uggChampion);
 		    LaneCounter laneCounter=new LaneCounter(
 			    countersSearch.patchRank, 
 			    countersSearch.champ, 
 			    countersSearch.role, 
-			    championCustomRepository.findByUniqueOrPersist(new Champion(webLaneCounter.getText())), 
+			    persistedChampion, 
 			    webGoldIntDiference, 
 			    Integer.parseInt(webMatchTotalGame.getText().replace(" games", "").replace(",", "")));
 		    laneCounterCustomRepository.mergeByUniqueOrPersist(laneCounter);
@@ -594,14 +597,21 @@ public class UggCounterPageService {
 		if(winrate>50){
 		    WebElement webCounter=webCounters.get(i);
 		    WebElement webWinrateTotalGames=webWinratesTotalGames.get(i);
+		    Champion uggChampion=new Champion(webCounter.getText());
+		    log.debug("::buildCounters(countersSearch, webCounters, webWinrates, webWinratesTotalGames) : Looking for persisted champion: {}",uggChampion);
+		    Champion persistedChampion=championCustomRepository.findByUniqueOrPersist(uggChampion);
+		    log.debug("::buildCounters(countersSearch, webCounters, webWinrates, webWinratesTotalGames) : Champion found: {}",persistedChampion);
 		    Counter counter=new Counter(
 			    countersSearch.patchRank, 
 			    countersSearch.champ, 
 			    countersSearch.role, 
-			    championCustomRepository.findByUniqueOrPersist(new Champion(webCounter.getText())),
+			    persistedChampion,
 			    winrate,
 			    Integer.parseInt(webWinrateTotalGames.getText().replace(",", "").replace(" games", "")));
-		    log.trace("::buildCounters(countersSearch, webCounters, webWinrates, webWinratesTotalGames): Counter built: "+counter);
+		    log.debug("::buildCounters(countersSearch, webCounters, webWinrates, webWinratesTotalGames): Counter built: {}. mergeByUniqueOrPersist ing...",counter);
+		    if(counter.getCounter().getName().equals("Camille")){
+			log.warn("::buildCounters(countersSearch, webCounters, webWinrates, webWinratesTotalGames): Debugging an error here" );
+		    }
 		    counterCustomRepository.mergeByUniqueOrPersist(counter);
 		    counters.add(counter);
 		}

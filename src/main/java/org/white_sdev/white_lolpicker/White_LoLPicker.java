@@ -124,6 +124,7 @@ import javax.swing.JOptionPane;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import static org.white_sdev.propertiesmanager.model.service.PropertyProvider.getProperty;
 import org.white_sdev.white_lolpicker.view.LoaderJFrame;
 import org.white_sdev.white_lolpicker.view.LoadingDataMessageFrame;
 
@@ -167,15 +168,17 @@ public class White_LoLPicker {
 		var ex = context.getBean(LoaderJFrame.class);
 		ex.setVisible(true);
 	    });
-//
-	    /* Create and display the form */
-//	    java.awt.EventQueue.invokeLater(new Runnable() {
-//		public void run() {
-//		    new LoadingDataMessageFrame().setVisible(true);
-//    //		JOptionPane.showMessageDialog(null, "Filters are loading on the filter section, you can used them but they might not be updated, the process might take abut half of a minute but another message will let you know when they are ready");
-//		}
-//	    });
-//	    
+
+	    if(!Boolean.parseBoolean(getProperty("org.white_sdev.white_lolpicker.skip-initial-load"))){
+		/* Create and display the form */
+		java.awt.EventQueue.invokeLater(new Runnable() {
+		    public void run() {
+			new LoadingDataMessageFrame().setVisible(true);
+	//		JOptionPane.showMessageDialog(null, "Filters are loading on the filter section, you can used them but they might not be updated, the process might take abut half of a minute but another message will let you know when they are ready");
+		    }
+		});
+	    }
+	    
 	} catch (Exception ex) {
 	    log.error("An exception Ocurred", ex);
 	    JOptionPane.showMessageDialog(null, ex);

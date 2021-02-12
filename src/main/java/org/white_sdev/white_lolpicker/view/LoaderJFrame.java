@@ -462,13 +462,13 @@ public class LoaderJFrame extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         try{
-//	    new Thread(){
-//		@Override
-//		public void run(){
-//		    controller.init();
-//		}
-//	    }.start();
-	    controller.loadFiltersFromDataBase();
+	    new Thread(){
+		@Override
+		public void run(){
+		    controller.init();
+		}
+	    }.start();
+//	    controller.loadFiltersFromDataBase();
 	}catch(Exception ex){}
     }//GEN-LAST:event_formWindowOpened
 

@@ -121,16 +121,11 @@
 
 package org.white_sdev.white_lolpicker.repo;
 
-//import lombok.extern.slf4j.Slf4j;
-
+import lombok.extern.slf4j.Slf4j;
 import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.stereotype.Repository;
-
 //import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
 
 /**
@@ -140,7 +135,7 @@ import org.springframework.stereotype.Repository;
  * @param <ID>
  * @since Feb 5, 2021
  */
-//@Slf4j
+@Slf4j
 public class GenericRepositoryImpl <E extends Object, ID extends Serializable> implements GenericRepository<E,Long>{
     
     @Autowired
@@ -149,7 +144,13 @@ public class GenericRepositoryImpl <E extends Object, ID extends Serializable> i
     @Override 
     @Transactional()
     public EntityManager getEntityManager(){
+	log.trace("::Method_name(parameters) - Start: ");
 	return entityManager;
+    }
+    
+    @Override
+    public org.slf4j.Logger getLog(){
+	return log;
     }
 
     

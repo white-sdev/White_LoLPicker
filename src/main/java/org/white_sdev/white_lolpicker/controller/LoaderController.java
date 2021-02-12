@@ -129,6 +129,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
+import static org.white_sdev.propertiesmanager.model.service.PropertyProvider.getProperty;
 import org.white_sdev.white_lolpicker.White_LoLPicker;
 import org.white_sdev.white_lolpicker.model.persistence.Champion;
 import org.white_sdev.white_lolpicker.model.persistence.Patch;
@@ -230,8 +231,10 @@ public class LoaderController {
 
 	    //first Load them from database
 	    loadFiltersFromDataBase();
-	    //then load them from Website
-	    loadFilters();
+	    if(!Boolean.parseBoolean(getProperty("org.white_sdev.white_lolpicker.skip-initial-load"))){
+		//then load them from Website
+		loadFilters();
+	    }
 	    
 	} catch (Exception ex) {
 	    log.error("Error while initializing LoaderJFrame",ex);
@@ -324,14 +327,21 @@ public class LoaderController {
 	notNullValidation(patches,ranks,champions,roles);
 	try {
 	    
-	    patches.add(0, noFilterPatch);
-	    view.patchesComboBox.setModel(new DefaultComboBoxModel<>(patches.toArray(new Patch[0])));
-	    ranks.add(0,noFilterRank);
-	    view.ranksComboBox.setModel(new DefaultComboBoxModel<>(ranks.toArray(new UggRank[0])));
-	    champions.add(0,noFilterChampion);
-	    view.championsComboBox.setModel(new DefaultComboBoxModel<>(champions.toArray(new Champion[0])));
-	    roles.add(0,noFilterRole);
-	    view.rolesComboBox.setModel(new DefaultComboBoxModel<>(roles.toArray(new Role[0])));
+	    ArrayList<Patch> cloned = new ArrayList<>(patches);
+	    cloned.add(0, noFilterPatch);
+	    view.patchesComboBox.setModel(new DefaultComboBoxModel<>(cloned.toArray(new Patch[0])));
+	    
+	    ArrayList<UggRank> clonedUggRank = new ArrayList<>(ranks);
+	    clonedUggRank.add(0,noFilterRank);
+	    view.ranksComboBox.setModel(new DefaultComboBoxModel<>(clonedUggRank.toArray(new UggRank[0])));
+	    
+	    ArrayList<Champion> clonedChampion = new ArrayList<>(champions);
+	    clonedChampion.add(0,noFilterChampion);
+	    view.championsComboBox.setModel(new DefaultComboBoxModel<>(clonedChampion.toArray(new Champion[0])));
+	    
+	    ArrayList<Role> clonedRole = new ArrayList<>(roles);
+	    clonedRole.add(0,noFilterRole);
+	    view.rolesComboBox.setModel(new DefaultComboBoxModel<>(clonedRole.toArray(new Role[0])));
 	    
 	    setFilterComboStatus(usingFilters);
 	    

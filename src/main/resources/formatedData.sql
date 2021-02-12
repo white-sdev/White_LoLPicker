@@ -1,6 +1,6 @@
-/*
- *  Filename:  ChampionTierRank.java
- *  Creation Date:  Dec 7, 2020
+/* 
+ *  Filename:  formatedData.sql
+ *  Creation Date:  Feb 11, 2021
  *  Purpose:   
  *  Author:    Obed Vazquez
  *  E-mail:    obed.vazquez@gmail.com
@@ -118,313 +118,42 @@
  *  
  *  Creative Commons may be contacted at creativecommons.org.
  */
-package org.white_sdev.white_lolpicker.model.persistence;
-
-import org.white_sdev.white_lolpicker.model.bean.Tier;
-import com.opencsv.bean.CsvBindByPosition;
-import java.util.ArrayList;
-import java.util.Collection;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
-import static org.white_sdev.white_validations.parameters.ParameterValidator.msg;
-import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
-
 /**
- *
- * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
- * @since Dec 7, 2020
+ * Author:  <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
+ * Created: Feb 11, 2021
  */
-@Slf4j
-@Entity
-@Getter
-@Setter
-@NoArgsConstructor
-public class ChampionTierRank implements Persistable{
-    
-    //<editor-fold defaultstate="collapsed" desc="Attributes">
 
-    @Id
-    @GeneratedValue
-    private Long id;
-    
-    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.MERGE)
-    private Patch patch;
-    
-    @Column
-    private Integer ranking;
-    
-    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.MERGE)
-    private Role role;
-    
-    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.MERGE)
-    private UggRank rank;
-    
-    @ManyToOne(fetch= FetchType.LAZY)
-    private Champion champ;
-    
-    @Column
-    @Enumerated(EnumType.ORDINAL) 
-    private Tier tier;
-    
-    @Column
-    private Double winRate;
-    
-    @Column
-    private Double pickRate;
-    
-    @Column
-    private Double banRate;
-    
-    @Column
-    private Integer matches;
-    //</editor-fold>
+INSERT INTO CHAMPION_ROLE (ID, "NAME", UGGSELECTOR_XPATH) VALUES (1, 'top', '5');
+INSERT INTO CHAMPION_ROLE_SYNONYMS (CHAMPION_ROLE_ID,SYNONYMS) VALUES (1,'topper');
 
-    //<editor-fold defaultstate="collapsed" desc="Constructors">
+INSERT INTO CHAMPION_ROLE (ID, "NAME", UGGSELECTOR_XPATH) VALUES (2,'jungle','6');
+INSERT INTO CHAMPION_ROLE_SYNONYMS (CHAMPION_ROLE_ID,SYNONYMS) VALUES (2,'jg');
 
-    public ChampionTierRank(Integer ranking, Champion champ, Role role, Double winRate, Patch patch,Integer matches,UggRank rank) {
-	notNullValidation(msg("Champion, Rank, Role and Winrate must be provided to generate a Champion Tier rank for a Champion"), ranking, champ, role, winRate,matches,rank);
-	log.trace("::ChampionTierRank() - Start: ");
-	//notNullValidation(parameter,"Impossible to create the object. The parameter can't be null.");
-	try {
-	    this.ranking = ranking;
-	    this.champ = champ;
-	    this.role = role;
-	    this.winRate = winRate;
-	    this.patch = patch;
-	    this.matches = matches;
-	    this.rank=rank;
-//	    rank.add(this);
+INSERT INTO CHAMPION_ROLE (ID, "NAME", UGGSELECTOR_XPATH) VALUES (3,'mid','7');
+INSERT INTO CHAMPION_ROLE_SYNONYMS (CHAMPION_ROLE_ID,SYNONYMS) VALUES (3,'middle');
 
-	    log.trace("::ChampionTierRank() - Finish: ");
-	} catch (Exception e) {
-	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
-	}
-    }
+INSERT INTO CHAMPION_ROLE (ID, "NAME", UGGSELECTOR_XPATH) VALUES (4,'adc','8');
+INSERT INTO CHAMPION_ROLE_SYNONYMS (CHAMPION_ROLE_ID,SYNONYMS) VALUES (4,'bot');
+INSERT INTO CHAMPION_ROLE_SYNONYMS (CHAMPION_ROLE_ID,SYNONYMS) VALUES (4,'bottom');
 
-    //</editor-fold>
-    
-    @Override
-    public String toString() {
-	return "[" + (getRank() != null ? "rank:" + getRank() : "")
-		+ (getRole() != null ? ", role:" + getRole() : "")
-		+ (", champ:" + getChamp())
-		+ (getTier() != null ? ", tier:" + getTier() : "")
-		+ (", winRate:" + getWinRate())
-		+ (getPickRate() != null ? ", pickRate:" + getPickRate() : "")
-		+ (getBanRate() != null ? ", banRate:" + getBanRate() : "")
-		+ (getMatches() != null ? ", matches:" + getMatches() : "")
-		+ "]";
-    }
 
-    public static ArrayList<CSVBeanTierRank> getCSVBeanTierRanks(Collection<ChampionTierRank> tierRanks ){
-	
-	if(tierRanks==null) return null;
-	ArrayList<CSVBeanTierRank> csvBeanTierRanks=new ArrayList<>();
-	tierRanks.forEach((tierRank)->{  csvBeanTierRanks.add(tierRank.getCSVBeanTierRank()); });
-	return csvBeanTierRanks;
-    }
-    
-    public CSVBeanTierRank getCSVBeanTierRank() {
-	return new CSVBeanTierRank(getRanking() + "",
-		role.getName(),
-		champ.getName(),
-		tier.name(),
-		winRate + "",
-		pickRate + "",
-		banRate + "",
-		matches + "",
-		getPatch().getId());
-    }
+INSERT INTO CHAMPION_ROLE (ID, "NAME", UGGSELECTOR_XPATH) VALUES (5,'supp','9');
+INSERT INTO CHAMPION_ROLE_SYNONYMS (CHAMPION_ROLE_ID,SYNONYMS) VALUES (5,'support');
 
-    public class CSVBeanTierRank {
 
-	//<editor-fold defaultstate="collapsed" desc="Attributes">
-	@CsvBindByPosition(position = 0)
-	private String rank;
-	@CsvBindByPosition(position = 1)
-	private String role;
-	@CsvBindByPosition(position = 2)
-	private String champ;
-	@CsvBindByPosition(position = 3)
-	private String tier;
-	@CsvBindByPosition(position = 4)
-	private String winRate;
-	@CsvBindByPosition(position = 5)
-	private String pickRate;
-	private String banRate;
-	@CsvBindByPosition(position = 6)
-	private String matches;
-	@CsvBindByPosition(position = 7)
-	private String patch;
 
-	//</editor-fold>
-	public CSVBeanTierRank(String rank, String role, String champ, String tier, String winRate, String pickRate,
-		String banRate, String matches, String patch) {
-	    log.trace("::CSVBeanCounter() - Start: ");
-	    notNullValidation(rank,
-		    role,
-		    champ,
-		    tier,
-		    winRate,
-		    pickRate,
-		    banRate,
-		    matches,
-		    patch);
-	    try {
-		this.rank = rank;
-		this.role = role;
-		this.champ = champ;
-		this.tier = tier;
-		this.winRate = winRate;
-		this.pickRate = pickRate;
-		this.banRate = banRate;
-		this.matches = matches;
-		this.patch = patch;
-		log.trace("::CSVBeanCounter() - Finish: ");
-	    } catch (Exception e) {
-		throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
-	    }
-	}
+INSERT INTO UGG_RANK (ID, PRINTABLE_NAME,UGG_NAME, UGGORDER,TIER_LISTURL) VALUES (1,'Iron','iron',12,'http://u.gg/lol/tier-list?rank=iron');
+INSERT INTO UGG_RANK (ID, PRINTABLE_NAME,UGG_NAME, UGGORDER,TIER_LISTURL) VALUES (2,'Bronze','bronze',11,'http://u.gg/lol/tier-list?rank=bronze');
+INSERT INTO UGG_RANK (ID, PRINTABLE_NAME,UGG_NAME, UGGORDER,TIER_LISTURL) VALUES (3,'Silver','silver',10,'http://u.gg/lol/tier-list?rank=silver');
+INSERT INTO UGG_RANK (ID, PRINTABLE_NAME,UGG_NAME, UGGORDER,TIER_LISTURL) VALUES (4,'Gold','gold',9,'http://u.gg/lol/tier-list?rank=gold');
+INSERT INTO UGG_RANK (ID, PRINTABLE_NAME,UGG_NAME, UGGORDER,TIER_LISTURL) VALUES (5,'Platinum','platinum',8,'http://u.gg/lol/tier-list?rank=platinum');
+INSERT INTO UGG_RANK (ID, PRINTABLE_NAME,UGG_NAME, UGGORDER,TIER_LISTURL) VALUES (6,'Platinum +','platinum_plus',0,'http://u.gg/lol/tier-list?rank=platinum_plus');
+INSERT INTO UGG_RANK (ID, PRINTABLE_NAME,UGG_NAME, UGGORDER,TIER_LISTURL) VALUES (7,'Diamond','diamond',7,'http://u.gg/lol/tier-list?rank=diamond');
+INSERT INTO UGG_RANK (ID, PRINTABLE_NAME,UGG_NAME, UGGORDER,TIER_LISTURL) VALUES (8,'Diamond +','diamond_plus',1,'http://u.gg/lol/tier-list?rank=diamond_plus');
+INSERT INTO UGG_RANK (ID, PRINTABLE_NAME,UGG_NAME, UGGORDER,TIER_LISTURL) VALUES (9,'Master','master',6,'http://u.gg/lol/tier-list?rank=master');
+INSERT INTO UGG_RANK (ID, PRINTABLE_NAME,UGG_NAME, UGGORDER,TIER_LISTURL) VALUES (10,'Master +','master_plus',2,'http://u.gg/lol/tier-list?rank=master_plus');
+INSERT INTO UGG_RANK (ID, PRINTABLE_NAME,UGG_NAME, UGGORDER,TIER_LISTURL) VALUES (11,'Grand Master','grandmaster',5,'http://u.gg/lol/tier-list?rank=grandmaster');
+INSERT INTO UGG_RANK (ID, PRINTABLE_NAME,UGG_NAME, UGGORDER,TIER_LISTURL) VALUES (12,'Challenger','challenger',4,'http://u.gg/lol/tier-list?rank=challenger');
+INSERT INTO UGG_RANK (ID, PRINTABLE_NAME,UGG_NAME, UGGORDER,TIER_LISTURL) VALUES (13,'All Ranks','overall',3,'http://u.gg/lol/tier-list?rank=overall');
 
-	//<editor-fold defaultstate="collapsed" desc="Getters & Setters">
-	/**
-	 * @return the ranking
-	 */
-	public String getRank() {
-	    return rank;
-	}
-
-	/**
-	 * @param rank the ranking to set
-	 */
-	public void setRank(String rank) {
-	    this.rank = rank;
-	}
-
-	/**
-	 * @return the role
-	 */
-	public String getRole() {
-	    return role;
-	}
-
-	/**
-	 * @param role the role to set
-	 */
-	public void setRole(String role) {
-	    this.role = role;
-	}
-
-	/**
-	 * @return the champ
-	 */
-	public String getChamp() {
-	    return champ;
-	}
-
-	/**
-	 * @param champ the champ to set
-	 */
-	public void setChamp(String champ) {
-	    this.champ = champ;
-	}
-
-	/**
-	 * @return the tier
-	 */
-	public String getTier() {
-	    return tier;
-	}
-
-	/**
-	 * @param tier the tier to set
-	 */
-	public void setTier(String tier) {
-	    this.tier = tier;
-	}
-
-	/**
-	 * @return the winRate
-	 */
-	public String getWinRate() {
-	    return winRate;
-	}
-
-	/**
-	 * @param winRate the winRate to set
-	 */
-	public void setWinRate(String winRate) {
-	    this.winRate = winRate;
-	}
-
-	/**
-	 * @return the pickRate
-	 */
-	public String getPickRate() {
-	    return pickRate;
-	}
-
-	/**
-	 * @param pickRate the pickRate to set
-	 */
-	public void setPickRate(String pickRate) {
-	    this.pickRate = pickRate;
-	}
-
-	/**
-	 * @return the banRate
-	 */
-	public String getBanRate() {
-	    return banRate;
-	}
-
-	/**
-	 * @param banRate the banRate to set
-	 */
-	public void setBanRate(String banRate) {
-	    this.banRate = banRate;
-	}
-
-	/**
-	 * @return the matches
-	 */
-	public String getMatches() {
-	    return matches;
-	}
-
-	/**
-	 * @param matches the matches to set
-	 */
-	public void setMatches(String matches) {
-	    this.matches = matches;
-	}
-
-	/**
-	 * @return the patch
-	 */
-	public String getPatch() {
-	    return patch;
-	}
-
-	/**
-	 * @param patch the patch to set
-	 */
-	public void setPatch(String patch) {
-	    this.patch = patch;
-	}
-
-	//</editor-fold>
-    }
-    
-}
+COMMIT;

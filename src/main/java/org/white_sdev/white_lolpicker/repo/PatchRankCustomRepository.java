@@ -137,7 +137,6 @@ import org.white_sdev.white_lolpicker.model.persistence.UggRank;
 //@Slf4j
 public interface PatchRankCustomRepository extends GenericRepository<PatchRank,Long>{
     
-    
     public PatchRank getOrCreate(Patch patch, UggRank rank);
     
 }

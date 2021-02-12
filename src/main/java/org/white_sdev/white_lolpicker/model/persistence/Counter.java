@@ -159,19 +159,19 @@ public class Counter implements Persistable{
     @JoinColumn(name="patchrank")
     public PatchRank patchrank;
     
-    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.MERGE)
+    @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="champion")
     private Champion champion;
     
-    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.MERGE)
+    @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="championrole")
     private Role championrole;
     
-    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.MERGE)
+    @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="counter")
     private Champion counter;
     
-    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.MERGE)
+    @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="counterrole")
     private Role counterrole;
     
@@ -228,9 +228,9 @@ public class Counter implements Persistable{
 	    
 	    this.counterrole=championRole;
 	    
-            patchRank.add(this);
-	    champion.getCounters().add(this);
-	    counter.getCounterOfChampions().add(this);
+//            patchRank.add(this);
+//	    champion.getCounters().add(this);
+//	    counter.getCounterOfChampions().add(this);
 
 	    log.trace("::Counter(champion, counter, winrate, bonus) - Finish: ");
 	} catch (Exception e) {

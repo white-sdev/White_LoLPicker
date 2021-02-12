@@ -140,13 +140,13 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * Structure:
  *  Patches[
- *	Counters[
- *	    Champions[]
- *	    Ranks[]
- *	]
- *	LaneCounters[
- *	    Champions[]
- *	    Ranks[]
+ *	PatchRank[
+ *	    Counters[
+ *		Champions[]
+ *	    ]
+ *	    LaneCounters[
+ *		Champions[]
+ *	    ]
  *	]
  *  ]
  * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>

@@ -136,6 +136,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
@@ -148,6 +149,7 @@ import lombok.Setter;
 @Entity (name = "ChampionRole") //Role is a keyword in Oracle?
 @Getter
 @Setter
+@NoArgsConstructor
 public class Role implements Persistable{
     public static Role top=new Role("top","topper","5"),
 	    jungle=new Role("jungle","jg","6"),
@@ -240,14 +242,6 @@ public class Role implements Persistable{
 	this.uGGSelectorXpath=uGGSelectorXpath;
     }
     
-    /**
-     * Required no-Arguments Constructor by 
-     * <a href="https://docs.jboss.org/hibernate/core/3.5/reference/en/html/persistent-classes.html#persistent-classes-pojo-constructor">Hibernate</a>.
-     * 
-     * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
-     * @since 2021-01-31
-     */
-    protected Role() { }
     //</editor-fold>
     
     public static Role valueOfImgAlt(String text) {

@@ -187,25 +187,21 @@ public interface GenericRepository <E extends Object, ID extends Serializable>  
 	CriteriaQuery<E> criteriaQuery = criteriaBuilder.createQuery(getEntityClass());
 	Root<E> root= criteriaQuery.from(getEntityClass());
 	
-//	Predicate authorNamePredicate = cb.equal(book.get("author"), authorName);
-//        Predicate titlePredicate = cb.like(book.get("title"), "%" + title + "%");
-//        cq.where(authorNamePredicate, titlePredicate);
-	
 	ArrayList<Predicate> predicates=new ArrayList<>();
 	filters.entrySet().forEach(filter -> {
 	    String key=filter.getKey();
 	    Object value=filter.getValue();
 	    predicates.add(criteriaBuilder.equal(root.get(key), value));
 	    
-//	    crit.add(value!=null?Restrictions.eq(filter.getKey(), value):Restrictions.isNull(filter.getKey()));
 	});
 	
 	List<E> entities;
-//	entities = (List<Champion>) crit.list();//Main search
 	Predicate[] predicatesArray= new Predicate[predicates.size()];
 	predicates.toArray(predicatesArray);
 	criteriaQuery.where(predicatesArray);
 	TypedQuery<E> query = getEntityManager().createQuery(criteriaQuery);
+	
+	getLog().debug("::filteredFind(filters): Filtering by: {}",filters);
 	entities = query.getResultList();//Main search
 
 	if (entities == null || entities.isEmpty()) entities = new ArrayList<>();
@@ -239,12 +235,21 @@ public interface GenericRepository <E extends Object, ID extends Serializable>  
 	}
     }
     
+    public default E merge(E entity){
+	try {
+	    return getEntityManager().merge(entity);
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to merge Entity " +entity,e);
+	}
+    }
+    
     //Push
     public default E mergeByUniqueOrPersist(E entity){
 	notNullValidation(entity);
 	try {
 	    E foundEntity=null;
 	    try{
+		if(isPersistent(entity)) return entity;
 		foundEntity=findByUnique(entity);
 	    }catch(Exception ex){}
 	    
@@ -273,6 +278,7 @@ public interface GenericRepository <E extends Object, ID extends Serializable>  
 	try {
 	    E foundEntity=null;
 	    try{
+		if(isPersistent(entity)) return entity;
 		foundEntity=findByUnique(entity);
 	    }catch(Exception ex){}
 	    
@@ -294,7 +300,7 @@ public interface GenericRepository <E extends Object, ID extends Serializable>  
     public default E findByUnique(E entity){
 	try {
 	    LinkedHashMap<String,Object> multipleFieldsUniqueConstraints= getUniqueConstraintsToFilterMap(entity);
-	    if(multipleFieldsUniqueConstraints!=null || multipleFieldsUniqueConstraints.size()<1) return null;
+	    if(multipleFieldsUniqueConstraints==null || multipleFieldsUniqueConstraints.size()<1) return null;
 
 	    List<E> entitiesFound=filteredFind(multipleFieldsUniqueConstraints);
 	    if(entitiesFound==null || entitiesFound.size()<1) return null;
@@ -351,6 +357,8 @@ public interface GenericRepository <E extends Object, ID extends Serializable>  
 	    return null;
 	}
     }
+    
+    public org.slf4j.Logger getLog();
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Reflexion">
 
@@ -402,8 +410,10 @@ public interface GenericRepository <E extends Object, ID extends Serializable>  
 	    
 	    if(multipleFieldsUniqueConstraints.size()<1){
 		Field uniqueConstraintFieldName = getSingleUniqueConstraintField();
+		String key=uniqueConstraintFieldName.getName();
+		Object value=getValueOfField(uniqueConstraintFieldName,entity);
 		return uniqueConstraintFieldName!=null
-			?new LinkedHashMap<String,Object>(){{put(uniqueConstraintFieldName.getName(),uniqueConstraintFieldName);}}
+			?new LinkedHashMap<String,Object>(){{put(uniqueConstraintFieldName.getName(),value);}}
 			:null;
 	    }else{
 		return multipleFieldsUniqueConstraints;
@@ -518,15 +528,7 @@ public interface GenericRepository <E extends Object, ID extends Serializable>  
 	    Class<?> clazz=getEntityClass();
 	    for (Field field : clazz.getDeclaredFields()) {
 		if(field.getName().equals(fieldName)) {
-			boolean isAccessible = field.isAccessible();
-			try {
-			    field.setAccessible(true);
-			    Object value = field.get(instance);
-			    field.setAccessible(isAccessible);
-			    return value;
-			}  catch (ReflectiveOperationException e) {
-			    throw new RuntimeException("Impossible to obtain the Value of field "+fieldName+" of instance "+instance, e);
-			}
+			return getValueOfField(field,instance);
 		}
 	    }
 	    throw new RuntimeException("Field "+fieldName+" not found in instance "+instance);
@@ -534,6 +536,20 @@ public interface GenericRepository <E extends Object, ID extends Serializable>  
 	    throw new RuntimeException("Impossible to complete operation",e);
 	}
     }
+    
+    
+    public default Object getValueOfField(Field field,E instance){
+	boolean isAccessible = field.isAccessible();
+	try {
+	    field.setAccessible(true);
+	    Object value = field.get(instance);
+	    field.setAccessible(isAccessible);
+	    return value;
+	}  catch (ReflectiveOperationException e) {
+	    throw new RuntimeException("Impossible to obtain the Value of field "+field+" of instance "+instance, e);
+	}
+    }
+    
     
     public default Method getGetterMethod(Field field,Class<?> entityClass) {
 	try{
