@@ -126,6 +126,7 @@ import java.io.Serializable;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 //import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
 
 /**
@@ -136,7 +137,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @since Feb 5, 2021
  */
 @Slf4j
-public class GenericRepositoryImpl <E extends Object, ID extends Serializable> implements GenericRepository<E,Long>{
+public abstract class GenericRepositoryImpl <E extends Object, ID extends Serializable> implements GenericRepository<E,Long>{
     
     @Autowired
     EntityManager entityManager;
@@ -144,7 +145,7 @@ public class GenericRepositoryImpl <E extends Object, ID extends Serializable> i
     @Override 
     @Transactional()
     public EntityManager getEntityManager(){
-	log.trace("::Method_name(parameters) - Start: ");
+	log.trace("::getEntityManager() - Start: ");
 	return entityManager;
     }
     
@@ -153,5 +154,4 @@ public class GenericRepositoryImpl <E extends Object, ID extends Serializable> i
 	return log;
     }
 
-    
 }

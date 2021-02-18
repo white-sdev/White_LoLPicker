@@ -1,6 +1,6 @@
 /*
- *  Filename:  PatchRank.java
- *  Creation Date:  Feb 6, 2021
+ *  Filename:  CounterService.java
+ *  Creation Date:  Feb 17, 2021
  *  Purpose:   
  *  Author:    Obed Vazquez
  *  E-mail:    obed.vazquez@gmail.com
@@ -119,190 +119,88 @@
  *  Creative Commons may be contacted at creativecommons.org.
  */
 
-package org.white_sdev.white_lolpicker.model.persistence;
+package org.white_sdev.white_lolpicker.service;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import javax.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
-import static org.white_sdev.propertiesmanager.model.service.PropertyProvider.getProperty;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.white_sdev.white_lolpicker.model.bean.CountersFilters;
+import org.white_sdev.white_lolpicker.model.persistence.Counter;
+import org.white_sdev.white_lolpicker.model.persistence.LaneCounter;
+import org.white_sdev.white_lolpicker.repo.CounterCustomRepository;
+import org.white_sdev.white_lolpicker.repo.LaneCounterCustomRepository;
+import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
 
 /**
  * 
  * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
- * @since Feb 6, 2021
+ * @since Feb 17, 2021
  */
 @Slf4j
-@Entity
-@Table(uniqueConstraints=@UniqueConstraint(columnNames={"patch", "rank"}))
-@Getter
-@Setter
-@NoArgsConstructor
-@EqualsAndHashCode
-public class PatchRank implements Persistable{
+@Service
+public class CounterService {
     
-    @Id
-    @GeneratedValue
-    private Long id;
+    @Autowired
+    CounterCustomRepository repository;
     
-    @ManyToOne(fetch= FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "patch")
-    public Patch patch;
+    @Autowired
+    LaneCounterCustomRepository laneCounterRepository;
     
-    @ManyToOne(fetch= FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "rank")
-    public UggRank rank;
-    
-    @OneToMany(mappedBy = "patchrank", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
-    private List<Counter> counters=new ArrayList<>();
-    
-    @OneToMany(mappedBy = "patchrank", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
-    private List<LaneCounter> laneCounters=new ArrayList<>();
     
     /**
-     * Takes into account every counter it has
-     */
-    @Column
-    private Long avgNumOfCounterMatches;
-    
-    public PatchRank(Patch patch,UggRank rank){
-	try {
-
-	    this.patch=patch;
-	    this.rank=rank;
-
-//	    patch.add(this);
-//	    rank.add(this);
-	
-	} catch (Exception e) {
-	    throw new RuntimeException("Impossible to Create Patch instance with "+patch+" "+rank,e);
-	}
-    }
-    
-    
-    public void calculateAvgNumOfMatches() {
-	log.trace("::calculateAvgNumOfMatches() - Start: ");
-	
-	try {
-	    
-	    if(avgNumOfCounterMatches==null){
-		Double addition=0d;
-		Integer matches;
-		Integer cont=0;
-		Integer minNumOfMatchesToCount=Integer.parseInt(getProperty("ignore-match-count-when-lower-than"));
-		for(Counter counter:counters){
-		    matches=counter.getMatches();
-		    if(matches>minNumOfMatchesToCount){
-			addition+=counter.getMatches();
-			cont++;
-		    }
-		}
-		for(LaneCounter lCounter:laneCounters){
-		    matches=lCounter.getMatches();
-		    if(matches>minNumOfMatchesToCount){
-			addition+=lCounter.getMatches();
-			cont++;
-		    }
-		}
-		avgNumOfCounterMatches=Math.round(addition/cont);
-		log.info("::getCounterMatchAverage(): counter number of Matches Average: "+avgNumOfCounterMatches);
-	    }
-	    
-	    log.trace("::calculateAvgNumOfMatches() - Finish: ");
-	} catch (Exception e) {
-	    throw new RuntimeException("Impossible to calculateAvgNumOfMatches.", e);
-	}
-    }
-    
-    /**
-     * Obtains the avg number of matches that all counter have registered in this rank with this patch.  ;
-     * Ignoring the lower elements that will fall under the lower limit specified in config files.
-     * Old Description: Obtains the average number of matches that ALL {@link #counters} have.	 
-     * This will use the property "ignore-match-count-when-lower-than" and 
-     * ignore those quantities under that number when calculating the average.
+     * Recalculates all bonus that applies.  ;
+     * 
      * 
      * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
-     * @since 2021-01-17
-     * @return returned {@link Long}  value as the result of the operation.
+     * @since 2021-02-17
+     * @param filtersFromView {@link CountersFilters} to perform the operation with.
      * @throws IllegalArgumentException - if the provided parameter is null.
      */
-    public Long getAvgNumOfCounterTypesMatches() {
-	log.trace("::getAvgNumOfMatches() - Start: ");
+    @Transactional
+    public void recalculateBonus(CountersFilters filtersFromView) {
+	log.trace("::recalculateBonus(filters) - Start: ");
+	notNullValidation(filtersFromView,
+		filtersFromView.selectedChampions,filtersFromView.selectedPatches,
+		filtersFromView.selectedRanks,filtersFromView.selectedRoles);
 	try{
-	    
-	    if(avgNumOfCounterMatches==null || avgNumOfCounterMatches==0) calculateAvgNumOfMatches();
-	    log.trace("::getAvgNumOfMatches() - Finish: ");
-	    return avgNumOfCounterMatches;
-
+	     List<Counter> counters=new ArrayList<>();
+	    LinkedHashMap<String, Object> filters=new LinkedHashMap<>(){{
+		put("patchrank.patch",filtersFromView.selectedPatches);
+		put("patchrank.rank",filtersFromView.selectedRanks);
+		put("champion",filtersFromView.selectedChampions);
+		put("championrole",filtersFromView.selectedRoles);
+	    }};
+	    counters=repository.filteredFind(filters);
+	    recalculateBonus(counters);
+	    log.trace("::recalculateBonus(filters) - Finish: ");
 	} catch (Exception e) {
-            throw new RuntimeException("Impossible to getAvgNumOfCounterTypesMatches", e);
+            throw new RuntimeException("Impossible to recalculateBonus "+filtersFromView, e);
         }
     }
     
-    public void forceAvgNumOfCounterTypesMatchesRecalculation(){
-	log.trace("::forceAvgNumOfCounterTypesMatchesRecalculation() - Start: ");
+    @Transactional
+    public void recalculateBonus(List<Counter> counters){
+	log.trace("::recalculateBonus(counters) - Start: ");
+	notNullValidation(counters);
 	try {
-	    avgNumOfCounterMatches=null;
-	    calculateAvgNumOfMatches();
-	    log.trace("::forceAvgNumOfCounterTypesMatchesRecalculation() - Finish: ");
-	} catch (Exception e) {
-	    throw new RuntimeException("Impossible to forceAvgNumOfCounterTypesMatchesRecalculation for: "+this,e);
-	}
-    }
-    
-    
-    public void add(Counter...counters){
-	try{
-	    if(this.counters==null) this.counters=new ArrayList<>();
-	    for(Counter counter:counters){
-		this.counters.add(counter);
-	    }
-	}catch(Exception ex){
-	    throw new RuntimeException("Impossible to add provided counters to the list of Counters in PatchRank",ex);
-	}
-    }
-    
-    public void add(LaneCounter...laneCounters){
-	try{
-	    if(this.laneCounters==null) this.laneCounters=new ArrayList<>();
-	    for(LaneCounter laneCounter:laneCounters){
-		this.laneCounters.add(laneCounter);
-	    }
-	}catch(Exception ex){
-	    throw new RuntimeException("Impossible to add provided counters to the list of Counters in PatchRank",ex);
-	}
-    }
-
-    public void forceCountersBonusRecalculation() {
-	log.trace("::forcePatchBonusReCalculation() - Start: ");
-	try {
-	    
-	    counters.forEach(counter -> {
-		counter.forceBonusRecalculation();
+	    counters.forEach((counter)->{
+		List<LaneCounter> foundLaneCounters=laneCounterRepository.filteredFind(new LinkedHashMap<String,Object>(){{
+			    put("patchrank",counter.getPatchrank());
+			    put("champion",counter.getChampion());
+			    put("championrole",counter.getChampionrole());
+			    put("counter",counter.getCounter());
+			    put("counterrole",counter.getCounterrole());
+			}});
+		if(foundLaneCounters!=null && foundLaneCounters.size()>1) throw new RuntimeException("2 LaneCounters found for the same counter: "+counter);
+		counter.bonusRecalculation((foundLaneCounters==null||foundLaneCounters.isEmpty())?null:foundLaneCounters.get(0));
 	    });
-	    
-	    log.trace("::forcePatchBonusReCalculation() - Finish: ");
+	    log.trace("::recalculateBonus(counters) - Finish: ");
 	} catch (Exception e) {
-	    throw new RuntimeException("Impossible to forcePatchBonusReCalculation ", e);
+	    throw new RuntimeException("Impossible to recalculateBonus",e);
 	}
-    }
-    
-    @Override
-    public String toString(){
-	return "["+getId()+"-patch:"+getPatch()+"-rank:"+getRank()+"]";
     }
 }

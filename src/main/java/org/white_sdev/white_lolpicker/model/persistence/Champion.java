@@ -130,6 +130,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -146,6 +147,7 @@ import static org.white_sdev.white_validations.parameters.ParameterValidator.not
 @Getter
 @Setter
 @NoArgsConstructor
+@EqualsAndHashCode
 public class Champion implements Persistable{
     
     //<editor-fold defaultstate="collapsed" desc="Attributes">
@@ -200,12 +202,19 @@ public class Champion implements Persistable{
     }
     
     //</editor-fold>
-    
+
     @Override
     public String toString(){
-	return getName();
+	return name;
+    }
+    
+    public String toFullString() {
+	return "Champion{" + "id=" + id + ", name=" + name + ", counters=" + counters + ", counterOfChampions=" + counterOfChampions + ", laneCounterChampions=" + laneCounterChampions + ", laneCounterCounters=" + laneCounterCounters + ", championTierRanks=" + championTierRanks + '}';
     }
 
+    
+    
+    
     
     public String getUggURLName() {
 	return name!=null?(name.contains("Nunu")?"nunu":name).toLowerCase().replace("'", ""):name;

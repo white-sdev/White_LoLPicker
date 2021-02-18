@@ -121,8 +121,8 @@
 
 package org.white_sdev.white_lolpicker.repo;
 
-//import lombok.extern.slf4j.Slf4j;
-
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.white_sdev.white_lolpicker.model.persistence.Counter;
 
@@ -133,9 +133,20 @@ import org.white_sdev.white_lolpicker.model.persistence.Counter;
  * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
  * @since Feb 10, 2021
  */
-//@Slf4j
+@Slf4j
 @Repository
 public class CounterCustomRepositoryImpl  extends GenericRepositoryImpl<Counter,Long> implements CounterCustomRepository{
+    
+    
+    @Autowired
+    CounterJpaRepository repository;
+    
+    @Override
+    public CounterJpaRepository getRepo(){
+	return repository;
+    }
+    
+    
     
     
 }

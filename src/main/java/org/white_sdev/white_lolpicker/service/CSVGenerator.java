@@ -128,15 +128,23 @@ import java.nio.file.Paths;
 import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import javax.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import static org.white_sdev.propertiesmanager.model.service.PropertyProvider.getProperty;
+import org.white_sdev.white_lolpicker.model.bean.CountersFilters;
 import org.white_sdev.white_lolpicker.model.persistence.Champion;
 import org.white_sdev.white_lolpicker.model.persistence.Counter;
 import org.white_sdev.white_lolpicker.model.persistence.Patch;
 import org.white_sdev.white_lolpicker.model.persistence.PatchRank;
 import org.white_sdev.white_lolpicker.model.persistence.Role;
 import org.white_sdev.white_lolpicker.model.persistence.UggRank;
+import org.white_sdev.white_lolpicker.repo.CounterCustomRepository;
 import org.white_sdev.white_lolpicker.service.extraction.ugg.testcases.U_GGDatabaseExtraction;
+import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
 
 
 /**
@@ -144,7 +152,12 @@ import org.white_sdev.white_lolpicker.service.extraction.ugg.testcases.U_GGDatab
  * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
  * @since Dec 8, 2020
  */
+@Slf4j
+@Service
 public class CSVGenerator {
+    
+    @Autowired
+    CounterCustomRepository counterRepo;
     
     public static <T> void generateCSV(List<T> objects,String outputFile){
 	try ( Writer writer = Files.newBufferedWriter(Paths.get(outputFile)); ) {
@@ -156,6 +169,46 @@ public class CSVGenerator {
         }catch(Exception ex){
 	    throw new RuntimeException("Imposible to write CSV file",ex);
 	}
+    }
+
+    public void generateCsv(CountersFilters filtersFromView) {
+	log.trace("::generateCsv(null) - Start: ");
+	notNullValidation(filtersFromView,
+		filtersFromView.selectedChampions,filtersFromView.selectedPatches,
+		filtersFromView.selectedRanks,filtersFromView.selectedRoles);
+	try {
+	    List<Counter> counters=new ArrayList<>();
+	    log.trace("::generateCsv(filtersFromView): Trying to obtain counters with filters from DB");
+	    LinkedHashMap<String, Object> filters=new LinkedHashMap<>(){{
+		put("champion",filtersFromView.selectedChampions);
+		put("patchrank.patch",filtersFromView.selectedPatches);
+		put("patchrank.rank",filtersFromView.selectedRanks);
+		put("championrole",filtersFromView.selectedRoles);
+	    }};
+	    log.trace("::generateCsv(filtersFromView): Trying to obtain counters with filters from DB");
+	    counters=counterRepo.filteredFind(filters);
+	    
+	    log.debug("::generateCsv(filtersFromView): Counters Obtained: {}",counters);
+	    List<Counter.CSVBeanCounter> csvCounters=getCountersCSVBeans(counters);
+	    log.debug("::generateCsv(filtersFromView): CSVBeans from Counters Obtained: {}",csvCounters);
+	    
+	    generateCSV(csvCounters,getProperty("counters-filename"));
+	    log.trace("::generateCsv(null) - Finish: ");
+	    
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to generateCsv: " + filtersFromView, e);
+	}
+    }
+    
+    @Transactional
+    public static List<Counter.CSVBeanCounter> getCountersCSVBeans(List<Counter> counters){
+	List<Counter.CSVBeanCounter> beans=new ArrayList<>();
+	counters.forEach((counter)->{ 
+	    Boolean a=counter.patchrank.patch==null;
+	    Boolean b=counter.patchrank.rank==null;
+	    beans.add(counter.getCSVBeanCounter()); 
+	});
+	return beans;
     }
     
     public static void testGeneration(){

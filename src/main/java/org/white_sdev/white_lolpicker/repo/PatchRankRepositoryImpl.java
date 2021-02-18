@@ -122,8 +122,9 @@ package org.white_sdev.white_lolpicker.repo;
 
 import lombok.extern.slf4j.Slf4j;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.white_sdev.white_lolpicker.model.persistence.Patch;
 import org.white_sdev.white_lolpicker.model.persistence.PatchRank;
@@ -138,7 +139,9 @@ import org.white_sdev.white_lolpicker.model.persistence.UggRank;
 @Slf4j
 @Repository
 public class PatchRankRepositoryImpl extends GenericRepositoryImpl<PatchRank, Long> implements PatchRankCustomRepository {
-
+    
+    @Autowired
+    PatchRankRepository repository;
     
     public PatchRank save(PatchRank patchRank){
 	getEntityManager().persist(patchRank);
@@ -195,5 +198,10 @@ public class PatchRankRepositoryImpl extends GenericRepositoryImpl<PatchRank, Lo
 //	    throw new RuntimeException("Impossible find PatchRank ByUniqueOrSave",e);
 //	}
 //    }
+
+    @Override
+    public JpaRepository<PatchRank, Long> getRepo() {
+	return repository;
+    }
     
 }

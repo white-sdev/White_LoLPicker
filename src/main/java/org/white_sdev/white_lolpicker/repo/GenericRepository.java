@@ -133,8 +133,10 @@ import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.Column;
@@ -145,9 +147,11 @@ import javax.persistence.TypedQuery;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import org.hibernate.SessionFactory;
+import org.hibernate.Session;
+import org.springframework.data.jpa.repository.JpaRepository;
 import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
 
 //import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
@@ -164,9 +168,11 @@ public interface GenericRepository <E extends Object, ID extends Serializable>  
     
     public EntityManager getEntityManager();
     
-    public default SessionFactory getSessionFactory(){
+    public JpaRepository<E,ID> getRepo();
+    
+    public default Session getSession(){
 	try {
-	    return getEntityManager().unwrap(SessionFactory.class);
+	    return getEntityManager().unwrap(Session.class);
 	} catch (Exception e) {
 	    throw new RuntimeException("Impossible to complete operation",e);
 	}
@@ -182,30 +188,64 @@ public interface GenericRepository <E extends Object, ID extends Serializable>  
      * @return 
      */
     public default List<E> filteredFind(Map<String, Object> filters) {
-//	Criteria crit = getCurrentSession().createCriteria(getEntityClass());
-	CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
-	CriteriaQuery<E> criteriaQuery = criteriaBuilder.createQuery(getEntityClass());
-	Root<E> root= criteriaQuery.from(getEntityClass());
-	
-	ArrayList<Predicate> predicates=new ArrayList<>();
-	filters.entrySet().forEach(filter -> {
-	    String key=filter.getKey();
-	    Object value=filter.getValue();
-	    predicates.add(criteriaBuilder.equal(root.get(key), value));
+	getLog().trace("::filteredFind(filters) - Start: ");
+	notNullValidation(filters);
+	Class<E> entityClass=null;
+	try {
+	    entityClass=getEntityClass();
+	    getLog().debug("::filteredFind(filters): Filtering {} by: {}",entityClass.getSimpleName(),filters);
 	    
-	});
-	
-	List<E> entities;
-	Predicate[] predicatesArray= new Predicate[predicates.size()];
-	predicates.toArray(predicatesArray);
-	criteriaQuery.where(predicatesArray);
-	TypedQuery<E> query = getEntityManager().createQuery(criteriaQuery);
-	
-	getLog().debug("::filteredFind(filters): Filtering by: {}",filters);
-	entities = query.getResultList();//Main search
+	    CriteriaBuilder criteriaBuilder = getEntityManager().getCriteriaBuilder();
+	    CriteriaQuery<E> criteriaQuery = criteriaBuilder.createQuery(entityClass);
+	    Root<E> root= criteriaQuery.from(entityClass);
 
-	if (entities == null || entities.isEmpty()) entities = new ArrayList<>();
-	return entities;
+	    ArrayList<Predicate> predicates=new ArrayList<>();
+	    LinkedHashMap<String, Join<E,Object>> joins=new LinkedHashMap<>();//in case there are joins used to avoid duplicates.
+	    filters.entrySet().forEach(filter -> {
+		String key=filter.getKey();
+		Object value=filter.getValue();
+		
+		Join<E,Object>lastJoin=null; //Used in case there are joins in the query
+		if(key.contains(".")){//are there JOINS in the filters
+		    String path="";//key for joins collection (Maps) so they dont duplicate innecesaraly
+		    LinkedList<String> nestedMappings=new LinkedList<>(Arrays.asList(key.split("\\.")));
+		    key=nestedMappings.pollLast();
+		    getLog().debug("::filteredFind(filters): Join found in filters: {}. Field: {}",nestedMappings,key);
+		    for(String nestedMapping:nestedMappings) {
+			path+=nestedMapping;
+			if(!joins.containsKey(path)){//is this exact join not registered yet (with full path)?
+			    lastJoin=(lastJoin==null?root:lastJoin).join(nestedMapping);
+			    joins.put(path, lastJoin);
+			}else{
+			    lastJoin=joins.get(path);
+			}			
+		    }
+		}
+		
+		predicates.add(value instanceof Collection?
+			(lastJoin==null?root:lastJoin).get(key).in((Collection)value)
+			:criteriaBuilder.equal((lastJoin==null?root:lastJoin).get(key), value) );//core expression
+	    });
+
+	    List<E> entities;
+	    Predicate[] predicatesArray= new Predicate[predicates.size()];
+	    predicates.toArray(predicatesArray);
+	    criteriaQuery.where(predicatesArray);
+	    TypedQuery<E> query = getEntityManager().createQuery(criteriaQuery);
+
+	    entities = query.getResultList();//Main search
+
+	    if (entities == null || entities.isEmpty()) {
+		getLog().trace("::filteredFind(filters) - Finish: Didnt find entity(ies)");
+		entities = new ArrayList<>();
+	    }else{
+		getLog().trace("::filteredFind(filters) - Finish: entity(ies) found");
+	    }
+	    return entities;
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to find an entity from ["+entityClass+"] with the given filters ["+filters+"] due to an error",e);
+	}
+	
     }
     
     /**
@@ -235,7 +275,25 @@ public interface GenericRepository <E extends Object, ID extends Serializable>  
 	}
     }
     
+    public default List<E> findAll(){
+	getLog().trace("::findAll() - Start: Using CriteriaBuilder to obtain all elements of the entity");
+	try {
+	    EntityManager em=getEntityManager();
+	    Class<E> clazz=getEntityClass();
+	    CriteriaBuilder cb = em.getCriteriaBuilder();
+	    CriteriaQuery<E> cq = cb.createQuery(clazz);
+	    Root<E> rootEntry = cq.from(clazz);
+	    CriteriaQuery<E> all = cq.select(rootEntry);
+	    TypedQuery<E> allQuery = em.createQuery(all);
+	    return allQuery.getResultList();
+	    
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to complete operation",e);
+	}
+    }
+    
     public default E merge(E entity){
+	getLog().trace("::merge(entity) - Start: ");
 	try {
 	    return getEntityManager().merge(entity);
 	} catch (Exception e) {
@@ -243,26 +301,63 @@ public interface GenericRepository <E extends Object, ID extends Serializable>  
 	}
     }
     
+    public default E persist(E entity){
+	getLog().trace("::persist(entity) - Start: ");
+	try {
+	    getEntityManager().persist(entity);
+	    return entity;
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to persist Entity " +entity,e);
+	}
+    }
+    
+    public default E saveAndFlush(E entity){
+	getLog().trace("::saveAndFlush(entity) - Start: ");
+	notNullValidation(entity);
+	try {
+	    getLog().debug("::saveAndFlush(entity): Before Flushing, Inserting entity: {}",entity);
+	    return getRepo().saveAndFlush(entity);
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to save And/Or Flush",e);
+	}
+    }
+    
+    public default void flush(){
+	getLog().trace("::flush(entity) - Start: ");
+	try {
+	    getEntityManager().flush();
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to flush the session" ,e);
+	}
+    }
+    
     //Push
-    public default E mergeByUniqueOrPersist(E entity){
+    public default E updateByUniqueOrPersist(E entity){
+	getLog().trace("::updateByUniqueOrPersist(entity) - Start: ");
 	notNullValidation(entity);
 	try {
 	    E foundEntity=null;
 	    try{
 		if(isPersistent(entity)) return entity;
+		getLog().debug("::updateByUniqueOrPersist(entity): Looking on dataasource for: {}",entity);	
 		foundEntity=findByUnique(entity);
 	    }catch(Exception ex){}
 	    
 	    if(foundEntity==null) {
+		getLog().debug("::updateByUniqueOrPersist(entity): entity {} not found in data source, persisting... ",entity);
 		getEntityManager().persist(entity);
 		return entity;
 	    }
 	    
+	    getLog().debug("::updateByUniqueOrPersist(entity): entity {} found in data source, coping ID from: {} ",entity,foundEntity);
 	    copyId(foundEntity,entity);
-	    return getEntityManager().merge(entity);
+	    getEntityManager().detach(foundEntity);
+	    getLog().debug("::updateByUniqueOrPersist(entity): Updating entity {} ",entity);
+	    getEntityManager().merge(entity);
+	    return entity;
 	    
 	} catch (Exception e) {
-	    throw new RuntimeException("Impossible to mergeByUniqueOrPersist the entity"+entity,e);
+	    throw new RuntimeException("Impossible to updateByUniqueOrPersist the entity"+entity,e);
 	}
     }
     
@@ -315,7 +410,7 @@ public interface GenericRepository <E extends Object, ID extends Serializable>  
     
     public default E saveOrUpdate(E entity){
 	try {
-	    getSessionFactory().getCurrentSession().saveOrUpdate(entity);
+	    getSession().saveOrUpdate(entity);
 	    return entity;
 	} catch (Exception e) {
 	    throw new RuntimeException("Impossible to complete operation",e);
@@ -366,11 +461,10 @@ public interface GenericRepository <E extends Object, ID extends Serializable>  
     public default Field getIdType() {
 	try {
 	    for (Field field : getEntityClass().getDeclaredFields()) {
-		if ( !field.isAnnotationPresent(Id.class)){
-		    Method method=getGetterMethod(field,getEntityClass());
-		    if((method!=null && method.isAnnotationPresent(Id.class)))return field;
-		}
-		return field;
+		if(field.isAnnotationPresent(Id.class)) return field;
+		
+		Method method=getGetterMethod(field,getEntityClass());
+		if((method!=null && method.isAnnotationPresent(Id.class)))return field;
 	    }
 	    return null;
 	} catch (Exception e) {

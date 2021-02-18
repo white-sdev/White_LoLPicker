@@ -133,6 +133,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -150,6 +151,7 @@ import static org.white_sdev.white_validations.parameters.ParameterValidator.not
 @Getter
 @Setter
 @NoArgsConstructor
+@EqualsAndHashCode
 public class ChampionTierRank implements Persistable{
     
     //<editor-fold defaultstate="collapsed" desc="Attributes">

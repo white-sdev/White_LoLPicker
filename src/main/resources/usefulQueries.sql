@@ -1,6 +1,6 @@
-/*
- *  Filename:  PatchRank.java
- *  Creation Date:  Feb 6, 2021
+/* 
+ *  Filename:  usefulQueries.sql
+ *  Creation Date:  Feb 15, 2021
  *  Purpose:   
  *  Author:    Obed Vazquez
  *  E-mail:    obed.vazquez@gmail.com
@@ -118,191 +118,34 @@
  *  
  *  Creative Commons may be contacted at creativecommons.org.
  */
-
-package org.white_sdev.white_lolpicker.model.persistence;
-
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
-import static org.white_sdev.propertiesmanager.model.service.PropertyProvider.getProperty;
-
 /**
- * 
- * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
- * @since Feb 6, 2021
+ * Author:  Obed Vazquez
+ * Created: Feb 15, 2021
  */
-@Slf4j
-@Entity
-@Table(uniqueConstraints=@UniqueConstraint(columnNames={"patch", "rank"}))
-@Getter
-@Setter
-@NoArgsConstructor
-@EqualsAndHashCode
-public class PatchRank implements Persistable{
-    
-    @Id
-    @GeneratedValue
-    private Long id;
-    
-    @ManyToOne(fetch= FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "patch")
-    public Patch patch;
-    
-    @ManyToOne(fetch= FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "rank")
-    public UggRank rank;
-    
-    @OneToMany(mappedBy = "patchrank", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
-    private List<Counter> counters=new ArrayList<>();
-    
-    @OneToMany(mappedBy = "patchrank", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
-    private List<LaneCounter> laneCounters=new ArrayList<>();
-    
-    /**
-     * Takes into account every counter it has
-     */
-    @Column
-    private Long avgNumOfCounterMatches;
-    
-    public PatchRank(Patch patch,UggRank rank){
-	try {
 
-	    this.patch=patch;
-	    this.rank=rank;
 
-//	    patch.add(this);
-//	    rank.add(this);
-	
-	} catch (Exception e) {
-	    throw new RuntimeException("Impossible to Create Patch instance with "+patch+" "+rank,e);
-	}
-    }
-    
-    
-    public void calculateAvgNumOfMatches() {
-	log.trace("::calculateAvgNumOfMatches() - Start: ");
-	
-	try {
-	    
-	    if(avgNumOfCounterMatches==null){
-		Double addition=0d;
-		Integer matches;
-		Integer cont=0;
-		Integer minNumOfMatchesToCount=Integer.parseInt(getProperty("ignore-match-count-when-lower-than"));
-		for(Counter counter:counters){
-		    matches=counter.getMatches();
-		    if(matches>minNumOfMatchesToCount){
-			addition+=counter.getMatches();
-			cont++;
-		    }
-		}
-		for(LaneCounter lCounter:laneCounters){
-		    matches=lCounter.getMatches();
-		    if(matches>minNumOfMatchesToCount){
-			addition+=lCounter.getMatches();
-			cont++;
-		    }
-		}
-		avgNumOfCounterMatches=Math.round(addition/cont);
-		log.info("::getCounterMatchAverage(): counter number of Matches Average: "+avgNumOfCounterMatches);
-	    }
-	    
-	    log.trace("::calculateAvgNumOfMatches() - Finish: ");
-	} catch (Exception e) {
-	    throw new RuntimeException("Impossible to calculateAvgNumOfMatches.", e);
-	}
-    }
-    
-    /**
-     * Obtains the avg number of matches that all counter have registered in this rank with this patch.  ;
-     * Ignoring the lower elements that will fall under the lower limit specified in config files.
-     * Old Description: Obtains the average number of matches that ALL {@link #counters} have.	 
-     * This will use the property "ignore-match-count-when-lower-than" and 
-     * ignore those quantities under that number when calculating the average.
-     * 
-     * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
-     * @since 2021-01-17
-     * @return returned {@link Long}  value as the result of the operation.
-     * @throws IllegalArgumentException - if the provided parameter is null.
-     */
-    public Long getAvgNumOfCounterTypesMatches() {
-	log.trace("::getAvgNumOfMatches() - Start: ");
-	try{
-	    
-	    if(avgNumOfCounterMatches==null || avgNumOfCounterMatches==0) calculateAvgNumOfMatches();
-	    log.trace("::getAvgNumOfMatches() - Finish: ");
-	    return avgNumOfCounterMatches;
+SELECT c.ID,p.ID "Patch",rk.UGG_NAME "Rank",ch."NAME" "Champion",r."NAME" "Role",counterChampion."NAME" "Counter",c.WINRATE_PERCENTAGE,c.MATCHES,c.TOTAL_BONUS FROM Counter c
+    LEFT OUTER JOIN Champion ch ON c.CHAMPION=ch.ID
+    LEFT OUTER JOIN Champion counterChampion ON c.COUNTER=counterChampion.ID
+    LEFT OUTER JOIN CHAMPION_ROLE r ON c.CHAMPIONROLE=r.ID
+    LEFT OUTER JOIN Patch_Rank PR ON c.PATCHRANK=PR.ID
+	LEFT OUTER JOIN PATCH p ON PR.PATCH=p.HIBERNATE_ID
+	LEFT OUTER JOIN UGG_RANK rk ON PR.RANK=rk.ID
+WHERE 
+(ch."NAME"='Vayne') 
+-- AND 
+-- (counterChampion."NAME"='Karthus' OR counterChampion."NAME"='Illaoi' OR counterChampion."NAME"='Dr. Mundo')
+   AND r."NAME"='top'
+-- ORDER BY c.WINRATE_PERCENTAGE DESC
 
-	} catch (Exception e) {
-            throw new RuntimeException("Impossible to getAvgNumOfCounterTypesMatches", e);
-        }
-    }
-    
-    public void forceAvgNumOfCounterTypesMatchesRecalculation(){
-	log.trace("::forceAvgNumOfCounterTypesMatchesRecalculation() - Start: ");
-	try {
-	    avgNumOfCounterMatches=null;
-	    calculateAvgNumOfMatches();
-	    log.trace("::forceAvgNumOfCounterTypesMatchesRecalculation() - Finish: ");
-	} catch (Exception e) {
-	    throw new RuntimeException("Impossible to forceAvgNumOfCounterTypesMatchesRecalculation for: "+this,e);
-	}
-    }
-    
-    
-    public void add(Counter...counters){
-	try{
-	    if(this.counters==null) this.counters=new ArrayList<>();
-	    for(Counter counter:counters){
-		this.counters.add(counter);
-	    }
-	}catch(Exception ex){
-	    throw new RuntimeException("Impossible to add provided counters to the list of Counters in PatchRank",ex);
-	}
-    }
-    
-    public void add(LaneCounter...laneCounters){
-	try{
-	    if(this.laneCounters==null) this.laneCounters=new ArrayList<>();
-	    for(LaneCounter laneCounter:laneCounters){
-		this.laneCounters.add(laneCounter);
-	    }
-	}catch(Exception ex){
-	    throw new RuntimeException("Impossible to add provided counters to the list of Counters in PatchRank",ex);
-	}
-    }
 
-    public void forceCountersBonusRecalculation() {
-	log.trace("::forcePatchBonusReCalculation() - Start: ");
-	try {
-	    
-	    counters.forEach(counter -> {
-		counter.forceBonusRecalculation();
-	    });
-	    
-	    log.trace("::forcePatchBonusReCalculation() - Finish: ");
-	} catch (Exception e) {
-	    throw new RuntimeException("Impossible to forcePatchBonusReCalculation ", e);
-	}
-    }
-    
-    @Override
-    public String toString(){
-	return "["+getId()+"-patch:"+getPatch()+"-rank:"+getRank()+"]";
-    }
-}
+
+
+--  patchrank=[707-patch:11.2-rank:Silver], champion=[6-Aatrox], championrole=[2-jungle], counter=[57-Karthus], counterrole=[2-jungle], winratePercentage=64.0, matches=50, laneBonus=0.0, counterCertaintyModifier=0.0, counterBonus=0.0, totalBonus=0.0}
+-- insert into counter (champion, championrole, counter, counter_bonus, counter_certainty_modifier, counterrole, lane_bonus, matches, patchrank, total_bonus, winrate_percentage, id) 
+--     values (6, 2, 57, 0.0, 0.0, 2, 0.0, 50, 707, 0.0, 64.0, 1552)
+
+-- select hibernate_sequence.nextval from dual
+
+-- delete from COUNTER where id=1552;
+-- commit;

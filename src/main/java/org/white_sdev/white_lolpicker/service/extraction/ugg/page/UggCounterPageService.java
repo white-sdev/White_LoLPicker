@@ -130,6 +130,7 @@ import javax.transaction.Transactional;
 import org.openqa.selenium.WebElement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.white_sdev.white_lolpicker.model.bean.CountersFilters;
 import org.white_sdev.white_lolpicker.model.bean.CountersSearch;
 import org.white_sdev.white_lolpicker.model.persistence.Champion;
 import org.white_sdev.white_lolpicker.model.persistence.Counter;
@@ -143,6 +144,7 @@ import org.white_sdev.white_lolpicker.repo.CounterCustomRepository;
 import org.white_sdev.white_lolpicker.repo.LaneCounterCustomRepository;
 import org.white_sdev.white_lolpicker.repo.PatchRankCustomRepository;
 import org.white_sdev.white_lolpicker.repo.PatchRankRepository;
+import org.white_sdev.white_lolpicker.service.CounterService;
 import org.white_sdev.white_lolpicker.service.extraction.ugg.UggFilterExtractorService;
 import org.white_sdev.white_seleniumframework.framework.AutomationScenario;
 import org.white_sdev.white_seleniumframework.framework.AutomationSuite;
@@ -174,14 +176,16 @@ public class UggCounterPageService {
     @Autowired
     CounterCustomRepository counterCustomRepository;
     
+    @Autowired
+    CounterService counterService;
+    
     //<editor-fold defaultstate="collapsed" desc="Methods">
 
     @Transactional
-    public void extractCountersToDB(List<Patch> patchesToFilterWith,List<UggRank> ranksToFilterWith,
-	    List<Champion> championsToFilterWith,List<Role> rolesToFilterWith){
+    public void extractCountersToDB(CountersFilters filters){
 	log.trace("::extractCountersToDB(patchesToFilterWith,ranksToFilterWith, championsToFilterWith, rolesToFilterWith) - Start: ");
 	try{
-	    AutomationSuite.registerTest(new CounterExtractionToDB(patchesToFilterWith,ranksToFilterWith, championsToFilterWith, rolesToFilterWith));
+	    AutomationSuite.registerTest(new CounterExtractionToDB(filters.selectedPatches,filters.selectedRanks, filters.selectedChampions, filters.selectedRoles));
 	    AutomationSuite.launchTests();
 	    log.trace("::extractCountersToDB(patchesToFilterWith,ranksToFilterWith, championsToFilterWith, rolesToFilterWith) - Finish: The Counter Extraction finished succesful");
 	    
@@ -212,59 +216,66 @@ public class UggCounterPageService {
 	@Override
 	@Transactional
 	public void run(WebDriverUtils utils) throws Exception {
-	    log.trace("::test(utils) - Start: ");
+	    log.trace("::run(utils) - Start: ");
 	    notNullValidation(utils,patchesToFilterWith,ranksToFilterWith, championsToFilterWith, rolesToFilterWith);
 	    try {
 		
 		Integer patchCounter=0,rankCounter=0,champCounter=0,roleCounter=0;
 		Double patchStatus=0d, rankStatus=0d, champStatus=0d, roleStatus;
-		log.info("::test(utils): Starting Counter Extraction Process at "+java.time.LocalDateTime.now().format(DateTimeFormatter.ISO_TIME));
+		log.info("::run(utils): Starting Counter Extraction Process at "+java.time.LocalDateTime.now().format(DateTimeFormatter.ISO_TIME));
 		DecimalFormat twoDecimalsFormat=new DecimalFormat("#.##");
 
 		List<PatchRank> foundPatchRanks=new ArrayList<>();
 		for(Champion champ:championsToFilterWith){ //iterate over ALL FILTERS provided
-		    log.info("::test(utils): Extracting Champion Counters: "+champ);
+		    log.info("::run(utils): Extracting Champion Counters: "+champ);
 		    for(UggRank rank:ranksToFilterWith){
-			log.info("::test(utils): Extracting U.GG Rank: "+rank.getPrintableName());
+			log.info("::run(utils): Extracting U.GG Rank: "+rank.getPrintableName());
 			for(Patch patch:patchesToFilterWith){
-			    PatchRank patchRank=patchRankCustomRepository.findByUniqueOrPersist(new PatchRank(patch, rank));
+//			    PatchRank patchRank=patchRankCustomRepository.findByUniqueOrPersist(new PatchRank(patch, rank));
+			    PatchRank patchRank=patchRankCustomRepository.findByUnique(new PatchRank(patch, rank));
+			    if(patchRank==null){
+				log.debug("::run(utils) : PatchRank not found saveAndFlush ing...",patchRank);
+				patchRank=patchRankCustomRepository.saveAndFlush(patchRank);
+			    }
 			    foundPatchRanks.add(patchRank);
 			    for(Role role:rolesToFilterWith){
 				//These where added to the patchRank structure and should be persisted when its respective patchrank are
 				getChampionCounters(new CountersSearch(patchRank,champ,role,utils));
 				++roleCounter;
 				roleStatus=roleCounter*100d/championsToFilterWith.size()/ranksToFilterWith.size()/patchesToFilterWith.size()/rolesToFilterWith.size();
-				log.info("::test(utils): Extraction Process Status: "+twoDecimalsFormat.format(champStatus+rankStatus+patchStatus+roleStatus)+"%");
+				log.info("::run(utils): Extraction Process Status: "+twoDecimalsFormat.format(champStatus+rankStatus+patchStatus+roleStatus)+"%");
 			    }
 			    
 
 			    ++patchCounter;
 			    patchStatus=patchCounter*100d/championsToFilterWith.size()/ranksToFilterWith.size()/patchesToFilterWith.size();
-			    log.info("::test(utils): Extraction Process Status: "+twoDecimalsFormat.format(champStatus+rankStatus+patchStatus)+"%");
+			    log.info("::run(utils): Extraction Process Status: "+twoDecimalsFormat.format(champStatus+rankStatus+patchStatus)+"%");
 
 			}patchCounter=0;
 
 			++rankCounter;
 			rankStatus=rankCounter*100d/championsToFilterWith.size()/ranksToFilterWith.size();
-			log.info("::test(utils): Extraction Process Status: "+twoDecimalsFormat.format(champStatus+rankStatus)+"%");
+			log.info("::run(utils): Extraction Process Status: "+twoDecimalsFormat.format(champStatus+rankStatus)+"%");
 
 		    }rankCounter=0;
 
 
 		    ++champCounter;
 		    champStatus=((champCounter*100d)/championsToFilterWith.size());
-		    log.info("::test(utils): Extraction Process Status: "+twoDecimalsFormat.format(champStatus)+"%");
+		    log.info("::run(utils): Extraction Process Status: "+twoDecimalsFormat.format(champStatus)+"%");
 		}lastCounterSearch=null;
 
 
-		log.info("::test(utils): Calculating Counter Bonus at "+java.time.LocalDateTime.now().format(DateTimeFormatter.ISO_TIME));
+		log.info("::run(utils): Calculating Counter Bonus at "+java.time.LocalDateTime.now().format(DateTimeFormatter.ISO_TIME));
+		
 		foundPatchRanks.forEach((patchRank) -> {
-		    patchRank.forceCountersBonusRecalculation();
+		    patchRank.forceAvgNumOfCounterTypesMatchesRecalculation();
 		    patchRankCustomRepository.merge(patchRank);
+		    counterService.recalculateBonus(patchRank.getCounters());
 		});
 
 
-		log.info("::test(utils): Counter Extraction Process Finished at "+java.time.LocalDateTime.now());
+		log.info("::run(utils): Counter Extraction Process Finished at "+java.time.LocalDateTime.now());
 	    
 	    } catch (Exception e) {
 		throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
@@ -523,7 +534,7 @@ public class UggCounterPageService {
 			    persistedChampion, 
 			    webGoldIntDiference, 
 			    Integer.parseInt(webMatchTotalGame.getText().replace(" games", "").replace(",", "")));
-		    laneCounterCustomRepository.mergeByUniqueOrPersist(laneCounter);
+		    laneCounterCustomRepository.updateByUniqueOrPersist(laneCounter);
 		    laneCounters.add(laneCounter);
 		}
 	    }
@@ -595,24 +606,43 @@ public class UggCounterPageService {
 		WebElement webWinrate=webWinrates.get(i);
 		Double winrate=Double.parseDouble(webWinrate.getText().replace("% WR", ""));
 		if(winrate>50){
-		    WebElement webCounter=webCounters.get(i);
+		    WebElement webCounterChampionName=webCounters.get(i);
 		    WebElement webWinrateTotalGames=webWinratesTotalGames.get(i);
-		    Champion uggChampion=new Champion(webCounter.getText());
-		    log.debug("::buildCounters(countersSearch, webCounters, webWinrates, webWinratesTotalGames) : Looking for persisted champion: {}",uggChampion);
-		    Champion persistedChampion=championCustomRepository.findByUniqueOrPersist(uggChampion);
-		    log.debug("::buildCounters(countersSearch, webCounters, webWinrates, webWinratesTotalGames) : Champion found: {}",persistedChampion);
+		    Champion uggCounterChampion=new Champion(webCounterChampionName.getText());
+		    log.debug("::buildCounters(countersSearch, webCounters, webWinrates, webWinratesTotalGames) : Looking for persisted champion: {} or saving it",uggCounterChampion);
+		    Champion persistedCounterChampion=championCustomRepository.findByUnique(uggCounterChampion);
+		    if(persistedCounterChampion==null){
+			log.debug("::buildCounters(countersSearch, webCounters, webWinrates, webWinratesTotalGames) : Champion not found saveAndFlush ing...",uggCounterChampion);
+			persistedCounterChampion=championCustomRepository.saveAndFlush(persistedCounterChampion);
+		    }
+		    log.debug("::buildCounters(countersSearch, webCounters, webWinrates, webWinratesTotalGames) : Counter Champion found: {}",persistedCounterChampion);
 		    Counter counter=new Counter(
 			    countersSearch.patchRank, 
 			    countersSearch.champ, 
 			    countersSearch.role, 
-			    persistedChampion,
+			    persistedCounterChampion,
 			    winrate,
 			    Integer.parseInt(webWinrateTotalGames.getText().replace(",", "").replace(" games", "")));
-		    log.debug("::buildCounters(countersSearch, webCounters, webWinrates, webWinratesTotalGames): Counter built: {}. mergeByUniqueOrPersist ing...",counter);
-		    if(counter.getCounter().getName().equals("Camille")){
-			log.warn("::buildCounters(countersSearch, webCounters, webWinrates, webWinratesTotalGames): Debugging an error here" );
+		    
+		    
+		    log.debug("::buildCounters(countersSearch, webCounters, webWinrates, webWinratesTotalGames): Counter built: {}. findByUnique ing...",counter);
+		    Counter foundCounter=counterCustomRepository.findByUnique(counter);
+		    if(foundCounter!=null){
+			log.debug("::buildCounters(countersSearch, webCounters, webWinrates, webWinratesTotalGames): Counter {} Found in DB. Re-Altering...",foundCounter);
+			counter=foundCounter;
+			counter.setWinratePercentage(winrate);
+			counter.setMatches(Integer.parseInt(webWinrateTotalGames.getText().replace(",", "").replace(" games", "")));
+			log.debug("::buildCounters(countersSearch, webCounters, webWinrates, webWinratesTotalGames) : Flushing!");
+			counterCustomRepository.flush();
+		    }else{
+			log.debug("::buildCounters(countersSearch, webCounters, webWinrates, webWinratesTotalGames): Counter Not Found in DB. SaveAndFlush ing...");
+			counterCustomRepository.saveAndFlush(counter);
 		    }
-		    counterCustomRepository.mergeByUniqueOrPersist(counter);
+//		    log.debug("::buildCounters(countersSearch, webCounters, webWinrates, webWinratesTotalGames): Counter built: {}. mergeByUniqueOrPersist ing...",counter);
+//		    if(counter.getCounter().getName().equals("Illaoi")){
+//			log.warn("::buildCounters(countersSearch, webCounters, webWinrates, webWinratesTotalGames): Debugging an error here" );
+//		    } 
+//		    counterCustomRepository.updateByUniqueOrPersist(counter);
 		    counters.add(counter);
 		}
 	    }
@@ -620,7 +650,7 @@ public class UggCounterPageService {
 	    return counters;
 	    
 	} catch (Exception e) {
-	    throw new RuntimeException("Impossible to buildCounters: " + null, e);
+	    throw new RuntimeException("Impossible to buildCounters: " + countersSearch, e);
 	}
     }
     

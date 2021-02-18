@@ -179,6 +179,7 @@ public class LoaderJFrame extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        recalculateButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("White_LoLPicker Loader");
@@ -266,6 +267,11 @@ public class LoaderJFrame extends javax.swing.JFrame {
         });
 
         jButton7.setText("Extract Tier List");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         jButton8.setText("Extract Counters");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
@@ -311,6 +317,13 @@ public class LoaderJFrame extends javax.swing.JFrame {
             }
         });
 
+        recalculateButton.setText("Recalculate Bonus");
+        recalculateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                recalculateButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -319,14 +332,17 @@ public class LoaderJFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jButton5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2))
-                    .addComponent(jButton4))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton5)
+                            .addComponent(jButton4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(recalculateButton)
+                            .addComponent(jButton3))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -341,7 +357,9 @@ public class LoaderJFrame extends javax.swing.JFrame {
                     .addComponent(jButton5)
                     .addComponent(jButton3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton4)
+                    .addComponent(recalculateButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -432,7 +450,10 @@ public class LoaderJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        CSVGenerator.testGeneration();
+//        CSVGenerator.testGeneration();
+	try{
+	    controller.exportToCSVActionPerformed(evt);
+	}catch(Exception ex){}
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -472,6 +493,14 @@ public class LoaderJFrame extends javax.swing.JFrame {
 	}catch(Exception ex){}
     }//GEN-LAST:event_formWindowOpened
 
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        controller.extractTierListActionPerformed(evt);
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void recalculateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recalculateButtonActionPerformed
+        controller.recalculateBonusActionPerformed(evt);
+    }//GEN-LAST:event_recalculateButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JComboBox<org.white_sdev.white_lolpicker.model.persistence.Champion> championsComboBox;
@@ -491,6 +520,7 @@ public class LoaderJFrame extends javax.swing.JFrame {
     public javax.swing.JLabel patchesLabel;
     public javax.swing.JComboBox<org.white_sdev.white_lolpicker.model.persistence.UggRank> ranksComboBox;
     public javax.swing.JLabel ranksLabel;
+    private javax.swing.JButton recalculateButton;
     public javax.swing.JComboBox<org.white_sdev.white_lolpicker.model.persistence.Role> rolesComboBox;
     public javax.swing.JLabel rolesLabel;
     // End of variables declaration//GEN-END:variables

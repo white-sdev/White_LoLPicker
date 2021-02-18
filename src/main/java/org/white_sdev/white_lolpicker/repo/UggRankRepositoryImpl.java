@@ -125,6 +125,8 @@ package org.white_sdev.white_lolpicker.repo;
 
 import java.util.ArrayList;
 import javax.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.white_sdev.white_lolpicker.model.persistence.UggRank;
 import static org.white_sdev.white_lolpicker.model.persistence.UggRank.allRanks;
@@ -151,6 +153,9 @@ import static org.white_sdev.white_lolpicker.model.persistence.UggRank.silver;
 //@Slf4j
 @Repository
 public class UggRankRepositoryImpl extends GenericRepositoryImpl <UggRank,Long>{
+    
+    @Autowired
+    UggRankRepository repository;
     
     @PostConstruct
     public void init(){
@@ -190,5 +195,10 @@ public class UggRankRepositoryImpl extends GenericRepositoryImpl <UggRank,Long>{
 		add(challenger);
 		add(allRanks);
 	    }};
+    }
+
+    @Override
+    public JpaRepository<UggRank, Long> getRepo() {
+	return repository;
     }
 }

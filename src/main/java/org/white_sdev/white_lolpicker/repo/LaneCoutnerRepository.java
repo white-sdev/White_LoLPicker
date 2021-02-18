@@ -1,6 +1,6 @@
 /*
- *  Filename:  PatchRank.java
- *  Creation Date:  Feb 6, 2021
+ *  Filename:  LaneCoutnerRepository.java
+ *  Creation Date:  Feb 14, 2021
  *  Purpose:   
  *  Author:    Obed Vazquez
  *  E-mail:    obed.vazquez@gmail.com
@@ -119,190 +119,21 @@
  *  Creative Commons may be contacted at creativecommons.org.
  */
 
-package org.white_sdev.white_lolpicker.model.persistence;
+package org.white_sdev.white_lolpicker.repo;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
-import static org.white_sdev.propertiesmanager.model.service.PropertyProvider.getProperty;
+//import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.white_sdev.white_lolpicker.model.persistence.LaneCounter;
+
+//import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
 
 /**
  * 
  * @author <a href="mailto:obed.vazquez@gmail.com">Obed Vazquez</a>
- * @since Feb 6, 2021
+ * @since Feb 14, 2021
  */
-@Slf4j
-@Entity
-@Table(uniqueConstraints=@UniqueConstraint(columnNames={"patch", "rank"}))
-@Getter
-@Setter
-@NoArgsConstructor
-@EqualsAndHashCode
-public class PatchRank implements Persistable{
+//@Slf4j
+public interface LaneCoutnerRepository extends JpaRepository<LaneCounter, Long>{
     
-    @Id
-    @GeneratedValue
-    private Long id;
-    
-    @ManyToOne(fetch= FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "patch")
-    public Patch patch;
-    
-    @ManyToOne(fetch= FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "rank")
-    public UggRank rank;
-    
-    @OneToMany(mappedBy = "patchrank", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
-    private List<Counter> counters=new ArrayList<>();
-    
-    @OneToMany(mappedBy = "patchrank", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
-    private List<LaneCounter> laneCounters=new ArrayList<>();
-    
-    /**
-     * Takes into account every counter it has
-     */
-    @Column
-    private Long avgNumOfCounterMatches;
-    
-    public PatchRank(Patch patch,UggRank rank){
-	try {
-
-	    this.patch=patch;
-	    this.rank=rank;
-
-//	    patch.add(this);
-//	    rank.add(this);
-	
-	} catch (Exception e) {
-	    throw new RuntimeException("Impossible to Create Patch instance with "+patch+" "+rank,e);
-	}
-    }
-    
-    
-    public void calculateAvgNumOfMatches() {
-	log.trace("::calculateAvgNumOfMatches() - Start: ");
-	
-	try {
-	    
-	    if(avgNumOfCounterMatches==null){
-		Double addition=0d;
-		Integer matches;
-		Integer cont=0;
-		Integer minNumOfMatchesToCount=Integer.parseInt(getProperty("ignore-match-count-when-lower-than"));
-		for(Counter counter:counters){
-		    matches=counter.getMatches();
-		    if(matches>minNumOfMatchesToCount){
-			addition+=counter.getMatches();
-			cont++;
-		    }
-		}
-		for(LaneCounter lCounter:laneCounters){
-		    matches=lCounter.getMatches();
-		    if(matches>minNumOfMatchesToCount){
-			addition+=lCounter.getMatches();
-			cont++;
-		    }
-		}
-		avgNumOfCounterMatches=Math.round(addition/cont);
-		log.info("::getCounterMatchAverage(): counter number of Matches Average: "+avgNumOfCounterMatches);
-	    }
-	    
-	    log.trace("::calculateAvgNumOfMatches() - Finish: ");
-	} catch (Exception e) {
-	    throw new RuntimeException("Impossible to calculateAvgNumOfMatches.", e);
-	}
-    }
-    
-    /**
-     * Obtains the avg number of matches that all counter have registered in this rank with this patch.  ;
-     * Ignoring the lower elements that will fall under the lower limit specified in config files.
-     * Old Description: Obtains the average number of matches that ALL {@link #counters} have.	 
-     * This will use the property "ignore-match-count-when-lower-than" and 
-     * ignore those quantities under that number when calculating the average.
-     * 
-     * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
-     * @since 2021-01-17
-     * @return returned {@link Long}  value as the result of the operation.
-     * @throws IllegalArgumentException - if the provided parameter is null.
-     */
-    public Long getAvgNumOfCounterTypesMatches() {
-	log.trace("::getAvgNumOfMatches() - Start: ");
-	try{
-	    
-	    if(avgNumOfCounterMatches==null || avgNumOfCounterMatches==0) calculateAvgNumOfMatches();
-	    log.trace("::getAvgNumOfMatches() - Finish: ");
-	    return avgNumOfCounterMatches;
-
-	} catch (Exception e) {
-            throw new RuntimeException("Impossible to getAvgNumOfCounterTypesMatches", e);
-        }
-    }
-    
-    public void forceAvgNumOfCounterTypesMatchesRecalculation(){
-	log.trace("::forceAvgNumOfCounterTypesMatchesRecalculation() - Start: ");
-	try {
-	    avgNumOfCounterMatches=null;
-	    calculateAvgNumOfMatches();
-	    log.trace("::forceAvgNumOfCounterTypesMatchesRecalculation() - Finish: ");
-	} catch (Exception e) {
-	    throw new RuntimeException("Impossible to forceAvgNumOfCounterTypesMatchesRecalculation for: "+this,e);
-	}
-    }
-    
-    
-    public void add(Counter...counters){
-	try{
-	    if(this.counters==null) this.counters=new ArrayList<>();
-	    for(Counter counter:counters){
-		this.counters.add(counter);
-	    }
-	}catch(Exception ex){
-	    throw new RuntimeException("Impossible to add provided counters to the list of Counters in PatchRank",ex);
-	}
-    }
-    
-    public void add(LaneCounter...laneCounters){
-	try{
-	    if(this.laneCounters==null) this.laneCounters=new ArrayList<>();
-	    for(LaneCounter laneCounter:laneCounters){
-		this.laneCounters.add(laneCounter);
-	    }
-	}catch(Exception ex){
-	    throw new RuntimeException("Impossible to add provided counters to the list of Counters in PatchRank",ex);
-	}
-    }
-
-    public void forceCountersBonusRecalculation() {
-	log.trace("::forcePatchBonusReCalculation() - Start: ");
-	try {
-	    
-	    counters.forEach(counter -> {
-		counter.forceBonusRecalculation();
-	    });
-	    
-	    log.trace("::forcePatchBonusReCalculation() - Finish: ");
-	} catch (Exception e) {
-	    throw new RuntimeException("Impossible to forcePatchBonusReCalculation ", e);
-	}
-    }
-    
-    @Override
-    public String toString(){
-	return "["+getId()+"-patch:"+getPatch()+"-rank:"+getRank()+"]";
-    }
 }

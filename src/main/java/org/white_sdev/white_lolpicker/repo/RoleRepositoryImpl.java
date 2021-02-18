@@ -125,6 +125,8 @@ package org.white_sdev.white_lolpicker.repo;
 
 import java.util.ArrayList;
 import javax.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.white_sdev.white_lolpicker.model.persistence.Role;
 import static org.white_sdev.white_lolpicker.model.persistence.Role.adc;
@@ -144,6 +146,9 @@ import static org.white_sdev.white_lolpicker.model.persistence.Role.top;
 @Repository
 public class RoleRepositoryImpl extends GenericRepositoryImpl <Role,Long>{
     
+    @Autowired
+    RoleRepository repository;
+    
     @PostConstruct
     public void init(){
 	Role.top=findBy("name","top").get(0);
@@ -159,5 +164,10 @@ public class RoleRepositoryImpl extends GenericRepositoryImpl <Role,Long>{
 	    add(adc);
 	    add(support);
 	}}; 
+    }
+
+    @Override
+    public JpaRepository<Role, Long> getRepo() {
+	return repository;
     }
 }

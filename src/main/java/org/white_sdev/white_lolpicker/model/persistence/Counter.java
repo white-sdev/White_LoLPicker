@@ -121,7 +121,7 @@
 
 package org.white_sdev.white_lolpicker.model.persistence;
 
-import javax.persistence.CascadeType;
+import java.text.DecimalFormat;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -131,7 +131,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
@@ -146,6 +148,8 @@ import static org.white_sdev.white_validations.parameters.ParameterValidator.not
 @Table(uniqueConstraints=@UniqueConstraint(columnNames={"patchrank", "champion", "championrole", "counter", "counterrole"}))
 @Getter
 @Setter
+@NoArgsConstructor
+@EqualsAndHashCode
 public class Counter implements Persistable{
     
     //<editor-fold defaultstate="collapsed" desc="Attributes">
@@ -155,23 +159,23 @@ public class Counter implements Persistable{
     private Long id;
     
     
-    @ManyToOne(fetch= FetchType.LAZY, cascade = CascadeType.MERGE)
+    @ManyToOne(fetch= FetchType.EAGER)
     @JoinColumn(name="patchrank")
     public PatchRank patchrank;
     
-    @ManyToOne(fetch= FetchType.LAZY)
+    @ManyToOne(fetch= FetchType.EAGER)
     @JoinColumn(name="champion")
     private Champion champion;
     
-    @ManyToOne(fetch= FetchType.LAZY)
+    @ManyToOne(fetch= FetchType.EAGER)
     @JoinColumn(name="championrole")
     private Role championrole;
     
-    @ManyToOne(fetch= FetchType.LAZY)
+    @ManyToOne(fetch= FetchType.EAGER)
     @JoinColumn(name="counter")
     private Champion counter;
     
-    @ManyToOne(fetch= FetchType.LAZY)
+    @ManyToOne(fetch= FetchType.EAGER)
     @JoinColumn(name="counterrole")
     private Role counterrole;
     
@@ -193,14 +197,6 @@ public class Counter implements Persistable{
     
     //<editor-fold defaultstate="collapsed" desc="Constructors">
 
-    /**
-     * Required no-Arguments Constructor by 
-     * <a href="https://docs.jboss.org/hibernate/core/3.5/reference/en/html/persistent-classes.html#persistent-classes-pojo-constructor">Hibernate</a>.
-     * 
-     * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
-     * @since 2021-02-02
-     */
-    public Counter() { }
     
     /**
      * Class Constructor.{Requirement_Reference}
@@ -218,6 +214,7 @@ public class Counter implements Persistable{
 	log.trace("::Counter(champion, counter, winrate, bonus) - Start: ");
 	notNullValidation(patchRank, champion, championRole, counter, winrate, matches);
 	try{
+	    log.debug("::Counter(champion, counter, winrate, bonus): Instantiating Counter with: [patchRank:"+patchRank+"][champion:"+champion+"][championRole:"+championRole+"][counter:"+counter+"][winrate:"+winrate+"][matches:"+matches+"]");
 	    
 	    this.patchrank=patchRank;
 	    this.champion=champion;
@@ -241,26 +238,38 @@ public class Counter implements Persistable{
     //</editor-fold>
     
     @Override
-    public String toString(){
-	return "["+(getChampion()!=null?"champion:"+getChampion():"")
-		+(championrole!=null?", role:"+championrole:"")
-		+(", counter:"+getCounter())
-		+(getWinratePercentage()!=null?", winratePercentage:"+getWinratePercentage():"")
-		+(", matches:"+getMatches())
-		+(getLaneBonus()!=null?", laneBonus:"+getLaneBonus():"")
-		+(getCounterBonus()!=null?", counterBonus:"+getCounterBonus():"")
-		+(getTotalBonus()!=null?", totalBonus:"+getTotalBonus():"")
-		+"]";
+    public String toString() {
+	return "Counter{" 
+		    + "id=" + id 
+		    + ", patchrank=" + patchrank 
+		    + ", champion=" + champion 
+		    + ", championrole=" + championrole 
+		    + ", counter=" + counter 
+		    + ", counterrole=" + counterrole 
+		    + ", winratePercentage=" + winratePercentage 
+		    + ", matches=" + matches 
+		    + ", laneBonus=" + laneBonus 
+		    + ", counterCertaintyModifier=" + counterCertaintyModifier 
+		    + ", counterBonus=" + counterBonus 
+		    + ", totalBonus=" + totalBonus 
+		+ '}';
     }
 
     public void forceBonusRecalculation() {
 	log.trace("::calculateBonus(laneCounters) - Start: Calculating bonus for Counter: "+this);
 	try {
-	    LaneCounter matchingLaneCounter=null;
+	    log.error("::calculateBonus(laneCounters): This method is broken");
 	    
+	    LaneCounter matchingLaneCounter=null;
 	    if(patchrank.getLaneCounters()!=null) {
-		log.debug("::calculateBonus(laneCounters): laneCounters is not null. Looking for lane counter");
+		log.debug("::calculateBonus(laneCounters): laneCounters found for the champion {}. Searching for the matching lane counter {}",champion,counter);
 		for(LaneCounter laneCounter:patchrank.getLaneCounters()){
+		    if(champion.getName().equals("Kled") && counter.getName().equals("Fiora")){ //DELETE ME
+			log.debug("::calculateBonus(laneCounters): Debugging error here" );
+			if(laneCounter.getChampion().getName().equals("Kled") && laneCounter.getChampion().getName().equals("Fiora")){//DELETE ME
+			    log.debug("::calculateBonus(laneCounters): Debugging error here" );
+			}
+		    }
 		    if(laneCounter.getChampion().equals(this.getChampion()) && laneCounter.getChampionrole().equals(this.getChampionrole())
 			    && laneCounter.getChampion().equals(this.getCounter())){
 			log.debug("::calculateBonus(laneCounters): matching Lane Counter found:"+laneCounter);
@@ -272,35 +281,13 @@ public class Counter implements Persistable{
 		log.warn("::calculateBonus(laneCounters): laneCounters is null!!");
 	    }
 	    
-	    if(matchingLaneCounter== null) log.debug("::calculateBonus(laneCounters): Lane Counter not found");
-	    
-	    setLaneBonus((Double) (matchingLaneCounter!=null?matchingLaneCounter.reCalculateBonus():0d));
-	    
-	    log.debug("::calculateBonus(laneCounters): Calculated Lane Bonus :"+getLaneBonus());
-	    
-	    
-	    Double avg = patchrank.getAvgNumOfCounterTypesMatches().doubleValue();
-	    
-	    if(matches<avg){
-		counterCertaintyModifier=matches/avg;
-	    }else{
-		Double x=matches-avg;
-		Double extra=Math.log(Math.pow(x+1,1/11.5));
-		counterCertaintyModifier=1+extra<.5?extra:.5;
-	    }
-	    
-	    log.debug("::calculateBonus(laneCounters): Obtained Certanty modifier:"+counterCertaintyModifier);
-	    
-	    log.debug("::calculateBonus(laneCounters): Calculating bonus : (50 - winrate%["+getWinratePercentage()+"] ) *10*( CertantyModifier["+counterCertaintyModifier+"]) ");
-	    setCounterBonus( -1d*( (50 - getWinratePercentage()) * 8.3 * counterCertaintyModifier) );
-	    log.debug("::calculateBonus(laneCounters): Obtained Counter bonus:"+counterBonus);
-	    setTotalBonus(getLaneBonus() + getCounterBonus());
-	    log.debug("::calculateBonus(laneCounters): Obtained Final Bonus: counterBonus["+counterBonus+"]+laneBonus["+laneBonus+"]="+totalBonus);
+	    if(matchingLaneCounter== null) log.debug("::calculateBonus(laneCounters): Lane Counter not found"); //move inside if (with the for)
+	    bonusRecalculation(matchingLaneCounter);
 	    
 	    log.trace("::calculateBonus(laneCounters) - Finish: ");
 	    
 	} catch (Exception e) {
-	    throw new RuntimeException("Impossible to complete the operation due to an unknown internal error.", e);
+	    throw new RuntimeException("Impossible to forceBonusRecalculation.", e);
 	}
     }
 
@@ -317,6 +304,44 @@ public class Counter implements Persistable{
 		counterCertaintyModifier+"", 
 		laneBonus+"", 
 		totalBonus+"");
+    }
+
+    /**
+     * 
+     * @param matchingLaneCounter The process will assume that there is no match in case this is null.
+     */
+    public void bonusRecalculation(LaneCounter matchingLaneCounter) {
+	log.trace("::bonusRecalculation(matchingLaneCounter) - Start: ");
+	try {
+	    
+	    setLaneBonus((Double) (matchingLaneCounter!=null?matchingLaneCounter.reCalculateBonus():0d));
+	    
+	    log.debug("::bonusRecalculation(matchingLaneCounter): Calculated Lane Bonus :"+getLaneBonus());
+	    
+	    
+	    Double avg = patchrank.getAvgNumOfCounterTypesMatches().doubleValue();
+	    
+	    if(matches<avg){
+		counterCertaintyModifier=matches/avg;
+	    }else{
+		Double x=matches-avg;
+		Double extra=Math.log10(Math.pow(x+1,1/11.5));
+		counterCertaintyModifier=1+(extra<.5?extra:.5);
+	    }
+	    
+	    log.debug("::bonusRecalculation(matchingLaneCounter): Obtained Certanty modifier:"+counterCertaintyModifier);
+	    
+	    log.debug("::bonusRecalculation(matchingLaneCounter): Calculating bonus : (50 - winrate%["+getWinratePercentage()+"] ) *10*( CertantyModifier["+counterCertaintyModifier+"]) ");
+	    setCounterBonus( -1d*( (50 - getWinratePercentage()) * 8.3 ) );
+	    log.debug("::bonusRecalculation(matchingLaneCounter): Obtained Counter bonus:"+ new DecimalFormat("#.##").format( counterBonus) );
+	    setTotalBonus(getLaneBonus() + getCounterBonus()*counterCertaintyModifier);
+	    log.debug("::bonusRecalculation(matchingLaneCounter): Obtained Final Bonus: (counterBonus["+new DecimalFormat("#.##").format( counterBonus)+"]*counterCertaintyModifier["+
+		    new DecimalFormat("#.##").format(counterCertaintyModifier) +"])+laneBonus["+laneBonus+"]="+new DecimalFormat("#.##").format(totalBonus) );
+	    
+	    log.trace("::bonusRecalculation(matchingLaneCounter) - Finish: ");
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to perform a bonusRecalculation: with and "+this+" its match: " + matchingLaneCounter, e);
+	}
     }
     
     public class CSVBeanCounter {

@@ -138,5 +138,13 @@ import org.white_sdev.white_lolpicker.model.persistence.Champion;
 //@Slf4j
 @Repository
 public class ChampionCustomRepositoryImpl extends GenericRepositoryImpl<Champion,Long> implements ChampionCustomRepository{
+    @Autowired
+    ChampionRepository repository;
+
+    @Override
+    public JpaRepository<Champion, Long> getRepo() {
+	return repository;
+    }
+    
     
 }

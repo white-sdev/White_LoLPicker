@@ -121,7 +121,13 @@
 
 package org.white_sdev.white_lolpicker.repo;
 
+import java.util.List;
+import java.util.Map;
+import org.white_sdev.white_lolpicker.model.persistence.Champion;
 import org.white_sdev.white_lolpicker.model.persistence.Counter;
+import org.white_sdev.white_lolpicker.model.persistence.Patch;
+import org.white_sdev.white_lolpicker.model.persistence.Role;
+import org.white_sdev.white_lolpicker.model.persistence.UggRank;
 
 /**
  *
@@ -129,5 +135,4 @@ import org.white_sdev.white_lolpicker.model.persistence.Counter;
  * @since Feb 11, 2021
  */
 public interface CounterCustomRepository extends GenericRepository<Counter, Long> {
-
 }

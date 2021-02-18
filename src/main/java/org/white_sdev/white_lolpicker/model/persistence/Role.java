@@ -135,6 +135,7 @@ import static org.white_sdev.white_validations.parameters.ParameterValidator.not
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -150,6 +151,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@EqualsAndHashCode
 public class Role implements Persistable{
     public static Role top=new Role("top","topper","5"),
 	    jungle=new Role("jungle","jg","6"),
@@ -180,7 +182,7 @@ public class Role implements Persistable{
     @NotBlank
     private String name;
     
-    @ElementCollection(fetch= FetchType.EAGER)
+    @ElementCollection(fetch= FetchType.LAZY)
     private List<String> synonyms;
     
     @Column
@@ -191,7 +193,7 @@ public class Role implements Persistable{
     private List<LaneCounter> laneCounters;
     
     @OneToMany(mappedBy = "championrole", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
-    private List<Counter> coutners;
+    private List<Counter> counters;
     
     @OneToMany(mappedBy = "counterrole", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
     private List<LaneCounter> laneCounterCounters;
@@ -261,9 +263,28 @@ public class Role implements Persistable{
     public String stringRepresentation(){
 	return "[name:"+name+"],[synonyms:{"+synonyms+"}],[uGGSelectorXpath:"+uGGSelectorXpath+"]";
     }
+
     
     @Override
     public String toString(){
 	return name;
     }
+    
+    public String toFullString() {
+	StringBuilder sb = new StringBuilder();
+	sb.append("Role{id=").append(id);
+	sb.append(", name=").append(name);
+	sb.append(", synonyms=").append(synonyms);
+	sb.append(", uGGSelectorXpath=").append(uGGSelectorXpath);
+	sb.append(", laneCounters=").append(laneCounters);
+	sb.append(", counters=").append(counters);
+	sb.append(", laneCounterCounters=").append(laneCounterCounters);
+	sb.append(", counterCounters=").append(counterCounters);
+	sb.append(", championTierRanks=").append(championTierRanks);
+	sb.append('}');
+	return sb.toString();
+    }
+
+    
+    
 }

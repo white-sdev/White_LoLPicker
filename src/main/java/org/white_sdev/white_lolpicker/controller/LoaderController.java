@@ -120,17 +120,17 @@
  */
 package org.white_sdev.white_lolpicker.controller;
 
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import static org.white_sdev.propertiesmanager.model.service.PropertyProvider.getProperty;
-import org.white_sdev.white_lolpicker.White_LoLPicker;
+import org.white_sdev.white_lolpicker.model.bean.CountersFilters;
 import org.white_sdev.white_lolpicker.model.persistence.Champion;
 import org.white_sdev.white_lolpicker.model.persistence.Patch;
 import org.white_sdev.white_lolpicker.model.persistence.Role;
@@ -139,11 +139,12 @@ import org.white_sdev.white_lolpicker.repo.ChampionRepository;
 import org.white_sdev.white_lolpicker.repo.RoleRepository;
 import org.white_sdev.white_lolpicker.repo.UggRankRepository;
 import org.white_sdev.white_lolpicker.repo.PatchRepository;
+import org.white_sdev.white_lolpicker.service.CSVGenerator;
+import org.white_sdev.white_lolpicker.service.CounterService;
 import org.white_sdev.white_lolpicker.service.extraction.ugg.UggFilterExtractorService;
 import org.white_sdev.white_lolpicker.service.extraction.ugg.page.UggCounterPageService;
 import org.white_sdev.white_lolpicker.service.extraction.ugg.testcases.U_GGDatabaseExtraction;
 import org.white_sdev.white_lolpicker.view.LoaderJFrame;
-import org.white_sdev.white_lolpicker.view.LoadingDataMessageFrame;
 import org.white_sdev.white_seleniumframework.framework.AutomationSuite;
 import static org.white_sdev.white_validations.parameters.ParameterValidator.notNullValidation;
 
@@ -170,6 +171,9 @@ public class LoaderController {
     UggCounterPageService uggCounterPageService;
     
     @Autowired
+    CSVGenerator csvGenerator;
+    
+    @Autowired
     PatchRepository patchRepository;
     
     @Autowired
@@ -180,6 +184,9 @@ public class LoaderController {
     
     @Autowired
     RoleRepository roleRepository;
+    
+    @Autowired
+    CounterService counterService;
     
     
     
@@ -246,20 +253,65 @@ public class LoaderController {
      * Loads the Filters in the view.
      *
      * @author <a href='mailto:obed.vazquez@gmail.com'>Obed Vazquez</a>
+     * @param evt
      * @param frame
      * @since 2021-02-05
      */
-    public void filtersCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {
+    public void filtersCheckBoxActionPerformed(ActionEvent evt) {
 	log.trace("::filtersCheckBoxActionPerformed(frame,filtersCheckBox,event) - Start: ");
 	notNullValidation(view);
 	try {
 	    setFiltersStatus(view.filtersCheckBox.isSelected());
 	    log.trace("::filtersCheckBoxActionPerformed(frame,filtersCheckBox,event) - Finish: ");
-	} catch (Exception ex) {
-	    log.error("Error while filtersCheckBoxActionPerformed",ex);
+	} catch (Exception e) {
+	    log.error("Error while filtersCheckBoxActionPerformed",e);
+	    JOptionPane.showMessageDialog(view, "An error has ocurred when the main process was running.","Unknown Error!",JOptionPane.ERROR_MESSAGE);
+	    throw e;
+	}
+    }
+    
+    public void extractTierListActionPerformed(ActionEvent evt) {
+	log.trace("::extractTierListActionPerformed(evt) - Start: ");
+	notNullValidation(evt);
+	try {
+	    extractTierList();
+	    log.trace("::extractTierListActionPerformed(evt) - Finish: ");
+	} catch (Exception e) {
+	    log.error("Error while filtersCheckBoxActionPerformed",e);
 	    JOptionPane.showMessageDialog(view, "An error has ocurred when the main process was running.","Unknown Error!",JOptionPane.ERROR_MESSAGE);
 	}
     }
+
+    
+    public void exportToCSVActionPerformed(ActionEvent evt) {
+	log.trace("::exportToCSVActionPerformed(evt) - Start: ");
+	notNullValidation(evt);
+	try {
+	    
+	    
+	    log.trace("::exportToCSVActionPerformed(evt) - Finish: ");
+	    exportToCSV();
+	    
+	} catch (Exception e) {
+	    log.error("Error while filtersCheckBoxActionPerformed",e);
+	    JOptionPane.showMessageDialog(view, "An error has ocurred when the main process was running.","Unknown Error!",JOptionPane.ERROR_MESSAGE);
+	    throw e;
+	}
+    }
+
+    public void recalculateBonusActionPerformed(ActionEvent evt) {
+	log.trace("::recalculateBonusActionPerformed(evt) - Start: ");
+	notNullValidation(evt);
+	try {
+	    recaulculateBonus();
+	    log.trace("::recalculateBonusActionPerformed(evt) - Finish: ");
+	} catch (Exception e) {
+	    log.error("Error while recalculateBonusActionPerformed",e);
+	    JOptionPane.showMessageDialog(view, "An error has ocurred when the main process was running.","Unknown Error!",JOptionPane.ERROR_MESSAGE);
+	    throw e;
+	}
+    }
+
     
     public void loadFilters(){
 	try {
@@ -284,6 +336,27 @@ public class LoaderController {
 	}
     }
     
+    public void extractTierList() {
+	log.trace("::extractTierList() - Start: ");
+	try {
+	    
+	    log.trace("::extractTierList() - Finish: ");
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to extractTierList ", e);
+	}
+    }
+    
+    
+    public void exportToCSV() {
+	log.trace("::exportToCSV() - Start: ");
+	try {
+	    csvGenerator.generateCsv(getFiltersFromView());
+	    log.trace("::exportToCSV() - Finish: ");
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to exportToCSV ", e);
+	}
+    }
+
     public void startOldExtractionProcess(){
 	try {
 	    AutomationSuite.registerTest(new U_GGDatabaseExtraction());
@@ -295,26 +368,9 @@ public class LoaderController {
     }
     
     public void startExtractionProcess(){
-	
 	try {
-	    
-	    List<Patch> selectedPatches=usingFilters && !view.patchesComboBox.getSelectedItem().equals(noFilterPatch)?
-			new ArrayList<>(){{add((Patch)view.patchesComboBox.getSelectedItem());}}:
-			    uggFilterExtractorService.extractedPatches;
-	    
-	    List<UggRank> selectedRanks=usingFilters && !view.ranksComboBox.getSelectedItem().equals(noFilterRank)?
-			new ArrayList<>(){{add((UggRank)view.ranksComboBox.getSelectedItem());}}:
-			    uggFilterExtractorService.ranks;
-	    
-	    List<Champion> selectedChampions=usingFilters && !view.championsComboBox.getSelectedItem().equals(noFilterChampion)?
-			new ArrayList<>(){{add((Champion)view.championsComboBox.getSelectedItem());}}:
-			    uggFilterExtractorService.extractedChampions;
-	    
-	    List<Role> selectedRoles=usingFilters && !view.rolesComboBox.getSelectedItem().equals(noFilterRole)?
-			new ArrayList<>(){{add((Role)view.rolesComboBox.getSelectedItem());}}:
-			    uggFilterExtractorService.roles;
-	    
-	    uggCounterPageService.extractCountersToDB(selectedPatches, selectedRanks, selectedChampions, selectedRoles);
+	    CountersFilters filters=getFiltersFromView();
+	    uggCounterPageService.extractCountersToDB(filters);
 	    
 	} catch (Exception ex) {
 	    log.error("Imposible to start Extraction process",(Throwable)ex);
@@ -384,11 +440,56 @@ public class LoaderController {
     public void loadFiltersFromDataBase() {
 	log.trace("::loadFiltersFromDataBase() - Start: ");
 	try {
-	    loadFiltersWith(patchRepository.findAll(),rankRepository.findAll(),championRepository.findAll(),roleRepository.findAll());
+	    uggFilterExtractorService.extractedPatches=patchRepository.findAll();
+	    uggFilterExtractorService.ranks=rankRepository.findAll();
+	    uggFilterExtractorService.extractedChampions=championRepository.findAll();
+	    uggFilterExtractorService.roles=roleRepository.findAll();
+	    
+	    loadFiltersWith(uggFilterExtractorService.extractedPatches,uggFilterExtractorService.ranks,uggFilterExtractorService.extractedChampions,uggFilterExtractorService.roles);
 	    log.trace("::loadFiltersFromDataBase() - Finish: ");
 	} catch (Exception e) {
 	    throw new RuntimeException("Impossible to loadFiltersFromDataBase: " + null, e);
 	}
     }
+
+    private CountersFilters getFiltersFromView() {
+	log.trace("::getFiltersFromView() - Start: ");
+	try {
+	    
+	    List<Patch> selectedPatches=usingFilters && !view.patchesComboBox.getSelectedItem().equals(noFilterPatch)?
+			new ArrayList<>(){{add((Patch)view.patchesComboBox.getSelectedItem());}}:
+			    uggFilterExtractorService.extractedPatches;
+	    
+	    List<UggRank> selectedRanks=usingFilters && !view.ranksComboBox.getSelectedItem().equals(noFilterRank)?
+			new ArrayList<>(){{add((UggRank)view.ranksComboBox.getSelectedItem());}}:
+			    uggFilterExtractorService.ranks;
+	    
+	    List<Champion> selectedChampions=usingFilters && !view.championsComboBox.getSelectedItem().equals(noFilterChampion)?
+			new ArrayList<>(){{add((Champion)view.championsComboBox.getSelectedItem());}}:
+			    uggFilterExtractorService.extractedChampions;
+	    
+	    List<Role> selectedRoles=usingFilters && !view.rolesComboBox.getSelectedItem().equals(noFilterRole)?
+			new ArrayList<>(){{add((Role)view.rolesComboBox.getSelectedItem());}}:
+			    uggFilterExtractorService.roles;
+	    
+	    CountersFilters filters=new CountersFilters(selectedPatches,selectedRanks,selectedChampions,selectedRoles);
+	    log.trace("::getFiltersFromView() - Finish: ");
+	    return filters;
+	    
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to getFiltersFromView ", e);
+	}
+    }
+
+    public void recaulculateBonus() {
+	log.trace("::recaulculateBonus() - Start: ");
+	try {
+	    counterService.recalculateBonus(getFiltersFromView());
+	    log.trace("::recaulculateBonus() - Finish: ");
+	} catch (Exception e) {
+	    throw new RuntimeException("Impossible to recaulculateBonus " , e);
+	}
+    }
+
 
 }

@@ -139,7 +139,13 @@ import org.white_sdev.white_lolpicker.model.persistence.Patch;
 //@Slf4j
 @Repository
 public class PatchRepositoryImpl extends GenericRepositoryImpl <Patch,Long>{
+
+    @Autowired
+    public PatchRepository repository;
     
-//    @Autowired
-//    public JpaRepository<Patch, Long> repository;
+    @Override
+    public JpaRepository<Patch, Long> getRepo() {
+	return repository;
+    }
+    
 }

@@ -123,6 +123,8 @@ package org.white_sdev.white_lolpicker.repo;
 
 //import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.white_sdev.white_lolpicker.model.persistence.LaneCounter;
 
@@ -135,5 +137,13 @@ import org.white_sdev.white_lolpicker.model.persistence.LaneCounter;
 //@Slf4j
 @Repository
 public class LaneCounterCustomRepositoryImpl extends GenericRepositoryImpl<LaneCounter,Long> implements LaneCounterCustomRepository{
+
+    @Autowired
+    LaneCoutnerRepository repository;
+    
+    @Override
+    public JpaRepository<LaneCounter, Long> getRepo() {
+	return repository;
+    }
 
 }
